@@ -14,6 +14,8 @@ declare(strict_types = 1);
 namespace Panda\Ui\Html;
 
 use DOMElement;
+use InvalidArgumentException;
+use Panda\Ui\Contracts\HTMLFactoryInterface;
 
 /**
  * HTML Page Prototype/Builder
@@ -22,19 +24,19 @@ use DOMElement;
  *
  * @version    0.1
  */
-class HTMLPagePrototype extends HTMLDocument
+class HTMLPage extends HTMLDocument
 {
     /**
      * The head tag object
      *
-     * @type DOMElement
+     * @type HTMLElement
      */
     protected $HTMLHead;
 
     /**
      * The body tag object
      *
-     * @type DOMElement
+     * @type HTMLElement
      */
     protected $HTMLBody;
 
@@ -47,31 +49,28 @@ class HTMLPagePrototype extends HTMLDocument
 
     /**
      * HTMLPagePrototype constructor.
+     *
+     * @param HTMLFactoryInterface $HTMLFactory
      */
-    public function __construct()
+    public function __construct(HTMLFactoryInterface $HTMLFactory)
     {
         // Initialize-Clear Bottom Scripts
         $this->bottomScripts = array();
+        $HTMLFactory->setDocument($this);
 
         // Call parent
-        parent::__construct();
+        parent::__construct($HTMLFactory);
     }
 
     /**
      * Builds the spine of the page.
      *
-     * @param    string $title
-     *        The title tag of the page.
-     *        It is a required field for the document to be valid.
+     * @param string $title       The title tag of the page.
+     *                            It is a required field for the document to be valid.
+     * @param string $description The description meta value.
+     * @param string $keywords    The keywords meta value.
      *
-     * @param    string $description
-     *        The description meta value.
-     *
-     * @param    string $keywords
-     *        The keywords meta value.
-     *
-     * @return    HTMLPagePrototype
-     *        The HTMLPagePrototype object.
+     * @return HTMLPage The HTMLPagePrototype object.
      */
     public function build($title = "", $description = "", $keywords = "")
     {
@@ -80,17 +79,15 @@ class HTMLPagePrototype extends HTMLDocument
         $this->append($HTML);
 
         // Build HEAD
-        $HTMLHead = $this->create('head');
-        $this->append($HTML, $HTMLHead);
-        $this->HTMLHead = $HTMLHead;
+        $this->HTMLHead = $this->create('head');
+        $HTML->append($this->HTMLHead);
 
-        // Build META
-        $this->buildMeta($title, $description, $keywords);
+        // Setup head elements
+        $this->setupHead($title, $description, $keywords);
 
         // Build BODY
-        $HTMLBody = $this->create('body');
-        $this->append($HTML, $HTMLBody);
-        $this->HTMLBody = $HTMLBody;
+        $this->HTMLBody = $this->create('body');
+        $HTML->append($this->HTMLBody);
 
         return $this;
     }
@@ -98,16 +95,12 @@ class HTMLPagePrototype extends HTMLDocument
     /**
      * Returns the entire HTML page in HTML5 format.
      *
-     * @return    string
-     *        The html output.
+     * @return string The html output.
      */
     public function getHTML()
     {
         // Insert Bottom Scripts (if any)
         $this->flushBottomScripts();
-
-        // Set response headers
-        //ServerReport::setResponseHeaders(HTTPResponse::CONTENT_TEXT_HTML);
 
         // Return text/html
         return "<!DOCTYPE html>\n" . $this->getHTML();
@@ -116,150 +109,134 @@ class HTMLPagePrototype extends HTMLDocument
     /**
      * Returns the head tag object.
      *
-     * @return    DOMElement
-     *        The head element.
+     * @return DOMElement The head element.
      */
     public function getHead()
     {
-        return $this->HTMLHead;
+        return $this->HTMLHead->getDOMElement();
     }
 
     /**
      * Returns the body tag object.
      *
-     * @return    DOMElement
-     *        The body element.
+     * @return DOMElement The body element.
      */
     public function getBody()
     {
-        return $this->HTMLBody;
+        return $this->HTMLBody->getDOMElement();
     }
 
     /**
      * Append element to head.
      *
-     * @param    DOMElement $element
-     *        The element to be appended.
-     *
-     * @return    void
+     * @param HTMLElement $element The element to be appended.
      */
     protected function appendToHead($element)
     {
-        if (is_null($element))
-            return;
+        // Check if the element is valid
+        if (empty($element)) {
+            throw new InvalidArgumentException("The element provided is empty.");
+        }
 
-        DOM::append($this->HTMLHead, $element);
+        $this->HTMLHead->append($element);
     }
 
     /**
      * Append element to body.
      *
-     * @param    DOMElement $element
-     *        The element to be appended.
-     *
-     * @return    void
+     * @param HTMLElement $element The element to be appended.
      */
     protected function appendToBody($element)
     {
-        if (is_null($element))
-            return;
+        // Check if the element is valid
+        if (empty($element)) {
+            throw new InvalidArgumentException("The element provided is empty.");
+        }
 
-        DOM::append($this->HTMLBody, $element);
+        $this->HTMLBody->append($element);
     }
 
     /**
-     * Add a meta description to head.
+     * Add a meta element to head.
      *
-     * @param    string $name
-     *        The meta name attribute.
+     * @param string $name      The meta name attribute.
+     * @param string $content   The meta content attribute.
+     * @param string $httpEquiv The meta http-equiv attribute.
+     * @param string $charset   The meta charset attribute.
      *
-     * @param    string $content
-     *        The meta content attribute.
-     *
-     * @param    string $httpEquiv
-     *        The meta http-equiv attribute.
-     *
-     * @param    string $charset
-     *        The meta charset attribute.
-     *
-     * @return    DOMElement
-     *        The meta element.
+     * @return HTMLElement The meta element.
      */
     protected function addMeta($name = "", $content = "", $httpEquiv = "", $charset = "")
     {
-        $meta = DOM::create('meta');
-        DOM::attr($meta, "name", $name);
-        DOM::attr($meta, "http - equiv", $httpEquiv);
-        DOM::attr($meta, "content", htmlspecialchars($content));
-        DOM::attr($meta, "charset", $charset);
+        // Create meta element
+        $meta = $this->getHTMLFactory()->buildMeta($name, $content, $httpEquiv, $charset);
 
+        // Append meta to head
         $this->appendToHead($meta);
 
+        // Return meta element
         return $meta;
     }
 
     /**
      * Inserts a css line.
      *
-     * @param    string $href
-     *        The href attribute of the link
+     * @param string $href The href attribute of the link
      *
-     * @return    DOMElement
-     *        The style element created.
+     * @return HTMLElement The style element created.
      */
     public function addStyle($href)
     {
-        $css = $this->getLink("stylesheet", $href);
+        // Get css link
+        $css = $this->getHTMLFactory()->buildLink("stylesheet", $href);
+
+        // Append link to head
         $this->appendToHead($css);
 
+        // Return the html element
         return $css;
     }
 
     /**
      * Inserts a script line.
      *
-     * @param    string  $src
-     *        The URL source file of the script.
+     * @param string  $src    The URL source file of the script.
+     * @param boolean $async  Set the async attribute to script tag.
+     *                        It is FALSE by default.
+     * @param boolean $bottom Indicator whether the script tag will be placed at the bottom of the page.
+     *                        The default value is FALSE.
      *
-     * @param    boolean $bottom
-     *        Indicator whether the script tag will be placed at the bottom of the page.
-     *        The default value is FALSE.
-     *
-     * @param    boolean $async
-     *        Set the async attribute to script tag.
-     *        It is FALSE by default.
-     *
-     * @return    DOMElement
-     *        The script element created.
+     * @return HTMLElement The script element created.
      */
-    public function addScript($src, $bottom = false, $async = false)
+    public function addScript($src, $async = false, $bottom = false)
     {
-        $script = DOM::create("script");
-        DOM::attr($script, "src", $src);
-        DOM::attr($script, "async", $async);
+        // Build the script element
+        $script = $this->getHTMLFactory()->buildScript($src, $async);
 
-        if ($bottom)
+        // Choose to append to head or to bottom scripts
+        if ($bottom) {
             $this->addToBottomScripts($script);
-        else
+        } else {
             $this->appendToHead($script);
+        }
 
+        // Return the script element
         return $script;
     }
 
     /**
      * Inserts a page icon.
      *
-     * @param    string $href
-     *        The icon URL
-     *
-     * @return    void
+     * @param string $href The icon URL
      */
     public function addIcon($href)
     {
-        $icon = $this->getLink("icon", $href);
+        // Build the normal icon
+        $icon = $this->getHTMLFactory()->buildLink("icon", $href);
         $this->appendToHead($icon);
 
-        $shortIcon = $this->getLink("shortcut icon", $href);
+        // Build the shortcut icon
+        $shortIcon = $this->getHTMLFactory()->buildLink("shortcut icon", $href);
         $this->appendToHead($shortIcon);
     }
 
@@ -274,12 +251,12 @@ class HTMLPagePrototype extends HTMLDocument
     public function setTitle($title)
     {
         // Check if title already exists
-        $headTitle = DOM::evaluate("//title")->item(0);
+        $headTitle = $this->evaluate("//title")->item(0);
         if (!is_null($headTitle)) {
-            $new_headTitle = DOM::create("title", $title);
-            DOM::replace($headTitle, $new_headTitle);
+            $headTitle_new = $this->create("title", $title);
+            $headTitle->parentNode->replaceChild($headTitle_new->getDOMElement(), $headTitle);
         } else {
-            $headTitle = DOM::create("title", $title);
+            $headTitle = $this->create("title", $title);
             $this->appendToHead($headTitle);
         }
     }
@@ -287,78 +264,49 @@ class HTMLPagePrototype extends HTMLDocument
     /**
      * Add open graph meta properties to the page.
      *
-     * @param    array $data
-     *        An array of property => content open graph meta.
-     *        The og: at the property name is inserted automatically.
-     *
-     * @return    void
+     * @param array $data An array of property => content open graph meta.
+     *                    The og: at the property name is inserted automatically.
      */
     public function addOpenGraphMeta($data = array())
     {
         foreach ($data as $property => $content) {
-            $og = DOM::create("meta");
-            DOM::attr($og, "property", "og:" . $property);
-            DOM::attr($og, "content", $content);
+            // Create the open graph meta
+            $og = $this->getHTMLFactory()->buildMeta($name = "", $content, $httpEquiv = "", $charset = "");
+            $og->attr($og, "property", "og:" . $property);
+            $og->attr($og, "content", $content);
+
+            // Append meta to head
             $this->appendToHead($og);
         }
     }
 
     /**
-     * Creates and returns a link tag object.
-     *
-     * @param    string $rel
-     *        The rel attribute of the link.
-     *
-     * @param    string $href
-     *        The href URL of the link.
-     *
-     * @return    DOMElement
-     *        The link element.
-     */
-    private function getLink($rel, $href)
-    {
-        $link = DOM::create("link");
-        DOM::attr($link, "href", $href);
-        DOM::attr($link, "rel", $rel);
-
-        return $link;
-    }
-
-    /**
      * Builds all the meta tags along with the document title tag.
      *
-     * @param    string $title
-     *        The title of the document.
-     *
-     * @param    string $description
-     *        The description meta.
-     *
-     * @param    string $keywords
-     *        The keywords meta.
-     *
-     * @return    void
+     * @param string $title       The title of the document.
+     * @param string $description The description meta.
+     * @param string $keywords    The keywords meta.
      */
-    private function buildMeta($title, $description, $keywords)
+    private function setupHead($title, $description, $keywords)
     {
         // Create title tag
         $this->setTitle($title);
 
         // Create meta tags
         $this->addMeta($name = "", $content = "", $httpEquiv = "", $charset = "UTF-8");
-        if (!empty($description))
+        if (!empty($description)) {
             $this->addMeta($name = "description", $description);
-        if (!empty($keywords))
+        }
+        if (!empty($keywords)) {
             $this->addMeta($name = "keywords", $keywords);
+        }
     }
 
     /**
      * Insert the given script tag to stack, in order to be inserted at the bottom of the page right before delivering
      * the page.
      *
-     * @param    DOMElement $script
-     *        The script tag element.
-     *
-     * @return    void
+     * @param HTMLElement $script The script tag element.
      */
     private function addToBottomScripts($script)
     {
@@ -374,6 +322,14 @@ class HTMLPagePrototype extends HTMLDocument
     {
         foreach ($this->bottomScripts as $script)
             $this->appendToBody($script);
+    }
+
+    /**
+     * @return HTMLFactory
+     */
+    public function getHTMLFactory()
+    {
+        return $this->DOMFactory;
     }
 }
 

@@ -13,22 +13,37 @@ declare(strict_types = 1);
 
 namespace Panda\Ui\Html;
 
-use DOMElement;
 use Exception;
-use InvalidArgumentException;
+use Panda\Ui\Contracts\DOMFactoryInterface;
 use Panda\Ui\DOMPrototype;
-use Panda\Ui\Helpers\DOMHelper;
+use Panda\Ui\Helpers\HTMLHelper;
 
 /**
  * HTML Document Class
  *
- * This object is a specific HTMLDocument which also provides
- * functions for html-specific actions.
+ * Create an HTML specific DOMDocument.
  *
  * @version    0.1
  */
 class HTMLDocument extends DOMPrototype
 {
+    /**
+     * Creates and returns a DOMElement with the specified tagName and the given attributes
+     *
+     * @param string $name  The tag of the element.
+     * @param mixed  $value The content of the element. It can be a string or a DOMElement.
+     * @param string $id    The id attribute
+     * @param string $class The class attribute
+     *
+     * @return HTMLElement The HTMLElement created
+     * @throws Exception
+     */
+    public function create($name = "div", $value = "", $id = "", $class = "")
+    {
+        // Create a new HTMLElement
+        return (new HTMLElement($this, $name, $value, $id, $class));
+    }
+
     /**
      * Magic method to create all html tags automatically.
      *
@@ -42,155 +57,18 @@ class HTMLDocument extends DOMPrototype
     public function __call($name, $arguments)
     {
         // Get method name and check for a valid html tag
-        $tag = strtolower($name);
-        if (!$this->validHtmlTag($tag)) {
+        $name = strtolower($name);
+        if (!HTMLHelper::validHtmlTag($name)) {
             return null;
         }
 
-        // Get attributes
-        $content = $arguments[0];
+        // Get rest of attributes
+        $value = $arguments[0];
         $id = $arguments[1];
         $class = $arguments[2];
 
         // Create element
-        return $this->create($tag, $content, $id, $class);
-    }
-
-    /**
-     * Adds a class to the given DOMElement.
-     *
-     * @param DOMElement $elem  The element to add the class.
-     * @param string     $class The class name.
-     *
-     * @return bool|string True on success, false on failure or if the class already exists.
-     * @throws \Exception
-     */
-    public function addClass($elem, $class)
-    {
-        // Normalize class
-        $class = trim($class);
-        if (empty($class)) {
-            return false;
-        }
-
-        // Get current class
-        $currentClass = trim(parent::attr($elem, "class"));
-
-        // Check if class already exists
-        $classes = explode(" ", $currentClass);
-        if (in_array($class, $classes)) {
-            return true;
-        }
-
-        // Append new class
-        return $this->appendAttr($elem, "class", $class);
-    }
-
-    /**
-     * Removes a class from a given DOMElement.
-     *
-     * @param DOMElement $elem  The element to add the class.
-     * @param string     $class The class name.
-     *
-     * @return bool|string True on success, false on failure or if the class already exists.
-     * @throws \Exception
-     */
-    public function removeClass($elem, $class)
-    {
-        // Get current class
-        $currentClass = trim($this->attr($elem, "class"));
-
-        // Check if class doesn't exists
-        $classes = explode(" ", $currentClass);
-        $classKey = array_search($class, $classes);
-        if ($classKey === false) {
-            return false;
-        }
-
-        // Remove class and set new class attribute
-        unset($classes[$classKey]);
-        $newClass = implode(" ", $classes);
-
-        return $this->attr($elem, "class", empty($newClass) ? null : $newClass);
-    }
-
-
-    /**
-     * Check if the given DOMElement has a given class.
-     *
-     * @param DOMElement $elem  The element to check for the class.
-     * @param string     $class The class name.
-     *
-     * @return bool True if the element has the class, false otherwise.
-     * @throws \Exception
-     */
-    public function hasClass($elem, $class)
-    {
-        // Get current class
-        $itemClass = trim($this->attr($elem, "class"));
-
-        // Check if class already exists
-        $classes = explode(" ", $itemClass);
-
-        return in_array($class, $classes);
-    }
-
-
-    /**
-     * Set or get a style value for the given element.
-     * This function will append the style rule in the style attribute.
-     *
-     * @param DOMElement $elem The DOMElement to set or get the style value.
-     * @param string     $name The style name.
-     * @param string     $val  If the value is NULL or FALSE, the value is considered negative and the style will be
-     *                         removed from the attribute. If the value is empty string (default, null is not
-     *                         included), the function will return the style value. Otherwise, the style will be
-     *                         appended to the style attribute and the new attribute will be returned.
-     *
-     * @return mixed Returns FALSE if there is an error.
-     *        The new style value on success.
-     * @throws Exception
-     */
-    public function style($elem, $name, $val = "")
-    {
-        if (empty($elem)) {
-            throw new InvalidArgumentException("The given element is not a valid object.");
-        }
-
-        // Get all styles from the element
-        $elementStyle = $this->attr($elem, "style");
-        $elementStyle = trim($elementStyle, "; ");
-
-        $styleArray = array();
-        if (!empty($elementStyle))
-            $styleArray = explode(";", $elementStyle);
-        $styles = array();
-        foreach ($styleArray as $stylePair) {
-            $pair = explode(":", $stylePair);
-            $styles[trim($pair[0])] = trim($pair[1]);
-        }
-
-        // If value is null or false, remove attribute
-        if (is_null($val) || (is_bool($val) && $val === false))
-            unset($styles[$name]);
-        else if (empty($val))
-            return $styles[$name];
-        else
-            $styles[$name] = $val;
-
-        // Pack all styles into one value
-        $styleArray = array();
-        foreach ($styles as $name => $value) {
-            $pieces = array($name, $value);
-            $styleArray[] = implode(": ", $pieces);
-        }
-        $elementStyle = implode("; ", $styleArray);
-
-        // Set style attribute
-        $this->attr($elem, "style", (empty($elementStyle) ? null : $elementStyle));
-
-        // Return the new element style
-        return $elementStyle;
+        return $this->create($name, $value, $id, $class);
     }
 
     /**
@@ -208,7 +86,7 @@ class HTMLDocument extends DOMPrototype
     public function select($selector, $context = null)
     {
         // Get xpath from css selector
-        $xpath = DOMHelper::CSSSelector2XPath($selector);
+        $xpath = HTMLHelper::CSSSelector2XPath($selector);
 
         // Get the context node if css context
         if (!empty($context) && is_string($context)) {
@@ -225,16 +103,11 @@ class HTMLDocument extends DOMPrototype
     }
 
     /**
-     * Check if the given xml tag is a valid html tag.
-     *
-     * @param string $tag The html tag to be checked.
-     *
-     * @return bool True if valid, false otherwise.
+     * @return DOMFactoryInterface
      */
-    private function validHtmlTag($tag)
+    public function getHTMLFactory()
     {
-        // Temporarily return TRUE for all tags
-        return true;
+        return $this->DOMFactory;
     }
 }
 

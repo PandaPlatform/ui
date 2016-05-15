@@ -17,12 +17,17 @@ namespace Panda\Ui\Helpers;
  * Document Object Model Helper file
  *
  * This file is a helper containing tool functions
- * for generic functionality.
+ * for html-specific functionality.
  *
  * @version    0.1
  */
-class DOMHelper
+class HTMLHelper
 {
+    /**
+     * @type array
+     */
+    private static $validHTMLTags = ["div", "p"];
+
     /**
      * Transforms a given css selector into an xpath query.
      *
@@ -82,6 +87,19 @@ class DOMHelper
 
         // Return xpath
         return $xpath;
+    }
+
+    /**
+     * Check if the given xml tag is a valid html tag.
+     *
+     * @param string $tag The html tag to be checked.
+     *
+     * @return bool True if valid, false otherwise.
+     */
+    public static function validHtmlTag($tag)
+    {
+        // Check if the tag is valid html tag
+        return in_array($tag, static::$validHTMLTags);
     }
 }
 
