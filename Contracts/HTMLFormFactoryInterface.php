@@ -18,6 +18,11 @@ use Panda\Ui\Controls\Form\FormElement;
 use Panda\Ui\Controls\Form\FormLabel;
 use Panda\Ui\Html\HTMLElement;
 
+/**
+ * Interface HTMLFormFactoryInterface
+ *
+ * @package Panda\Ui\Contracts
+ */
 interface HTMLFormFactoryInterface extends HTMLFactoryInterface
 {
     /**

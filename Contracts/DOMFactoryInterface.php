@@ -16,6 +16,11 @@ namespace Panda\Ui\Contracts;
 use Panda\Ui\DOMItem;
 use Panda\Ui\DOMPrototype;
 
+/**
+ * Interface DOMFactoryInterface
+ *
+ * @package Panda\Ui\Contracts
+ */
 interface DOMFactoryInterface
 {
     /**

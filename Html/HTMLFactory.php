@@ -17,6 +17,11 @@ use Exception;
 use Panda\Ui\Contracts\HTMLFactoryInterface;
 use Panda\Ui\DOMFactory;
 
+/**
+ * Class HTMLFactory
+ *
+ * @package Panda\Ui\Html
+ */
 class HTMLFactory extends DOMFactory implements HTMLFactoryInterface
 {
     /***

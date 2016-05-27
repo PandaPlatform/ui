@@ -17,11 +17,10 @@ use Exception;
 use Panda\Ui\Html\HTMLDocument;
 
 /**
- * HTML Form Select Element
+ * Class FormSelect
  *
- * Create HTML form items
- *
- * @version    0.1
+ * @package Panda\Ui\Controls\Form
+ * @version 0.1
  */
 class FormSelect extends FormInput
 {
@@ -44,8 +43,9 @@ class FormSelect extends FormInput
         parent::__construct($HTMLDocument, $type = "select", $name, $id, $class, $value = "", $required);
 
         // Add extra attributes
-        if ($multiple)
+        if ($multiple) {
             $this->attr("multiple", "multiple");
+        }
     }
 
     /**

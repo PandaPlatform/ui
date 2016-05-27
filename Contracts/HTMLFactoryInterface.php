@@ -16,6 +16,11 @@ namespace Panda\Ui\Contracts;
 use Panda\Ui\DOMItem;
 use Panda\Ui\Html\HTMLElement;
 
+/**
+ * Interface HTMLFactoryInterface
+ *
+ * @package Panda\Ui\Contracts
+ */
 interface HTMLFactoryInterface extends DOMFactoryInterface
 {
     /**
@@ -54,7 +59,7 @@ interface HTMLFactoryInterface extends DOMFactoryInterface
 
     /**
      * Build an html script element.
-     * 
+     *
      * @param string $src
      * @param bool   $async
      *

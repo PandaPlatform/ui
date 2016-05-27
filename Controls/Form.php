@@ -17,11 +17,10 @@ use Exception;
 use Panda\Ui\Contracts\HTMLFormFactoryInterface;
 
 /**
- * HTML Form Class
+ * HTML Form Class. Create HTML forms
  *
- * Create HTML forms
- *
- * @version    0.1
+ * @package Panda\Ui\Html
+ * @version 0.1
  */
 class Form extends HTMLElement
 {
@@ -38,6 +37,7 @@ class Form extends HTMLElement
      * @type boolean
      */
     private $pu = false;
+
     /**
      * @type HTMLFormFactoryInterface
      */
@@ -81,9 +81,9 @@ class Form extends HTMLElement
         $this->attr("async", $async);
 
         // Set form for file upload
-        if ($fileUpload)
+        if ($fileUpload) {
             $this->attr("enctype", "multipart/form-data");
-
+        }
     }
 
     /**

@@ -20,10 +20,10 @@ use Panda\Ui\DOMPrototype;
 
 /**
  * HTML Element Class
- *
  * Create HTML specific DOMElements.
  *
- * @version    0.1
+ * @package Panda\Ui\Html
+ * @version 0.1
  */
 class HTMLElement extends DOMItem
 {
@@ -119,7 +119,7 @@ class HTMLElement extends DOMItem
      * @param string $class The class name.
      *
      * @return bool True if the element has the class, false otherwise.
-     * @throws \Exception
+     * @throws Exception
      */
     public function hasClass($class)
     {
@@ -268,9 +268,7 @@ class HTMLElement extends DOMItem
      */
     public function outerHTML()
     {
-        $outerHTML = "";
-
-        return $outerHTML;
+        return $this->getDOMDocument()->saveHTML($this->getDOMElement());
     }
 }
 

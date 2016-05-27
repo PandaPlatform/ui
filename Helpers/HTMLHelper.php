@@ -19,14 +19,18 @@ namespace Panda\Ui\Helpers;
  * This file is a helper containing tool functions
  * for html-specific functionality.
  *
- * @version    0.1
+ * @package Panda\Ui\Helpers
+ * @version 0.1
  */
 class HTMLHelper
 {
     /**
      * @type array
      */
-    private static $validHTMLTags = ["div", "p"];
+    private static $validHTMLTags = [
+        "div",
+        "p",
+    ];
 
     /**
      * Transforms a given css selector into an xpath query.

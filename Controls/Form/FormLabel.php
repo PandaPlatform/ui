@@ -17,11 +17,10 @@ use Exception;
 use Panda\Ui\Html\HTMLDocument;
 
 /**
- * HTML Form Item
+ * Class FormLabel
  *
- * Create HTML form items
- *
- * @version    0.1
+ * @package Panda\Ui\Controls\Form
+ * @version 0.1
  */
 class FormLabel extends FormElement
 {

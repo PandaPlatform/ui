@@ -19,10 +19,10 @@ use Panda\Ui\Contracts\HTMLFactoryInterface;
 
 /**
  * HTML Page Prototype/Builder
- *
  * Helps building HTML Pages in HTML5 format
  *
- * @version    0.1
+ * @package Panda\Ui\Html
+ * @version 0.1
  */
 class HTMLPage extends HTMLDocument
 {
@@ -130,6 +130,8 @@ class HTMLPage extends HTMLDocument
      * Append element to head.
      *
      * @param HTMLElement $element The element to be appended.
+     *
+     * @throws InvalidArgumentException
      */
     protected function appendToHead($element)
     {
@@ -145,6 +147,8 @@ class HTMLPage extends HTMLDocument
      * Append element to body.
      *
      * @param HTMLElement $element The element to be appended.
+     *
+     * @throws InvalidArgumentException
      */
     protected function appendToBody($element)
     {
@@ -251,7 +255,7 @@ class HTMLPage extends HTMLDocument
     public function setTitle($title)
     {
         // Check if title already exists
-        $headTitle = $this->evaluate("//title")->item(0);
+        $headTitle = $this->select("title")->item(0);
         if (!is_null($headTitle)) {
             $headTitle_new = $this->create("title", $title);
             $headTitle->parentNode->replaceChild($headTitle_new->getDOMElement(), $headTitle);
@@ -320,8 +324,9 @@ class HTMLPage extends HTMLDocument
      */
     private function flushBottomScripts()
     {
-        foreach ($this->bottomScripts as $script)
+        foreach ($this->bottomScripts as $script) {
             $this->appendToBody($script);
+        }
     }
 
     /**

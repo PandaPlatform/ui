@@ -23,6 +23,11 @@ use Panda\Ui\Controls\Form\FormSelect;
 use Panda\Ui\Html\HTMLElement;
 use Panda\Ui\Html\HTMLFactory;
 
+/**
+ * Class FormFactory
+ *
+ * @package Panda\Ui\Controls
+ */
 class FormFactory extends HTMLFactory implements HTMLFormFactoryInterface
 {
     /**

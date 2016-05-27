@@ -18,11 +18,10 @@ use InvalidArgumentException;
 use Panda\Ui\Html\HTMLDocument;
 
 /**
- * HTML Form Input item
+ * Class FormInput
  *
- * Create HTML form items
- *
- * @version    0.1
+ * @package Panda\Ui\Controls\Form
+ * @version 0.1
  */
 class FormInput extends FormElement
 {
@@ -31,7 +30,7 @@ class FormInput extends FormElement
      *
      * @type array
      */
-    private $inputTypes = [
+    protected $types = [
         'button',
         'checkbox',
         'file',
@@ -54,7 +53,7 @@ class FormInput extends FormElement
         'tel',
         'time',
         'url',
-        'week'
+        'week',
     ];
 
     /**
@@ -73,8 +72,9 @@ class FormInput extends FormElement
     public function __construct(HTMLDocument $HTMLDocument, $type = "text", $name = "", $id = "", $class = "", $value = "", $required = false)
     {
         // Check input type
-        if (!$this->checkType($type))
+        if (!$this->checkType($type)) {
             throw new InvalidArgumentException("The form input type is not a valid HTML4 or HTML5 input type.");
+        }
 
         // Check if input is radio or checkbox
         $checked = false;
@@ -90,22 +90,6 @@ class FormInput extends FormElement
         $this->attr("type", $type);
         $this->attr("checked", $checked);
         $this->attr("required", $required);
-    }
-
-    /**
-     * Checks if the given input type is valid for HTML4 and HTML5.
-     *
-     * @param string $type The input's type
-     *
-     * @return bool True if the type is valid, false otherwise.
-     */
-    private function checkType($type)
-    {
-        // Check input type
-        $expression = implode("|", $this->inputTypes);
-        $valid = preg_match('/^(' . $expression . ')$/', $type);
-
-        return ($valid === 1);
     }
 }
 

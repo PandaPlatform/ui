@@ -20,10 +20,10 @@ use Panda\Ui\Helpers\HTMLHelper;
 
 /**
  * HTML Document Class
- *
  * Create an HTML specific DOMDocument.
  *
- * @version    0.1
+ * @package Panda\Ui\Html
+ * @version 0.1
  */
 class HTMLDocument extends DOMPrototype
 {

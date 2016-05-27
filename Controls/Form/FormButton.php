@@ -18,11 +18,10 @@ use InvalidArgumentException;
 use Panda\Ui\Html\HTMLDocument;
 
 /**
- * HTML Form Button
+ * Class FormButton
  *
- * Create HTML form items
- *
- * @version    0.1
+ * @package Panda\Ui\Controls\Form
+ * @version 0.1
  */
 class FormButton extends FormElement
 {
@@ -31,10 +30,10 @@ class FormButton extends FormElement
      *
      * @type array
      */
-    private $buttonTypes = [
+    protected $types = [
         'button',
         'reset',
-        'submit'
+        'submit',
     ];
 
     /**
@@ -52,30 +51,15 @@ class FormButton extends FormElement
     public function __construct(HTMLDocument $HTMLDocument, $type = "submit", $name = "", $id = "", $title = "")
     {
         // Check input type
-        if (!$this->checkType($type))
+        if (!$this->checkType($type)) {
             throw new InvalidArgumentException("The form button type is not a valid HTML4 or HTML5 button type.");
+        }
 
         // Create HTMLElement
         parent::__construct($HTMLDocument, $itemName = "button", $name, $value = "", $id, $class = "", $title);
 
         // Add extra attributes
         $this->attr("type", $type);
-    }
-
-    /**
-     * Checks if the given button type is valid for HTML4 and HTML5.
-     *
-     * @param string $type The button's type
-     *
-     * @return bool True if the type is valid, false otherwise.
-     */
-    private function checkType($type)
-    {
-        // Check input type
-        $expression = implode("|", $this->buttonTypes);
-        $valid = preg_match('/^(' . $expression . ')$/', $type);
-
-        return ($valid === 1);
     }
 }
 
