@@ -42,6 +42,7 @@ class HTMLElement extends DOMItem
     public function __construct(DOMPrototype $HTMLDocument, $name, $value = "", $id = "", $class = "")
     {
         // Create DOMItem
+        $HTMLDocument = $HTMLDocument ?: new HTMLDocument(new HTMLFactory(), $version = "1.0", $encoding = "UTF_8");
         parent::__construct($HTMLDocument, $name, $value);
 
         // Add extra attributes

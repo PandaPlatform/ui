@@ -50,6 +50,7 @@ abstract class DOMPrototype extends DOMDocument
 
         // Set DOMFactory
         $this->DOMFactory = $DOMFactory;
+        $this->DOMFactory->setDocument($this);
     }
 
     /**
