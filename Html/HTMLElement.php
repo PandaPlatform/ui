@@ -39,7 +39,7 @@ class HTMLElement extends DOMItem
      *
      * @throws Exception
      */
-    public function __construct(DOMPrototype $HTMLDocument, $name, $value = "", $id = "", $class = "")
+    public function __construct($HTMLDocument, $name, $value = "", $id = "", $class = "")
     {
         // Create DOMItem
         $HTMLDocument = $HTMLDocument ?: new HTMLDocument(new HTMLFactory(), $version = "1.0", $encoding = "UTF_8");
@@ -55,7 +55,7 @@ class HTMLElement extends DOMItem
      *
      * @param string $class The class name.
      *
-     * @return HTMLElement
+     * @return $this
      * @throws Exception
      */
     public function addClass($class)
@@ -87,7 +87,7 @@ class HTMLElement extends DOMItem
      *
      * @param string $class The class name.
      *
-     * @return HTMLElement
+     * @return $this
      * @throws Exception
      */
     public function removeClass($class)
@@ -144,7 +144,7 @@ class HTMLElement extends DOMItem
      *                         included), the function will return the style value. Otherwise, the style will be
      *                         appended to the style attribute and the new attribute will be returned.
      *
-     * @return HTMLElement|mixed
+     * @return $this|mixed
      */
     public function style($name, $val = "")
     {
@@ -198,7 +198,7 @@ class HTMLElement extends DOMItem
      * @param boolean $convertEncoding    Option to convert the encoding of the value to UTF-8.
      *                                    It is TRUE by default.
      *
-     * @return mixed|HTMLElement
+     * @return mixed|$this
      */
     public function innerHTML($value = null, $faultTolerant = true, $convertEncoding = true)
     {
@@ -212,15 +212,13 @@ class HTMLElement extends DOMItem
             return $inner;
         }
 
-        // If value not null, set inner HTML
-
-        // Empty the element
-        for ($x = $this->DOMElement->childNodes->length - 1; $x >= 0; $x--) {
-            $this->DOMElement->removeChild($this->DOMElement->childNodes->item($x));
-        }
-
         // $value holds our new inner HTML
-        if (empty($value == "")) {
+        if (empty($value)) {
+            // Empty the element
+            for ($x = $this->DOMElement->childNodes->length - 1; $x >= 0; $x--) {
+                $this->DOMElement->removeChild($this->DOMElement->childNodes->item($x));
+            }
+
             return $this;
         }
 

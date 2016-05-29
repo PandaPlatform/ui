@@ -30,11 +30,11 @@ class HTMLFactory extends DOMFactory implements HTMLFactoryInterface
     protected $Document;
 
     /**
-     * Create a new HTMLFactory.
+     * HTMLFactory constructor.
      *
-     * @param HTMLDocument $Document
+     * @param HTMLDocument|null $Document
      */
-    public function __construct(HTMLDocument $Document = null)
+    public function __construct($Document = null)
     {
         // Initialize current HTMLDocument
         $this->Document = $Document;

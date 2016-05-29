@@ -48,14 +48,15 @@ class HTMLPage extends HTMLDocument
     private $bottomScripts;
 
     /**
-     * HTMLPagePrototype constructor.
+     * HTMLPage constructor.
      *
-     * @param HTMLFactoryInterface $HTMLFactory
+     * @param HTMLFactoryInterface|null $HTMLFactory
      */
-    public function __construct(HTMLFactoryInterface $HTMLFactory)
+    public function __construct($HTMLFactory = null)
     {
         // Initialize-Clear Bottom Scripts
         $this->bottomScripts = array();
+        $HTMLFactory = $HTMLFactory ?: new HTMLFactory();
         $HTMLFactory->setDocument($this);
 
         // Call parent
@@ -70,7 +71,7 @@ class HTMLPage extends HTMLDocument
      * @param string $description The description meta value.
      * @param string $keywords    The keywords meta value.
      *
-     * @return HTMLPage The HTMLPagePrototype object.
+     * @return $this
      */
     public function build($title = "", $description = "", $keywords = "")
     {
@@ -103,7 +104,7 @@ class HTMLPage extends HTMLDocument
         $this->flushBottomScripts();
 
         // Return text/html
-        return "<!DOCTYPE html>\n" . $this->getHTML();
+        return "<!DOCTYPE html>\n" . parent::getHTML();
     }
 
     /**
@@ -131,6 +132,7 @@ class HTMLPage extends HTMLDocument
      *
      * @param HTMLElement $element The element to be appended.
      *
+     * @return $this
      * @throws InvalidArgumentException
      */
     protected function appendToHead($element)
@@ -140,7 +142,10 @@ class HTMLPage extends HTMLDocument
             throw new InvalidArgumentException("The element provided is empty.");
         }
 
+        // Append element to head
         $this->HTMLHead->append($element);
+
+        return $this;
     }
 
     /**
@@ -148,6 +153,7 @@ class HTMLPage extends HTMLDocument
      *
      * @param HTMLElement $element The element to be appended.
      *
+     * @return $this
      * @throws InvalidArgumentException
      */
     protected function appendToBody($element)
@@ -157,7 +163,10 @@ class HTMLPage extends HTMLDocument
             throw new InvalidArgumentException("The element provided is empty.");
         }
 
+        // Append element to body
         $this->HTMLBody->append($element);
+
+        return $this;
     }
 
     /**
@@ -230,8 +239,11 @@ class HTMLPage extends HTMLDocument
 
     /**
      * Inserts a page icon.
+     * It covers both "icon" and "shortcut icon".
      *
      * @param string $href The icon URL
+     *
+     * @return $this
      */
     public function addIcon($href)
     {
@@ -242,15 +254,16 @@ class HTMLPage extends HTMLDocument
         // Build the shortcut icon
         $shortIcon = $this->getHTMLFactory()->buildLink("shortcut icon", $href);
         $this->appendToHead($shortIcon);
+
+        return $this;
     }
 
     /**
      * Sets the page title.
      *
-     * @param    string $title
-     *        The new page title.
+     * @param string $title The new page title.
      *
-     * @return    void
+     * @return $this
      */
     public function setTitle($title)
     {
@@ -263,6 +276,8 @@ class HTMLPage extends HTMLDocument
             $headTitle = $this->create("title", $title);
             $this->appendToHead($headTitle);
         }
+
+        return $this;
     }
 
     /**
@@ -270,6 +285,8 @@ class HTMLPage extends HTMLDocument
      *
      * @param array $data An array of property => content open graph meta.
      *                    The og: at the property name is inserted automatically.
+     *
+     * @return $this
      */
     public function addOpenGraphMeta($data = array())
     {
@@ -282,6 +299,8 @@ class HTMLPage extends HTMLDocument
             // Append meta to head
             $this->appendToHead($og);
         }
+
+        return $this;
     }
 
     /**
@@ -290,6 +309,8 @@ class HTMLPage extends HTMLDocument
      * @param string $title       The title of the document.
      * @param string $description The description meta.
      * @param string $keywords    The keywords meta.
+     *
+     * @return $this
      */
     private function setupHead($title, $description, $keywords)
     {
@@ -304,6 +325,8 @@ class HTMLPage extends HTMLDocument
         if (!empty($keywords)) {
             $this->addMeta($name = "keywords", $keywords);
         }
+
+        return $this;
     }
 
     /**

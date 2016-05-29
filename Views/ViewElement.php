@@ -39,7 +39,7 @@ class ViewElement extends HTMLElement
      *
      * @throws Exception
      */
-    public function __construct(DOMPrototype $HTMLDocument, $view, $name, $value = "", $id = "", $class = "")
+    public function __construct($HTMLDocument, $view, $name, $value = "", $id = "", $class = "")
     {
         // Create DOMItem
         parent::__construct($HTMLDocument, $name, $value, $id, $class);
@@ -62,12 +62,21 @@ class ViewElement extends HTMLElement
         }
 
         // Load view file
-        $viewHTML = include($view);
+        $viewHTML = file_get_contents($view);
         $viewHTML = trim($viewHTML);
         if (!empty($viewHTML)) {
-            $this->innerHTML($value = "");
             $this->innerHTML($viewHTML);
         }
+    }
+
+    /**
+     * Get the full html of the current view.
+     *
+     * @return string
+     */
+    public function getHTML()
+    {
+        return $this->outerHTML();
     }
 }
 
