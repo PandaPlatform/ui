@@ -120,8 +120,8 @@ class HTMLFactory extends DOMFactory implements HTMLFactoryInterface
     {
         // Build the link element
         $link = $this->getDocument()->create("link");
-        $link->attr($link, "rel", $rel);
-        $link->attr($link, "href", $href);
+        $link->attr("rel", $rel);
+        $link->attr("href", $href);
 
         // Return link
         return $link;
@@ -140,8 +140,8 @@ class HTMLFactory extends DOMFactory implements HTMLFactoryInterface
     {
         // Build the script element
         $script = $this->getDocument()->create("script");
-        $script->attr($script, "src", $src);
-        $script->attr($script, "async", $async);
+        $script->attr("src", $src);
+        $script->attr("async", $async);
 
         // Return the script
         return $script;
