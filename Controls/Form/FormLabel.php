@@ -39,7 +39,7 @@ class FormLabel extends FormElement
     public function __construct(HTMLDocument $HTMLDocument, $content = null, $for = "")
     {
         // Create HTMLElement
-        parent::__construct($HTMLDocument, $name = "label", $name = "", $content, $id = "", $class = "");
+        parent::__construct($HTMLDocument, $name = "label", $name = "", $value = "", $id = "", $class = "", $content);
 
         // Add extra attributes
         $this->attr("for", $for);

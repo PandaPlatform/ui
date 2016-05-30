@@ -43,13 +43,13 @@ abstract class DOMPrototype extends DOMDocument
      * @param string              $version
      * @param string              $encoding
      */
-    public function __construct(DOMFactoryInterface $DOMFactory, $version = "1.0", $encoding = "UTF_8")
+    public function __construct($DOMFactory, $version = "1.0", $encoding = "UTF_8")
     {
         // Construct DOMDocument
         parent::__construct($version, $encoding);
 
         // Set DOMFactory
-        $this->DOMFactory = $DOMFactory;
+        $this->DOMFactory = $DOMFactory ?: new DOMFactory();
         $this->DOMFactory->setDocument($this);
     }
 
@@ -175,6 +175,16 @@ abstract class DOMPrototype extends DOMDocument
     public function setDOMFactory($DOMFactory)
     {
         $this->DOMFactory = $DOMFactory;
+    }
+
+    /**
+     * Get the DOMDocument.
+     *
+     * @return DOMDocument
+     */
+    public function getDOMDocument()
+    {
+        return $this;
     }
 }
 

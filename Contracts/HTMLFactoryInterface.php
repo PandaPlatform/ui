@@ -36,6 +36,19 @@ interface HTMLFactoryInterface extends DOMFactoryInterface
     public function buildElement($name = "", $value = "", $id = "", $class = "");
 
     /**
+     * Build an HTML weblink <a> element.
+     *
+     * @param string $href
+     * @param string $target
+     * @param string $content
+     * @param string $id
+     * @param string $class
+     *
+     * @return mixed
+     */
+    public function buildWeblink($href = "", $target = "_self", $content = "", $id = "", $class = "");
+
+    /**
      * Build a meta element.
      *
      * @param string $name

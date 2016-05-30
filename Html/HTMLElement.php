@@ -269,6 +269,14 @@ class HTMLElement extends DOMItem
     {
         return $this->getDOMDocument()->saveHTML($this->getDOMElement());
     }
+
+    /**
+     * @return HTMLDocument
+     */
+    public function getHTMLDocument()
+    {
+        return $this->getDOMDocument();
+    }
 }
 
 ?>

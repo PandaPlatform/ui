@@ -11,10 +11,12 @@
 
 declare(strict_types = 1);
 
-namespace Panda\Ui\Html;
+namespace Panda\Ui\Controls;
 
 use Exception;
 use Panda\Ui\Contracts\HTMLFormFactoryInterface;
+use Panda\Ui\Html\HTMLDocument;
+use Panda\Ui\Html\HTMLElement;
 
 /**
  * HTML Form Class. Create HTML forms
@@ -65,11 +67,11 @@ class Form extends HTMLElement
      *
      * @throws Exception
      */
-    public function __construct(HTMLDocument $HTMLDocument, HTMLFormFactoryInterface $HTMLFormFactory, $id = "", $action = "", $async = true, $preventUnload = false, $fileUpload = false)
+    public function __construct(HTMLDocument $HTMLDocument, $HTMLFormFactory, $id = "", $action = "", $async = true, $preventUnload = false, $fileUpload = false)
     {
         // Create HTML Form element
         parent::__construct($HTMLDocument, $name = "form", $value = "", $id);
-        $this->HTMLFormFactory = $HTMLFormFactory;
+        $this->HTMLFormFactory = $HTMLFormFactory ?: new FormFactory($HTMLDocument);
 
         // Set form attributes
         $this->formId = ($id == "" ? "f" . mt_rand() : $id);

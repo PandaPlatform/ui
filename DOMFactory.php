@@ -59,7 +59,7 @@ class DOMFactory implements DOMFactoryInterface
      */
     public function setDocument($Prototype)
     {
-        // TODO: Implement setDocument() method.
+        $this->Document = $Prototype;
     }
 }
 

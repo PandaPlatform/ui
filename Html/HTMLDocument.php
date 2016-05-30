@@ -13,8 +13,9 @@ declare(strict_types = 1);
 
 namespace Panda\Ui\Html;
 
+use DOMNodeList;
 use Exception;
-use Panda\Ui\Contracts\DOMFactoryInterface;
+use Panda\Ui\Contracts\HTMLFactoryInterface;
 use Panda\Ui\DOMPrototype;
 use Panda\Ui\Helpers\HTMLHelper;
 
@@ -27,6 +28,20 @@ use Panda\Ui\Helpers\HTMLHelper;
  */
 class HTMLDocument extends DOMPrototype
 {
+    /**
+     * Create a new DOM Document.
+     *
+     * @param HTMLFactoryInterface $HTMLFactory
+     * @param string               $version
+     * @param string               $encoding
+     */
+    public function __construct($HTMLFactory, $version = "1.0", $encoding = "UTF_8")
+    {
+        // Construct DOMDocument
+        $HTMLFactory = $HTMLFactory ?: new HTMLFactory($this);
+        parent::__construct($HTMLFactory, $version, $encoding);
+    }
+
     /**
      * Creates and returns a DOMElement with the specified tagName and the given attributes
      *
@@ -81,7 +96,7 @@ class HTMLDocument extends DOMPrototype
      *                         If the selector results in multiple DOMNodes, then the first is selected as the context.
      *                         It is NULL by default.
      *
-     * @return mixed Returns the node list that matches the given css selector, or FALSE on malformed input.
+     * @return DOMNodeList|false Returns the node list that matches the given css selector, or FALSE on malformed input.
      */
     public function select($selector, $context = null)
     {
@@ -103,11 +118,21 @@ class HTMLDocument extends DOMPrototype
     }
 
     /**
-     * @return DOMFactoryInterface
+     * @return HTMLFactoryInterface
      */
     public function getHTMLFactory()
     {
         return $this->DOMFactory;
+    }
+
+    /**
+     * Get the HTMLDocument.
+     *
+     * @return HTMLDocument
+     */
+    public function getHTMLDocument()
+    {
+        return $this;
     }
 }
 
