@@ -15,6 +15,7 @@ namespace Panda\Ui\Html;
 
 use DOMElement;
 use InvalidArgumentException;
+use Panda\Ui\Contracts\DOMBuilder;
 use Panda\Ui\Contracts\HTMLFactoryInterface;
 
 /**
@@ -24,7 +25,7 @@ use Panda\Ui\Contracts\HTMLFactoryInterface;
  * @package Panda\Ui\Html
  * @version 0.1
  */
-class HTMLPage extends HTMLDocument
+class HTMLPage extends HTMLDocument implements DOMBuilder
 {
     /**
      * The head tag object

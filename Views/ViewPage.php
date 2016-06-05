@@ -13,10 +13,6 @@ declare(strict_types = 1);
 
 namespace Panda\Ui\Views;
 
-use Exception;
-use Panda\Ui\Contracts\HTMLFactoryInterface;
-use Panda\Ui\DOMPrototype;
-use Panda\Ui\Html\HTMLElement;
 use Panda\Ui\Html\HTMLPage;
 
 /**

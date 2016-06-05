@@ -51,7 +51,7 @@ interface HTMLFormFactoryInterface extends HTMLFactoryInterface
      *
      * @return HTMLElement
      */
-    public function getFileInput($name = "", $id = "", $class = "", $required = false, $accept = "");
+    public function buildFileInput($name = "", $id = "", $class = "", $required = false, $accept = "");
 
     /**
      * Build an html form label.
@@ -98,7 +98,7 @@ interface HTMLFormFactoryInterface extends HTMLFactoryInterface
      *
      * @return FormButton
      */
-    public function getResetButton($title, $id = "", $class = "");
+    public function buildResetButton($title, $id = "", $class = "");
 
     /**
      * Build an html form textarea.
@@ -134,11 +134,12 @@ interface HTMLFormFactoryInterface extends HTMLFactoryInterface
      * @param string $id
      * @param string $class
      * @param array  $options
+     * @param string $selectedValue
      * @param bool   $required
      *
      * @return mixed
      */
-    public function buildSelect($name = "", $multiple = false, $id = "", $class = "", $options = array(), $required = false);
+    public function buildSelect($name = "", $multiple = false, $id = "", $class = "", $options = array(), $selectedValue = "", $required = false);
 }
 
 ?>

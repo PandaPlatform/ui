@@ -27,26 +27,12 @@ use Panda\Ui\Html\HTMLElement;
 class Form extends HTMLElement
 {
     /**
-     * The form's id.
-     *
-     * @type string
-     */
-    private $formId;
-
-    /**
-     * Defines whether the form will prevent page unload on edit.
-     *
-     * @type boolean
-     */
-    private $pu = false;
-
-    /**
      * @type HTMLFormFactoryInterface
      */
-    private $HTMLFormFactory;
+    protected $HTMLFormFactory;
 
     /**
-     * Create a new HTMLObject.
+     * Create a new HTML Form.
      *
      * @param HTMLDocument             $HTMLDocument    The DOMDocument to create the element
      * @param HTMLFormFactoryInterface $HTMLFormFactory The Form Factory interface to generate all elements.
@@ -55,11 +41,6 @@ class Form extends HTMLElement
      *                                                  It is empty by default.
      * @param bool                     $async           Sets the async attribute for simple forms.
      *                                                  It is TRUE by default.
-     * @param bool                     $preventUnload   Set an empty value (NULL, FALSE or anything that empty()
-     *                                                  returns as TRUE) and it will deactivate this form from
-     *                                                  preventing unload. Set TRUE to prevent unload with a system
-     *                                                  message or give a message to show to the user specific for this
-     *                                                  form. It is FALSE by default.
      * @param bool                     $fileUpload      This marks the form ready for file upload. It adds the enctype
      *                                                  attribute where no characters are encoded. This value is
      *                                                  required when you are using forms that have a file upload
@@ -67,15 +48,11 @@ class Form extends HTMLElement
      *
      * @throws Exception
      */
-    public function __construct(HTMLDocument $HTMLDocument, $HTMLFormFactory, $id = "", $action = "", $async = true, $preventUnload = false, $fileUpload = false)
+    public function __construct(HTMLDocument $HTMLDocument, $HTMLFormFactory = null, $id = "", $action = "", $async = true, $fileUpload = false)
     {
         // Create HTML Form element
         parent::__construct($HTMLDocument, $name = "form", $value = "", $id);
         $this->HTMLFormFactory = $HTMLFormFactory ?: new FormFactory($HTMLDocument);
-
-        // Set form attributes
-        $this->formId = ($id == "" ? "f" . mt_rand() : $id);
-        $this->pu = $preventUnload;
 
         // Add extra attributes
         $this->attr("method", "post");
@@ -86,26 +63,6 @@ class Form extends HTMLElement
         if ($fileUpload) {
             $this->attr("enctype", "multipart/form-data");
         }
-    }
-
-    /**
-     * Create a system specific form input id.
-     *
-     * @param string $name The input's name.
-     *
-     * @return string The input id
-     */
-    protected function getInputID($name)
-    {
-        return (empty($name) ? "" : "i" . $this->getFormId() . "_" . $name . mt_rand());
-    }
-
-    /**
-     * @return string
-     */
-    public function getFormId()
-    {
-        return $this->formId;
     }
 
     /**

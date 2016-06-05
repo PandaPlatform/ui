@@ -22,7 +22,7 @@ use Panda\Ui\Html\HTMLDocument;
  * @package Panda\Ui\Controls\Form
  * @version 0.1
  */
-class FormSelect extends FormInput
+class FormSelect extends FormElement
 {
     /**
      * Create a new form item.
@@ -39,8 +39,9 @@ class FormSelect extends FormInput
      */
     public function __construct(HTMLDocument $HTMLDocument, $name = "", $id = "", $class = "", $multiple = false, $required = false)
     {
-        // Create FormInput
-        parent::__construct($HTMLDocument, $type = "select", $name, $id, $class, $value = "", $required);
+        // Create FormElement
+        parent::__construct($HTMLDocument, $itemName = "select", $name, $value = "", $id, $class, $itemValue = "");
+        $this->attr("required", $required);
 
         // Add extra attributes
         if ($multiple) {

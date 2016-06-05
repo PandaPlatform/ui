@@ -74,7 +74,7 @@ class FormFactory extends HTMLFactory implements HTMLFormFactoryInterface
      * @return HTMLElement The form file input element.
      * @throws Exception
      */
-    public function getFileInput($name = "", $id = "", $class = "", $required = false, $accept = "")
+    public function buildFileInput($name = "", $id = "", $class = "", $required = false, $accept = "")
     {
         // Create file input
         $fi = $this->buildInput($type = "file", $name, $value = "", $id, $class, $autofocus = false, $required);
@@ -157,7 +157,7 @@ class FormFactory extends HTMLFactory implements HTMLFormFactoryInterface
      * @return FormButton The reset button
      * @throws Exception
      */
-    public function getResetButton($title, $id = "", $class = "")
+    public function buildResetButton($title, $id = "", $class = "")
     {
         // Create the form reset button
         return $this->buildButton($type = "reset", $title, $name = "", $id, $class);

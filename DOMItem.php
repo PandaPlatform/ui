@@ -221,7 +221,7 @@ class DOMItem
      *
      * @param DOMItem $element
      *
-     * @return DOMItem
+     * @return $this
      * @throws InvalidArgumentException
      */
     public function append($element)
@@ -245,7 +245,7 @@ class DOMItem
      *
      * @param DOMItem $element The child element.
      *
-     * @return DOMItem
+     * @return $this
      * @throws InvalidArgumentException
      */
     public function prepend($element)
