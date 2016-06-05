@@ -15,6 +15,7 @@ namespace Panda\Ui;
 
 use DOMAttr;
 use DOMElement;
+use DOMNode;
 use Exception;
 use InvalidArgumentException;
 
@@ -33,7 +34,7 @@ class DOMItem
     protected $DOMDocument;
 
     /**
-     * @type DOMElement
+     * @type DOMNode
      */
     protected $DOMElement;
 
@@ -313,7 +314,7 @@ class DOMItem
     }
 
     /**
-     * @return DOMElement
+     * @return DOMNode
      */
     public function getDOMElement()
     {
@@ -321,11 +322,15 @@ class DOMItem
     }
 
     /**
-     * @param DOMElement $DOMElement
+     * @param DOMNode $DOMElement
+     *
+     * @return $this
      */
     public function setDOMElement($DOMElement)
     {
         $this->DOMElement = $DOMElement;
+
+        return $this;
     }
 }
 
