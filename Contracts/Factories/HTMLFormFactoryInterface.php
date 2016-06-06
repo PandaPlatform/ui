@@ -11,7 +11,7 @@
 
 declare(strict_types = 1);
 
-namespace Panda\Ui\Contracts;
+namespace Panda\Ui\Contracts\Factories;
 
 use Panda\Ui\Controls\Form\FormButton;
 use Panda\Ui\Controls\Form\FormElement;

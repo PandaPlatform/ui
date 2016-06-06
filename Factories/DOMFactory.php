@@ -11,9 +11,11 @@
 
 declare(strict_types = 1);
 
-namespace Panda\Ui;
+namespace Panda\Ui\Factories;
 
-use Panda\Ui\Contracts\DOMFactoryInterface;
+use Panda\Ui\Contracts\Factories\DOMFactoryInterface;
+use Panda\Ui\DOMItem;
+use Panda\Ui\DOMPrototype;
 
 class DOMFactory implements DOMFactoryInterface
 {

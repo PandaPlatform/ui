@@ -14,7 +14,7 @@ declare(strict_types = 1);
 namespace Panda\Ui\Templates\Forms;
 
 use Panda\Ui\Contracts\DOMBuilder;
-use Panda\Ui\Contracts\HTMLFormFactoryInterface;
+use Panda\Ui\Contracts\Factories\HTMLFormFactoryInterface;
 use Panda\Ui\Controls\Form as FormControl;
 use Panda\Ui\Html\HTMLDocument;
 use Panda\Ui\Html\HTMLElement;

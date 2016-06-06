@@ -18,7 +18,8 @@ use DOMElement;
 use DOMNodeList;
 use DOMXPath;
 use InvalidArgumentException;
-use Panda\Ui\Contracts\DOMFactoryInterface;
+use Panda\Ui\Contracts\Factories\DOMFactoryInterface;
+use Panda\Ui\Factories\DOMFactory;
 
 /**
  * Abstract Document Object Model Prototype Class

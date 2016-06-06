@@ -13,7 +13,7 @@ declare(strict_types = 1);
 
 namespace Panda\Ui\Frames;
 
-use Panda\Ui\Contracts\HTMLFormFactoryInterface;
+use Panda\Ui\Contracts\Factories\HTMLFormFactoryInterface;
 use Panda\Ui\DOMPrototype;
 use Panda\Ui\Html\HTMLElement;
 use Panda\Ui\Templates\Forms\Form;

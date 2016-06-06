@@ -14,7 +14,8 @@ declare(strict_types = 1);
 namespace Panda\Ui\Controls;
 
 use Exception;
-use Panda\Ui\Contracts\HTMLFormFactoryInterface;
+use Panda\Ui\Contracts\Factories\HTMLFormFactoryInterface;
+use Panda\Ui\Factories\FormFactory;
 use Panda\Ui\Html\HTMLDocument;
 use Panda\Ui\Html\HTMLElement;
 

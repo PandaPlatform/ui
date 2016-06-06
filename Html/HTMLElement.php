@@ -17,6 +17,7 @@ use DOMDocument;
 use Exception;
 use Panda\Ui\DOMItem;
 use Panda\Ui\DOMPrototype;
+use Panda\Ui\Factories\HTMLFactory;
 
 /**
  * HTML Element Class

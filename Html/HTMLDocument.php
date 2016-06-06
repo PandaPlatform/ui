@@ -15,8 +15,9 @@ namespace Panda\Ui\Html;
 
 use DOMNodeList;
 use Exception;
-use Panda\Ui\Contracts\HTMLFactoryInterface;
+use Panda\Ui\Contracts\Factories\HTMLFactoryInterface;
 use Panda\Ui\DOMPrototype;
+use Panda\Ui\Factories\HTMLFactory;
 use Panda\Ui\Helpers\HTMLHelper;
 
 /**
