@@ -9,6 +9,8 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types = 1);
+
 namespace Panda\Ui\Templates\Forms;
 
 use Panda\Ui\Contracts\DOMBuilder;
@@ -134,7 +136,9 @@ class Form extends FormControl implements DOMBuilder
      */
     public function appendToBody($element)
     {
-        return $this->formBody->append($element);
+        $this->formBody->append($element);
+
+        return $this;
     }
 
     /**
@@ -146,7 +150,9 @@ class Form extends FormControl implements DOMBuilder
      */
     public function appendToReport($element)
     {
-        return $this->formReport->append($element);
+        $this->formReport->append($element);
+
+        return $this;
     }
 }
 

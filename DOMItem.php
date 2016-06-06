@@ -102,7 +102,7 @@ class DOMItem
         if (is_bool($value) && $value === true) {
             $this->DOMElement->setAttributeNode(new DOMAttr($name));
         } else {
-            $this->DOMElement->setAttribute($name, trim($value));
+            $this->DOMElement->setAttribute($name, trim((string)$value));
         }
 
         return $value;
@@ -150,9 +150,9 @@ class DOMItem
     public function appendAttr($name, $value)
     {
         // Create new attribute value
-        $value = trim($value);
+        $value = trim((string)$value);
         $old_value = $this->DOMElement->getAttribute($name);
-        $value = trim(trim($old_value) . " " . $value);
+        $value = trim(trim((string)$old_value) . " " . $value);
 
         // Set new attribute value
         return $this->attr($name, $value);

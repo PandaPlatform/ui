@@ -52,6 +52,7 @@ class FormFactory extends HTMLFactory implements HTMLFormFactoryInterface
     public function buildInput($type = "text", $name = "", $value = "", $id = "", $class = "", $autofocus = false, $required = false)
     {
         // Create form input
+        $id = $id ?: "fi".mt_rand();
         $fi = new FormInput($this->getDocument(), $type, $name, $id, $class, $value, $required);
 
         // Add extra attributes
@@ -77,6 +78,7 @@ class FormFactory extends HTMLFactory implements HTMLFormFactoryInterface
     public function buildFileInput($name = "", $id = "", $class = "", $required = false, $accept = "")
     {
         // Create file input
+        $id = $id ?: "ffi".mt_rand();
         $fi = $this->buildInput($type = "file", $name, $value = "", $id, $class, $autofocus = false, $required);
 
         // Set accept attribute
@@ -121,6 +123,7 @@ class FormFactory extends HTMLFactory implements HTMLFormFactoryInterface
     public function buildButton($type, $title, $name = "", $id = "", $class = "")
     {
         // Create new form button
+        $id = $id ?: "fb".mt_rand();
         $fb = new FormButton($this->getDocument(), $type, $name, $id, $title);
 
         // Add class
@@ -144,6 +147,7 @@ class FormFactory extends HTMLFactory implements HTMLFormFactoryInterface
     public function buildSubmitButton($title, $name = "", $id = "", $class = "")
     {
         // Create the form submit button
+        $id = $id ?: "fsb".mt_rand();
         return $this->buildButton($type = "submit", $title, $name, $id, $class);
     }
 
@@ -160,6 +164,7 @@ class FormFactory extends HTMLFactory implements HTMLFormFactoryInterface
     public function buildResetButton($title, $id = "", $class = "")
     {
         // Create the form reset button
+        $id = $id ?: "frb".mt_rand();
         return $this->buildButton($type = "reset", $title, $name = "", $id, $class);
     }
 
@@ -179,6 +184,7 @@ class FormFactory extends HTMLFactory implements HTMLFormFactoryInterface
     public function buildTextarea($name = "", $value = "", $id = "", $class = "", $autofocus = false, $required = false)
     {
         // Create Form Item
+        $id = $id ?: "ftxt".mt_rand();
         $fi = new FormElement($this->getDocument(), $itemName = "textarea", $name, $id, $value, $class, $itemValue = "");
         $fi->nodeValue($value);
 
@@ -203,6 +209,7 @@ class FormFactory extends HTMLFactory implements HTMLFormFactoryInterface
     public function buildFieldset($title, $name = "", $id = "", $class = "")
     {
         // Create fieldset item
+        $id = $id ?: "flds".mt_rand();
         $fi = new FormElement($this->getDocument(), $itemName = "fieldset", $name, $value = "", $id, $class, $itemValue = "");
 
         // Create and append legend
@@ -229,6 +236,7 @@ class FormFactory extends HTMLFactory implements HTMLFormFactoryInterface
     public function buildSelect($name = "", $multiple = false, $id = "", $class = "", $options = array(), $selectedValue = "", $required = false)
     {
         // Create select form input
+        $id = $id ?: "fs".mt_rand();
         $fi = new FormSelect($this->getDocument(), $name, $id, $class, $multiple, $required);
 
         // Insert options if any

@@ -55,6 +55,7 @@ class HTMLFactory extends DOMFactory implements HTMLFactoryInterface
      */
     public function buildElement($name = "", $value = "", $id = "", $class = "")
     {
+        $id = $id ?: "elm".mt_rand();
         return (new HTMLElement($this->Document, $name, $value, $id, $class));
     }
 
@@ -73,6 +74,7 @@ class HTMLFactory extends DOMFactory implements HTMLFactoryInterface
     public function buildWeblink($href = "", $target = "_self", $content = "", $id = "", $class = "")
     {
         // Create weblink element
+        $id = $id ?: "wbl".mt_rand();
         $weblink = $this->buildElement($name = "a", $content, $id, $class);
 
         // Add attributes
