@@ -49,7 +49,7 @@ class Form extends HTMLElement
      *
      * @throws Exception
      */
-    public function __construct(HTMLDocument $HTMLDocument, $HTMLFormFactory = null, $id = "", $action = "", $async = true, $fileUpload = false)
+    public function __construct(HTMLDocument $HTMLDocument, $HTMLFormFactory = null, $id = "", $action = "", $async = false, $fileUpload = false)
     {
         // Create HTML Form element
         parent::__construct($HTMLDocument, $name = "form", $value = "", $id);
