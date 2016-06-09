@@ -56,7 +56,7 @@ class FormButton extends FormElement
         }
 
         // Create HTMLElement
-        parent::__construct($HTMLDocument, $itemName = "button", $name, $value = "", $id, $class = "", $title);
+        parent::__construct($HTMLDocument, $itemName = "button", $name, $value = "", $id, $class = "form-button", $title);
 
         // Add extra attributes
         $this->attr("type", $type);

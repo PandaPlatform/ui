@@ -88,7 +88,7 @@ class Form extends FormControl implements DOMBuilder
         parent::__construct($HTMLDocument, $HTMLFormFactory, $this->formId, $action, $async, $fileUpload);
 
         // Add extra class
-        $this->addClass("template-form");
+        $this->addClass("form-template");
     }
 
     /**

@@ -16,7 +16,6 @@ namespace Panda\Ui\Frames;
 use Panda\Ui\Contracts\Factories\HTMLFormFactoryInterface;
 use Panda\Ui\DOMPrototype;
 use Panda\Ui\Html\HTMLElement;
-use Panda\Ui\Templates\Forms\Form;
 use Panda\Ui\Templates\Forms\SimpleForm;
 
 /**
@@ -25,7 +24,7 @@ use Panda\Ui\Templates\Forms\SimpleForm;
  *
  * @package Panda\Ui\Frames
  */
-class dialogFrame extends WindowFrame
+class DialogFrame extends WindowFrame
 {
     /**
      * OK/Cancel dialog buttons.
@@ -42,7 +41,7 @@ class dialogFrame extends WindowFrame
     const TYPE_YES_NO = "2";
 
     /**
-     * @type Form
+     * @type SimpleForm
      */
     private $form;
 
@@ -77,43 +76,41 @@ class dialogFrame extends WindowFrame
     /**
      * Builds the frame along with the form action.
      *
-     * @param    mixed   $title
-     *        The dialog's title.
+     * @param mixed   $title      The dialog's title.
+     * @param string  $action     The form action to post the dialog to.
+     *                            Leave empty in order to engage with module or application protocol.
+     *                            It is empty by default.
+     * @param boolean $background Defines whether the dialog popup will have a background.
+     *                            It is TRUE by default, as a dialog.
+     * @param string  $type       The dialog buttons type.
+     *                            Use class constants to define an OK/Cancel or Yes/No type.
+     *                            Default type is OK/Cancel.
+     * @param bool    $fileUpload
      *
-     * @param    string  $action
-     *        The form action to post the dialog to.
-     *        Leave empty in order to engage with module or application protocol.
-     *        It is empty by default.
-     *
-     * @param    boolean $background
-     *        Defines whether the dialog popup will have a background.
-     *        It is TRUE by default, as a dialog.
-     *
-     * @param    string  $type
-     *        The dialog buttons type.
-     *        Use class constants to define an OK/Cancel or Yes/No type.
-     *        Default type is OK/Cancel.
-     *
-     * @return    dialogFrame
-     *        The dialogFrame object.
+     * @return $this
      */
-    public function build($title = "Dialog Frame", $action = "", $background = true, $type = self::TYPE_OK_CANCEL)
+    public function build($title = "Dialog Frame", $action = "", $background = true, $type = self::TYPE_OK_CANCEL, $fileUpload = false)
     {
         // Build window frame
         parent::build($title, "dialogFrame");
 
         // Build Form
-        $this->form = new SimpleForm($this->getHTMLDocument(), $this->formFactory);
+        $this->form = new SimpleForm($this->getHTMLDocument(), $this->formFactory, $id = "", $action, $async = true, $fileUpload);
         $this->form->build(false, true);
-
-        // Build form content
-        $this->formContent = $this->getHTMLDocument()->create("div", "", "", "formContents");
-        $this->form->appendToBody($this->formContent);
+        $this->appendToBody($this->form);
 
         // Build Controls
         $this->buildControls($type);
 
         return $this;
+    }
+
+    /**
+     * @return SimpleForm
+     */
+    public function getForm()
+    {
+        return $this->form;
     }
 
     /**
@@ -142,6 +139,8 @@ class dialogFrame extends WindowFrame
      * @param string $type The dialog buttons type.
      *                     Use class constants to define an OK/Cancel or Yes/No type.
      *                     Default type is OK/Cancel.
+     *
+     * @return $this
      */
     private function buildControls($type = self::TYPE_OK_CANCEL)
     {
@@ -158,9 +157,11 @@ class dialogFrame extends WindowFrame
         $lbl_reset = ($type == self::TYPE_OK_CANCEL ? "cancel" : "no");
 
         // Insert Controls
-        $submitBtn = $this->formFactory->buildSubmitButton($lbl_submit, "", "", "dlgExec");
+        $submitBtn = $this->formFactory->buildSubmitButton($lbl_submit, "", "", "dlgExec positive");
         $btnContainer->append($submitBtn);
         $resetBtn = $this->formFactory->buildResetButton($lbl_reset, "", "dlgCancel");
         $btnContainer->append($resetBtn);
+
+        return $this;
     }
 }

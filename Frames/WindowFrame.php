@@ -57,6 +57,9 @@ class WindowFrame extends HTMLElement implements DOMBuilder
      */
     public function build($title = "", $class = "")
     {
+        // Add class
+        $this->addClass($class);
+
         // Create header
         $frameHeader = $this->getHTMLDocument()->create("div", "", "", "frameHeader");
         $this->append($frameHeader);

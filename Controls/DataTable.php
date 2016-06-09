@@ -209,7 +209,7 @@ class DataTable extends HTMLElement implements DOMBuilder
     /**
      * Assistant function in inserting a row into the dataGridList
      *
-     * @param array  $contents Array with text or DOMElements
+     * @param array  $contents Array with text or HTMLElements
      * @param string $class    Extra classes for styling specific rows (used for header)
      * @param bool   $header   Whether this row is the header of the list.
      *
@@ -239,18 +239,19 @@ class DataTable extends HTMLElement implements DOMBuilder
 
         // Insert contents to row
         foreach ($contents as $key => $contentValue) {
-            // Create grid text wrapper
-            $gridTextWrapper = $this->getHTMLDocument()->create("span", "".$contentValue, "", "DataTableTextWrapper");
-
             // Create item identifier
             $itemIdentifier = "";
             if (gettype($key) == "string") {
                 $itemIdentifier = strtolower(str_replace(" ", "", $key));
             } else if (gettype($contentValue) == "string" || gettype($contentValue) == "integer" || gettype($contentValue) == "double") {
+                $contentValue = "" . $contentValue;
                 $itemIdentifier = strtolower(str_replace(" ", "", $contentValue));
             } else if ($contentValue->tagName == "span") {
                 $itemIdentifier = strtolower(str_replace(" ", "", $contentValue->getElement()->nodeValue));
             }
+
+            // Set text wrapper
+            $gridTextWrapper = $this->getHTMLDocument()->create("span", $contentValue, "", "DataTableTextWrapper");
 
             // Set item style
             $gridTextWrapper->appendAttr("style", "max-width:100%;width:100%;box-sizing:border-box;");
@@ -315,4 +316,5 @@ class DataTable extends HTMLElement implements DOMBuilder
         return $this;
     }
 }
+
 ?>

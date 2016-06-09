@@ -46,7 +46,7 @@ class SimpleForm extends Form implements DOMBuilder
     public function build($defaultButtons = true, $requiredNotes = false)
     {
         // Add extra template attributes
-        $this->addClass("simple-form");
+        $this->addClass("form-simple");
 
         // Build form template
         parent::build();
@@ -68,7 +68,7 @@ class SimpleForm extends Form implements DOMBuilder
     private function buildRequiredNotes()
     {
         // Build the required notes container
-        $requireNotesContainer = $this->getHTMLDocument()->create("div", "", "", "simple-form-required-notes");
+        $requireNotesContainer = $this->getHTMLDocument()->create("div", "", "", "form-simple-required-notes");
 
         // Create note
         $note = $this->getHTMLDocument()->create("p", "", "", "rqNote");
@@ -105,11 +105,11 @@ class SimpleForm extends Form implements DOMBuilder
             $this->formControls->append($row);
 
             // Submit button
-            $submitBtn = $this->getHTMLFormFactory()->buildSubmitButton("Save", "", "", "form-button positive");
+            $submitBtn = $this->getHTMLFormFactory()->buildSubmitButton("Save", "", "", "positive");
             $row->append($submitBtn);
 
             // Reset button
-            $resetBtn = $this->getHTMLFormFactory()->buildResetButton("Cancel", "", "form-button");
+            $resetBtn = $this->getHTMLFormFactory()->buildResetButton("Cancel", "", "");
             $row->append($resetBtn);
         }
     }
@@ -211,11 +211,11 @@ class SimpleForm extends Form implements DOMBuilder
      */
     public function formRow()
     {
-        return $this->getHTMLDocument()->create("div", "", "", "simple-form-row");
+        return $this->getHTMLDocument()->create("div", "", "", "form-simple-row");
     }
 
     /**
-     * Get a simple-form label.
+     * Get a form-simple label.
      *
      * @param mixed  $content
      * @param string $for
@@ -224,7 +224,7 @@ class SimpleForm extends Form implements DOMBuilder
      */
     public function formLabel($content, $for)
     {
-        return $this->getHTMLFormFactory()->buildLabel($content, $for, $class = "simple-form-label");
+        return $this->getHTMLFormFactory()->buildLabel($content, $for, $class = "form-simple-label");
     }
 
     /**
@@ -236,7 +236,7 @@ class SimpleForm extends Form implements DOMBuilder
      */
     private function formNotes($notes)
     {
-        return $this->getHTMLDocument()->create("div", $notes, "", "simple-form-notes");
+        return $this->getHTMLDocument()->create("div", $notes, "", "form-simple-notes");
     }
 
     /**
