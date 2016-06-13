@@ -215,11 +215,11 @@ class HTMLPage extends HTMLDocument implements DOMBuilder
     /**
      * Inserts a script line.
      *
-     * @param string  $src    The URL source file of the script.
-     * @param bool $async  Set the async attribute to script tag.
-     *                        It is FALSE by default.
-     * @param bool $bottom Indicator whether the script tag will be placed at the bottom of the page.
-     *                        The default value is FALSE.
+     * @param string $src    The URL source file of the script.
+     * @param bool   $async  Set the async attribute to script tag.
+     *                       It is FALSE by default.
+     * @param bool   $bottom Indicator whether the script tag will be placed at the bottom of the page.
+     *                       The default value is FALSE.
      *
      * @return HTMLElement The script element created.
      */

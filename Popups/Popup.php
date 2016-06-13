@@ -76,14 +76,14 @@ class Popup extends HTMLElement implements DOMBuilder
     /**
      * In case of positioning relative to the sender, the offset of the popup in distance from the sender in pixels.
      *
-     * @var integer
+     * @var int
      */
     protected $distanceOffset = 0;
 
     /**
      * In case of positioning relative to the sender, the offset of the popup in alignment from the sender in pixels.
      *
-     * @var integer
+     * @var int
      */
     protected $alignOffset = 0;
 
@@ -324,7 +324,7 @@ class Popup extends HTMLElement implements DOMBuilder
             return $this;
         }
 
-        $info = array_intersect_key($position, array('top' => '', 'bottom' => '', 'left' => '', 'right' => '', 'position' => ''));
+        $info = array_intersect_key($position, ['top' => '', 'bottom' => '', 'left' => '', 'right' => '', 'position' => '']);
         $this->position = $info;
 
         return $this;
@@ -353,7 +353,7 @@ class Popup extends HTMLElement implements DOMBuilder
     /**
      * Gets or defines the alignment offset property.
      *
-     * @param integer $offset The align offset value
+     * @param int $offset The align offset value
      *
      * @return mixed The alignment with sender, or $this.
      */

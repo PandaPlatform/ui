@@ -32,17 +32,17 @@ class FormFactory extends HTMLFactory implements HTMLFormFactoryInterface
     /**
      * Builds and returns an input item.
      *
-     * @param string  $type      The input's type.
+     * @param string $type       The input's type.
      *                           This must abide by the rules of the possible input types.
-     * @param string  $name      The input's name.
-     * @param string  $value     The input's default value.
+     * @param string $name       The input's name.
+     * @param string $value      The input's default value.
      *                           It is empty by default.
-     * @param string  $id        The input's id attribute.
-     * @param string  $class     The extra class for the input.
+     * @param string $id         The input's id attribute.
+     * @param string $class      The extra class for the input.
      *                           It is empty by default.
-     * @param bool $autofocus Inserts the autofocus attribute to the input.
+     * @param bool   $autofocus  Inserts the autofocus attribute to the input.
      *                           It is FALSE by default.
-     * @param bool $required  Indicates this input as required.
+     * @param bool   $required   Indicates this input as required.
      *                           It is FALSE by default.
      *
      * @return HTMLElement The form input element
@@ -200,10 +200,10 @@ class FormFactory extends HTMLFactory implements HTMLFormFactoryInterface
     /**
      * Build an html form fieldset element.
      *
-     * @param string $title The fieldset's legend title.
-     * @param string $name  The fieldset's name.
-     * @param string $id    The fieldset's id.
-     * @param string $class The fieldset's class.
+     * @param string $title The fieldset legend title.
+     * @param string $name  The fieldset name.
+     * @param string $id    The fieldset id.
+     * @param string $class The fieldset class.
      *
      * @return FormElement The fieldset form element.
      */

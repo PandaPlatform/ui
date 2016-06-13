@@ -139,11 +139,11 @@ class HTMLElement extends DOMItem
      * Set or get a style value.
      * This function will append the style rule in the style attribute.
      *
-     * @param string $name     The style name.
-     * @param string $val      If the value is NULL or FALSE, the value is considered negative and the style will be
-     *                         removed from the attribute. If the value is empty string (default, null is not
-     *                         included), the function will return the style value. Otherwise, the style will be
-     *                         appended to the style attribute and the new attribute will be returned.
+     * @param string $name The style name.
+     * @param string $val  If the value is NULL or FALSE, the value is considered negative and the style will be
+     *                     removed from the attribute. If the value is empty string (default, null is not
+     *                     included), the function will return the style value. Otherwise, the style will be
+     *                     appended to the style attribute and the new attribute will be returned.
      *
      * @return $this|mixed
      */
@@ -166,7 +166,7 @@ class HTMLElement extends DOMItem
         // If value is null or false, remove attribute
         if (is_null($val) || (is_bool($val) && $val === false)) {
             unset($styles[$name]);
-        } else if (empty($val)) {
+        } elseif (empty($val)) {
             return $styles[$name];
         } else {
             $styles[$name] = $val;
@@ -192,12 +192,12 @@ class HTMLElement extends DOMItem
      * Returns the inner html of the element if no content is given.
      * Sets the innerHTML of an element elsewhere.
      *
-     * @param string  $value              The html value to be set.
-     *                                    If empty, it returns the innerHTML of the element.
-     * @param bool $faultTolerant      Indicates whenever innerHTML will try to fix (well format html) the inserted
-     *                                    string value.
-     * @param bool $convertEncoding    Option to convert the encoding of the value to UTF-8.
-     *                                    It is TRUE by default.
+     * @param string $value           The html value to be set.
+     *                                If empty, it returns the innerHTML of the element.
+     * @param bool   $faultTolerant   Indicates whenever innerHTML will try to fix (well format html) the inserted
+     *                                string value.
+     * @param bool   $convertEncoding Option to convert the encoding of the value to UTF-8.
+     *                                It is TRUE by default.
      *
      * @return mixed|$this
      */
