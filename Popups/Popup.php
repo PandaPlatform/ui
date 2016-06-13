@@ -136,7 +136,7 @@ class Popup extends HTMLElement implements DOMBuilder
         $this->append($info);
 
         //_____ Popup Attributes
-        $settings = array();
+        $settings = [];
         $settings['binding'] = $this->binding;
         $settings['type'] = $this->type;
         $settings['timeout'] = ($this->timeout ?: false);
@@ -144,7 +144,7 @@ class Popup extends HTMLElement implements DOMBuilder
         $settings['fade'] = ($this->fade ?: false);
         $info->data('popup-settings', $settings);
 
-        $extra = array();
+        $extra = [];
         $extra['id'] = $this->popupId;
         $extra['parentid'] = $this->parent;
         $extra['position'] = $this->position;

@@ -19,6 +19,7 @@ use Panda\Ui\Contracts\Factories\HTMLFactoryInterface;
 use Panda\Ui\DOMPrototype;
 use Panda\Ui\Factories\HTMLFactory;
 use Panda\Ui\Helpers\HTMLHelper;
+use Symfony\Component\CssSelector\CssSelectorConverter;
 
 /**
  * HTML Document Class
@@ -57,7 +58,7 @@ class HTMLDocument extends DOMPrototype
     public function create($name = 'div', $value = '', $id = '', $class = '')
     {
         // Create a new HTMLElement
-        return (new HTMLElement($this, $name, $value, $id, $class));
+        return new HTMLElement($this, $name, $value, $id, $class);
     }
 
     /**
@@ -102,7 +103,8 @@ class HTMLDocument extends DOMPrototype
     public function select($selector, $context = null)
     {
         // Get xpath from css selector
-        $xpath = HTMLHelper::CSSSelector2XPath($selector);
+        $converter = new CssSelectorConverter();
+        $xpath = $converter->toXPath($selector);
 
         // Get the context node if css context
         if (!empty($context) && is_string($context)) {

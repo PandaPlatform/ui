@@ -28,8 +28,8 @@ class HTMLHelper
      * @var array
      */
     private static $validHTMLTags = [
-        "div",
-        "p",
+        'div',
+        'p',
     ];
 
     /**
@@ -49,45 +49,45 @@ class HTMLHelper
 
         // Prepare css selector
         // Transform css to xpath
-        $xpath = preg_replace("/[ \t\r\n\s]+/", " ", $selector);
+        $xpath = preg_replace('/[ \t\r\n\s]+/', ' ', $selector);
 
         // Identify Attributes
-        $xpath = str_replace("[", "[@", $xpath);
+        $xpath = str_replace('[', '[@', $xpath);
 
         // Identify IDs
-        $xpath = preg_replace("/\#(-?[_a-zA-Z]+[_a-zA-Z0-9-]*)/", "[@id='$1']", $xpath);
+        $xpath = preg_replace('/\#(-?[_a-zA-Z]+[_a-zA-Z0-9-]*)/', "[@id='$1']", $xpath);
 
         // Identify Classes
-        $xpath = preg_replace("/\.(-?[_a-zA-Z]+[_a-zA-Z0-9-]*)/", "[contains(concat('_xpsp_'_xpcm_@class_xpcm_'_xpsp_')_xpcm_'_xpsp_$1_xpsp_')]", $xpath);
-        //$xpath = preg_replace("/\.(-?[_a-zA-Z]+[_a-zA-Z0-9-]*)/", "[contains(@class_xpcm_'$1')]", $xpath);
+        $xpath = preg_replace('/\.(-?[_a-zA-Z]+[_a-zA-Z0-9-]*)/', "[contains(concat('_xpsp_'_xpcm_@class_xpcm_'_xpsp_')_xpcm_'_xpsp_$1_xpsp_')]", $xpath);
+        //$xpath = preg_replace('/\.(-?[_a-zA-Z]+[_a-zA-Z0-9-]*)/', "[contains(@class_xpcm_'$1')]", $xpath);
 
         // Identify root
         if (empty($context)) {
-            $xpath = preg_replace("/[^,]+/", "//$0", $xpath);
+            $xpath = preg_replace('/[^,]+/', '//$0', $xpath);
         }
 
         // Identify Descendants
-        $xpath = preg_replace("/([^>~+])([ ])([^>~+])/", "$1//$2$3", $xpath);
+        $xpath = preg_replace('/([^>~+])([ ])([^>~+])/', '$1//$2$3', $xpath);
 
         // Identify Children
-        $xpath = str_replace(">", "/", $xpath);
+        $xpath = str_replace('>', '/', $xpath);
 
         // Identify Direct Next siblings
-        //$xpath = preg_replace("/\+[ ]+([^ >+~,\/]*(\[.*?\])?[^ >+~,\/]*)/", "/following-sibling::$1[1]", $xpath);
+        //$xpath = preg_replace('/\+[ ]+([^ >+~,\/]*(\[.*?\])?[^ >+~,\/]*)/', '/following-sibling::$1[1]', $xpath);
         // Identify Next siblings
-        //$xpath = preg_replace("/\~[ ]+([^ >+~,\/]*(\[.*?\])?[^ >+~,\/]*)/", "/following-sibling::$1", $xpath);
+        //$xpath = preg_replace('/\~[ ]+([^ >+~,\/]*(\[.*?\])?[^ >+~,\/]*)/', '/following-sibling::$1', $xpath);
 
         // Identify multiple selectors
-        $xpath = str_replace(" ", '', $xpath);
-        $xpath = str_replace(",", " | ", $xpath);
+        $xpath = str_replace(' ', '', $xpath);
+        $xpath = str_replace(',', ' | ', $xpath);
 
-        // Identify "orphans" [no element, just attributes]
-        $xpath = str_replace("/[", "/*[", $xpath);
+        // Identify 'orphans' [no element, just attributes]
+        $xpath = str_replace('/[', '/*[', $xpath);
 
         // Restore commas, spaces and or in functions
-        $xpath = str_replace("_xpcm_", ",", $xpath);
-        $xpath = str_replace("_xpsp_", " ", $xpath);
-        //$xpath = str_replace("_xpor_", " or ", $xpath);
+        $xpath = str_replace('_xpcm_', ',', $xpath);
+        $xpath = str_replace('_xpsp_', ' ', $xpath);
+        //$xpath = str_replace('_xpor_', ' or ', $xpath);
 
         // Return xpath
         return $xpath;

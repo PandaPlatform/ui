@@ -153,11 +153,11 @@ class HTMLElement extends DOMItem
         $elementStyle = $this->attr('style');
         $elementStyle = trim($elementStyle, '; ');
 
-        $styleArray = array();
+        $styleArray = [];
         if (!empty($elementStyle)) {
             $styleArray = explode(';', $elementStyle);
         }
-        $styles = array();
+        $styles = [];
         foreach ($styleArray as $stylePair) {
             $pair = explode(':', $stylePair);
             $styles[trim($pair[0])] = trim($pair[1]);
@@ -173,7 +173,7 @@ class HTMLElement extends DOMItem
         }
 
         // Pack all styles into one value
-        $styleArray = array();
+        $styleArray = [];
         foreach ($styles as $name => $value) {
             $pieces = array($name, $value);
             $styleArray[] = implode(': ', $pieces);
@@ -194,9 +194,9 @@ class HTMLElement extends DOMItem
      *
      * @param string  $value              The html value to be set.
      *                                    If empty, it returns the innerHTML of the element.
-     * @param boolean $faultTolerant      Indicates whenever innerHTML will try to fix (well format html) the inserted
+     * @param bool $faultTolerant      Indicates whenever innerHTML will try to fix (well format html) the inserted
      *                                    string value.
-     * @param boolean $convertEncoding    Option to convert the encoding of the value to UTF-8.
+     * @param bool $convertEncoding    Option to convert the encoding of the value to UTF-8.
      *                                    It is TRUE by default.
      *
      * @return mixed|$this

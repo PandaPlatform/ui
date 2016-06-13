@@ -88,10 +88,8 @@ class SimpleForm extends Form implements DOMBuilder
     /**
      * Builds and appends the form default controls (submit and reset buttons).
      *
-     * @param    boolean $defaultButtons
-     *        Options whether the form will have the default control buttons (execute and reset buttons).
-     *
-     * @return    void
+     * @param bool $defaultButtons Options whether the form will have the default control buttons (execute and reset
+     *                             buttons).
      */
     private function buildControls($defaultButtons)
     {

@@ -72,7 +72,7 @@ class DialogFrame extends WindowFrame
      * @param string  $action     The form action to post the dialog to.
      *                            Leave empty in order to engage with module or application protocol.
      *                            It is empty by default.
-     * @param boolean $background Defines whether the dialog popup will have a background.
+     * @param bool $background Defines whether the dialog popup will have a background.
      *                            It is TRUE by default, as a dialog.
      * @param string  $type       The dialog buttons type.
      *                            Use class constants to define an OK/Cancel or Yes/No type.

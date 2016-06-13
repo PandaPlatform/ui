@@ -40,9 +40,9 @@ class FormFactory extends HTMLFactory implements HTMLFormFactoryInterface
      * @param string  $id        The input's id attribute.
      * @param string  $class     The extra class for the input.
      *                           It is empty by default.
-     * @param boolean $autofocus Inserts the autofocus attribute to the input.
+     * @param bool $autofocus Inserts the autofocus attribute to the input.
      *                           It is FALSE by default.
-     * @param boolean $required  Indicates this input as required.
+     * @param bool $required  Indicates this input as required.
      *                           It is FALSE by default.
      *
      * @return HTMLElement The form input element

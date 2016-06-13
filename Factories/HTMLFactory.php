@@ -58,7 +58,7 @@ class HTMLFactory extends DOMFactory implements HTMLFactoryInterface
     {
         $id = $id ?: 'elm' . mt_rand();
 
-        return (new HTMLElement($this->Document, $name, $value, $id, $class));
+        return new HTMLElement($this->Document, $name, $value, $id, $class);
     }
 
     /**

@@ -65,12 +65,12 @@ class DOMItem
     /**
      * Get or set an attribute for a given DOMElement.
      *
-     * @param string $name           The name of the attribute.
-     * @param mixed  $value          If the value is null or false, the value is considered negative and the attribute
-     *                               will be removed. If the value is empty string(default, null is not included), the
-     *                               function will return the attribute value. Otherwise, the attribute will be set with
-     *                               the new value and the new value will be returned.
-     * @param bool   $validate       Validate the attribute value for special cases (id)
+     * @param string $name     The name of the attribute.
+     * @param mixed  $value    If the value is null or false, the value is considered negative and the attribute
+     *                         will be removed. If the value is empty string(default, null is not included), the
+     *                         function will return the attribute value. Otherwise, the attribute will be set with
+     *                         the new value and the new value will be returned.
+     * @param bool   $validate Validate the attribute value for special cases (id)
      *
      * @return string If the given value is empty, it returns True if the attribute is removed, False otherwise.
      * If the given value is empty, it returns True if the attribute is removed, False otherwise.
@@ -110,8 +110,8 @@ class DOMItem
     /**
      * Get or set a series of attributes (in the form of an array) into a DOMElement
      *
-     * @param array $value           The array of attributes.
-     *                               The key is the name of the attribute.
+     * @param array $value The array of attributes.
+     *                     The key is the name of the attribute.
      *
      * @return array
      */
@@ -119,7 +119,7 @@ class DOMItem
     {
         if (empty($value)) {
             // Get current attributes
-            $attrs = array();
+            $attrs = [];
             foreach ($this->DOMElement->attributes as $attr) {
                 $attrs[$attr->name] = $attr->value;
             }
@@ -133,7 +133,7 @@ class DOMItem
             }
         }
 
-        return array();
+        return [];
     }
 
 
@@ -161,9 +161,9 @@ class DOMItem
      * Inserts a data-[name] attribute.
      * It supports single value or an array of values.
      *
-     * @param string $name        The data name of the attribute (data-[name])
-     * @param mixed  $value       The data value.
-     *                            It can be a single value or an array of values.
+     * @param string $name  The data name of the attribute (data-[name])
+     * @param mixed  $value The data value.
+     *                      It can be a single value or an array of values.
      *
      * @return bool|string TRUE or the new value on success, FALSE on failure.
      */
@@ -199,8 +199,8 @@ class DOMItem
      * Sets or gets the nodeValue of the given DOMElement.
      * Returns the old value or the DOMElement if value is set.
      *
-     * @param string $value    The value to be set.
-     *                         If empty, the element's value will be returned.
+     * @param string $value The value to be set.
+     *                      If empty, the element's value will be returned.
      *
      * @return string The node value (old or new).
      */

@@ -45,7 +45,7 @@ class DOMFactory implements DOMFactoryInterface
      */
     public function buildElement($name = '', $value = '')
     {
-        return (new DOMItem($this->Document, $name, $value));
+        return new DOMItem($this->Document, $name, $value);
     }
 
     /**

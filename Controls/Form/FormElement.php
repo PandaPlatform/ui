@@ -72,7 +72,7 @@ class FormElement extends HTMLElement
         $expression = implode('|', $this->types);
         $valid = preg_match('/^(' . $expression . ')$/', $type);
 
-        return ($valid === 1);
+        return $valid === 1;
     }
 }
 

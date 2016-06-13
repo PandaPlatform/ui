@@ -94,7 +94,7 @@ class DataTable extends HTMLElement implements DOMBuilder
     {
         // Set object variables
         $this->checkable = (!$checkable ? false : true);
-        $this->checkList = (!$checkable ? null : array());
+        $this->checkList = (!$checkable ? null : []);
 
         // Add extra classes
         if ($this->checkable) {
@@ -243,10 +243,10 @@ class DataTable extends HTMLElement implements DOMBuilder
             $itemIdentifier = '';
             if (gettype($key) == 'string') {
                 $itemIdentifier = strtolower(str_replace(' ', '', $key));
-            } else if (gettype($contentValue) == 'string' || gettype($contentValue) == 'integer' || gettype($contentValue) == 'double') {
+            } elseif (gettype($contentValue) == 'string' || gettype($contentValue) == 'integer' || gettype($contentValue) == 'double') {
                 $contentValue = '' . $contentValue;
                 $itemIdentifier = strtolower(str_replace(' ', '', $contentValue));
-            } else if ($contentValue->tagName == 'span') {
+            } elseif ($contentValue->tagName == 'span') {
                 $itemIdentifier = strtolower(str_replace(' ', '', $contentValue->getElement()->nodeValue));
             }
 
@@ -274,8 +274,9 @@ class DataTable extends HTMLElement implements DOMBuilder
             if (empty($this->columnRatios)) {
                 $ratio = (!$this->checkable ? 100 : 100 - 8);
                 $w = $ratio / $this->hSize;
-            } else
+            } else {
                 $w = $this->columnRatios[$key];
+            }
             $gridCell->attr('style', 'width:' . $w . '%;');
         }
 

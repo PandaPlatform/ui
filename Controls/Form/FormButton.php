@@ -46,7 +46,6 @@ class FormButton extends FormElement
      * @param string       $title        The button's title.
      *
      * @throws Exception
-     *
      */
     public function __construct(HTMLDocument $HTMLDocument, $type = 'submit', $name = '', $id = '', $title = '')
     {

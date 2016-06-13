@@ -28,7 +28,6 @@ class FormSelect extends FormElement
      * Create a new form item.
      *
      * @param HTMLDocument $HTMLDocument The DOMDocument to create the element
-     *
      * @param string       $name         The input's name
      * @param string       $id           The input's id
      * @param string       $class        The input's class
@@ -56,6 +55,7 @@ class FormSelect extends FormElement
      * @param string $selectedValue The selected value among the option keys.
      *
      * @return FormSelect
+     *
      * @throws Exception
      */
     public function addOptions($options = [], $selectedValue = '')
@@ -85,6 +85,7 @@ class FormSelect extends FormElement
      * @param string $selectedValue The selected value among the option keys.
      *
      * @return FormSelect
+     *
      * @throws Exception
      */
     public function addOptionsWithGroups($optionGroups = [], $selectedValue = '')
