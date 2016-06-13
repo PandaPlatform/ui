@@ -48,14 +48,14 @@ class FormFactory extends HTMLFactory implements HTMLFormFactoryInterface
      * @return HTMLElement The form input element
      * @throws Exception
      */
-    public function buildInput($type = "text", $name = "", $value = "", $id = "", $class = "", $autofocus = false, $required = false)
+    public function buildInput($type = 'text', $name = '', $value = '', $id = '', $class = '', $autofocus = false, $required = false)
     {
         // Create form input
-        $id = $id ?: "fi" . mt_rand();
+        $id = $id ?: 'fi' . mt_rand();
         $fi = new FormInput($this->getDocument(), $type, $name, $id, $class, $value, $required);
 
         // Add extra attributes
-        $fi->attr("autofocus", $autofocus);
+        $fi->attr('autofocus', $autofocus);
 
         // Return form item
         return $fi;
@@ -74,14 +74,14 @@ class FormFactory extends HTMLFactory implements HTMLFormFactoryInterface
      * @return HTMLElement The form file input element.
      * @throws Exception
      */
-    public function buildFileInput($name = "", $id = "", $class = "", $required = false, $accept = "")
+    public function buildFileInput($name = '', $id = '', $class = '', $required = false, $accept = '')
     {
         // Create file input
-        $id = $id ?: "ffi" . mt_rand();
-        $fi = $this->buildInput($type = "file", $name, $value = "", $id, $class, $autofocus = false, $required);
+        $id = $id ?: 'ffi' . mt_rand();
+        $fi = $this->buildInput($type = 'file', $name, $value = '', $id, $class, $autofocus = false, $required);
 
         // Set accept attribute
-        $fi->attr("accept", $accept);
+        $fi->attr('accept', $accept);
 
         // Return form item
         return $fi;
@@ -96,7 +96,7 @@ class FormFactory extends HTMLFactory implements HTMLFormFactoryInterface
      *
      * @return FormLabel The form label element
      */
-    public function buildLabel($content, $for = "", $class = "")
+    public function buildLabel($content, $for = '', $class = '')
     {
         // Create new form label
         $fl = new FormLabel($this->getDocument(), $content, $for);
@@ -119,10 +119,10 @@ class FormFactory extends HTMLFactory implements HTMLFormFactoryInterface
      *
      * @return FormButton The form button element
      */
-    public function buildButton($type, $title, $name = "", $id = "", $class = "")
+    public function buildButton($type, $title, $name = '', $id = '', $class = '')
     {
         // Create new form button
-        $id = $id ?: "fb" . mt_rand();
+        $id = $id ?: 'fb' . mt_rand();
         $fb = new FormButton($this->getDocument(), $type, $name, $id, $title);
 
         // Add class
@@ -143,12 +143,12 @@ class FormFactory extends HTMLFactory implements HTMLFormFactoryInterface
      * @return FormButton The submit button.
      * @throws Exception
      */
-    public function buildSubmitButton($title, $name = "", $id = "", $class = "")
+    public function buildSubmitButton($title, $name = '', $id = '', $class = '')
     {
         // Create the form submit button
-        $id = $id ?: "fsb" . mt_rand();
+        $id = $id ?: 'fsb' . mt_rand();
 
-        return $this->buildButton($type = "submit", $title, $name, $id, $class);
+        return $this->buildButton($type = 'submit', $title, $name, $id, $class);
     }
 
     /**
@@ -161,12 +161,12 @@ class FormFactory extends HTMLFactory implements HTMLFormFactoryInterface
      * @return FormButton The reset button
      * @throws Exception
      */
-    public function buildResetButton($title, $id = "", $class = "")
+    public function buildResetButton($title, $id = '', $class = '')
     {
         // Create the form reset button
-        $id = $id ?: "frb" . mt_rand();
+        $id = $id ?: 'frb' . mt_rand();
 
-        return $this->buildButton($type = "reset", $title, $name = "", $id, $class);
+        return $this->buildButton($type = 'reset', $title, $name = '', $id, $class);
     }
 
     /**
@@ -182,16 +182,16 @@ class FormFactory extends HTMLFactory implements HTMLFormFactoryInterface
      * @return FormElement The html form textarea.
      * @throws Exception
      */
-    public function buildTextarea($name = "", $value = "", $id = "", $class = "", $autofocus = false, $required = false)
+    public function buildTextarea($name = '', $value = '', $id = '', $class = '', $autofocus = false, $required = false)
     {
         // Create Form Item
-        $id = $id ?: "ftxt" . mt_rand();
-        $fi = new FormElement($this->getDocument(), $itemName = "textarea", $name, $id, $value, $class, $itemValue = "");
+        $id = $id ?: 'ftxt' . mt_rand();
+        $fi = new FormElement($this->getDocument(), $itemName = 'textarea', $name, $id, $value, $class, $itemValue = '');
         $fi->nodeValue($value);
 
         // Set attributes
-        $fi->attr("autofocus", $autofocus);
-        $fi->attr("required", $required);
+        $fi->attr('autofocus', $autofocus);
+        $fi->attr('required', $required);
 
         // Return form item
         return $fi;
@@ -207,14 +207,14 @@ class FormFactory extends HTMLFactory implements HTMLFormFactoryInterface
      *
      * @return FormElement The fieldset form element.
      */
-    public function buildFieldset($title, $name = "", $id = "", $class = "")
+    public function buildFieldset($title, $name = '', $id = '', $class = '')
     {
         // Create fieldset item
-        $id = $id ?: "flds" . mt_rand();
-        $fi = new FormElement($this->getDocument(), $itemName = "fieldset", $name, $value = "", $id, $class, $itemValue = "");
+        $id = $id ?: 'flds' . mt_rand();
+        $fi = new FormElement($this->getDocument(), $itemName = 'fieldset', $name, $value = '', $id, $class, $itemValue = '');
 
         // Create and append legend
-        $legend = $this->getDocument()->getHTMLFactory()->buildElement("legend", $title);
+        $legend = $this->getDocument()->getHTMLFactory()->buildElement('legend', $title);
         $fi->append($legend);
 
         // Return the fieldset element
@@ -234,10 +234,10 @@ class FormFactory extends HTMLFactory implements HTMLFormFactoryInterface
      *
      * @return FormElement The select form element.
      */
-    public function buildSelect($name = "", $multiple = false, $id = "", $class = "", $options = array(), $selectedValue = "", $required = false)
+    public function buildSelect($name = '', $multiple = false, $id = '', $class = '', $options = [], $selectedValue = '', $required = false)
     {
         // Create select form input
-        $id = $id ?: "fs" . mt_rand();
+        $id = $id ?: 'fs' . mt_rand();
         $fi = new FormSelect($this->getDocument(), $name, $id, $class, $multiple, $required);
 
         // Insert options if any
@@ -248,4 +248,3 @@ class FormFactory extends HTMLFactory implements HTMLFormFactoryInterface
     }
 }
 
-?>

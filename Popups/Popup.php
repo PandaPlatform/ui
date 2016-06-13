@@ -25,88 +25,88 @@ use Panda\Ui\Html\HTMLElement;
  */
 class Popup extends HTMLElement implements DOMBuilder
 {
-    const TP_OBEDIENT = "obedient";
-    const TP_PERSISTENT = "persistent";
-    const TP_TOGGLE = "toggle";
-    const OR_HORIZONTAL = "horizontal";
-    const OR_VERTIVAL = "vertical";
-    const OR_BOTH = "both";
+    const TP_OBEDIENT = 'obedient';
+    const TP_PERSISTENT = 'persistent';
+    const TP_TOGGLE = 'toggle';
+    const OR_HORIZONTAL = 'horizontal';
+    const OR_VERTIVAL = 'vertical';
+    const OR_BOTH = 'both';
 
     /**
-     * "on", "one"
+     * 'on', 'one'
      *
-     * @type string
+     * @var string
      */
-    protected $binding = "on";
+    protected $binding = 'on';
 
     /**
-     * "obedient", "persistent", "toggle"
+     * 'obedient', 'persistent', 'toggle'
      *
-     * @type string
+     * @var string
      */
-    protected $type = "obedient";
+    protected $type = 'obedient';
     /**
      * Defines whether the popup will be dismissed after 3 seconds.
      *
-     * @type bool
+     * @var bool
      */
     protected $timeout = false;
 
     /**
      * Defines whether the popup will be in a white background.
      *
-     * @type bool
+     * @var bool
      */
     protected $background = false;
 
     /**
      * Defines whether the popup will have fade transition for in and out.
      *
-     * @type bool
+     * @var bool
      */
     protected $fade = false;
 
     /**
      * Defines the position of the popup relative to the window|parent|sender.
      *
-     * @type    string
+     * @var string
      */
-    protected $position = "user";
+    protected $position = 'user';
 
     /**
      * In case of positioning relative to the sender, the offset of the popup in distance from the sender in pixels.
      *
-     * @type    integer
+     * @var integer
      */
     protected $distanceOffset = 0;
 
     /**
      * In case of positioning relative to the sender, the offset of the popup in alignment from the sender in pixels.
      *
-     * @type    integer
+     * @var integer
      */
     protected $alignOffset = 0;
 
     /**
      * Defines the docking of the popup.
      *
-     * @type    string
+     * @var string
      */
-    protected $invertDock = "none";
+    protected $invertDock = 'none';
 
     /**
      * Popup id
      *
-     * @type    string
+     * @var string
      */
-    protected $popupId = "";
+    protected $popupId = '';
 
     /**
      * Parent's id
      *
-     * @type    string
+     * @var string
      */
-    protected $parent = "";
+    protected $parent = '';
 
     /**
      * Popup constructor.
@@ -115,9 +115,9 @@ class Popup extends HTMLElement implements DOMBuilder
      * @param string       $id
      * @param string       $class
      */
-    public function __construct($HTMLDocument, $id = "", $class = "")
+    public function __construct($HTMLDocument, $id = '', $class = '')
     {
-        parent::__construct($HTMLDocument, $name = "div", $value = "", $id, "uiPopup");
+        parent::__construct($HTMLDocument, $name = 'div', $value = '', $id, 'uiPopup');
         $this->addClass($class);
     }
 
@@ -142,7 +142,7 @@ class Popup extends HTMLElement implements DOMBuilder
         $settings['timeout'] = ($this->timeout ?: false);
         $settings['background'] = ($this->background ?: false);
         $settings['fade'] = ($this->fade ?: false);
-        $info->data("popup-settings", $settings);
+        $info->data('popup-settings', $settings);
 
         $extra = array();
         $extra['id'] = $this->popupId;
@@ -151,7 +151,7 @@ class Popup extends HTMLElement implements DOMBuilder
         $extra['distanceOffset'] = $this->distanceOffset;
         $extra['alignOffset'] = $this->alignOffset;
         $extra['invertDock'] = $this->invertDock;
-        $info->data("popup-extra", $extra);
+        $info->data('popup-extra', $extra);
 
         // Create the popup content holder
         $innerContent = $this->getHTMLDocument()->create('div', $content, '', 'popupContent');
@@ -164,13 +164,13 @@ class Popup extends HTMLElement implements DOMBuilder
      * Gets or defines the binding property.
      *
      * @param string $binding The binding value.
-     *                        Can be either "on" or "one", like jQuery listeners.
-     *                        "On" listens all the time.
-     *                        "One" listens only the first time.
+     *                        Can be either 'on' or 'one', like jQuery listeners.
+     *                        'On' listens all the time.
+     *                        'One' listens only the first time.
      *
      * @return mixed The binding property, or $this.
      */
-    public function binding($binding = "")
+    public function binding($binding = '')
     {
         // Return value
         if (empty($binding)) {
@@ -190,7 +190,7 @@ class Popup extends HTMLElement implements DOMBuilder
      *
      * @return mixed The popup's parent id, or $this.
      */
-    public function parent($id = "")
+    public function parent($id = '')
     {
         // Return value
         if (empty($id)) {
@@ -213,7 +213,7 @@ class Popup extends HTMLElement implements DOMBuilder
      *
      * @return mixed The type property, or $this.
      */
-    public function type($type = "", $toggle = false)
+    public function type($type = '', $toggle = false)
     {
         // Return value
         if (empty($type)) {
@@ -221,7 +221,7 @@ class Popup extends HTMLElement implements DOMBuilder
         }
 
         // Set value
-        $this->type = $type . ($toggle === true ? " " . self::TP_TOGGLE : "");
+        $this->type = $type . ($toggle === true ? ' ' . self::TP_TOGGLE : '');
 
         return $this;
     }
@@ -304,7 +304,7 @@ class Popup extends HTMLElement implements DOMBuilder
      *
      * @return mixed The position value, or $this.
      */
-    public function position($position = "", $alignment = "")
+    public function position($position = '', $alignment = '')
     {
         // Return value
         if (empty($position)) {
@@ -313,7 +313,7 @@ class Popup extends HTMLElement implements DOMBuilder
 
         // Set value
         if (!empty($alignment)) {
-            $this->position = $position . "|" . $alignment;
+            $this->position = $position . '|' . $alignment;
 
             return $this;
         }
@@ -374,12 +374,12 @@ class Popup extends HTMLElement implements DOMBuilder
      * Gets or defines the invertDock property.
      *
      * @param string $orientation The orientation to invert docking.
-     *                            Default is "none".
+     *                            Default is 'none'.
      *                            Available invertions are OR_HORIZONTAL, OR_VERTICAL and OR_BOTH.
      *
      * @return mixed The inverDock property, or $this.
      */
-    public function invertDock($orientation = "")
+    public function invertDock($orientation = '')
     {
         // Return value
         if (empty($orientation)) {

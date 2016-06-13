@@ -40,14 +40,14 @@ class HTMLElement extends DOMItem
      *
      * @throws Exception
      */
-    public function __construct($HTMLDocument, $name, $value = "", $id = "", $class = "")
+    public function __construct($HTMLDocument, $name, $value = '', $id = '', $class = '')
     {
         // Create DOMItem
-        $HTMLDocument = $HTMLDocument ?: new HTMLDocument(new HTMLFactory(), $version = "1.0", $encoding = "UTF_8");
+        $HTMLDocument = $HTMLDocument ?: new HTMLDocument(new HTMLFactory(), $version = '1.0', $encoding = 'UTF_8');
         parent::__construct($HTMLDocument, $name, $value);
 
         // Add extra attributes
-        $this->attr("id", $id);
+        $this->attr('id', $id);
         $this->addClass($class);
     }
 
@@ -68,16 +68,16 @@ class HTMLElement extends DOMItem
         }
 
         // Get current class
-        $currentClass = trim($this->DOMElement->getAttribute("class"));
+        $currentClass = trim($this->DOMElement->getAttribute('class'));
 
         // Check if class already exists
-        $classes = explode(" ", $currentClass);
+        $classes = explode(' ', $currentClass);
         if (in_array($class, $classes)) {
             return $this;
         }
 
         // Append new class
-        $this->appendAttr("class", $class);
+        $this->appendAttr('class', $class);
 
         // Return the HTML element
         return $this;
@@ -94,10 +94,10 @@ class HTMLElement extends DOMItem
     public function removeClass($class)
     {
         // Get current class
-        $currentClass = trim($this->attr("class"));
+        $currentClass = trim($this->attr('class'));
 
         // Check if class doesn't exists
-        $classes = explode(" ", $currentClass);
+        $classes = explode(' ', $currentClass);
         $classKey = array_search($class, $classes);
         if ($classKey === false) {
             return $this;
@@ -105,10 +105,10 @@ class HTMLElement extends DOMItem
 
         // Remove class and set new class attribute
         unset($classes[$classKey]);
-        $newClass = implode(" ", $classes);
+        $newClass = implode(' ', $classes);
 
         // Update attribute
-        $this->attr("class", empty($newClass) ? null : $newClass);
+        $this->attr('class', empty($newClass) ? null : $newClass);
 
         // Return the HTML element
         return $this;
@@ -126,10 +126,10 @@ class HTMLElement extends DOMItem
     public function hasClass($class)
     {
         // Get current class
-        $itemClass = trim($this->attr("class"));
+        $itemClass = trim($this->attr('class'));
 
         // Check if class already exists
-        $classes = explode(" ", $itemClass);
+        $classes = explode(' ', $itemClass);
 
         return in_array($class, $classes);
     }
@@ -147,19 +147,19 @@ class HTMLElement extends DOMItem
      *
      * @return $this|mixed
      */
-    public function style($name, $val = "")
+    public function style($name, $val = '')
     {
         // Get all styles from the element
-        $elementStyle = $this->attr("style");
-        $elementStyle = trim($elementStyle, "; ");
+        $elementStyle = $this->attr('style');
+        $elementStyle = trim($elementStyle, '; ');
 
         $styleArray = array();
         if (!empty($elementStyle)) {
-            $styleArray = explode(";", $elementStyle);
+            $styleArray = explode(';', $elementStyle);
         }
         $styles = array();
         foreach ($styleArray as $stylePair) {
-            $pair = explode(":", $stylePair);
+            $pair = explode(':', $stylePair);
             $styles[trim($pair[0])] = trim($pair[1]);
         }
 
@@ -176,12 +176,12 @@ class HTMLElement extends DOMItem
         $styleArray = array();
         foreach ($styles as $name => $value) {
             $pieces = array($name, $value);
-            $styleArray[] = implode(": ", $pieces);
+            $styleArray[] = implode(': ', $pieces);
         }
-        $elementStyle = implode("; ", $styleArray);
+        $elementStyle = implode('; ', $styleArray);
 
         // Set style attribute
-        $this->attr("style", (empty($elementStyle) ? null : $elementStyle));
+        $this->attr('style', (empty($elementStyle) ? null : $elementStyle));
 
         // Return the HTML element
         return $this;
@@ -205,7 +205,7 @@ class HTMLElement extends DOMItem
     {
         // If value is null, return inner HTML
         if (is_null($value)) {
-            $inner = "";
+            $inner = '';
             foreach ($this->DOMElement->childNodes as $child) {
                 $inner .= $this->DOMDocument->saveXML($child);
             }
@@ -233,7 +233,7 @@ class HTMLElement extends DOMItem
             }
         } else {
             // Create a new Document
-            $f = new DOMDocument("1.0", "UTF-8");
+            $f = new DOMDocument('1.0', 'UTF-8');
 
             // $value is probably ill-formed
             if ($convertEncoding) {
@@ -280,4 +280,3 @@ class HTMLElement extends DOMItem
     }
 }
 
-?>

@@ -28,7 +28,7 @@ class WindowFrame extends HTMLElement implements DOMBuilder
     /**
      * The frame's body container.
      *
-     * @type HTMLElement
+     * @var HTMLElement
      */
     private $body;
 
@@ -39,10 +39,10 @@ class WindowFrame extends HTMLElement implements DOMBuilder
      * @param string       $id
      * @param string       $class
      */
-    public function __construct($HTMLDocument, $id = "", $class = "")
+    public function __construct($HTMLDocument, $id = '', $class = '')
     {
-        $id = (empty($id) ? "wf" . mt_rand() : $id);
-        parent::__construct($HTMLDocument, $name = "div", $value = "", $id, $class = "wFrame");
+        $id = (empty($id) ? 'wf' . mt_rand() : $id);
+        parent::__construct($HTMLDocument, $name = 'div', $value = '', $id, $class = 'wFrame');
         $this->addClass($class);
     }
 
@@ -55,25 +55,25 @@ class WindowFrame extends HTMLElement implements DOMBuilder
      *
      * @return $this
      */
-    public function build($title = "", $class = "")
+    public function build($title = '', $class = '')
     {
         // Add class
         $this->addClass($class);
 
         // Create header
-        $frameHeader = $this->getHTMLDocument()->create("div", "", "", "frameHeader");
+        $frameHeader = $this->getHTMLDocument()->create('div', '', '', 'frameHeader');
         $this->append($frameHeader);
 
         // Header Title
-        $frameTitle = $this->getHTMLDocument()->create("span", $title, "", "frameTitle");
+        $frameTitle = $this->getHTMLDocument()->create('span', $title, '', 'frameTitle');
         $frameHeader->append($frameTitle);
 
         // Close button
-        $closeBtn = $this->getHTMLDocument()->create("span", "", "", "closeBtn");
+        $closeBtn = $this->getHTMLDocument()->create('span', '', '', 'closeBtn');
         $frameHeader->append($closeBtn);
 
         // Create body
-        $this->body = $this->getHTMLDocument()->create("div", "", "", "frameBody");
+        $this->body = $this->getHTMLDocument()->create('div', '', '', 'frameBody');
         $this->append($this->body);
 
         return $this;

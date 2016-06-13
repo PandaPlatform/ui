@@ -25,7 +25,7 @@ namespace Panda\Ui\Helpers;
 class HTMLHelper
 {
     /**
-     * @type array
+     * @var array
      */
     private static $validHTMLTags = [
         "div",
@@ -78,7 +78,7 @@ class HTMLHelper
         //$xpath = preg_replace("/\~[ ]+([^ >+~,\/]*(\[.*?\])?[^ >+~,\/]*)/", "/following-sibling::$1", $xpath);
 
         // Identify multiple selectors
-        $xpath = str_replace(" ", "", $xpath);
+        $xpath = str_replace(" ", '', $xpath);
         $xpath = str_replace(",", " | ", $xpath);
 
         // Identify "orphans" [no element, just attributes]
@@ -107,4 +107,3 @@ class HTMLHelper
     }
 }
 
-?>

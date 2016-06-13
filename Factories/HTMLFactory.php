@@ -26,7 +26,7 @@ use Panda\Ui\Html\HTMLElement;
 class HTMLFactory extends DOMFactory implements HTMLFactoryInterface
 {
     /***
-     * @type HTMLDocument
+     * @var HTMLDocument
      */
     protected $Document;
 
@@ -54,9 +54,9 @@ class HTMLFactory extends DOMFactory implements HTMLFactoryInterface
      *
      * @return HTMLElement
      */
-    public function buildElement($name = "", $value = "", $id = "", $class = "")
+    public function buildElement($name = '', $value = '', $id = '', $class = '')
     {
-        $id = $id ?: "elm" . mt_rand();
+        $id = $id ?: 'elm' . mt_rand();
 
         return (new HTMLElement($this->Document, $name, $value, $id, $class));
     }
@@ -73,15 +73,15 @@ class HTMLFactory extends DOMFactory implements HTMLFactoryInterface
      * @return HTMLElement
      * @throws Exception
      */
-    public function buildWeblink($href = "", $target = "_self", $content = "", $id = "", $class = "")
+    public function buildWeblink($href = '', $target = '_self', $content = '', $id = '', $class = '')
     {
         // Create weblink element
-        $id = $id ?: "wbl" . mt_rand();
-        $weblink = $this->buildElement($name = "a", $content, $id, $class);
+        $id = $id ?: 'wbl' . mt_rand();
+        $weblink = $this->buildElement($name = 'a', $content, $id, $class);
 
         // Add attributes
-        $weblink->attr("href", $href);
-        $weblink->attr("target", $target);
+        $weblink->attr('href', $href);
+        $weblink->attr('target', $target);
 
         // Return the weblink
         return $weblink;
@@ -98,14 +98,14 @@ class HTMLFactory extends DOMFactory implements HTMLFactoryInterface
      * @return HTMLElement
      * @throws Exception
      */
-    public function buildMeta($name = "", $content = "", $httpEquiv = "", $charset = "")
+    public function buildMeta($name = '', $content = '', $httpEquiv = '', $charset = '')
     {
         // Create meta element
         $meta = $this->getDocument()->create('meta');
-        $meta->attr("name", $name);
-        $meta->attr("http-equiv", $httpEquiv);
-        $meta->attr("content", htmlspecialchars($content));
-        $meta->attr("charset", $charset);
+        $meta->attr('name', $name);
+        $meta->attr('http-equiv', $httpEquiv);
+        $meta->attr('content', htmlspecialchars($content));
+        $meta->attr('charset', $charset);
 
         // Return element
         return $meta;
@@ -123,9 +123,9 @@ class HTMLFactory extends DOMFactory implements HTMLFactoryInterface
     public function buildLink($rel, $href)
     {
         // Build the link element
-        $link = $this->getDocument()->create("link");
-        $link->attr("rel", $rel);
-        $link->attr("href", $href);
+        $link = $this->getDocument()->create('link');
+        $link->attr('rel', $rel);
+        $link->attr('href', $href);
 
         // Return link
         return $link;
@@ -143,9 +143,9 @@ class HTMLFactory extends DOMFactory implements HTMLFactoryInterface
     public function buildScript($src, $async = false)
     {
         // Build the script element
-        $script = $this->getDocument()->create("script");
-        $script->attr("src", $src);
-        $script->attr("async", $async);
+        $script = $this->getDocument()->create('script');
+        $script->attr('src', $src);
+        $script->attr('async', $async);
 
         // Return the script
         return $script;
@@ -168,4 +168,3 @@ class HTMLFactory extends DOMFactory implements HTMLFactoryInterface
     }
 }
 
-?>

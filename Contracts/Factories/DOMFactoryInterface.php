@@ -31,7 +31,7 @@ interface DOMFactoryInterface
      *
      * @return DOMItem
      */
-    public function buildElement($name = "", $value = "");
+    public function buildElement($name = '', $value = '');
 
     /**
      * @return DOMPrototype
@@ -44,4 +44,3 @@ interface DOMFactoryInterface
     public function setDocument($Prototype);
 }
 
-?>

@@ -28,7 +28,7 @@ class FormButton extends FormElement
     /**
      * All the accepted button types.
      *
-     * @type array
+     * @var array
      */
     protected $types = [
         'button',
@@ -48,19 +48,18 @@ class FormButton extends FormElement
      * @throws Exception
      *
      */
-    public function __construct(HTMLDocument $HTMLDocument, $type = "submit", $name = "", $id = "", $title = "")
+    public function __construct(HTMLDocument $HTMLDocument, $type = 'submit', $name = '', $id = '', $title = '')
     {
         // Check input type
         if (!$this->checkType($type)) {
-            throw new InvalidArgumentException("The form button type is not a valid HTML4 or HTML5 button type.");
+            throw new InvalidArgumentException('The form button type is not a valid HTML4 or HTML5 button type.');
         }
 
         // Create HTMLElement
-        parent::__construct($HTMLDocument, $itemName = "button", $name, $value = "", $id, $class = "form-button", $title);
+        parent::__construct($HTMLDocument, $itemName = 'button', $name, $value = '', $id, $class = 'form-button', $title);
 
         // Add extra attributes
-        $this->attr("type", $type);
+        $this->attr('type', $type);
     }
 }
 
-?>

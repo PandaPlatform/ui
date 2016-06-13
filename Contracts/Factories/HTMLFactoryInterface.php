@@ -33,7 +33,7 @@ interface HTMLFactoryInterface extends DOMFactoryInterface
      *
      * @return DOMItem
      */
-    public function buildElement($name = "", $value = "", $id = "", $class = "");
+    public function buildElement($name = '', $value = '', $id = '', $class = '');
 
     /**
      * Build an HTML weblink <a> element.
@@ -46,7 +46,7 @@ interface HTMLFactoryInterface extends DOMFactoryInterface
      *
      * @return mixed
      */
-    public function buildWeblink($href = "", $target = "_self", $content = "", $id = "", $class = "");
+    public function buildWeblink($href = '', $target = '_self', $content = '', $id = '', $class = '');
 
     /**
      * Build a meta element.
@@ -58,7 +58,7 @@ interface HTMLFactoryInterface extends DOMFactoryInterface
      *
      * @return HTMLElement
      */
-    public function buildMeta($name = "", $content = "", $httpEquiv = "", $charset = "");
+    public function buildMeta($name = '', $content = '', $httpEquiv = '', $charset = '');
 
     /**
      * Build an html link element.
@@ -81,4 +81,3 @@ interface HTMLFactoryInterface extends DOMFactoryInterface
     public function buildScript($src, $async = false);
 }
 
-?>

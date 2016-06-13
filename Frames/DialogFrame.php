@@ -15,7 +15,6 @@ namespace Panda\Ui\Frames;
 
 use Panda\Ui\Contracts\Factories\HTMLFormFactoryInterface;
 use Panda\Ui\DOMPrototype;
-use Panda\Ui\Html\HTMLElement;
 use Panda\Ui\Templates\Forms\SimpleForm;
 
 /**
@@ -29,35 +28,28 @@ class DialogFrame extends WindowFrame
     /**
      * OK/Cancel dialog buttons.
      *
-     * @type    string
+     * @var string
      */
-    const TYPE_OK_CANCEL = "1";
+    const TYPE_OK_CANCEL = '1';
 
     /**
      * Yes/No dialog buttons.
      *
-     * @type    string
+     * @var string
      */
-    const TYPE_YES_NO = "2";
+    const TYPE_YES_NO = '2';
 
     /**
-     * @type SimpleForm
+     * @var SimpleForm
      */
     private $form;
 
     /**
      * A formFactory object for building the form input objects.
      *
-     * @type HTMLFormFactoryInterface
+     * @var HTMLFormFactoryInterface
      */
     private $formFactory;
-
-    /**
-     * The form container that contains the form inputs.
-     *
-     * @type HTMLElement
-     */
-    private $formContent;
 
     /**
      * dialogFrame constructor.
@@ -89,13 +81,13 @@ class DialogFrame extends WindowFrame
      *
      * @return $this
      */
-    public function build($title = "Dialog Frame", $action = "", $background = true, $type = self::TYPE_OK_CANCEL, $fileUpload = false)
+    public function build($title = 'Dialog Frame', $action = '', $background = true, $type = self::TYPE_OK_CANCEL, $fileUpload = false)
     {
         // Build window frame
-        parent::build($title, "dialogFrame");
+        parent::build($title, 'dialogFrame');
 
         // Build Form
-        $this->form = new SimpleForm($this->getHTMLDocument(), $this->formFactory, $id = "", $action, $async = true, $fileUpload);
+        $this->form = new SimpleForm($this->getHTMLDocument(), $this->formFactory, $id = '', $action, $async = true, $fileUpload);
         $this->form->build(false, true);
         $this->appendToBody($this->form);
 
@@ -130,7 +122,7 @@ class DialogFrame extends WindowFrame
      */
     public function getFormId()
     {
-        return $this->form->attr("id");
+        return $this->form->attr('id');
     }
 
     /**
@@ -145,21 +137,21 @@ class DialogFrame extends WindowFrame
     private function buildControls($type = self::TYPE_OK_CANCEL)
     {
         // Create dialog controls container
-        $controlsContainer = $this->getHTMLDocument()->create("div", "", "", "dialogControls");
+        $controlsContainer = $this->getHTMLDocument()->create('div', '', '', 'dialogControls');
         $this->form->append($controlsContainer);
 
         // Button Container
-        $btnContainer = $this->getHTMLDocument()->create("div", "", "", "ctrls");
+        $btnContainer = $this->getHTMLDocument()->create('div', '', '', 'ctrls');
         $controlsContainer->append($btnContainer);
 
         // Set button literals
-        $lbl_submit = ($type == self::TYPE_OK_CANCEL ? "ok" : "yes");
-        $lbl_reset = ($type == self::TYPE_OK_CANCEL ? "cancel" : "no");
+        $lbl_submit = ($type == self::TYPE_OK_CANCEL ? 'ok' : 'yes');
+        $lbl_reset = ($type == self::TYPE_OK_CANCEL ? 'cancel' : 'no');
 
         // Insert Controls
-        $submitBtn = $this->formFactory->buildSubmitButton($lbl_submit, "", "", "dlgExec positive");
+        $submitBtn = $this->formFactory->buildSubmitButton($lbl_submit, '', '', 'dlgExec positive');
         $btnContainer->append($submitBtn);
-        $resetBtn = $this->formFactory->buildResetButton($lbl_reset, "", "dlgCancel");
+        $resetBtn = $this->formFactory->buildResetButton($lbl_reset, '', 'dlgCancel');
         $btnContainer->append($resetBtn);
 
         return $this;

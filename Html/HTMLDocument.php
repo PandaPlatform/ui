@@ -36,7 +36,7 @@ class HTMLDocument extends DOMPrototype
      * @param string               $version
      * @param string               $encoding
      */
-    public function __construct($HTMLFactory, $version = "1.0", $encoding = "UTF_8")
+    public function __construct($HTMLFactory, $version = '1.0', $encoding = 'UTF_8')
     {
         // Construct DOMDocument
         $HTMLFactory = $HTMLFactory ?: new HTMLFactory($this);
@@ -54,7 +54,7 @@ class HTMLDocument extends DOMPrototype
      * @return HTMLElement The HTMLElement created
      * @throws Exception
      */
-    public function create($name = "div", $value = "", $id = "", $class = "")
+    public function create($name = 'div', $value = '', $id = '', $class = '')
     {
         // Create a new HTMLElement
         return (new HTMLElement($this, $name, $value, $id, $class));
@@ -137,4 +137,3 @@ class HTMLDocument extends DOMPrototype
     }
 }
 
-?>

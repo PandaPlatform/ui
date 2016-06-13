@@ -28,7 +28,7 @@ use Panda\Ui\Html\HTMLElement;
 class Form extends HTMLElement
 {
     /**
-     * @type HTMLFormFactoryInterface
+     * @var HTMLFormFactoryInterface
      */
     protected $HTMLFormFactory;
 
@@ -49,20 +49,20 @@ class Form extends HTMLElement
      *
      * @throws Exception
      */
-    public function __construct(HTMLDocument $HTMLDocument, $HTMLFormFactory = null, $id = "", $action = "", $async = false, $fileUpload = false)
+    public function __construct(HTMLDocument $HTMLDocument, $HTMLFormFactory = null, $id = '', $action = '', $async = false, $fileUpload = false)
     {
         // Create HTML Form element
-        parent::__construct($HTMLDocument, $name = "form", $value = "", $id);
+        parent::__construct($HTMLDocument, $name = 'form', $value = '', $id);
         $this->HTMLFormFactory = $HTMLFormFactory ?: new FormFactory($HTMLDocument);
 
         // Add extra attributes
-        $this->attr("method", "post");
-        $this->attr("action", $action);
-        $this->attr("async", $async);
+        $this->attr('method', 'post');
+        $this->attr('action', $action);
+        $this->attr('async', $async);
 
         // Set form for file upload
         if ($fileUpload) {
-            $this->attr("enctype", "multipart/form-data");
+            $this->attr('enctype', 'multipart/form-data');
         }
     }
 
@@ -83,4 +83,3 @@ class Form extends HTMLElement
     }
 }
 
-?>

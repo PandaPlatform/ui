@@ -25,7 +25,7 @@ use Panda\Ui\Html\HTMLPage;
 class ViewPage extends HTMLPage
 {
     /**
-     * @type ViewElement
+     * @var ViewElement
      */
     protected $view;
 
@@ -40,7 +40,7 @@ class ViewPage extends HTMLPage
      *
      * @return $this
      */
-    public function addView($view, $name, $value = "", $id = "", $class = "")
+    public function addView($view, $name, $value = '', $id = '', $class = '')
     {
         // Create the view element
         $this->view = new ViewElement($this, $view, $name, $value, $id, $class);
@@ -58,4 +58,3 @@ class ViewPage extends HTMLPage
     }
 }
 
-?>

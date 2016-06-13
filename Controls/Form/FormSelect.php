@@ -37,15 +37,15 @@ class FormSelect extends FormElement
      *
      * @throws Exception
      */
-    public function __construct(HTMLDocument $HTMLDocument, $name = "", $id = "", $class = "", $multiple = false, $required = false)
+    public function __construct(HTMLDocument $HTMLDocument, $name = '', $id = '', $class = '', $multiple = false, $required = false)
     {
         // Create FormElement
-        parent::__construct($HTMLDocument, $itemName = "select", $name, $value = "", $id, $class, $itemValue = "");
-        $this->attr("required", $required);
+        parent::__construct($HTMLDocument, $itemName = 'select', $name, $value = '', $id, $class, $itemValue = '');
+        $this->attr('required', $required);
 
         // Add extra attributes
         if ($multiple) {
-            $this->attr("multiple", "multiple");
+            $this->attr('multiple', 'multiple');
         }
     }
 
@@ -58,16 +58,16 @@ class FormSelect extends FormElement
      * @return FormSelect
      * @throws Exception
      */
-    public function addOptions($options = array(), $selectedValue = "")
+    public function addOptions($options = [], $selectedValue = '')
     {
         // Create all options
         foreach ($options as $value => $title) {
             // Create option
-            $fi = new FormElement($this->getDOMDocument(), "option", "", $value, "", "", $title);
+            $fi = new FormElement($this->getDOMDocument(), 'option', '', $value, '', '', $title);
 
             // Check if it's the selected value
             if ($value == $selectedValue) {
-                $fi->attr("selected", "selected");
+                $fi->attr('selected', 'selected');
             }
 
             // Append option to select
@@ -87,22 +87,22 @@ class FormSelect extends FormElement
      * @return FormSelect
      * @throws Exception
      */
-    public function addOptionsWithGroups($optionGroups = array(), $selectedValue = "")
+    public function addOptionsWithGroups($optionGroups = [], $selectedValue = '')
     {
         // Create all options
         foreach ($optionGroups as $groupLabel => $options) {
             // Create option froup
-            $og = new FormElement($this->getDOMDocument(), "optgroup", $name = "", $value = "", $id = "", $class = "", $itemValue = "");
-            $og->attr("label", $groupLabel);
+            $og = new FormElement($this->getDOMDocument(), 'optgroup', $name = '', $value = '', $id = '', $class = '', $itemValue = '');
+            $og->attr('label', $groupLabel);
 
             // Create all options
             foreach ($options as $value => $title) {
                 // Create option
-                $fi = new FormElement($this->getDOMDocument(), "option", "", $value, "", "", $title);
+                $fi = new FormElement($this->getDOMDocument(), 'option', '', $value, '', '', $title);
 
                 // Check if it's the selected value
                 if ($value == $selectedValue) {
-                    $fi->attr("selected", "selected");
+                    $fi->attr('selected', 'selected');
                 }
 
                 // Append option to group
@@ -118,4 +118,3 @@ class FormSelect extends FormElement
     }
 }
 
-?>

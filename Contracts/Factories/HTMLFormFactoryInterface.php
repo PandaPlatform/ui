@@ -38,7 +38,7 @@ interface HTMLFormFactoryInterface extends HTMLFactoryInterface
      *
      * @return HTMLElement
      */
-    public function buildInput($type = "text", $name = "", $value = "", $id = "", $class = "", $autofocus = false, $required = false);
+    public function buildInput($type = 'text', $name = '', $value = '', $id = '', $class = '', $autofocus = false, $required = false);
 
     /**
      * Build an html form file input.
@@ -51,7 +51,7 @@ interface HTMLFormFactoryInterface extends HTMLFactoryInterface
      *
      * @return HTMLElement
      */
-    public function buildFileInput($name = "", $id = "", $class = "", $required = false, $accept = "");
+    public function buildFileInput($name = '', $id = '', $class = '', $required = false, $accept = '');
 
     /**
      * Build an html form label.
@@ -62,7 +62,7 @@ interface HTMLFormFactoryInterface extends HTMLFactoryInterface
      *
      * @return FormLabel
      */
-    public function buildLabel($content, $for = "", $class = "");
+    public function buildLabel($content, $for = '', $class = '');
 
     /**
      * Build an html form button.
@@ -75,7 +75,7 @@ interface HTMLFormFactoryInterface extends HTMLFactoryInterface
      *
      * @return FormButton
      */
-    public function buildButton($type, $title, $name = "", $id = "", $class = "");
+    public function buildButton($type, $title, $name = '', $id = '', $class = '');
 
     /**
      * Build an html form submit button.
@@ -87,7 +87,7 @@ interface HTMLFormFactoryInterface extends HTMLFactoryInterface
      *
      * @return FormButton
      */
-    public function buildSubmitButton($title, $name = "", $id = "", $class = "");
+    public function buildSubmitButton($title, $name = '', $id = '', $class = '');
 
     /**
      * Build an html form reset button.
@@ -98,7 +98,7 @@ interface HTMLFormFactoryInterface extends HTMLFactoryInterface
      *
      * @return FormButton
      */
-    public function buildResetButton($title, $id = "", $class = "");
+    public function buildResetButton($title, $id = '', $class = '');
 
     /**
      * Build an html form textarea.
@@ -112,7 +112,7 @@ interface HTMLFormFactoryInterface extends HTMLFactoryInterface
      *
      * @return FormElement
      */
-    public function buildTextarea($name = "", $value = "", $id = "", $class = "", $autofocus = false, $required = false);
+    public function buildTextarea($name = '', $value = '', $id = '', $class = '', $autofocus = false, $required = false);
 
     /**
      * Build an html form fieldset.
@@ -124,7 +124,7 @@ interface HTMLFormFactoryInterface extends HTMLFactoryInterface
      *
      * @return FormElement
      */
-    public function buildFieldset($title, $name = "", $id = "", $class = "");
+    public function buildFieldset($title, $name = '', $id = '', $class = '');
 
     /**
      * Build an html form select element.
@@ -139,7 +139,6 @@ interface HTMLFormFactoryInterface extends HTMLFactoryInterface
      *
      * @return mixed
      */
-    public function buildSelect($name = "", $multiple = false, $id = "", $class = "", $options = array(), $selectedValue = "", $required = false);
+    public function buildSelect($name = '', $multiple = false, $id = '', $class = '', $options = [], $selectedValue = '', $required = false);
 }
 
-?>

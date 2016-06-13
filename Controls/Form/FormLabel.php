@@ -31,19 +31,18 @@ class FormLabel extends FormElement
      * @param null         $content      The label value. It  can be string or DOMElement.
      *                                   It is NULL by default.
      * @param string       $for          The element's id that the label is pointing to.
-     *                                   The "for" attribute.
+     *                                   The 'for' attribute.
      *
      * @throws Exception
      *
      */
-    public function __construct(HTMLDocument $HTMLDocument, $content = null, $for = "")
+    public function __construct(HTMLDocument $HTMLDocument, $content = null, $for = '')
     {
         // Create HTMLElement
-        parent::__construct($HTMLDocument, $name = "label", $name = "", $value = "", $id = "", $class = "", $content);
+        parent::__construct($HTMLDocument, $name = 'label', $name = '', $value = '', $id = '', $class = '', $content);
 
         // Add extra attributes
-        $this->attr("for", $for);
+        $this->attr('for', $for);
     }
 }
 
-?>

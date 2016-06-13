@@ -33,7 +33,7 @@ use Panda\Ui\Factories\DOMFactory;
 abstract class DOMPrototype extends DOMDocument
 {
     /**
-     * @type DOMFactoryInterface
+     * @var DOMFactoryInterface
      */
     protected $DOMFactory;
 
@@ -44,7 +44,7 @@ abstract class DOMPrototype extends DOMDocument
      * @param string              $version
      * @param string              $encoding
      */
-    public function __construct($DOMFactory, $version = "1.0", $encoding = "UTF_8")
+    public function __construct($DOMFactory, $version = '1.0', $encoding = 'UTF_8')
     {
         // Construct DOMDocument
         parent::__construct($version, $encoding);
@@ -62,7 +62,7 @@ abstract class DOMPrototype extends DOMDocument
      *
      * @return DOMItem The DOMItem created
      */
-    public function create($name = "div", $value = "")
+    public function create($name = 'div', $value = '')
     {
         // Create a new DOMItem
         return (new DOMItem($this, $name, $value));
@@ -79,7 +79,7 @@ abstract class DOMPrototype extends DOMDocument
     {
         // Check element
         if (empty($element)) {
-            throw new InvalidArgumentException("You are trying to append an empty element.");
+            throw new InvalidArgumentException('You are trying to append an empty element.');
         }
         // Import element to the document
         $element = $this->importNode($element->getDOMElement(), true);
@@ -109,7 +109,7 @@ abstract class DOMPrototype extends DOMDocument
         $xpath = new DOMXPath($this);
         $result = $xpath->evaluate($query, $context);
         if ($result === false)
-            throw new InvalidArgumentException("The expression is malformed or the contextnode is invalid.");
+            throw new InvalidArgumentException('The expression is malformed or the contextnode is invalid.');
 
         return $result;
     }
@@ -122,10 +122,10 @@ abstract class DOMPrototype extends DOMDocument
      *
      * @return mixed Returns the DOMElement or NULL if it doesn't exist.
      */
-    public function find($id, $nodeName = "*")
+    public function find($id, $nodeName = '*')
     {
-        $nodeName = (empty($nodeName) ? "*" : $nodeName);
-        $q = "//" . $nodeName . "[@id='$id']";
+        $nodeName = (empty($nodeName) ? '*' : $nodeName);
+        $q = '//' . $nodeName . "[@id='$id']";
         $list = self::evaluate($q);
 
         if ($list->length > 0)
@@ -189,4 +189,3 @@ abstract class DOMPrototype extends DOMDocument
     }
 }
 
-?>

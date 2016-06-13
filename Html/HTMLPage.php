@@ -31,21 +31,21 @@ class HTMLPage extends HTMLDocument implements DOMBuilder
     /**
      * The head tag object
      *
-     * @type HTMLElement
+     * @var HTMLElement
      */
     protected $HTMLHead;
 
     /**
      * The body tag object
      *
-     * @type HTMLElement
+     * @var HTMLElement
      */
     protected $HTMLBody;
 
     /**
      * Keeps the scripts to be inserted in the bottom of the page before exporting,
      *
-     * @type array
+     * @var array
      */
     private $bottomScripts;
 
@@ -75,10 +75,10 @@ class HTMLPage extends HTMLDocument implements DOMBuilder
      *
      * @return $this
      */
-    public function build($title = "", $description = "", $keywords = "")
+    public function build($title = '', $description = '', $keywords = '')
     {
         // Build HTML
-        $HTML = $this->create("html");
+        $HTML = $this->create('html');
         $this->append($HTML);
 
         // Build HEAD
@@ -106,7 +106,7 @@ class HTMLPage extends HTMLDocument implements DOMBuilder
         $this->flushBottomScripts();
 
         // Return text/html
-        return "<!DOCTYPE html>\n" . parent::getHTML();
+        return '<!DOCTYPE html>\n' . parent::getHTML();
     }
 
     /**
@@ -141,7 +141,7 @@ class HTMLPage extends HTMLDocument implements DOMBuilder
     {
         // Check if the element is valid
         if (empty($element)) {
-            throw new InvalidArgumentException("The element provided is empty.");
+            throw new InvalidArgumentException('The element provided is empty.');
         }
 
         // Append element to head
@@ -162,7 +162,7 @@ class HTMLPage extends HTMLDocument implements DOMBuilder
     {
         // Check if the element is valid
         if (empty($element)) {
-            throw new InvalidArgumentException("The element provided is empty.");
+            throw new InvalidArgumentException('The element provided is empty.');
         }
 
         // Append element to body
@@ -181,7 +181,7 @@ class HTMLPage extends HTMLDocument implements DOMBuilder
      *
      * @return HTMLElement The meta element.
      */
-    protected function addMeta($name = "", $content = "", $httpEquiv = "", $charset = "")
+    protected function addMeta($name = '', $content = '', $httpEquiv = '', $charset = '')
     {
         // Create meta element
         $meta = $this->getHTMLFactory()->buildMeta($name, $content, $httpEquiv, $charset);
@@ -203,7 +203,7 @@ class HTMLPage extends HTMLDocument implements DOMBuilder
     public function addStyle($href)
     {
         // Get css link
-        $css = $this->getHTMLFactory()->buildLink("stylesheet", $href);
+        $css = $this->getHTMLFactory()->buildLink('stylesheet', $href);
 
         // Append link to head
         $this->appendToHead($css);
@@ -241,7 +241,7 @@ class HTMLPage extends HTMLDocument implements DOMBuilder
 
     /**
      * Inserts a page icon.
-     * It covers both "icon" and "shortcut icon".
+     * It covers both 'icon' and 'shortcut icon'.
      *
      * @param string $href The icon URL
      *
@@ -250,11 +250,11 @@ class HTMLPage extends HTMLDocument implements DOMBuilder
     public function addIcon($href)
     {
         // Build the normal icon
-        $icon = $this->getHTMLFactory()->buildLink("icon", $href);
+        $icon = $this->getHTMLFactory()->buildLink('icon', $href);
         $this->appendToHead($icon);
 
         // Build the shortcut icon
-        $shortIcon = $this->getHTMLFactory()->buildLink("shortcut icon", $href);
+        $shortIcon = $this->getHTMLFactory()->buildLink('shortcut icon', $href);
         $this->appendToHead($shortIcon);
 
         return $this;
@@ -270,12 +270,12 @@ class HTMLPage extends HTMLDocument implements DOMBuilder
     public function setTitle($title)
     {
         // Check if title already exists
-        $headTitle = $this->select("title")->item(0);
+        $headTitle = $this->select('title')->item(0);
         if (!is_null($headTitle)) {
-            $headTitle_new = $this->create("title", $title);
+            $headTitle_new = $this->create('title', $title);
             $headTitle->parentNode->replaceChild($headTitle_new->getDOMElement(), $headTitle);
         } else {
-            $headTitle = $this->create("title", $title);
+            $headTitle = $this->create('title', $title);
             $this->appendToHead($headTitle);
         }
 
@@ -290,13 +290,13 @@ class HTMLPage extends HTMLDocument implements DOMBuilder
      *
      * @return $this
      */
-    public function addOpenGraphMeta($data = array())
+    public function addOpenGraphMeta($data = [])
     {
         foreach ($data as $property => $content) {
             // Create the open graph meta
-            $og = $this->getHTMLFactory()->buildMeta($name = "", $content, $httpEquiv = "", $charset = "");
-            $og->attr($og, "property", "og:" . $property);
-            $og->attr($og, "content", $content);
+            $og = $this->getHTMLFactory()->buildMeta($name = '', $content, $httpEquiv = '', $charset = '');
+            $og->attr($og, 'property', 'og:' . $property);
+            $og->attr($og, 'content', $content);
 
             // Append meta to head
             $this->appendToHead($og);
@@ -320,12 +320,12 @@ class HTMLPage extends HTMLDocument implements DOMBuilder
         $this->setTitle($title);
 
         // Create meta tags
-        $this->addMeta($name = "", $content = "", $httpEquiv = "", $charset = "UTF-8");
+        $this->addMeta($name = '', $content = '', $httpEquiv = '', $charset = 'UTF-8');
         if (!empty($description)) {
-            $this->addMeta($name = "description", $description);
+            $this->addMeta($name = 'description', $description);
         }
         if (!empty($keywords)) {
-            $this->addMeta($name = "keywords", $keywords);
+            $this->addMeta($name = 'keywords', $keywords);
         }
 
         return $this;
@@ -363,4 +363,3 @@ class HTMLPage extends HTMLDocument implements DOMBuilder
     }
 }
 
-?>

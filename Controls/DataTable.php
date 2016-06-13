@@ -13,7 +13,7 @@ declare(strict_types = 1);
 
 namespace Panda\Ui\Controls;
 
-use Doctrine\Instantiator\Exception\InvalidArgumentException;
+use InvalidArgumentException;
 use LogicException;
 use Panda\Ui\Contracts\DOMBuilder;
 use Panda\Ui\DOMPrototype;
@@ -35,35 +35,35 @@ class DataTable extends HTMLElement implements DOMBuilder
     /**
      * Object's root list element
      *
-     * @type HTMLElement
+     * @var HTMLElement
      */
     private $gridList;
 
     /**
      * Horizontal capacity
      *
-     * @type int
+     * @var int
      */
     private $hSize = 0;
 
     /**
      * If set to TRUE a checkbox will be prepended in each row
      *
-     * @type bool
+     * @var bool
      */
     private $checkable = false;
 
     /**
      * A list of the row checkboxes
      *
-     * @type    array
+     * @var array
      */
     private $checkList;
 
     /**
      * Requested width ratios for the columns
      *
-     * @type    array
+     * @var array
      */
     private $columnRatios;
 
@@ -74,10 +74,10 @@ class DataTable extends HTMLElement implements DOMBuilder
      * @param string       $id
      * @param string       $class
      */
-    public function __construct(DOMPrototype $HTMLDocument, $id = "", $class = "")
+    public function __construct(DOMPrototype $HTMLDocument, $id = '', $class = '')
     {
-        $id = $id ?: "dt" . mt_rand();
-        parent::__construct($HTMLDocument, $name = "div", $value = "", $id, $class = "uiDataTable initialize");
+        $id = $id ?: 'dt' . mt_rand();
+        parent::__construct($HTMLDocument, $name = 'div', $value = '', $id, $class = 'uiDataTable initialize');
     }
 
     /**
@@ -98,14 +98,14 @@ class DataTable extends HTMLElement implements DOMBuilder
 
         // Add extra classes
         if ($this->checkable) {
-            $this->addClass("checkable");
+            $this->addClass('checkable');
         }
         if ($withBorder) {
-            $this->addClass("dgl_wb");
+            $this->addClass('dgl_wb');
         }
 
         // Create grid list
-        $this->gridList = $this->getHTMLDocument()->create("ul", "", "", "DataTableList");
+        $this->gridList = $this->getHTMLDocument()->create('ul', '', '', 'DataTableList');
         $this->append($this->gridList);
 
         return $this;
@@ -139,7 +139,7 @@ class DataTable extends HTMLElement implements DOMBuilder
         // Check if sums up to 100
         $total = array_sum($r);
         if ($total != 100) {
-            throw new InvalidArgumentException("The column ratios don't sum up to 100.");
+            throw new InvalidArgumentException('The column ratios dont sum up to 100.');
         }
 
         // Correct ratio for checkable grid lists
@@ -150,7 +150,7 @@ class DataTable extends HTMLElement implements DOMBuilder
 
         // Set column ratios data to element
         $this->columnRatios = $r;
-        $this->gridList->data("column-ratios", $this->columnRatios);
+        $this->gridList->data('column-ratios', $this->columnRatios);
 
         return $this;
     }
@@ -164,10 +164,10 @@ class DataTable extends HTMLElement implements DOMBuilder
     {
         // Set horizontal size of element
         $this->hSize = count($headers);
-        $this->data("grid-size", $this->hSize);
+        $this->data('grid-size', $this->hSize);
 
         // Add headers
-        $gridHeader = $this->appendSimpleRow($headers, "DataTableHeader", $header = true);
+        $gridHeader = $this->appendSimpleRow($headers, 'DataTableHeader', $header = true);
 
         // Add checkable headers
         if ($this->checkable) {
@@ -175,7 +175,7 @@ class DataTable extends HTMLElement implements DOMBuilder
         }
 
         // Create new grid content wrapper
-        $gridListContentWrapper = $this->getHTMLDocument()->create("div", "", "", "DataTableContentWrapper");
+        $gridListContentWrapper = $this->getHTMLDocument()->create('div', '', '', 'DataTableContentWrapper');
         $this->gridList->append($gridListContentWrapper);
         $this->gridList = $gridListContentWrapper;
     }
@@ -193,10 +193,10 @@ class DataTable extends HTMLElement implements DOMBuilder
      *
      * @return $this
      */
-    public function appendRow($contents = array(), $checkName = null, $checked = false, $checkValue = "")
+    public function appendRow($contents = [], $checkName = null, $checked = false, $checkValue = '')
     {
         // Insert row contents
-        $gridRow = $this->appendSimpleRow($contents, "");
+        $gridRow = $this->appendSimpleRow($contents, '');
 
         // Insert row checks
         if ($this->checkable) {
@@ -216,15 +216,15 @@ class DataTable extends HTMLElement implements DOMBuilder
      * @return HTMLElement The row inserted.
      * @throws LogicException
      */
-    private function appendSimpleRow($contents, $class = "", $header = false)
+    private function appendSimpleRow($contents, $class = '', $header = false)
     {
         // Check width size
         if ($this->hSize == 0) {
-            throw new LogicException("There are no headers set on the datatable yet.");
+            throw new LogicException('There are no headers set on the datatable yet.');
         }
 
         // Create grid row object
-        $gridRow = $this->getHTMLDocument()->create("li", "", "", ($class == "" ? "DataTableRow" : $class));
+        $gridRow = $this->getHTMLDocument()->create('li', '', '', ($class == '' ? 'DataTableRow' : $class));
 
         // Trim contents to the column size
         if ($this->hSize < count($contents)) {
@@ -234,39 +234,39 @@ class DataTable extends HTMLElement implements DOMBuilder
         // Add extra columns
         $contentsCount = count($contents);
         for ($i = 0; $i < $this->hSize - $contentsCount; $i++) {
-            $contents[] = $this->getHTMLDocument()->create("span");
+            $contents[] = $this->getHTMLDocument()->create('span');
         }
 
         // Insert contents to row
         foreach ($contents as $key => $contentValue) {
             // Create item identifier
-            $itemIdentifier = "";
-            if (gettype($key) == "string") {
-                $itemIdentifier = strtolower(str_replace(" ", "", $key));
-            } else if (gettype($contentValue) == "string" || gettype($contentValue) == "integer" || gettype($contentValue) == "double") {
-                $contentValue = "" . $contentValue;
-                $itemIdentifier = strtolower(str_replace(" ", "", $contentValue));
-            } else if ($contentValue->tagName == "span") {
-                $itemIdentifier = strtolower(str_replace(" ", "", $contentValue->getElement()->nodeValue));
+            $itemIdentifier = '';
+            if (gettype($key) == 'string') {
+                $itemIdentifier = strtolower(str_replace(' ', '', $key));
+            } else if (gettype($contentValue) == 'string' || gettype($contentValue) == 'integer' || gettype($contentValue) == 'double') {
+                $contentValue = '' . $contentValue;
+                $itemIdentifier = strtolower(str_replace(' ', '', $contentValue));
+            } else if ($contentValue->tagName == 'span') {
+                $itemIdentifier = strtolower(str_replace(' ', '', $contentValue->getElement()->nodeValue));
             }
 
             // Set text wrapper
-            $gridTextWrapper = $this->getHTMLDocument()->create("span", $contentValue, "", "DataTableTextWrapper");
+            $gridTextWrapper = $this->getHTMLDocument()->create('span', $contentValue, '', 'DataTableTextWrapper');
 
             // Set item style
-            $gridTextWrapper->appendAttr("style", "max-width:100%;width:100%;box-sizing:border-box;");
+            $gridTextWrapper->appendAttr('style', 'max-width:100%;width:100%;box-sizing:border-box;');
 
             // Create grid cell with given text
-            $gridCell = $this->getHTMLDocument()->create("div", $gridTextWrapper, "", "DataTableCell");
+            $gridCell = $this->getHTMLDocument()->create('div', $gridTextWrapper, '', 'DataTableCell');
             $gridRow->append($gridCell);
 
             // Set header (if any)
             if ($header && !empty($itemIdentifier)) {
                 // Set identifier
-                $gridCell->data("column-name", $itemIdentifier);
+                $gridCell->data('column-name', $itemIdentifier);
 
                 // Add sorting icon
-                $sortingIcon = $this->getHTMLDocument()->create("div", "", "", "sortingIcon");
+                $sortingIcon = $this->getHTMLDocument()->create('div', '', '', 'sortingIcon');
                 $gridTextWrapper->append($sortingIcon);
             }
 
@@ -276,7 +276,7 @@ class DataTable extends HTMLElement implements DOMBuilder
                 $w = $ratio / $this->hSize;
             } else
                 $w = $this->columnRatios[$key];
-            $gridCell->attr("style", "width:" . $w . "%;");
+            $gridCell->attr('style', 'width:' . $w . '%;');
         }
 
         // Append grid row to grid list and return the DOMElement
@@ -296,16 +296,16 @@ class DataTable extends HTMLElement implements DOMBuilder
      *
      * @return $this
      */
-    private function appendCheckRow($row, $checkName, $checked, $checkValue = "")
+    private function appendCheckRow($row, $checkName, $checked, $checkValue = '')
     {
-        // Create the ckeck item
-        $gridCheck = $this->getHTMLDocument()->create("div", "", "", "DataTableCheck");
+        // Create the check item
+        $gridCheck = $this->getHTMLDocument()->create('div', '', '', 'DataTableCheck');
 
         // Get the checkbox
         $formFactory = new FormFactory($this->getHTMLDocument());
-        $chk = $formFactory->buildInput($type = "checkbox", $name = $checkName, $value = $checkValue, $id = "", $class = "", $autofocus = false, $required = false);
+        $chk = $formFactory->buildInput($type = 'checkbox', $name = $checkName, $value = $checkValue, $id = '', $class = '', $autofocus = false, $required = false);
         if ($checked) {
-            $chk->attr("checked", "checked");
+            $chk->attr('checked', 'checked');
         }
         $gridCheck->append($chk);
 
@@ -317,4 +317,3 @@ class DataTable extends HTMLElement implements DOMBuilder
     }
 }
 
-?>

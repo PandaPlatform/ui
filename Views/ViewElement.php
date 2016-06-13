@@ -39,7 +39,7 @@ class ViewElement extends HTMLElement
      *
      * @throws Exception
      */
-    public function __construct($HTMLDocument, $view, $name = "div", $value = "", $id = "", $class = "")
+    public function __construct($HTMLDocument, $view, $name = 'div', $value = '', $id = '', $class = '')
     {
         // Create DOMItem
         parent::__construct($HTMLDocument, $name, $value, $id, $class);
@@ -80,4 +80,3 @@ class ViewElement extends HTMLElement
     }
 }
 
-?>

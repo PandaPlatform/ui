@@ -28,7 +28,7 @@ class FormElement extends HTMLElement
      * All the accepted element types.
      * Extend this property to validate the element type.
      *
-     * @type array
+     * @var array
      */
     protected $types;
 
@@ -44,14 +44,14 @@ class FormElement extends HTMLElement
      * @param string       $itemValue    The item's content value.
      *                                   It can be string or DOMElement.
      */
-    public function __construct(DOMPrototype $HTMLDocument, $itemName = "", $name = "", $value = "", $id = "", $class = "", $itemValue = "")
+    public function __construct(DOMPrototype $HTMLDocument, $itemName = '', $name = '', $value = '', $id = '', $class = '', $itemValue = '')
     {
         // Create HTMLElement
         parent::__construct($HTMLDocument, $itemName, $itemValue, $id, $class);
 
         // Add extra attributes
-        $this->attr("name", $name);
-        $this->attr("value", $value);
+        $this->attr('name', $name);
+        $this->attr('value', $value);
     }
 
     /**
@@ -69,11 +69,10 @@ class FormElement extends HTMLElement
         }
 
         // Check input type
-        $expression = implode("|", $this->types);
+        $expression = implode('|', $this->types);
         $valid = preg_match('/^(' . $expression . ')$/', $type);
 
         return ($valid === 1);
     }
 }
 
-?>

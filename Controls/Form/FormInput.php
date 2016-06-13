@@ -28,7 +28,7 @@ class FormInput extends FormElement
     /**
      * All the accepted input types.
      *
-     * @type array
+     * @var array
      */
     protected $types = [
         'button',
@@ -69,28 +69,27 @@ class FormInput extends FormElement
      *
      * @throws Exception
      */
-    public function __construct(HTMLDocument $HTMLDocument, $type = "text", $name = "", $id = "", $class = "", $value = "", $required = false)
+    public function __construct(HTMLDocument $HTMLDocument, $type = 'text', $name = '', $id = '', $class = '', $value = '', $required = false)
     {
         // Check input type
         if (!$this->checkType($type)) {
-            throw new InvalidArgumentException("The form input type is not a valid HTML4 or HTML5 input type.");
+            throw new InvalidArgumentException('The form input type is not a valid HTML4 or HTML5 input type.');
         }
 
         // Check if input is radio or checkbox
         $checked = false;
-        if ($type == "checkbox" && is_bool($value)) {
+        if ($type == 'checkbox' && is_bool($value)) {
             $checked = ($value === true);
-            $value = "1";
+            $value = '1';
         }
 
         // Create HTMLElement
-        parent::__construct($HTMLDocument, $itemName = "input", $name, $value, $id, $class, $itemValue = "");
+        parent::__construct($HTMLDocument, $itemName = 'input', $name, $value, $id, $class, $itemValue = '');
 
         // Add extra attributes
-        $this->attr("type", $type);
-        $this->attr("checked", $checked);
-        $this->attr("required", $required);
+        $this->attr('type', $type);
+        $this->attr('checked', $checked);
+        $this->attr('required', $required);
     }
 }
 
-?>

@@ -14,7 +14,6 @@ declare(strict_types = 1);
 namespace Panda\Ui;
 
 use DOMAttr;
-use DOMElement;
 use DOMNode;
 use Exception;
 use InvalidArgumentException;
@@ -29,12 +28,12 @@ use InvalidArgumentException;
 class DOMItem
 {
     /**
-     * @type DOMPrototype
+     * @var DOMPrototype
      */
     protected $DOMDocument;
 
     /**
-     * @type DOMNode
+     * @var DOMNode
      */
     protected $DOMElement;
 
@@ -45,19 +44,19 @@ class DOMItem
      * @param string         $name
      * @param string|DOMItem $value
      */
-    public function __construct(DOMPrototype $DOMDocument, $name, $value = "")
+    public function __construct(DOMPrototype $DOMDocument, $name, $value = '')
     {
         // Initialize DOMDocument
         $this->DOMDocument = $DOMDocument;
 
         // Check if the content is string or a DOMElement
-        if (gettype($value) == "string") {
+        if (gettype($value) == 'string') {
             $this->DOMElement = $this->DOMDocument->createElement($name);
             $txtNode = $this->DOMDocument->createTextNode($value);
             $this->DOMElement->appendChild($txtNode);
         } else {
             $this->DOMElement = $this->DOMDocument->createElement($name);
-            if (gettype($value) == "object") {
+            if (gettype($value) == 'object') {
                 $this->DOMElement->appendChild($value->getDOMElement());
             }
         }
@@ -78,7 +77,7 @@ class DOMItem
      * It returns the new attribute otherwise.
      * @throws Exception
      */
-    public function attr($name, $value = "", $validate = false)
+    public function attr($name, $value = '', $validate = false)
     {
         // If value is null or false, remove attribute
         if (is_null($value) || (is_bool($value) && $value === false)) {
@@ -91,10 +90,10 @@ class DOMItem
         }
 
         // Check if id is valid
-        if ($name == "id") {
-            $match = preg_match("/^[a-zA-Z][\w\_\-\.\:]*$/i", $value);
+        if ($name == 'id') {
+            $match = preg_match('/^[a-zA-Z][\w\_\-\.\:]*$/i', $value);
             if (!$match && $validate) {
-                throw new Exception("The given value is not valid for the given attribute name.", 1);
+                throw new Exception('The given value is not valid for the given attribute name.', 1);
             }
         }
 
@@ -116,7 +115,7 @@ class DOMItem
      *
      * @return array
      */
-    public function attrs($value = array())
+    public function attrs($value = [])
     {
         if (empty($value)) {
             // Get current attributes
@@ -152,7 +151,7 @@ class DOMItem
         // Create new attribute value
         $value = trim((string)$value);
         $old_value = $this->DOMElement->getAttribute($name);
-        $value = trim(trim((string)$old_value) . " " . $value);
+        $value = trim(trim((string)$old_value) . ' ' . $value);
 
         // Set new attribute value
         return $this->attr($name, $value);
@@ -168,7 +167,7 @@ class DOMItem
      *
      * @return bool|string TRUE or the new value on success, FALSE on failure.
      */
-    public function data($name, $value = array())
+    public function data($name, $value = [])
     {
         // Check if value is empty
         if (empty($value)) {
@@ -191,7 +190,7 @@ class DOMItem
         $jsonValue = json_encode($value, JSON_FORCE_OBJECT);
 
         // Don't add anything if empty
-        $jsonValue = str_replace("{}", "", $jsonValue);
+        $jsonValue = str_replace('{}', '', $jsonValue);
 
         return $this->attr('data-' . $name, $jsonValue);
     }
@@ -228,7 +227,7 @@ class DOMItem
     {
         // Check element
         if (empty($element)) {
-            throw new InvalidArgumentException("You are trying to append an empty element.");
+            throw new InvalidArgumentException('You are trying to append an empty element.');
         }
         // Import element to the document
         $element = $this->DOMDocument->importNode($element->getDOMElement(), true);
@@ -251,7 +250,7 @@ class DOMItem
     public function prepend($element)
     {
         if (empty($element)) {
-            throw new InvalidArgumentException("You are trying to prepend an empty element.");
+            throw new InvalidArgumentException('You are trying to prepend an empty element.');
         }
 
         // Append before first child
@@ -277,7 +276,7 @@ class DOMItem
 
         // Check if the element has a parent node
         if (empty($thisElement->parentNode)) {
-            throw new Exception("The current DOMItem has no parent.");
+            throw new Exception('The current DOMItem has no parent.');
         }
 
         // Remove the element
@@ -298,7 +297,7 @@ class DOMItem
 
         // Check if the element has a parent node
         if (empty($thisElement->parentNode)) {
-            throw new Exception("The current DOMItem has no parent.");
+            throw new Exception('The current DOMItem has no parent.');
         }
 
         // Replace the element
@@ -334,4 +333,3 @@ class DOMItem
     }
 }
 
-?>

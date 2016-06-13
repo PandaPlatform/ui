@@ -31,35 +31,35 @@ class Notification extends HTMLElement implements DOMBuilder
     /**
      * The error notification type.
      *
-     * @type    string
+     * @var string
      */
-    const ERROR = "error";
+    const ERROR = 'error';
 
     /**
      * The warning notification type.
      *
-     * @type    string
+     * @var string
      */
-    const WARNING = "warning";
+    const WARNING = 'warning';
 
     /**
      * The info notification type.
      *
-     * @type    string
+     * @var string
      */
-    const INFO = "info";
+    const INFO = 'info';
 
     /**
      * The success notification type.
      *
-     * @type    string
+     * @var string
      */
-    const SUCCESS = "success";
+    const SUCCESS = 'success';
 
     /**
      * The notification's body.
      *
-     * @type HTMLElement
+     * @var HTMLElement
      */
     protected $body;
 
@@ -70,9 +70,9 @@ class Notification extends HTMLElement implements DOMBuilder
      * @param string       $id
      * @param string       $class
      */
-    public function __construct($HTMLDocument, $id = "", $class = "")
+    public function __construct($HTMLDocument, $id = '', $class = '')
     {
-        parent::__construct($HTMLDocument, $name = "div", $value = "", $id, "uiNotification");
+        parent::__construct($HTMLDocument, $name = 'div', $value = '', $id, 'uiNotification');
         $this->addClass($class);
     }
 
@@ -99,7 +99,7 @@ class Notification extends HTMLElement implements DOMBuilder
 
         // Set timeout class
         if ($timeout) {
-            $this->addClass("timeout");
+            $this->addClass('timeout');
         }
 
         // Build Header (if any)
@@ -136,7 +136,7 @@ class Notification extends HTMLElement implements DOMBuilder
      */
     public function appendCustomMessage($message)
     {
-        $customMessage = $this->getHTMLDocument()->create("div", $message, "", "customMessage");
+        $customMessage = $this->getHTMLDocument()->create('div', $message, '', 'customMessage');
 
         return $this->append($customMessage);
     }
@@ -153,12 +153,12 @@ class Notification extends HTMLElement implements DOMBuilder
     private function buildHead($title, $disposable = false)
     {
         // Build Head Element
-        $head = $this->getHTMLDocument()->create("div", $title, "", "uiNtfHead");
+        $head = $this->getHTMLDocument()->create('div', $title, '', 'uiNtfHead');
         parent::append($head);
 
         // Populate the close button
         if ($disposable) {
-            $closeBtn = $this->getHTMLDocument()->create("span", "", "", "closeBtn");
+            $closeBtn = $this->getHTMLDocument()->create('span', '', '', 'closeBtn');
             $head->append($closeBtn);
         }
 
@@ -173,11 +173,11 @@ class Notification extends HTMLElement implements DOMBuilder
     private function buildBody()
     {
         // Build Body Element
-        $this->body = $this->getHTMLDocument()->create("div", "", "", "uiNtfBody");
+        $this->body = $this->getHTMLDocument()->create('div', '', '', 'uiNtfBody');
         parent::append($this->body);
 
         // Populate the notification icon
-        $icon = $this->getHTMLDocument()->create("span", "", "", 'uiNtfIcon');
+        $icon = $this->getHTMLDocument()->create('span', '', '', 'uiNtfIcon');
         $this->body->append($icon);
 
         return $this;

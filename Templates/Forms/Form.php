@@ -34,35 +34,35 @@ class Form extends FormControl implements DOMBuilder
     /**
      * The form report container class.
      *
-     * @type    string
+     * @var string
      */
-    const FORM_REPORT_CLASS = "form-report";
+    const FORM_REPORT_CLASS = 'form-report';
 
     /**
      * The form's id.
      *
-     * @type    string
+     * @var string
      */
     protected $formId;
 
     /**
      * The form report element container.
      *
-     * @type HTMLElement
+     * @var HTMLElement
      */
     protected $formReport;
 
     /**
      * The form body element container.
      *
-     * @type HTMLElement
+     * @var HTMLElement
      */
     protected $formBody;
 
     /**
      * Defines whether the form will prevent page unload on edit.
      *
-     * @type bool
+     * @var bool
      */
     protected $pu = false;
 
@@ -79,16 +79,16 @@ class Form extends FormControl implements DOMBuilder
      *                                                  required when you are using forms that have a file upload
      *                                                  control. It is FALSE by default.
      */
-    public function __construct(HTMLDocument $HTMLDocument, $HTMLFormFactory = null, $id = "", $action = "", $async = true, $fileUpload = false)
+    public function __construct(HTMLDocument $HTMLDocument, $HTMLFormFactory = null, $id = '', $action = '', $async = true, $fileUpload = false)
     {
         // Set the formID
-        $this->formId = ($id ?: "f" . mt_rand());
+        $this->formId = ($id ?: 'f' . mt_rand());
 
         // Create Form element
         parent::__construct($HTMLDocument, $HTMLFormFactory, $this->formId, $action, $async, $fileUpload);
 
         // Add extra class
-        $this->addClass("form-template");
+        $this->addClass('form-template');
     }
 
     /**
@@ -97,11 +97,11 @@ class Form extends FormControl implements DOMBuilder
     public function build()
     {
         // Create form report element
-        $this->formReport = $this->getHTMLDocument()->create("div", "", "", self::FORM_REPORT_CLASS);
+        $this->formReport = $this->getHTMLDocument()->create('div', '', '', self::FORM_REPORT_CLASS);
         $this->append($this->formReport);
 
         // Create form body element
-        $this->formBody = $this->getHTMLDocument()->create("div", "", "", "form-body");
+        $this->formBody = $this->getHTMLDocument()->create('div', '', '', 'form-body');
         $this->append($this->formBody);
 
         return $this;
@@ -124,7 +124,7 @@ class Form extends FormControl implements DOMBuilder
      */
     protected function getInputId($name)
     {
-        return (empty($name) ? "" : "i" . $this->getFormId() . "_" . $name . mt_rand());
+        return (empty($name) ? '' : 'i' . $this->getFormId() . '_' . $name . mt_rand());
     }
 
     /**
@@ -156,4 +156,3 @@ class Form extends FormControl implements DOMBuilder
     }
 }
 
-?>

@@ -20,7 +20,7 @@ use Panda\Ui\DOMPrototype;
 class DOMFactory implements DOMFactoryInterface
 {
     /***
-     * @type DOMPrototype
+     * @var DOMPrototype
      */
     protected $Document;
 
@@ -43,7 +43,7 @@ class DOMFactory implements DOMFactoryInterface
      * @return DOMItem
      *
      */
-    public function buildElement($name = "", $value = "")
+    public function buildElement($name = '', $value = '')
     {
         return (new DOMItem($this->Document, $name, $value));
     }
@@ -65,4 +65,3 @@ class DOMFactory implements DOMFactoryInterface
     }
 }
 
-?>
