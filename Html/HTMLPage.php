@@ -106,7 +106,7 @@ class HTMLPage extends HTMLDocument implements DOMBuilder
         $this->flushBottomScripts();
 
         // Return text/html
-        return '<!DOCTYPE html>\n' . parent::getHTML();
+        return "<!DOCTYPE html>\n" . parent::getHTML();
     }
 
     /**
