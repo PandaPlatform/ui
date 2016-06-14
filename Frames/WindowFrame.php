@@ -16,6 +16,7 @@ namespace Panda\Ui\Frames;
 use Panda\Ui\Contracts\DOMBuilder;
 use Panda\Ui\DOMPrototype;
 use Panda\Ui\Html\HTMLElement;
+use Panda\Ui\Popups\Popup;
 
 /**
  * Window Frame Prototype
@@ -91,5 +92,21 @@ class WindowFrame extends HTMLElement implements DOMBuilder
         $this->body->append($element);
 
         return $this;
+    }
+
+    /**
+     * Build the window frame in a popup container.
+     *
+     * @return HTMLElement
+     */
+    public function getPopup()
+    {
+        // Create popup
+        $popup = new Popup($this->getHTMLDocument());
+        $popup->type(Popup::TP_PERSISTENT, false);
+        $popup->binding("on");
+        $popup->build($this);
+
+        return $popup;
     }
 }

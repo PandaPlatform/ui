@@ -14,6 +14,7 @@ declare(strict_types = 1);
 namespace Panda\Ui\Views;
 
 use Exception;
+use InvalidArgumentException;
 use Panda\Ui\DOMPrototype;
 use Panda\Ui\Html\HTMLElement;
 
@@ -39,13 +40,15 @@ class ViewElement extends HTMLElement
      *
      * @throws Exception
      */
-    public function __construct($HTMLDocument, $view, $name = 'div', $value = '', $id = '', $class = '')
+    public function __construct($HTMLDocument, $view = '', $name = 'div', $value = '', $id = '', $class = '')
     {
         // Create DOMItem
         parent::__construct($HTMLDocument, $name, $value, $id, $class);
 
         // Load external view file
-        $this->loadView($view);
+        if (!empty($view)) {
+            $this->loadView($view);
+        }
     }
 
     /**
@@ -53,12 +56,21 @@ class ViewElement extends HTMLElement
      * It clears the inner html of the element first.
      *
      * @param string $view
+     *
+     * @return $this
+     *
+     * @throws InvalidArgumentException
      */
     public function loadView($view)
     {
+        // Check for view name
+        if (empty($view)) {
+            throw new InvalidArgumentException('View file cannot be empty.');
+        }
+
         // Check if the file exists
         if (!file_exists($view)) {
-            return;
+            throw new InvalidArgumentException('View file cannot be found.');
         }
 
         // Load view file
@@ -67,6 +79,8 @@ class ViewElement extends HTMLElement
         if (!empty($viewHTML)) {
             $this->innerHTML($viewHTML);
         }
+
+        return $this;
     }
 
     /**

@@ -33,7 +33,7 @@ class HTMLFactory extends DOMFactory implements HTMLFactoryInterface
     /**
      * HTMLFactory constructor.
      *
-     * @param HTMLDocument|null $Document
+     * @param HTMLDocument $Document
      */
     public function __construct($Document = null)
     {
