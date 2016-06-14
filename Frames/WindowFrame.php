@@ -14,6 +14,7 @@ declare(strict_types = 1);
 namespace Panda\Ui\Frames;
 
 use Panda\Ui\Contracts\DOMBuilder;
+use Panda\Ui\DOMItem;
 use Panda\Ui\DOMPrototype;
 use Panda\Ui\Html\HTMLElement;
 use Panda\Ui\Popups\Popup;
@@ -24,46 +25,56 @@ use Panda\Ui\Popups\Popup;
  *
  * @package Panda\Ui\Frames
  */
-class WindowFrame extends HTMLElement implements DOMBuilder
+class WindowFrame extends Popup implements DOMBuilder
 {
+    /**
+     * The frame HTML Element.
+     *
+     * @var HTMLElement
+     */
+    protected $wFrame;
+
     /**
      * The frame's body container.
      *
      * @var HTMLElement
      */
-    private $body;
+    protected $body;
 
     /**
-     * Create a new frame instance.
+     * Create a new frame popup instance.
      *
      * @param DOMPrototype $HTMLDocument
-     * @param string       $id
-     * @param string       $class
+     * @param string       $id    The frame's id.
+     * @param string       $class The frame's class.
      */
     public function __construct($HTMLDocument, $id = '', $class = '')
     {
-        $id = (empty($id) ? 'wf' . mt_rand() : $id);
-        parent::__construct($HTMLDocument, $name = 'div', $value = '', $id, $class = 'wFrame');
-        $this->addClass($class);
+        // Create popup
+        parent::__construct($HTMLDocument, $id);
+
+        // Set basic properties
+        $this->type(Popup::TP_PERSISTENT, false);
+        $this->binding("on");
+
+        // Create wFrame
+        $id = 'wf_' . (empty($id) ? mt_rand() : $id);
+        $this->wFrame = $this->getHTMLDocument()->create('div', '', $id, 'wFrame');
+        $this->wFrame->addClass($class);
     }
 
     /**
      * Builds the window frame structure.
      *
-     * @param mixed  $title The frame's title.
-     *                      It can be string or DOMElement.
-     * @param string $class The frame's class.
+     * @param string|DOMItem $title The frame's title.
      *
      * @return $this
      */
-    public function build($title = '', $class = '')
+    public function build($title = '')
     {
-        // Add class
-        $this->addClass($class);
-
         // Create header
         $frameHeader = $this->getHTMLDocument()->create('div', '', '', 'frameHeader');
-        $this->append($frameHeader);
+        $this->appendToFrame($frameHeader);
 
         // Header Title
         $frameTitle = $this->getHTMLDocument()->create('span', $title, '', 'frameTitle');
@@ -75,7 +86,21 @@ class WindowFrame extends HTMLElement implements DOMBuilder
 
         // Create body
         $this->body = $this->getHTMLDocument()->create('div', '', '', 'frameBody');
-        $this->append($this->body);
+        $this->appendToFrame($this->body);
+
+        return parent::build($this->wFrame);
+    }
+
+    /**
+     * Appends an element to frame.
+     *
+     * @param DOMItem $element The element to be appended.
+     *
+     * @return $this
+     */
+    public function appendToFrame($element)
+    {
+        $this->wFrame->append($element);
 
         return $this;
     }
@@ -83,7 +108,7 @@ class WindowFrame extends HTMLElement implements DOMBuilder
     /**
      * Appends an element to frame body.
      *
-     * @param HTMLElement $element The element to be appended.
+     * @param DOMItem $element The element to be appended.
      *
      * @return $this
      */
@@ -92,21 +117,5 @@ class WindowFrame extends HTMLElement implements DOMBuilder
         $this->body->append($element);
 
         return $this;
-    }
-
-    /**
-     * Build the window frame in a popup container.
-     *
-     * @return HTMLElement
-     */
-    public function getPopup()
-    {
-        // Create popup
-        $popup = new Popup($this->getHTMLDocument());
-        $popup->type(Popup::TP_PERSISTENT, false);
-        $popup->binding("on");
-        $popup->build($this);
-
-        return $popup;
     }
 }
