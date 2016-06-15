@@ -83,6 +83,9 @@ class DialogFrame extends WindowFrame
      */
     public function build($title = 'Dialog Frame', $action = '', $background = true, $type = self::TYPE_OK_CANCEL, $fileUpload = false)
     {
+        // Set popup properties
+        $this->background($background);
+
         // Build window frame
         parent::build($title);
 
