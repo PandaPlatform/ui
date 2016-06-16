@@ -20,6 +20,7 @@ namespace Panda\Ui\Helpers;
  * for html-specific functionality.
  *
  * @package Panda\Ui\Helpers
+ *
  * @version 0.1
  */
 class HTMLHelper

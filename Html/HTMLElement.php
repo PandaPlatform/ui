@@ -53,6 +53,7 @@ class HTMLElement extends DOMItem
      * @param string $class The class name.
      *
      * @return $this
+     *
      * @throws Exception
      */
     public function addClass($class)
@@ -89,6 +90,7 @@ class HTMLElement extends DOMItem
      * @param string $class The class name.
      *
      * @return $this
+     *
      * @throws Exception
      */
     public function removeClass($class)
@@ -121,6 +123,7 @@ class HTMLElement extends DOMItem
      * @param string $class The class name.
      *
      * @return bool True if the element has the class, false otherwise.
+     *
      * @throws Exception
      */
     public function hasClass($class)
@@ -166,7 +169,11 @@ class HTMLElement extends DOMItem
         if (is_null($val) || (is_bool($val) && $val === false)) {
             unset($styles[$name]);
         } elseif (empty($val)) {
-            return $styles[$name];
+            if (isset($styles[$name])) {
+                return $styles[$name];
+            }
+
+            return null;
         } else {
             $styles[$name] = $val;
         }

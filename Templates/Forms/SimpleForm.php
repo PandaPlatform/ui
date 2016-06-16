@@ -23,6 +23,7 @@ use Panda\Ui\Html\HTMLElement;
  * It has access to the FormFactory (it extends it) and can build every form control.
  *
  * @package Panda\Ui\Templates\Forms
+ *
  * @version 0.1
  */
 class SimpleForm extends Form implements DOMBuilder

@@ -82,9 +82,9 @@ class HTMLDocument extends DOMPrototype
         }
 
         // Get rest of attributes
-        $value = $arguments[0];
-        $id = $arguments[1];
-        $class = $arguments[2];
+        $value = (count($arguments) > 0 ? $arguments[0] : '');
+        $id = (count($arguments) > 0 ? $arguments[1] : '');
+        $class = (count($arguments) > 1 ? $arguments[2] : '');
 
         // Create element
         return $this->create($name, $value, $id, $class);

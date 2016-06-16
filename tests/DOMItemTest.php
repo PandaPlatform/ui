@@ -52,8 +52,8 @@ class DOMItemTest extends PHPUnit_Framework_TestCase
     {
         // Test data array
         $data = [];
-        $data['t1'] = "t1_value";
-        $data['t2'] = "t2_value";
+        $data['t1'] = 't1_value';
+        $data['t2'] = 't2_value';
         $this->DOMItem->data('dtest', $data);
         $this->assertEquals(json_encode($data, JSON_FORCE_OBJECT), $this->DOMItem->getAttribute('data-dtest'));
 
@@ -96,12 +96,11 @@ class DOMItemTest extends PHPUnit_Framework_TestCase
     public function testRemove()
     {
         $this->DOMItem->remove();
-        $this->assertEquals(new \DOMDocument(), $this->DOMItem->ownerDocument);
+        $this->assertNull($this->DOMItem->parentNode);
     }
 
     public function testReplace()
     {
-        // Simple prepend
         $newItem = new DOMItem('new');
         $this->assertEquals($newItem, $this->DOMItem->replace($newItem));
     }

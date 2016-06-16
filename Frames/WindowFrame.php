@@ -55,7 +55,7 @@ class WindowFrame extends Popup implements DOMBuilder
 
         // Set basic properties
         $this->type(Popup::TP_PERSISTENT, false);
-        $this->binding("on");
+        $this->binding('on');
 
         // Create wFrame
         $id = 'wf_' . (empty($id) ? mt_rand() : $id);
