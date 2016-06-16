@@ -14,12 +14,12 @@ declare(strict_types = 1);
 namespace Panda\Ui\Controls\Form;
 
 use Exception;
-use Panda\Ui\Html\HTMLDocument;
 
 /**
  * Class FormSelect
  *
  * @package Panda\Ui\Controls\Form
+ *
  * @version 0.1
  */
 class FormSelect extends FormElement
@@ -27,19 +27,18 @@ class FormSelect extends FormElement
     /**
      * Create a new form item.
      *
-     * @param HTMLDocument $HTMLDocument The DOMDocument to create the element
-     * @param string       $name         The input's name
-     * @param string       $id           The input's id
-     * @param string       $class        The input's class
-     * @param bool         $multiple     Option for multiple selection.
-     * @param bool         $required     Sets the input as required for the form.
+     * @param string $name     The input's name
+     * @param string $id       The input's id
+     * @param string $class    The input's class
+     * @param bool   $multiple Option for multiple selection.
+     * @param bool   $required Sets the input as required for the form.
      *
      * @throws Exception
      */
-    public function __construct(HTMLDocument $HTMLDocument, $name = '', $id = '', $class = '', $multiple = false, $required = false)
+    public function __construct($name = '', $id = '', $class = '', $multiple = false, $required = false)
     {
         // Create FormElement
-        parent::__construct($HTMLDocument, $itemName = 'select', $name, $value = '', $id, $class, $itemValue = '');
+        parent::__construct($itemName = 'select', $name, $value = '', $id, $class, $itemValue = '');
         $this->attr('required', $required);
 
         // Add extra attributes
@@ -63,7 +62,7 @@ class FormSelect extends FormElement
         // Create all options
         foreach ($options as $value => $title) {
             // Create option
-            $fi = new FormElement($this->getDOMDocument(), 'option', '', $value, '', '', $title);
+            $fi = new FormElement('option', '', $value, '', '', $title);
 
             // Check if it's the selected value
             if ($value == $selectedValue) {
@@ -92,14 +91,14 @@ class FormSelect extends FormElement
     {
         // Create all options
         foreach ($optionGroups as $groupLabel => $options) {
-            // Create option froup
-            $og = new FormElement($this->getDOMDocument(), 'optgroup', $name = '', $value = '', $id = '', $class = '', $itemValue = '');
+            // Create option group
+            $og = new FormElement('optgroup', $name = '', $value = '', $id = '', $class = '', $itemValue = '');
             $og->attr('label', $groupLabel);
 
             // Create all options
             foreach ($options as $value => $title) {
                 // Create option
-                $fi = new FormElement($this->getDOMDocument(), 'option', '', $value, '', '', $title);
+                $fi = new FormElement('option', '', $value, '', '', $title);
 
                 // Check if it's the selected value
                 if ($value == $selectedValue) {

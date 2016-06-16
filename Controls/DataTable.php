@@ -16,7 +16,6 @@ namespace Panda\Ui\Controls;
 use InvalidArgumentException;
 use LogicException;
 use Panda\Ui\Contracts\DOMBuilder;
-use Panda\Ui\DOMPrototype;
 use Panda\Ui\Factories\FormFactory;
 use Panda\Ui\Html\HTMLElement;
 
@@ -70,14 +69,13 @@ class DataTable extends HTMLElement implements DOMBuilder
     /**
      * DataTable constructor.
      *
-     * @param DOMPrototype $HTMLDocument
-     * @param string       $id
-     * @param string       $class
+     * @param string $id
+     * @param string $class
      */
-    public function __construct(DOMPrototype $HTMLDocument, $id = '', $class = '')
+    public function __construct($id = '', $class = '')
     {
         $id = $id ?: 'dt' . mt_rand();
-        parent::__construct($HTMLDocument, $name = 'div', $value = '', $id, $class = 'uiDataTable initialize');
+        parent::__construct($name = 'div', $value = '', $id, $class = 'uiDataTable initialize');
     }
 
     /**
@@ -105,7 +103,7 @@ class DataTable extends HTMLElement implements DOMBuilder
         }
 
         // Create grid list
-        $this->gridList = $this->getHTMLDocument()->create('ul', '', '', 'DataTableList');
+        $this->gridList = new HTMLElement('ul', '', '', 'DataTableList');
         $this->append($this->gridList);
 
         return $this;
@@ -175,7 +173,7 @@ class DataTable extends HTMLElement implements DOMBuilder
         }
 
         // Create new grid content wrapper
-        $gridListContentWrapper = $this->getHTMLDocument()->create('div', '', '', 'DataTableContentWrapper');
+        $gridListContentWrapper = new HTMLElement('div', '', '', 'DataTableContentWrapper');
         $this->gridList->append($gridListContentWrapper);
         $this->gridList = $gridListContentWrapper;
     }
@@ -224,7 +222,7 @@ class DataTable extends HTMLElement implements DOMBuilder
         }
 
         // Create grid row object
-        $gridRow = $this->getHTMLDocument()->create('li', '', '', ($class == '' ? 'DataTableRow' : $class));
+        $gridRow = new HTMLElement('li', '', '', ($class == '' ? 'DataTableRow' : $class));
 
         // Trim contents to the column size
         if ($this->hSize < count($contents)) {
@@ -234,7 +232,7 @@ class DataTable extends HTMLElement implements DOMBuilder
         // Add extra columns
         $contentsCount = count($contents);
         for ($i = 0; $i < $this->hSize - $contentsCount; $i++) {
-            $contents[] = $this->getHTMLDocument()->create('span');
+            $contents[] = new HTMLElement('span');
         }
 
         // Insert contents to row
@@ -251,13 +249,13 @@ class DataTable extends HTMLElement implements DOMBuilder
             }
 
             // Set text wrapper
-            $gridTextWrapper = $this->getHTMLDocument()->create('span', $contentValue, '', 'DataTableTextWrapper');
+            $gridTextWrapper = new HTMLElement('span', $contentValue, '', 'DataTableTextWrapper');
 
             // Set item style
             $gridTextWrapper->appendAttr('style', 'max-width:100%;width:100%;box-sizing:border-box;');
 
             // Create grid cell with given text
-            $gridCell = $this->getHTMLDocument()->create('div', $gridTextWrapper, '', 'DataTableCell');
+            $gridCell = new HTMLElement('div', $gridTextWrapper, '', 'DataTableCell');
             $gridRow->append($gridCell);
 
             // Set header (if any)
@@ -266,7 +264,7 @@ class DataTable extends HTMLElement implements DOMBuilder
                 $gridCell->data('column-name', $itemIdentifier);
 
                 // Add sorting icon
-                $sortingIcon = $this->getHTMLDocument()->create('div', '', '', 'sortingIcon');
+                $sortingIcon = new HTMLElement('div', '', '', 'sortingIcon');
                 $gridTextWrapper->append($sortingIcon);
             }
 
@@ -300,10 +298,10 @@ class DataTable extends HTMLElement implements DOMBuilder
     private function appendCheckRow($row, $checkName, $checked, $checkValue = '')
     {
         // Create the check item
-        $gridCheck = $this->getHTMLDocument()->create('div', '', '', 'DataTableCheck');
+        $gridCheck = new HTMLElement('div', '', '', 'DataTableCheck');
 
         // Get the checkbox
-        $formFactory = new FormFactory($this->getHTMLDocument());
+        $formFactory = new FormFactory();
         $chk = $formFactory->buildInput($type = 'checkbox', $name = $checkName, $value = $checkValue, $id = '', $class = '', $autofocus = false, $required = false);
         if ($checked) {
             $chk->attr('checked', 'checked');

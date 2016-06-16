@@ -14,12 +14,13 @@ declare(strict_types = 1);
 namespace Panda\Ui\Contracts\Factories;
 
 use Panda\Ui\DOMItem;
-use Panda\Ui\DOMPrototype;
 
 /**
  * Interface DOMFactoryInterface
  *
  * @package Panda\Ui\Contracts
+ *
+ * @version 0.1
  */
 interface DOMFactoryInterface
 {
@@ -32,15 +33,5 @@ interface DOMFactoryInterface
      * @return DOMItem
      */
     public function buildElement($name = '', $value = '');
-
-    /**
-     * @return DOMPrototype
-     */
-    public function getDocument();
-
-    /**
-     * @param DOMPrototype $Prototype
-     */
-    public function setDocument($Prototype);
 }
 

@@ -14,7 +14,7 @@ declare(strict_types = 1);
 namespace Panda\Ui\Frames;
 
 use Panda\Ui\Contracts\Factories\HTMLFormFactoryInterface;
-use Panda\Ui\DOMPrototype;
+use Panda\Ui\Html\HTMLElement;
 use Panda\Ui\Templates\Forms\SimpleForm;
 
 /**
@@ -22,6 +22,8 @@ use Panda\Ui\Templates\Forms\SimpleForm;
  * Creates a dialog frame popup to display content to the user and perform an action.
  *
  * @package Panda\Ui\Frames
+ *
+ * @version 0.1
  */
 class DialogFrame extends WindowFrame
 {
@@ -54,14 +56,13 @@ class DialogFrame extends WindowFrame
     /**
      * dialogFrame constructor.
      *
-     * @param DOMPrototype             $HTMLDocument
      * @param HTMLFormFactoryInterface $FormFactory
      * @param string                   $id
      * @param string                   $class
      */
-    public function __construct($HTMLDocument, $FormFactory, $id, $class)
+    public function __construct($FormFactory, $id, $class)
     {
-        parent::__construct($HTMLDocument, $id, $class);
+        parent::__construct($id, $class);
         $this->formFactory = $FormFactory;
     }
 
@@ -87,7 +88,7 @@ class DialogFrame extends WindowFrame
         parent::build($title, 'dialogFrame');
 
         // Build Form
-        $this->form = new SimpleForm($this->getHTMLDocument(), $this->formFactory, $id = '', $action, $async = true, $fileUpload);
+        $this->form = new SimpleForm($this->formFactory, $id = '', $action, $async = true, $fileUpload);
         $this->form->build(false, true);
         $this->appendToBody($this->form);
 
@@ -137,11 +138,11 @@ class DialogFrame extends WindowFrame
     private function buildControls($type = self::TYPE_OK_CANCEL)
     {
         // Create dialog controls container
-        $controlsContainer = $this->getHTMLDocument()->create('div', '', '', 'dialogControls');
+        $controlsContainer = new HTMLElement('div', '', '', 'dialogControls');
         $this->form->append($controlsContainer);
 
         // Button Container
-        $btnContainer = $this->getHTMLDocument()->create('div', '', '', 'ctrls');
+        $btnContainer = new HTMLElement('div', '', '', 'ctrls');
         $controlsContainer->append($btnContainer);
 
         // Set button literals

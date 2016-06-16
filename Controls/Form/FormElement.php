@@ -13,13 +13,13 @@ declare(strict_types = 1);
 
 namespace Panda\Ui\Controls\Form;
 
-use Panda\Ui\DOMPrototype;
 use Panda\Ui\Html\HTMLElement;
 
 /**
  * Class FormElement
  *
  * @package Panda\Ui\Controls\Form
+ *
  * @version 0.1
  */
 class FormElement extends HTMLElement
@@ -35,19 +35,18 @@ class FormElement extends HTMLElement
     /**
      * Create a new form item.
      *
-     * @param DOMPrototype $HTMLDocument The DOMDocument to create the element
-     * @param string       $itemName     The item's tagName
-     * @param string       $name         The item's name attribute
-     * @param string       $value        The item's value attribute
-     * @param string       $id           The item's id attribute
-     * @param string       $class        The item's class attribute
-     * @param string       $itemValue    The item's content value.
-     *                                   It can be string or DOMElement.
+     * @param string $itemName  The item tagName
+     * @param string $name      The item name attribute
+     * @param string $value     The item value attribute
+     * @param string $id        The item id attribute
+     * @param string $class     The item class attribute
+     * @param string $itemValue The item content value.
+     *                          It can be string or DOMElement.
      */
-    public function __construct(DOMPrototype $HTMLDocument, $itemName = '', $name = '', $value = '', $id = '', $class = '', $itemValue = '')
+    public function __construct($itemName = '', $name = '', $value = '', $id = '', $class = '', $itemValue = '')
     {
         // Create HTMLElement
-        parent::__construct($HTMLDocument, $itemName, $itemValue, $id, $class);
+        parent::__construct($itemName, $itemValue, $id, $class);
 
         // Add extra attributes
         $this->attr('name', $name);

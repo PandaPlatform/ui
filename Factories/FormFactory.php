@@ -26,6 +26,8 @@ use Panda\Ui\Html\HTMLElement;
  * Class FormFactory
  *
  * @package Panda\Ui\Controls
+ *
+ * @version 0.1
  */
 class FormFactory extends HTMLFactory implements HTMLFormFactoryInterface
 {
@@ -52,7 +54,7 @@ class FormFactory extends HTMLFactory implements HTMLFormFactoryInterface
     {
         // Create form input
         $id = $id ?: 'fi' . mt_rand();
-        $fi = new FormInput($this->getDocument(), $type, $name, $id, $class, $value, $required);
+        $fi = new FormInput($type, $name, $id, $class, $value, $required);
 
         // Add extra attributes
         $fi->attr('autofocus', $autofocus);
@@ -99,7 +101,7 @@ class FormFactory extends HTMLFactory implements HTMLFormFactoryInterface
     public function buildLabel($content, $for = '', $class = '')
     {
         // Create new form label
-        $fl = new FormLabel($this->getDocument(), $content, $for);
+        $fl = new FormLabel($content, $for);
 
         // Add class
         $fl->addClass($class);
@@ -123,7 +125,7 @@ class FormFactory extends HTMLFactory implements HTMLFormFactoryInterface
     {
         // Create new form button
         $id = $id ?: 'fb' . mt_rand();
-        $fb = new FormButton($this->getDocument(), $type, $name, $id, $title);
+        $fb = new FormButton($type, $name, $id, $title);
 
         // Add class
         $fb->addClass($class);
@@ -186,7 +188,7 @@ class FormFactory extends HTMLFactory implements HTMLFormFactoryInterface
     {
         // Create Form Item
         $id = $id ?: 'ftxt' . mt_rand();
-        $fi = new FormElement($this->getDocument(), $itemName = 'textarea', $name, $id, $value, $class, $itemValue = '');
+        $fi = new FormElement($itemName = 'textarea', $name, $id, $value, $class, $itemValue = '');
         $fi->nodeValue($value);
 
         // Set attributes
@@ -211,10 +213,10 @@ class FormFactory extends HTMLFactory implements HTMLFormFactoryInterface
     {
         // Create fieldset item
         $id = $id ?: 'flds' . mt_rand();
-        $fi = new FormElement($this->getDocument(), $itemName = 'fieldset', $name, $value = '', $id, $class, $itemValue = '');
+        $fi = new FormElement($itemName = 'fieldset', $name, $value = '', $id, $class, $itemValue = '');
 
         // Create and append legend
-        $legend = $this->getDocument()->getHTMLFactory()->buildElement('legend', $title);
+        $legend = $this->buildElement('legend', $title);
         $fi->append($legend);
 
         // Return the fieldset element
@@ -238,7 +240,7 @@ class FormFactory extends HTMLFactory implements HTMLFormFactoryInterface
     {
         // Create select form input
         $id = $id ?: 'fs' . mt_rand();
-        $fi = new FormSelect($this->getDocument(), $name, $id, $class, $multiple, $required);
+        $fi = new FormSelect($name, $id, $class, $multiple, $required);
 
         // Insert options if any
         $fi->addOptions($options, $selectedValue);

@@ -51,7 +51,6 @@ abstract class DOMPrototype extends DOMDocument
 
         // Set DOMFactory
         $this->DOMFactory = $DOMFactory ?: new DOMFactory();
-        $this->DOMFactory->setDocument($this);
     }
 
     /**
@@ -81,8 +80,9 @@ abstract class DOMPrototype extends DOMDocument
         if (empty($element)) {
             throw new InvalidArgumentException('You are trying to append an empty element.');
         }
+
         // Import element to the document
-        $element = $this->importNode($element->getDOMElement(), true);
+        $element = $this->importNode($element, true);
 
         // Append element
         $this->appendChild($element);

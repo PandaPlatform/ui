@@ -68,15 +68,15 @@ class SimpleForm extends Form implements DOMBuilder
     private function buildRequiredNotes()
     {
         // Build the required notes container
-        $requireNotesContainer = $this->getHTMLDocument()->create('div', '', '', 'form-simple-required-notes');
+        $requireNotesContainer = new HTMLElement('div', '', '', 'form-simple-required-notes');
 
         // Create note
-        $note = $this->getHTMLDocument()->create('p', '', '', 'rqNote');
+        $note = new HTMLElement('p', '', '', 'rqNote');
         $requireNotesContainer->append($note);
 
         $star = $this->requiredStar();
         $note->append($star);
-        $title = $this->getHTMLDocument()->create('span', 'All fields marked with asterisk are required.');
+        $title = new HTMLElement('span', 'All fields marked with asterisk are required.');
         $note->append($title);
 
         // Append before controls
@@ -94,7 +94,7 @@ class SimpleForm extends Form implements DOMBuilder
     private function buildControls($defaultButtons)
     {
         // Create form controls
-        $this->formControls = $this->getHTMLDocument()->create('div', '', '', 'form-controls');
+        $this->formControls = new HTMLElement('div', '', '', 'form-controls');
         $this->append($this->formControls);
 
         // Insert Default buttons for save and reset
@@ -166,7 +166,7 @@ class SimpleForm extends Form implements DOMBuilder
             $label->append($this->requiredStar());
         }
 
-        $colonSpan = $this->getHTMLDocument()->create('span', ':');
+        $colonSpan = new HTMLElement('span', ':');
         $label->append($colonSpan);
 
         return $label;
@@ -209,7 +209,7 @@ class SimpleForm extends Form implements DOMBuilder
      */
     public function formRow()
     {
-        return $this->getHTMLDocument()->create('div', '', '', 'form-simple-row');
+        return new HTMLElement('div', '', '', 'form-simple-row');
     }
 
     /**
@@ -234,7 +234,7 @@ class SimpleForm extends Form implements DOMBuilder
      */
     private function formNotes($notes)
     {
-        return $this->getHTMLDocument()->create('div', $notes, '', 'form-simple-notes');
+        return new HTMLElement('div', $notes, '', 'form-simple-notes');
     }
 
     /**
@@ -244,7 +244,7 @@ class SimpleForm extends Form implements DOMBuilder
      */
     private function requiredStar()
     {
-        return $this->getHTMLDocument()->create('span', '*', '', 'required');
+        return new HTMLElement('span', '*', '', 'required');
     }
 }
 

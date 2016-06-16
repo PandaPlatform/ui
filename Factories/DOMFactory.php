@@ -15,25 +15,16 @@ namespace Panda\Ui\Factories;
 
 use Panda\Ui\Contracts\Factories\DOMFactoryInterface;
 use Panda\Ui\DOMItem;
-use Panda\Ui\DOMPrototype;
 
+/**
+ * Class DOMFactory
+ *
+ * @package Panda\Ui\Factories
+ *
+ * @version 0.1
+ */
 class DOMFactory implements DOMFactoryInterface
 {
-    /***
-     * @var DOMPrototype
-     */
-    protected $Document;
-
-    /**
-     * Create a new HTMLFactory.
-     *
-     * @param DOMPrototype $DOMPrototype
-     */
-    public function __construct(DOMPrototype $DOMPrototype = null)
-    {
-        $this->Document = $DOMPrototype;
-    }
-
     /**
      * Build a DOM item.
      *
@@ -45,23 +36,7 @@ class DOMFactory implements DOMFactoryInterface
      */
     public function buildElement($name = '', $value = '')
     {
-        return new DOMItem($this->Document, $name, $value);
-    }
-
-    /**
-     * @return DOMPrototype
-     */
-    public function getDocument()
-    {
-        return $this->Document;
-    }
-
-    /**
-     * @param DOMPrototype $Prototype
-     */
-    public function setDocument($Prototype)
-    {
-        $this->Document = $Prototype;
+        return new DOMItem($name, $value);
     }
 }
 

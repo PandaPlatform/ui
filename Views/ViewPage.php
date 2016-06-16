@@ -43,7 +43,7 @@ class ViewPage extends HTMLPage
     public function addView($view, $name, $value = '', $id = '', $class = '')
     {
         // Create the view element
-        $this->view = new ViewElement($this, $view, $name, $value, $id, $class);
+        $this->view = new ViewElement($view, $name, $value, $id, $class);
 
         // Append to body and return object
         return $this->appendToBody($this->view);

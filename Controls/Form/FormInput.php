@@ -15,12 +15,12 @@ namespace Panda\Ui\Controls\Form;
 
 use Exception;
 use InvalidArgumentException;
-use Panda\Ui\Html\HTMLDocument;
 
 /**
  * Class FormInput
  *
  * @package Panda\Ui\Controls\Form
+ *
  * @version 0.1
  */
 class FormInput extends FormElement
@@ -59,17 +59,16 @@ class FormInput extends FormElement
     /**
      * Create a new form input item.
      *
-     * @param HTMLDocument $HTMLDocument The DOMDocument to create the element
-     * @param string       $type         The input's type
-     * @param string       $name         The input's name
-     * @param string       $id           The input's id
-     * @param string       $class        The input's class
-     * @param string       $value        The input's value
-     * @param bool         $required     Sets the input as required for the form.
+     * @param string $type     The input's type
+     * @param string $name     The input's name
+     * @param string $id       The input's id
+     * @param string $class    The input's class
+     * @param string $value    The input's value
+     * @param bool   $required Sets the input as required for the form.
      *
      * @throws Exception
      */
-    public function __construct(HTMLDocument $HTMLDocument, $type = 'text', $name = '', $id = '', $class = '', $value = '', $required = false)
+    public function __construct($type = 'text', $name = '', $id = '', $class = '', $value = '', $required = false)
     {
         // Check input type
         if (!$this->checkType($type)) {
@@ -84,7 +83,7 @@ class FormInput extends FormElement
         }
 
         // Create HTMLElement
-        parent::__construct($HTMLDocument, $itemName = 'input', $name, $value, $id, $class, $itemValue = '');
+        parent::__construct($itemName = 'input', $name, $value, $id, $class, $itemValue = '');
 
         // Add extra attributes
         $this->attr('type', $type);

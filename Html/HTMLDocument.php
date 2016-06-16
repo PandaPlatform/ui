@@ -26,6 +26,7 @@ use Symfony\Component\CssSelector\CssSelectorConverter;
  * Create an HTML specific DOMDocument.
  *
  * @package Panda\Ui\Html
+ *
  * @version 0.1
  */
 class HTMLDocument extends DOMPrototype
@@ -40,7 +41,7 @@ class HTMLDocument extends DOMPrototype
     public function __construct($HTMLFactory, $version = '1.0', $encoding = 'UTF_8')
     {
         // Construct DOMDocument
-        $HTMLFactory = $HTMLFactory ?: new HTMLFactory($this);
+        $HTMLFactory = $HTMLFactory ?: new HTMLFactory();
         parent::__construct($HTMLFactory, $version, $encoding);
     }
 
@@ -58,7 +59,7 @@ class HTMLDocument extends DOMPrototype
     public function create($name = 'div', $value = '', $id = '', $class = '')
     {
         // Create a new HTMLElement
-        return new HTMLElement($this, $name, $value, $id, $class);
+        return $this->getHTMLFactory()->buildElement($name, $value, $id, $class);
     }
 
     /**

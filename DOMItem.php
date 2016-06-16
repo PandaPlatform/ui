@@ -14,51 +14,45 @@ declare(strict_types = 1);
 namespace Panda\Ui;
 
 use DOMAttr;
+use DOMElement;
+use DOMException;
 use DOMNode;
+use DOMText;
 use Exception;
 use InvalidArgumentException;
 
 /**
- * Abstract Document Object Model Item Class
+ * Abstract Document Object Model Item Class.
+ * This DOMItem implements extended DOMElement functionality.
  *
- * This DOMItem implements extended DOM functionality.
+ * @package Panda\Ui
  *
- * @version    0.1
+ * @version 0.1
  */
-class DOMItem
+class DOMItem extends DOMElement
 {
     /**
-     * @var DOMPrototype
-     */
-    protected $DOMDocument;
-
-    /**
-     * @var DOMNode
-     */
-    protected $DOMElement;
-
-    /**
-     * Create a new DOM Document.
+     * Create a new DOM Item.
      *
-     * @param DOMPrototype   $DOMDocument
      * @param string         $name
      * @param string|DOMItem $value
+     * @param string         $namespaceURI
      */
-    public function __construct(DOMPrototype $DOMDocument, $name, $value = '')
+    public function __construct($name, $value = '', $namespaceURI = '')
     {
-        // Initialize DOMDocument
-        $this->DOMDocument = $DOMDocument;
+        // Create DOMElement
+        parent::__construct($name, '', $namespaceURI);
 
-        // Check if the content is string or a DOMElement
+        // Check if the content a DOMNode to append
         if (gettype($value) == 'string') {
-            $this->DOMElement = $this->DOMDocument->createElement($name);
-            $txtNode = $this->DOMDocument->createTextNode($value);
-            $this->DOMElement->appendChild($txtNode);
-        } else {
-            $this->DOMElement = $this->DOMDocument->createElement($name);
-            if (gettype($value) == 'object') {
-                $this->DOMElement->appendChild($value->getDOMElement());
-            }
+            $valueNode = new DOMText($value);
+        } else if (gettype($value) == 'object' && $value instanceof DOMItem) {
+            $valueNode = $value;
+        }
+
+        // Append value node
+        if (!empty($valueNode)) {
+            $this->append($valueNode);
         }
     }
 
@@ -81,12 +75,12 @@ class DOMItem
     {
         // If value is null or false, remove attribute
         if (is_null($value) || (is_bool($value) && $value === false)) {
-            return $this->DOMElement->removeAttribute($name);
+            return $this->removeAttribute($name);
         }
 
         // If value is empty (null is empty but is caught above, except 0), get attribute
         if (empty($value) && $value !== 0) {
-            return $this->DOMElement->getAttribute($name);
+            return $this->getAttribute($name);
         }
 
         // Check if id is valid
@@ -99,9 +93,9 @@ class DOMItem
 
         // Set attribute
         if (is_bool($value) && $value === true) {
-            $this->DOMElement->setAttributeNode(new DOMAttr($name));
+            $this->setAttributeNode(new DOMAttr($name));
         } else {
-            $this->DOMElement->setAttribute($name, trim((string)$value));
+            $this->setAttribute($name, trim((string)$value));
         }
 
         return $value;
@@ -120,7 +114,7 @@ class DOMItem
         if (empty($value)) {
             // Get current attributes
             $attrs = [];
-            foreach ($this->DOMElement->attributes as $attr) {
+            foreach ($this->attributes as $attr) {
                 $attrs[$attr->name] = $attr->value;
             }
 
@@ -150,7 +144,7 @@ class DOMItem
     {
         // Create new attribute value
         $value = trim((string)$value);
-        $old_value = $this->DOMElement->getAttribute($name);
+        $old_value = $this->getAttribute($name);
         $value = trim(trim((string)$old_value) . ' ' . $value);
 
         // Set new attribute value
@@ -208,17 +202,17 @@ class DOMItem
     {
         // If given value is null, return the current value
         if (is_null($value)) {
-            return $this->DOMElement->nodeValue;
+            return $this->nodeValue;
         }
 
         // Return the new value
-        return $this->DOMElement->nodeValue = $value;
+        return $this->nodeValue = $value;
     }
 
     /**
      * Append an element as a child.
      *
-     * @param DOMItem $element
+     * @param DOMNode $element
      *
      * @return $this
      * @throws InvalidArgumentException
@@ -229,11 +223,9 @@ class DOMItem
         if (empty($element)) {
             throw new InvalidArgumentException('You are trying to append an empty element.');
         }
-        // Import element to the document
-        $element = $this->DOMDocument->importNode($element->getDOMElement(), true);
 
         // Append element
-        $this->DOMElement->appendChild($element);
+        $this->appendChild($element);
 
         // Return the DOMItem
         return $this;
@@ -254,8 +246,8 @@ class DOMItem
         }
 
         // Append before first child
-        if ($this->getDOMElement()->childNodes->length > 0) {
-            $this->getDOMElement()->insertBefore($element->getDOMElement(), $this->getDOMElement()->childNodes->item(0));
+        if ($this->childNodes->length > 0) {
+            $this->insertBefore($element, $this->childNodes->item(0));
         } else {
             $this->append($element);
         }
@@ -267,20 +259,16 @@ class DOMItem
     /**
      * Remove the DOMItem from the parent
      *
-     * @throws Exception
+     * @throws DOMException
      */
     public function remove()
     {
-        // Get this element
-        $thisElement = $this->getDOMElement();
-
-        // Check if the element has a parent node
-        if (empty($thisElement->parentNode)) {
-            throw new Exception('The current DOMItem has no parent.');
+        if (empty($this->parentNode)) {
+            throw new DOMException('The current DOMItem has no parent.');
         }
 
         // Remove the element
-        $thisElement->parentNode->removeChild($thisElement);
+        $this->parentNode->removeChild($this);
     }
 
     /**
@@ -288,48 +276,17 @@ class DOMItem
      *
      * @param DOMItem $element The item to replace.
      *
-     * @throws Exception
+     * @throws DOMException
      */
     public function replace($element)
     {
-        // Get this element
-        $thisElement = $this->getDOMElement();
-
         // Check if the element has a parent node
-        if (empty($thisElement->parentNode)) {
-            throw new Exception('The current DOMItem has no parent.');
+        if (empty($this->parentNode)) {
+            throw new DOMException('The current DOMItem has no parent.');
         }
 
         // Replace the element
-        $thisElement->parentNode->replaceChild($element->getDOMElement(), $thisElement);
-    }
-
-    /**
-     * @return DOMPrototype
-     */
-    public function getDOMDocument()
-    {
-        return $this->DOMDocument;
-    }
-
-    /**
-     * @return DOMNode
-     */
-    public function getDOMElement()
-    {
-        return $this->DOMElement;
-    }
-
-    /**
-     * @param DOMNode $DOMElement
-     *
-     * @return $this
-     */
-    public function setDOMElement($DOMElement)
-    {
-        $this->DOMElement = $DOMElement;
-
-        return $this;
+        $this->parentNode->replaceChild($element, $this);
     }
 }
 

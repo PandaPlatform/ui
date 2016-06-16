@@ -16,13 +16,13 @@ namespace Panda\Ui\Controls;
 use Exception;
 use Panda\Ui\Contracts\Factories\HTMLFormFactoryInterface;
 use Panda\Ui\Factories\FormFactory;
-use Panda\Ui\Html\HTMLDocument;
 use Panda\Ui\Html\HTMLElement;
 
 /**
  * HTML Form Class. Create HTML forms
  *
  * @package Panda\Ui\Html
+ *
  * @version 0.1
  */
 class Form extends HTMLElement
@@ -35,7 +35,6 @@ class Form extends HTMLElement
     /**
      * Create a new HTML Form.
      *
-     * @param HTMLDocument             $HTMLDocument    The DOMDocument to create the element
      * @param HTMLFormFactoryInterface $HTMLFormFactory The Form Factory interface to generate all elements.
      * @param string                   $id              The form id.
      * @param string                   $action          The form action url string.
@@ -49,11 +48,11 @@ class Form extends HTMLElement
      *
      * @throws Exception
      */
-    public function __construct(HTMLDocument $HTMLDocument, $HTMLFormFactory = null, $id = '', $action = '', $async = false, $fileUpload = false)
+    public function __construct($HTMLFormFactory = null, $id = '', $action = '', $async = false, $fileUpload = false)
     {
         // Create HTML Form element
-        parent::__construct($HTMLDocument, $name = 'form', $value = '', $id);
-        $this->HTMLFormFactory = $HTMLFormFactory ?: new FormFactory($HTMLDocument);
+        parent::__construct($name = 'form', $value = '', $id);
+        $this->HTMLFormFactory = $HTMLFormFactory ?: new FormFactory();
 
         // Add extra attributes
         $this->attr('method', 'post');

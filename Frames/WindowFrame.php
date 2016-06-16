@@ -14,7 +14,6 @@ declare(strict_types = 1);
 namespace Panda\Ui\Frames;
 
 use Panda\Ui\Contracts\DOMBuilder;
-use Panda\Ui\DOMPrototype;
 use Panda\Ui\Html\HTMLElement;
 
 /**
@@ -22,6 +21,8 @@ use Panda\Ui\Html\HTMLElement;
  * It's the window frame prototype for building frames (windows, dialogs etc.).
  *
  * @package Panda\Ui\Frames
+ *
+ * @version 0.1
  */
 class WindowFrame extends HTMLElement implements DOMBuilder
 {
@@ -35,14 +36,13 @@ class WindowFrame extends HTMLElement implements DOMBuilder
     /**
      * Create a new frame instance.
      *
-     * @param DOMPrototype $HTMLDocument
-     * @param string       $id
-     * @param string       $class
+     * @param string $id
+     * @param string $class
      */
-    public function __construct($HTMLDocument, $id = '', $class = '')
+    public function __construct($id = '', $class = '')
     {
         $id = (empty($id) ? 'wf' . mt_rand() : $id);
-        parent::__construct($HTMLDocument, $name = 'div', $value = '', $id, $class = 'wFrame');
+        parent::__construct($name = 'div', $value = '', $id, $class = 'wFrame');
         $this->addClass($class);
     }
 
@@ -61,19 +61,19 @@ class WindowFrame extends HTMLElement implements DOMBuilder
         $this->addClass($class);
 
         // Create header
-        $frameHeader = $this->getHTMLDocument()->create('div', '', '', 'frameHeader');
+        $frameHeader = new HTMLElement('div', '', '', 'frameHeader');
         $this->append($frameHeader);
 
         // Header Title
-        $frameTitle = $this->getHTMLDocument()->create('span', $title, '', 'frameTitle');
+        $frameTitle = new HTMLElement('span', $title, '', 'frameTitle');
         $frameHeader->append($frameTitle);
 
         // Close button
-        $closeBtn = $this->getHTMLDocument()->create('span', '', '', 'closeBtn');
+        $closeBtn = new HTMLElement('span', '', '', 'closeBtn');
         $frameHeader->append($closeBtn);
 
         // Create body
-        $this->body = $this->getHTMLDocument()->create('div', '', '', 'frameBody');
+        $this->body = new HTMLElement('div', '', '', 'frameBody');
         $this->append($this->body);
 
         return $this;

@@ -59,7 +59,6 @@ class HTMLPage extends HTMLDocument implements DOMBuilder
         // Initialize-Clear Bottom Scripts
         $this->bottomScripts = [];
         $HTMLFactory = $HTMLFactory ?: new HTMLFactory();
-        $HTMLFactory->setDocument($this);
 
         // Call parent
         parent::__construct($HTMLFactory);
@@ -116,7 +115,7 @@ class HTMLPage extends HTMLDocument implements DOMBuilder
      */
     public function getHead()
     {
-        return $this->HTMLHead->getDOMElement();
+        return $this->HTMLHead;
     }
 
     /**
@@ -126,7 +125,7 @@ class HTMLPage extends HTMLDocument implements DOMBuilder
      */
     public function getBody()
     {
-        return $this->HTMLBody->getDOMElement();
+        return $this->HTMLBody;
     }
 
     /**
@@ -273,7 +272,7 @@ class HTMLPage extends HTMLDocument implements DOMBuilder
         $headTitle = $this->select('title')->item(0);
         if (!is_null($headTitle)) {
             $headTitle_new = $this->create('title', $title);
-            $headTitle->parentNode->replaceChild($headTitle_new->getDOMElement(), $headTitle);
+            $headTitle->parentNode->replaceChild($headTitle_new, $headTitle);
         } else {
             $headTitle = $this->create('title', $title);
             $this->appendToHead($headTitle);

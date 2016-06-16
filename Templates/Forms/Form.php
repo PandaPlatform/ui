@@ -16,7 +16,6 @@ namespace Panda\Ui\Templates\Forms;
 use Panda\Ui\Contracts\DOMBuilder;
 use Panda\Ui\Contracts\Factories\HTMLFormFactoryInterface;
 use Panda\Ui\Controls\Form as FormControl;
-use Panda\Ui\Html\HTMLDocument;
 use Panda\Ui\Html\HTMLElement;
 
 /**
@@ -27,6 +26,7 @@ use Panda\Ui\Html\HTMLElement;
  * It implements the FormProtocol.
  *
  * @package Panda\Ui\Templates\Forms
+ *
  * @version 0.1
  */
 class Form extends FormControl implements DOMBuilder
@@ -67,7 +67,6 @@ class Form extends FormControl implements DOMBuilder
     protected $pu = false;
 
     /**
-     * @param HTMLDocument             $HTMLDocument    The DOMDocument to create the element
      * @param HTMLFormFactoryInterface $HTMLFormFactory The Form Factory interface to generate all elements.
      * @param string                   $id              The form id.
      * @param string                   $action          The form action url string.
@@ -79,13 +78,13 @@ class Form extends FormControl implements DOMBuilder
      *                                                  required when you are using forms that have a file upload
      *                                                  control. It is FALSE by default.
      */
-    public function __construct(HTMLDocument $HTMLDocument, $HTMLFormFactory = null, $id = '', $action = '', $async = true, $fileUpload = false)
+    public function __construct($HTMLFormFactory = null, $id = '', $action = '', $async = true, $fileUpload = false)
     {
         // Set the formID
         $this->formId = ($id ?: 'f' . mt_rand());
 
         // Create Form element
-        parent::__construct($HTMLDocument, $HTMLFormFactory, $this->formId, $action, $async, $fileUpload);
+        parent::__construct($HTMLFormFactory, $this->formId, $action, $async, $fileUpload);
 
         // Add extra class
         $this->addClass('form-template');
@@ -97,11 +96,11 @@ class Form extends FormControl implements DOMBuilder
     public function build()
     {
         // Create form report element
-        $this->formReport = $this->getHTMLDocument()->create('div', '', '', self::FORM_REPORT_CLASS);
+        $this->formReport = new HTMLElement('div', '', '', self::FORM_REPORT_CLASS);
         $this->append($this->formReport);
 
         // Create form body element
-        $this->formBody = $this->getHTMLDocument()->create('div', '', '', 'form-body');
+        $this->formBody = new HTMLElement('div', '', '', 'form-body');
         $this->append($this->formBody);
 
         return $this;

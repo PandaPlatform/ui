@@ -14,13 +14,13 @@ declare(strict_types = 1);
 namespace Panda\Ui\Popups;
 
 use Panda\Ui\Contracts\DOMBuilder;
-use Panda\Ui\DOMPrototype;
 use Panda\Ui\Html\HTMLElement;
 
 /**
  * Class Popup
  *
  * @package Panda\Ui\Popups
+ *
  * @version 0.1
  */
 class Popup extends HTMLElement implements DOMBuilder
@@ -111,13 +111,12 @@ class Popup extends HTMLElement implements DOMBuilder
     /**
      * Popup constructor.
      *
-     * @param DOMPrototype $HTMLDocument
-     * @param string       $id
-     * @param string       $class
+     * @param string $id
+     * @param string $class
      */
-    public function __construct($HTMLDocument, $id = '', $class = '')
+    public function __construct($id = '', $class = '')
     {
-        parent::__construct($HTMLDocument, $name = 'div', $value = '', $id, 'uiPopup');
+        parent::__construct($name = 'div', $value = '', $id, 'uiPopup');
         $this->addClass($class);
     }
 
@@ -132,7 +131,7 @@ class Popup extends HTMLElement implements DOMBuilder
     public function build($content = null)
     {
         // Create the instructions holder
-        $info = $this->getHTMLDocument()->create('div', '', '', 'info init');
+        $info = new HTMLElement('div', '', '', 'info init');
         $this->append($info);
 
         //_____ Popup Attributes
@@ -154,7 +153,7 @@ class Popup extends HTMLElement implements DOMBuilder
         $info->data('popup-extra', $extra);
 
         // Create the popup content holder
-        $innerContent = $this->getHTMLDocument()->create('div', $content, '', 'popupContent');
+        $innerContent = new HTMLElement('div', $content, '', 'popupContent');
         $this->append($innerContent);
 
         return $this;

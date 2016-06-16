@@ -16,14 +16,13 @@ namespace Panda\Ui\Html;
 use DOMDocument;
 use Exception;
 use Panda\Ui\DOMItem;
-use Panda\Ui\DOMPrototype;
-use Panda\Ui\Factories\HTMLFactory;
 
 /**
- * HTML Element Class
- * Create HTML specific DOMElements.
+ * HTMLElement Class
+ * Extends the DOMItem with HTML-specific functionality
  *
  * @package Panda\Ui\Html
+ *
  * @version 0.1
  */
 class HTMLElement extends DOMItem
@@ -31,20 +30,18 @@ class HTMLElement extends DOMItem
     /**
      * Create a new HTMLObject.
      *
-     * @param DOMPrototype $HTMLDocument The DOMDocument to create the element
-     * @param string       $name         The elemenet name.
-     * @param string       $value        The element value.
+     * @param string $name               The elemenet name.
+     * @param string $value              The element value.
      *                                   It can be text or another HTMLElement.
-     * @param string       $id           The element id attribute value.
-     * @param string       $class        The element class attribute value.
+     * @param string $id                 The element id attribute value.
+     * @param string $class              The element class attribute value.
      *
      * @throws Exception
      */
-    public function __construct($HTMLDocument, $name, $value = '', $id = '', $class = '')
+    public function __construct($name, $value = '', $id = '', $class = '')
     {
         // Create DOMItem
-        $HTMLDocument = $HTMLDocument ?: new HTMLDocument(new HTMLFactory(), $version = '1.0', $encoding = 'UTF_8');
-        parent::__construct($HTMLDocument, $name, $value);
+        parent::__construct($name, $value);
 
         // Add extra attributes
         $this->attr('id', $id);
@@ -68,7 +65,7 @@ class HTMLElement extends DOMItem
         }
 
         // Get current class
-        $currentClass = trim($this->DOMElement->getAttribute('class'));
+        $currentClass = trim($this->attr('class'));
 
         // Check if class already exists
         $classes = explode(' ', $currentClass);
@@ -203,11 +200,17 @@ class HTMLElement extends DOMItem
      */
     public function innerHTML($value = null, $faultTolerant = true, $convertEncoding = true)
     {
+        // Get owner document
+        if ($this->ownerDocument) {
+            $DOMDocument = new DOMDocument();
+            $DOMDocument->appendChild($this);
+        }
+
         // If value is null, return inner HTML
         if (is_null($value)) {
             $inner = '';
-            foreach ($this->DOMElement->childNodes as $child) {
-                $inner .= $this->DOMDocument->saveXML($child);
+            foreach ($this->ownerDocument->childNodes as $child) {
+                $inner .= $this->ownerDocument->saveXML($child);
             }
 
             return $inner;
@@ -216,20 +219,20 @@ class HTMLElement extends DOMItem
         // $value holds our new inner HTML
         if (empty($value)) {
             // Empty the element
-            for ($x = $this->DOMElement->childNodes->length - 1; $x >= 0; $x--) {
-                $this->DOMElement->removeChild($this->DOMElement->childNodes->item($x));
+            for ($x = $this->ownerDocument->childNodes->length - 1; $x >= 0; $x--) {
+                $this->ownerDocument->removeChild($this->childNodes->item($x));
             }
 
             return $this;
         }
 
-        $f = $this->DOMDocument->createDocumentFragment();
+        $f = $this->ownerDocument->createDocumentFragment();
         // appendXML() expects well-formed markup (XHTML)
         $result = @$f->appendXML($value);
 
         if ($result) {
             if ($f->hasChildNodes()) {
-                $this->DOMElement->appendChild($f);
+                $this->appendChild($f);
             }
         } else {
             // Create a new Document
@@ -249,8 +252,8 @@ class HTMLElement extends DOMItem
             if ($result && $faultTolerant) {
                 $import = $f->getElementsByTagName('htmlfragment')->item(0);
                 foreach ($import->childNodes as $child) {
-                    $importedNode = $this->DOMDocument->importNode($child, true);
-                    $this->DOMElement->appendChild($importedNode);
+                    $importedNode = $this->ownerDocument->importNode($child, true);
+                    $this->append($importedNode);
                 }
             } else {    // Could not fix ill-html or we don't want to.
                 return true;
@@ -268,15 +271,14 @@ class HTMLElement extends DOMItem
      */
     public function outerHTML()
     {
-        return $this->getDOMDocument()->saveHTML($this->getDOMElement());
-    }
+        // Get owner document
+        if ($this->ownerDocument) {
+            $DOMDocument = new DOMDocument();
+            $DOMDocument->appendChild($this);
+        }
 
-    /**
-     * @return HTMLDocument
-     */
-    public function getHTMLDocument()
-    {
-        return $this->getDOMDocument();
+        // Get outer html
+        return $this->ownerDocument->saveHTML($this);
     }
 }
 
