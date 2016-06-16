@@ -54,7 +54,7 @@ class HTMLPage extends HTMLDocument implements DOMBuilder
      *
      * @param HTMLFactoryInterface $HTMLFactory
      */
-    public function __construct($HTMLFactory = null)
+    public function __construct(HTMLFactoryInterface $HTMLFactory)
     {
         // Initialize-Clear Bottom Scripts
         $this->bottomScripts = [];

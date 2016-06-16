@@ -14,7 +14,6 @@ declare(strict_types = 1);
 namespace Panda\Ui\Popups;
 
 use Panda\Ui\Contracts\DOMBuilder;
-use Panda\Ui\Contracts\Factories\HTMLFactoryInterface;
 use Panda\Ui\Html\HTMLDocument;
 use Panda\Ui\Html\HTMLElement;
 
@@ -111,25 +110,15 @@ class Popup extends HTMLElement implements DOMBuilder
     protected $parent = '';
 
     /**
-     * @type HTMLFactoryInterface
-     */
-    protected $HTMLFactory;
-
-    /**
      * Popup constructor.
      *
-     * @param HTMLDocument         $HTMLDocument
-     * @param HTMLFactoryInterface $HTMLFactory
-     * @param string               $id
+     * @param HTMLDocument $HTMLDocument
+     * @param string       $id
      */
-    public function __construct(HTMLDocument $HTMLDocument, HTMLFactoryInterface $HTMLFactory, $id = '')
+    public function __construct(HTMLDocument $HTMLDocument, $id = '')
     {
         // Create object
         parent::__construct($HTMLDocument, $name = 'div', $value = '', $id, 'uiPopup');
-
-        // Set fields
-        $this->HTMLFactory = $HTMLFactory;
-        $this->HTMLFactory->setHTMLDocument($this->getHTMLDocument());
     }
 
     /**
@@ -143,7 +132,7 @@ class Popup extends HTMLElement implements DOMBuilder
     public function build($content = null)
     {
         // Create the instructions holder
-        $info = $this->getHTMLFactory()->buildElement('div', '', '', 'info init');
+        $info = $this->getHTMLDocument()->getHTMLFactory()->buildElement('div', '', '', 'info init');
         $this->append($info);
 
         // Set attributes
@@ -165,7 +154,7 @@ class Popup extends HTMLElement implements DOMBuilder
         $info->data('popup-extra', $extra);
 
         // Create the popup content holder
-        $innerContent = $this->getHTMLFactory()->buildElement('div', $content, '', 'popupContent');
+        $innerContent = $this->getHTMLDocument()->getHTMLFactory()->buildElement('div', $content, '', 'popupContent');
         $this->append($innerContent);
 
         return $this;
@@ -399,13 +388,5 @@ class Popup extends HTMLElement implements DOMBuilder
         $this->invertDock = $orientation;
 
         return $this;
-    }
-
-    /**
-     * @return HTMLFactoryInterface
-     */
-    public function getHTMLFactory()
-    {
-        return $this->HTMLFactory;
     }
 }
