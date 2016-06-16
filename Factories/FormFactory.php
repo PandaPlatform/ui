@@ -20,7 +20,6 @@ use Panda\Ui\Controls\Form\FormElement;
 use Panda\Ui\Controls\Form\FormInput;
 use Panda\Ui\Controls\Form\FormLabel;
 use Panda\Ui\Controls\Form\FormSelect;
-use Panda\Ui\Html\HTMLElement;
 
 /**
  * Class FormFactory
@@ -34,20 +33,16 @@ class FormFactory extends HTMLFactory implements HTMLFormFactoryInterface
     /**
      * Builds and returns an input item.
      *
-     * @param string $type       The input's type.
-     *                           This must abide by the rules of the possible input types.
-     * @param string $name       The input's name.
-     * @param string $value      The input's default value.
-     *                           It is empty by default.
-     * @param string $id         The input's id attribute.
-     * @param string $class      The extra class for the input.
-     *                           It is empty by default.
-     * @param bool   $autofocus  Inserts the autofocus attribute to the input.
-     *                           It is FALSE by default.
-     * @param bool   $required   Indicates this input as required.
-     *                           It is FALSE by default.
+     * @param string $type      The input's type. This must abide by the rules of the possible input types.
+     * @param string $name      The input's name.
+     * @param string $value     The input's default value.
+     * @param string $id        The input's id attribute.
+     * @param string $class     The extra class for the input.
+     * @param bool   $autofocus Inserts the autofocus attribute to the input.
+     * @param bool   $required  Indicates this input as required.
      *
-     * @return HTMLElement The form input element
+     * @return FormElement The form input element
+     *
      * @throws Exception
      */
     public function buildInput($type = 'text', $name = '', $value = '', $id = '', $class = '', $autofocus = false, $required = false)
@@ -70,10 +65,10 @@ class FormFactory extends HTMLFactory implements HTMLFormFactoryInterface
      * @param string $id       The input's id attribute.
      * @param string $class    The extra class for the input.
      * @param bool   $required Indicates this input as required.
-     *                         It is False by default.
      * @param string $accept   The accept attribute for the file dialog.
      *
-     * @return HTMLElement The form file input element.
+     * @return FormElement The form file input element.
+     *
      * @throws Exception
      */
     public function buildFileInput($name = '', $id = '', $class = '', $required = false, $accept = '')
@@ -96,7 +91,7 @@ class FormFactory extends HTMLFactory implements HTMLFormFactoryInterface
      * @param string $for     The input's id where this label is pointing to.
      * @param string $class   The extra class for the label.
      *
-     * @return FormLabel The form label element
+     * @return FormElement The form label element
      */
     public function buildLabel($content, $for = '', $class = '')
     {
@@ -119,7 +114,7 @@ class FormFactory extends HTMLFactory implements HTMLFormFactoryInterface
      * @param string $id    The button's id attribute.
      * @param string $class The extra class of the button
      *
-     * @return FormButton The form button element
+     * @return FormElement The form button element
      */
     public function buildButton($type, $title, $name = '', $id = '', $class = '')
     {
@@ -142,7 +137,8 @@ class FormFactory extends HTMLFactory implements HTMLFormFactoryInterface
      * @param string $id    The button's id attribute
      * @param string $class The extra class of the button
      *
-     * @return FormButton The submit button.
+     * @return FormElement The submit button.
+     *
      * @throws Exception
      */
     public function buildSubmitButton($title, $name = '', $id = '', $class = '')
@@ -160,7 +156,8 @@ class FormFactory extends HTMLFactory implements HTMLFormFactoryInterface
      * @param string $id    The button's id attribute
      * @param string $class The extra class of the button
      *
-     * @return FormButton The reset button
+     * @return FormElement The reset button
+     *
      * @throws Exception
      */
     public function buildResetButton($title, $id = '', $class = '')
@@ -182,6 +179,7 @@ class FormFactory extends HTMLFactory implements HTMLFormFactoryInterface
      * @param bool   $required  Indicates this textarea as required.
      *
      * @return FormElement The html form textarea.
+     *
      * @throws Exception
      */
     public function buildTextarea($name = '', $value = '', $id = '', $class = '', $autofocus = false, $required = false)

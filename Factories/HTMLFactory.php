@@ -79,6 +79,7 @@ class HTMLFactory extends DOMFactory implements HTMLFactoryInterface
      * @param string $charset   The meta charset attribute.
      *
      * @return HTMLElement
+     *
      * @throws Exception
      */
     public function buildMeta($name = '', $content = '', $httpEquiv = '', $charset = '')
@@ -101,6 +102,7 @@ class HTMLFactory extends DOMFactory implements HTMLFactoryInterface
      * @param string $href The link href attribute.
      *
      * @return HTMLElement
+     *
      * @throws Exception
      */
     public function buildLink($rel, $href)
@@ -121,6 +123,7 @@ class HTMLFactory extends DOMFactory implements HTMLFactoryInterface
      * @param bool   $async The script async attribute.
      *
      * @return HTMLElement
+     *
      * @throws Exception
      */
     public function buildScript($src, $async = false)

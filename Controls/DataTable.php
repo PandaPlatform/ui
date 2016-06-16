@@ -21,12 +21,13 @@ use Panda\Ui\Html\HTMLElement;
 
 /**
  * Class DataTable
- * The DataΤαβλε can be used to present multiple data in the form of a grid.
+ * The DataTable can be used to present multiple data in the form of a grid.
  *
  * If you would like to use the javascript interface for adding, removing and selecting rows, identify each column
  * (including ratios, headers and every row) with a key identifier. However, the sequence of elements must be the same.
  *
  * @package Panda\Ui\Controls
+ *
  * @version 0.1
  */
 class DataTable extends HTMLElement implements DOMBuilder
@@ -212,6 +213,7 @@ class DataTable extends HTMLElement implements DOMBuilder
      * @param bool   $header   Whether this row is the header of the list.
      *
      * @return HTMLElement The row inserted.
+     *
      * @throws LogicException
      */
     private function appendSimpleRow($contents, $class = '', $header = false)

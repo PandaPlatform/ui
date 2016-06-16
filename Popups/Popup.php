@@ -112,12 +112,10 @@ class Popup extends HTMLElement implements DOMBuilder
      * Popup constructor.
      *
      * @param string $id
-     * @param string $class
      */
-    public function __construct($id = '', $class = '')
+    public function __construct($id = '')
     {
         parent::__construct($name = 'div', $value = '', $id, 'uiPopup');
-        $this->addClass($class);
     }
 
     /**
@@ -134,7 +132,7 @@ class Popup extends HTMLElement implements DOMBuilder
         $info = new HTMLElement('div', '', '', 'info init');
         $this->append($info);
 
-        //_____ Popup Attributes
+        // Set attributes
         $settings = [];
         $settings['binding'] = $this->binding;
         $settings['type'] = $this->type;
@@ -162,8 +160,7 @@ class Popup extends HTMLElement implements DOMBuilder
     /**
      * Gets or defines the binding property.
      *
-     * @param string $binding The binding value.
-     *                        Can be either 'on' or 'one', like jQuery listeners.
+     * @param string $binding The binding value. Can be either 'on' or 'one', like jQuery listeners.
      *                        'On' listens all the time.
      *                        'One' listens only the first time.
      *
@@ -297,7 +294,6 @@ class Popup extends HTMLElement implements DOMBuilder
      *                          places on the screen. Finally, if only the position is set as an array, this is used to
      *                          position the popup in relation with the window ['fixed'] or the parent ['absolute'].
      *                          That array can have the following keys: [top | bottom | left | right | position]
-     *
      * @param string $alignment Alignment can be:
      *                          [top | bottom | left | right | center (wherever this makes sense)].
      *

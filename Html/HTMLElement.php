@@ -30,11 +30,10 @@ class HTMLElement extends DOMItem
     /**
      * Create a new HTMLObject.
      *
-     * @param string $name               The elemenet name.
-     * @param string $value              The element value.
-     *                                   It can be text or another HTMLElement.
-     * @param string $id                 The element id attribute value.
-     * @param string $class              The element class attribute value.
+     * @param string             $name  The elemenet name.
+     * @param string|HTMLElement $value The element value.
+     * @param string             $id    The element id attribute value.
+     * @param string             $class The element class attribute value.
      *
      * @throws Exception
      */
@@ -135,7 +134,6 @@ class HTMLElement extends DOMItem
         return in_array($class, $classes);
     }
 
-
     /**
      * Set or get a style value.
      * This function will append the style rule in the style attribute.
@@ -176,7 +174,7 @@ class HTMLElement extends DOMItem
         // Pack all styles into one value
         $styleArray = [];
         foreach ($styles as $name => $value) {
-            $pieces = array($name, $value);
+            $pieces = [$name, $value];
             $styleArray[] = implode(': ', $pieces);
         }
         $elementStyle = implode('; ', $styleArray);
@@ -198,7 +196,6 @@ class HTMLElement extends DOMItem
      * @param bool   $faultTolerant   Indicates whenever innerHTML will try to fix (well format html) the inserted
      *                                string value.
      * @param bool   $convertEncoding Option to convert the encoding of the value to UTF-8.
-     *                                It is TRUE by default.
      *
      * @return mixed|$this
      */

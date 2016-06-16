@@ -28,7 +28,9 @@ use Panda\Ui\Factories\DOMFactory;
  * do with DOM structure and XML manipulation (XML files,
  * HTML files etc.).
  *
- * @version    0.1
+ * @package Panda\Ui
+ *
+ * @version 0.1
  */
 abstract class DOMPrototype extends DOMDocument
 {
@@ -102,6 +104,7 @@ abstract class DOMPrototype extends DOMDocument
      * @return DOMNodeList Returns a typed result if possible or a DOMNodeList containing all nodes matching the given
      *                     XPath expression. If the expression is malformed or the contextnode is invalid,
      *                     DOMXPath::evaluate() returns False.
+     *
      * @throws InvalidArgumentException
      */
     public function evaluate($query, $context = null)

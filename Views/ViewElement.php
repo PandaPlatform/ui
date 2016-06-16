@@ -14,6 +14,7 @@ declare(strict_types = 1);
 namespace Panda\Ui\Views;
 
 use Exception;
+use InvalidArgumentException;
 use Panda\Ui\Html\HTMLElement;
 
 /**
@@ -27,14 +28,14 @@ use Panda\Ui\Html\HTMLElement;
 class ViewElement extends HTMLElement
 {
     /**
-     * Create a new HTMLObject.
+     * Create a new View Element.
      *
-     * @param string $view               The external html view file.
-     * @param string $name               The elemenet name.
-     * @param string $value              The element value.
-     *                                   It can be text or another HTMLElement.
-     * @param string $id                 The element id attribute value.
-     * @param string $class              The element class attribute value.
+     * @param string             $view  The external html view file.
+     * @param string             $name  The element name.
+     * @param string|HTMLElement $value The element value.
+     *                                  It can be text or another HTMLElement.
+     * @param string             $id    The element id attribute value.
+     * @param string             $class The element class attribute value.
      *
      * @throws Exception
      */
@@ -44,7 +45,9 @@ class ViewElement extends HTMLElement
         parent::__construct($name, $value, $id, $class);
 
         // Load external view file
-        $this->loadView($view);
+        if (!empty($view)) {
+            $this->loadView($view);
+        }
     }
 
     /**
@@ -52,12 +55,21 @@ class ViewElement extends HTMLElement
      * It clears the inner html of the element first.
      *
      * @param string $view
+     *
+     * @return $this
+     *
+     * @throws InvalidArgumentException
      */
     public function loadView($view)
     {
+        // Check for view name
+        if (empty($view)) {
+            throw new InvalidArgumentException('View file cannot be empty.');
+        }
+
         // Check if the file exists
         if (!file_exists($view)) {
-            return;
+            throw new InvalidArgumentException('View file cannot be found.');
         }
 
         // Load view file
@@ -66,6 +78,8 @@ class ViewElement extends HTMLElement
         if (!empty($viewHTML)) {
             $this->innerHTML($viewHTML);
         }
+
+        return $this;
     }
 
     /**

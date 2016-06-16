@@ -24,6 +24,7 @@ use Panda\Ui\Factories\HTMLFactory;
  * Helps building HTML Pages in HTML5 format
  *
  * @package Panda\Ui\Html
+ *
  * @version 0.1
  */
 class HTMLPage extends HTMLDocument implements DOMBuilder
@@ -52,7 +53,7 @@ class HTMLPage extends HTMLDocument implements DOMBuilder
     /**
      * HTMLPage constructor.
      *
-     * @param HTMLFactoryInterface|null $HTMLFactory
+     * @param HTMLFactoryInterface $HTMLFactory
      */
     public function __construct($HTMLFactory = null)
     {
@@ -134,6 +135,7 @@ class HTMLPage extends HTMLDocument implements DOMBuilder
      * @param HTMLElement $element The element to be appended.
      *
      * @return $this
+     *
      * @throws InvalidArgumentException
      */
     protected function appendToHead($element)
@@ -155,6 +157,7 @@ class HTMLPage extends HTMLDocument implements DOMBuilder
      * @param HTMLElement $element The element to be appended.
      *
      * @return $this
+     *
      * @throws InvalidArgumentException
      */
     protected function appendToBody($element)
@@ -335,22 +338,28 @@ class HTMLPage extends HTMLDocument implements DOMBuilder
      * the page.
      *
      * @param HTMLElement $script The script tag element.
+     *
+     * @return $this
      */
     private function addToBottomScripts($script)
     {
         $this->bottomScripts[] = $script;
+
+        return $this;
     }
 
     /**
      * Appends all bottom scripts to the body.
      *
-     * @return    void
+     * @return $this
      */
     private function flushBottomScripts()
     {
         foreach ($this->bottomScripts as $script) {
             $this->appendToBody($script);
         }
+
+        return $this;
     }
 
     /**

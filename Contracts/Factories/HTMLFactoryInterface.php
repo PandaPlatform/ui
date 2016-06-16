@@ -20,6 +20,8 @@ use Panda\Ui\Html\HTMLElement;
  * Interface HTMLFactoryInterface
  *
  * @package Panda\Ui\Contracts
+ *
+ * @version 0.1
  */
 interface HTMLFactoryInterface extends DOMFactoryInterface
 {

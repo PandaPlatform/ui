@@ -71,9 +71,10 @@ class DOMItem extends DOMElement
      *                         the new value and the new value will be returned.
      * @param bool   $validate Validate the attribute value for special cases (id)
      *
-     * @return string If the given value is empty, it returns True if the attribute is removed, False otherwise.
-     * If the given value is empty, it returns True if the attribute is removed, False otherwise.
-     * It returns the new attribute otherwise.
+     * @return string If the given value is empty, it returns True if the attribute is removed, False otherwise.If the
+     *                given value is empty, it returns True if the attribute is removed, False otherwise. It returns
+     *                the new attribute otherwise.
+     *
      * @throws Exception
      */
     public function attr($name, $value = '', $validate = false)
@@ -143,6 +144,7 @@ class DOMItem extends DOMElement
      * @param string $value The value to be appended.
      *
      * @return string The new attribute value.
+     *
      * @throws Exception
      */
     public function appendAttr($name, $value)
@@ -220,6 +222,7 @@ class DOMItem extends DOMElement
      * @param DOMNode $element
      *
      * @return $this
+     *
      * @throws InvalidArgumentException
      */
     public function append(&$element)
@@ -245,6 +248,7 @@ class DOMItem extends DOMElement
      * @param DOMItem $element The child element.
      *
      * @return $this
+     *
      * @throws InvalidArgumentException
      */
     public function prepend(&$element)

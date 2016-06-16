@@ -69,23 +69,23 @@ class DialogFrame extends WindowFrame
     /**
      * Builds the frame along with the form action.
      *
-     * @param mixed  $title       The dialog's title.
-     * @param string $action      The form action to post the dialog to.
-     *                            Leave empty in order to engage with module or application protocol.
-     *                            It is empty by default.
-     * @param bool   $background  Defines whether the dialog popup will have a background.
-     *                            It is TRUE by default, as a dialog.
-     * @param string $type        The dialog buttons type.
-     *                            Use class constants to define an OK/Cancel or Yes/No type.
-     *                            Default type is OK/Cancel.
-     * @param bool   $fileUpload
+     * @param mixed  $title      The dialog's title.
+     * @param string $action     The form action to post the dialog to.
+     *                           Leave empty in order to engage with module or application protocol.
+     * @param bool   $background Defines whether the dialog popup will have a background.
+     * @param string $type       The dialog buttons type.
+     *                           Use class constants to define an OK/Cancel or Yes/No type.
+     * @param bool   $fileUpload Enable the dialog form for file upload.
      *
      * @return $this
      */
     public function build($title = 'Dialog Frame', $action = '', $background = true, $type = self::TYPE_OK_CANCEL, $fileUpload = false)
     {
+        // Set popup properties
+        $this->background($background);
+
         // Build window frame
-        parent::build($title, 'dialogFrame');
+        parent::build($title);
 
         // Build Form
         $this->form = new SimpleForm($this->formFactory, $id = '', $action, $async = true, $fileUpload);

@@ -123,7 +123,7 @@ class Form extends FormControl implements DOMBuilder
      */
     protected function getInputId($name)
     {
-        return (empty($name) ? '' : 'i' . $this->getFormId() . '_' . $name . mt_rand());
+        return empty($name) ? '' : 'i' . $this->getFormId() . '_' . $name . mt_rand();
     }
 
     /**

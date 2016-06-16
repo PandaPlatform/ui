@@ -22,6 +22,8 @@ use Panda\Ui\Html\HTMLElement;
  * Interface HTMLFormFactoryInterface
  *
  * @package Panda\Ui\Contracts
+ *
+ * @version 0.1
  */
 interface HTMLFormFactoryInterface extends HTMLFactoryInterface
 {
@@ -36,7 +38,7 @@ interface HTMLFormFactoryInterface extends HTMLFactoryInterface
      * @param bool   $autofocus
      * @param bool   $required
      *
-     * @return HTMLElement
+     * @return FormElement
      */
     public function buildInput($type = 'text', $name = '', $value = '', $id = '', $class = '', $autofocus = false, $required = false);
 
@@ -49,7 +51,7 @@ interface HTMLFormFactoryInterface extends HTMLFactoryInterface
      * @param bool   $required
      * @param string $accept
      *
-     * @return HTMLElement
+     * @return FormElement
      */
     public function buildFileInput($name = '', $id = '', $class = '', $required = false, $accept = '');
 
@@ -60,7 +62,7 @@ interface HTMLFormFactoryInterface extends HTMLFactoryInterface
      * @param string $for
      * @param string $class
      *
-     * @return FormLabel
+     * @return FormElement
      */
     public function buildLabel($content, $for = '', $class = '');
 
@@ -73,7 +75,7 @@ interface HTMLFormFactoryInterface extends HTMLFactoryInterface
      * @param string $id
      * @param string $class
      *
-     * @return FormButton
+     * @return FormElement
      */
     public function buildButton($type, $title, $name = '', $id = '', $class = '');
 
@@ -85,7 +87,7 @@ interface HTMLFormFactoryInterface extends HTMLFactoryInterface
      * @param string $id
      * @param string $class
      *
-     * @return FormButton
+     * @return FormElement
      */
     public function buildSubmitButton($title, $name = '', $id = '', $class = '');
 
@@ -96,7 +98,7 @@ interface HTMLFormFactoryInterface extends HTMLFactoryInterface
      * @param string $id
      * @param string $class
      *
-     * @return FormButton
+     * @return FormElement
      */
     public function buildResetButton($title, $id = '', $class = '');
 
@@ -137,7 +139,7 @@ interface HTMLFormFactoryInterface extends HTMLFactoryInterface
      * @param string $selectedValue
      * @param bool   $required
      *
-     * @return mixed
+     * @return FormElement
      */
     public function buildSelect($name = '', $multiple = false, $id = '', $class = '', $options = [], $selectedValue = '', $required = false);
 }

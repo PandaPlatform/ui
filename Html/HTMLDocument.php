@@ -54,6 +54,7 @@ class HTMLDocument extends DOMPrototype
      * @param string $class The class attribute
      *
      * @return HTMLElement The HTMLElement created
+     *
      * @throws Exception
      */
     public function create($name = 'div', $value = '', $id = '', $class = '')

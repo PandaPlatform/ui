@@ -32,7 +32,6 @@ class DOMFactory implements DOMFactoryInterface
      * @param string $value
      *
      * @return DOMItem
-     *
      */
     public function buildElement($name = '', $value = '')
     {
