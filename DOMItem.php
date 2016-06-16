@@ -45,10 +45,10 @@ class DOMItem extends DOMElement
      * @param string|DOMItem $value
      * @param string         $namespaceURI
      */
-    public function __construct($DOMDocument, $name, $value = '', $namespaceURI = '')
+    public function __construct(DOMDocument $DOMDocument, $name, $value = '', $namespaceURI = '')
     {
         // Create owner DOMDocument to be able to have the element as writable
-        $this->DOMDocument = $DOMDocument ?: new DOMDocument();
+        $this->DOMDocument = $DOMDocument;
 
         // Create DOMElement
         parent::__construct($name, '', $namespaceURI);
@@ -237,9 +237,6 @@ class DOMItem extends DOMElement
         if (empty($element)) {
             throw new InvalidArgumentException('You are trying to append an empty element.');
         }
-
-        // Import element to owner document
-        $element = $this->ownerDocument->importNode($element, true);
 
         // Append element
         $this->appendChild($element);

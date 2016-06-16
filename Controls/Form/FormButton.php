@@ -15,6 +15,7 @@ namespace Panda\Ui\Controls\Form;
 
 use Exception;
 use InvalidArgumentException;
+use Panda\Ui\Html\HTMLDocument;
 
 /**
  * Class FormButton
@@ -39,14 +40,15 @@ class FormButton extends FormElement
     /**
      * Create a new form button.
      *
-     * @param string $type  The button's type attribute
-     * @param string $name  The button's name attribute
-     * @param string $id    The button's id attribute
-     * @param string $title The button's title.
+     * @param HTMLDocument $HTMLDocument The button's parent document
+     * @param string       $type         The button's type attribute
+     * @param string       $name         The button's name attribute
+     * @param string       $id           The button's id attribute
+     * @param string       $title        The button's title.
      *
      * @throws Exception
      */
-    public function __construct($type = 'submit', $name = '', $id = '', $title = '')
+    public function __construct(HTMLDocument $HTMLDocument, $type = 'submit', $name = '', $id = '', $title = '')
     {
         // Check input type
         if (!$this->checkType($type)) {
@@ -54,7 +56,7 @@ class FormButton extends FormElement
         }
 
         // Create HTMLElement
-        parent::__construct($itemName = 'button', $name, $value = '', $id, $class = 'form-button', $title);
+        parent::__construct($HTMLDocument, $itemName = 'button', $name, $value = '', $id, $class = 'form-button', $title);
 
         // Add extra attributes
         $this->attr('type', $type);

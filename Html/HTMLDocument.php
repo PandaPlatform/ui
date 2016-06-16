@@ -17,7 +17,6 @@ use DOMNodeList;
 use Exception;
 use Panda\Ui\Contracts\Factories\HTMLFactoryInterface;
 use Panda\Ui\DOMPrototype;
-use Panda\Ui\Factories\HTMLFactory;
 use Panda\Ui\Helpers\HTMLHelper;
 use Symfony\Component\CssSelector\CssSelectorConverter;
 
@@ -38,10 +37,9 @@ class HTMLDocument extends DOMPrototype
      * @param string               $version
      * @param string               $encoding
      */
-    public function __construct($HTMLFactory = null, $version = '1.0', $encoding = 'UTF_8')
+    public function __construct(HTMLFactoryInterface $HTMLFactory, $version = '1.0', $encoding = 'UTF_8')
     {
         // Construct DOMDocument
-        $HTMLFactory = $HTMLFactory ?: new HTMLFactory();
         parent::__construct($HTMLFactory, $version, $encoding);
     }
 

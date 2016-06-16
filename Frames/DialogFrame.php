@@ -14,7 +14,7 @@ declare(strict_types = 1);
 namespace Panda\Ui\Frames;
 
 use Panda\Ui\Contracts\Factories\HTMLFormFactoryInterface;
-use Panda\Ui\Html\HTMLElement;
+use Panda\Ui\Html\HTMLDocument;
 use Panda\Ui\Templates\Forms\SimpleForm;
 
 /**
@@ -49,13 +49,14 @@ class DialogFrame extends WindowFrame
     /**
      * dialogFrame constructor.
      *
+     * @param HTMLDocument             $HTMLDocument
      * @param HTMLFormFactoryInterface $FormFactory
      * @param string                   $id
      * @param string                   $class
      */
-    public function __construct($FormFactory = null, $id = '', $class = '')
+    public function __construct(HTMLDocument $HTMLDocument, HTMLFormFactoryInterface $FormFactory, $id = '', $class = '')
     {
-        parent::__construct($FormFactory, $id, $class);
+        parent::__construct($HTMLDocument, $FormFactory, $id, $class);
     }
 
     /**
@@ -80,7 +81,7 @@ class DialogFrame extends WindowFrame
         parent::build($title);
 
         // Build Form
-        $this->form = new SimpleForm($this->getFormFactory(), $id = '', $action, $async = true, $fileUpload);
+        $this->form = new SimpleForm($this->getHTMLDocument(), $this->getFormFactory(), $id = '', $action, $async = true, $fileUpload);
         $this->form->build(false, true);
         $this->appendToBody($this->form);
 
@@ -134,7 +135,7 @@ class DialogFrame extends WindowFrame
         $this->form->append($controlsContainer);
 
         // Button Container
-        $btnContainer = new HTMLElement('div', '', '', 'ctrls');
+        $btnContainer = $this->getHTMLFactory()->buildElement('div', '', '', 'ctrls');
         $controlsContainer->append($btnContainer);
 
         // Set button literals

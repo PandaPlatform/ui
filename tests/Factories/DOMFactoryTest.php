@@ -12,6 +12,8 @@
 namespace Panda\Ui\Tests\Factories;
 
 use Panda\Ui\Factories\DOMFactory;
+use Panda\Ui\Factories\HTMLFactory;
+use Panda\Ui\Html\HTMLDocument;
 use PHPUnit_Framework_TestCase;
 
 // Initialize testing env
@@ -29,6 +31,7 @@ class DOMFactoryTest extends PHPUnit_Framework_TestCase
         parent::setUp();
 
         $this->DOMFactory = new DOMFactory();
+        $this->DOMFactory->setDOMDocument(new HTMLDocument(new HTMLFactory()));
     }
 
     public function testBuildElement()

@@ -15,7 +15,7 @@ namespace Panda\Ui\Popups;
 
 use Panda\Ui\Contracts\DOMBuilder;
 use Panda\Ui\Contracts\Factories\HTMLFactoryInterface;
-use Panda\Ui\Factories\HTMLFactory;
+use Panda\Ui\Html\HTMLDocument;
 use Panda\Ui\Html\HTMLElement;
 
 /**
@@ -118,13 +118,18 @@ class Popup extends HTMLElement implements DOMBuilder
     /**
      * Popup constructor.
      *
-     * @param null   $HTMLFactory
-     * @param string $id
+     * @param HTMLDocument         $HTMLDocument
+     * @param HTMLFactoryInterface $HTMLFactory
+     * @param string               $id
      */
-    public function __construct($HTMLFactory = null, $id = '')
+    public function __construct(HTMLDocument $HTMLDocument, HTMLFactoryInterface $HTMLFactory, $id = '')
     {
-        parent::__construct($name = 'div', $value = '', $id, 'uiPopup');
-        $this->HTMLFactory = $HTMLFactory ?: new HTMLFactory();
+        // Create object
+        parent::__construct($HTMLDocument, $name = 'div', $value = '', $id, 'uiPopup');
+
+        // Set fields
+        $this->HTMLFactory = $HTMLFactory;
+        $this->HTMLFactory->setHTMLDocument($this->getHTMLDocument());
     }
 
     /**
@@ -160,7 +165,7 @@ class Popup extends HTMLElement implements DOMBuilder
         $info->data('popup-extra', $extra);
 
         // Create the popup content holder
-        $innerContent = new HTMLElement('div', $content, '', 'popupContent');
+        $innerContent = $this->getHTMLFactory()->buildElement('div', $content, '', 'popupContent');
         $this->append($innerContent);
 
         return $this;

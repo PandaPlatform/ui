@@ -17,6 +17,7 @@ use Panda\Ui\Contracts\DOMBuilder;
 use Panda\Ui\Contracts\Factories\HTMLFactoryInterface;
 use Panda\Ui\DOMItem;
 use Panda\Ui\Factories\HTMLFactory;
+use Panda\Ui\Html\HTMLDocument;
 use Panda\Ui\Html\HTMLElement;
 use Panda\Ui\Popups\Popup;
 
@@ -45,22 +46,17 @@ class WindowFrame extends Popup implements DOMBuilder
     protected $body;
 
     /**
-     * @type HTMLFactoryInterface
-     */
-    protected $HTMLFactory;
-
-    /**
      * Create a new frame popup instance.
      *
+     * @param HTMLDocument         $HTMLDocument
      * @param HTMLFactoryInterface $HTMLFactory
      * @param string               $id
      * @param string               $class
      */
-    public function __construct($HTMLFactory = null, $id = '', $class = '')
+    public function __construct(HTMLDocument $HTMLDocument, HTMLFactoryInterface $HTMLFactory, $id = '', $class = '')
     {
         // Create popup
-        parent::__construct($id);
-        $this->HTMLFactory = $HTMLFactory ?: new HTMLFactory();
+        parent::__construct($HTMLDocument, $HTMLFactory, $id);
 
         // Set basic properties
         $this->type(Popup::TP_PERSISTENT, false);
@@ -126,13 +122,5 @@ class WindowFrame extends Popup implements DOMBuilder
         $this->body->append($element);
 
         return $this;
-    }
-
-    /**
-     * @return HTMLFactoryInterface
-     */
-    public function getHTMLFactory()
-    {
-        return $this->HTMLFactory;
     }
 }

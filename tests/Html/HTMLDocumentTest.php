@@ -11,6 +11,7 @@
 
 namespace Panda\Ui\Tests\Html;
 
+use Panda\Ui\Factories\HTMLFactory;
 use Panda\Ui\Html\HTMLDocument;
 use PHPUnit_Framework_TestCase;
 
@@ -28,7 +29,7 @@ class HTMLDocumentTest extends PHPUnit_Framework_TestCase
     {
         parent::setUp();
 
-        $this->HTMLDocument = new HTMLDocument(null);
+        $this->HTMLDocument = new HTMLDocument(new HTMLFactory());
     }
 
     public function testMagic()

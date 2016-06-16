@@ -13,9 +13,9 @@ declare(strict_types = 1);
 
 namespace Panda\Ui\Factories;
 
-use DOMDocument;
 use Panda\Ui\Contracts\Factories\DOMFactoryInterface;
 use Panda\Ui\DOMItem;
+use Panda\Ui\DOMPrototype;
 
 /**
  * Class DOMFactory
@@ -27,6 +27,11 @@ use Panda\Ui\DOMItem;
 class DOMFactory implements DOMFactoryInterface
 {
     /**
+     * @type DOMPrototype
+     */
+    protected $DOMDocument;
+
+    /**
      * Build a DOM item.
      *
      * @param string $name
@@ -36,7 +41,27 @@ class DOMFactory implements DOMFactoryInterface
      */
     public function buildElement($name = '', $value = '')
     {
-        return new DOMItem(new DOMDocument(), $name, $value);
+        return new DOMItem($this->getDOMDocument(), $name, $value);
+    }
+
+    /**
+     * @return DOMPrototype
+     */
+    public function getDOMDocument()
+    {
+        return $this->DOMDocument;
+    }
+
+    /**
+     * @param DOMPrototype $DOMDocument
+     *
+     * @return $this
+     */
+    public function setDOMDocument(DOMPrototype $DOMDocument)
+    {
+        $this->DOMDocument = $DOMDocument;
+
+        return $this;
     }
 }
 

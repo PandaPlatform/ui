@@ -46,13 +46,14 @@ abstract class DOMPrototype extends DOMDocument
      * @param string              $version
      * @param string              $encoding
      */
-    public function __construct($DOMFactory, $version = '1.0', $encoding = 'UTF_8')
+    public function __construct(DOMFactoryInterface $DOMFactory, $version = '1.0', $encoding = 'UTF_8')
     {
         // Construct DOMDocument
         parent::__construct($version, $encoding);
 
         // Set DOMFactory
-        $this->DOMFactory = $DOMFactory ?: new DOMFactory();
+        $this->DOMFactory = $DOMFactory;
+        $this->DOMFactory->setDOMDocument($this);
     }
 
     /**
@@ -82,9 +83,6 @@ abstract class DOMPrototype extends DOMDocument
         if (empty($element)) {
             throw new InvalidArgumentException('You are trying to append an empty element.');
         }
-
-        // Import element to the document
-        $element = $this->importNode($element, true);
 
         // Append element
         $this->appendChild($element);

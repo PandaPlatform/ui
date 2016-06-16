@@ -71,7 +71,7 @@ class DOMItemTest extends PHPUnit_Framework_TestCase
 
     public function testAppend()
     {
-        $newItem = new DOMItem(new \DOMDocument(), 'new');
+        $newItem = new DOMItem($this->DOMItem->getDOMDocument(), 'new');
         $this->DOMItem->append($newItem);
         $this->assertEquals($newItem->parentNode, $this->DOMItem);
         $this->assertEquals($newItem->ownerDocument, $this->DOMItem->ownerDocument);
@@ -80,13 +80,13 @@ class DOMItemTest extends PHPUnit_Framework_TestCase
     public function testPrepend()
     {
         // Simple prepend
-        $newItem = new DOMItem(new \DOMDocument(), 'new');
+        $newItem = new DOMItem($this->DOMItem->getDOMDocument(), 'new');
         $this->DOMItem->prepend($newItem);
         $this->assertEquals($newItem->parentNode, $this->DOMItem);
         $this->assertEquals($newItem->ownerDocument, $this->DOMItem->ownerDocument);
 
         // Check actual prepend (in the beginning of the DOMElement)
-        $newItem = new DOMItem(new \DOMDocument(), 'new2');
+        $newItem = new DOMItem($this->DOMItem->getDOMDocument(), 'new2');
         $this->DOMItem->prepend($newItem);
         $this->assertEquals($newItem->parentNode, $this->DOMItem);
         $this->assertEquals($newItem->ownerDocument, $this->DOMItem->ownerDocument);
@@ -101,7 +101,7 @@ class DOMItemTest extends PHPUnit_Framework_TestCase
 
     public function testReplace()
     {
-        $newItem = new DOMItem(new \DOMDocument(), 'new');
+        $newItem = new DOMItem($this->DOMItem->getDOMDocument(), 'new');
         $this->assertEquals($newItem, $this->DOMItem->replace($newItem));
     }
 }

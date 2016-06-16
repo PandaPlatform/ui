@@ -17,7 +17,7 @@ use InvalidArgumentException;
 use LogicException;
 use Panda\Ui\Contracts\DOMBuilder;
 use Panda\Ui\Contracts\Factories\HTMLFormFactoryInterface;
-use Panda\Ui\Factories\FormFactory;
+use Panda\Ui\Html\HTMLDocument;
 use Panda\Ui\Html\HTMLElement;
 
 /**
@@ -74,15 +74,20 @@ class DataTable extends HTMLElement implements DOMBuilder
     /**
      * DataTable constructor.
      *
+     * @param HTMLDocument             $HTMLDocument
      * @param HTMLFormFactoryInterface $FormFactory
      * @param string                   $id
      * @param string                   $class
      */
-    public function __construct($FormFactory = null, $id = '', $class = '')
+    public function __construct(HTMLDocument $HTMLDocument, HTMLFormFactoryInterface $FormFactory, $id = '', $class = '')
     {
+        // Create object
         $id = $id ?: 'dt' . mt_rand();
-        parent::__construct($name = 'div', $value = '', $id, $class = 'uiDataTable initialize');
-        $this->formFactory = $FormFactory ?: new FormFactory();
+        parent::__construct($HTMLDocument, $name = 'div', $value = '', $id, $class = 'uiDataTable initialize');
+
+        // Set fields
+        $this->formFactory = $FormFactory;
+        $this->formFactory->setHTMLDocument($this->getHTMLDocument());
     }
 
     /**

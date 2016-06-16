@@ -13,6 +13,8 @@ namespace Panda\Ui\Tests\Html;
 
 use DOMDocument;
 use DOMElement;
+use Panda\Ui\Factories\HTMLFactory;
+use Panda\Ui\Html\HTMLDocument;
 use Panda\Ui\Html\HTMLElement;
 use PHPUnit_Framework_TestCase;
 
@@ -30,7 +32,7 @@ class HTMLElementTest extends PHPUnit_Framework_TestCase
     {
         parent::setUp();
 
-        $this->HTMLElement = new HTMLElement($name = 'div', $value = 'value', $id = 'id', $class = 'class');
+        $this->HTMLElement = new HTMLElement(new HTMLDocument(new HTMLFactory()), $name = 'div', $value = 'value', $id = 'id', $class = 'class');
     }
 
     public function testHTMLElement()
@@ -49,7 +51,7 @@ class HTMLElementTest extends PHPUnit_Framework_TestCase
         $document->appendChild($t);
 
         // Check element
-        $newElement = HTMLElement::fromDOMElement($t);
+        $newElement = $this->HTMLElement->fromDOMElement($t);
         $this->assertEquals('dom', $newElement->tagName);
         $this->assertEquals('test', $newElement->nodeValue);
 

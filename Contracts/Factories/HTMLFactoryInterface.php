@@ -13,6 +13,7 @@ declare(strict_types = 1);
 
 namespace Panda\Ui\Contracts\Factories;
 
+use Panda\Ui\Html\HTMLDocument;
 use Panda\Ui\Html\HTMLElement;
 
 /**
@@ -80,5 +81,14 @@ interface HTMLFactoryInterface extends DOMFactoryInterface
      * @return HTMLElement
      */
     public function buildScript($src, $async = false);
+
+    /**
+     * Set the HTMLDocument for creating html objects.
+     *
+     * @param HTMLDocument $HTMLDocument
+     *
+     * @return mixed
+     */
+    public function setHTMLDocument(HTMLDocument $HTMLDocument);
 }
 

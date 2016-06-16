@@ -31,6 +31,7 @@ class HTMLElement extends DOMItem
     /**
      * Create a new HTMLObject.
      *
+     * @param HTMLDocument       $HTMLDocument
      * @param string             $name  The elemenet name.
      * @param string|HTMLElement $value The element value.
      * @param string             $id    The element id attribute value.
@@ -38,10 +39,10 @@ class HTMLElement extends DOMItem
      *
      * @throws Exception
      */
-    public function __construct($name, $value = '', $id = '', $class = '')
+    public function __construct(HTMLDocument $HTMLDocument, $name, $value = '', $id = '', $class = '')
     {
         // Create DOMItem
-        parent::__construct(new HTMLDocument(null), $name, $value);
+        parent::__construct($HTMLDocument, $name, $value);
 
         // Add extra attributes
         $this->attr('id', $id);
@@ -277,10 +278,10 @@ class HTMLElement extends DOMItem
      *
      * @return HTMLElement
      */
-    public static function fromDOMElement($element)
+    public function fromDOMElement($element)
     {
         // Create a new item
-        $DOMElement = new HTMLElement($element->tagName ?: '', $element->nodeValue ?: '', $element->namespaceURI ?: '');
+        $DOMElement = new HTMLElement($this->getHTMLDocument(), $element->tagName ?: '', $element->nodeValue ?: '', $element->namespaceURI ?: '');
 
         // Set all attributes
         $counter = 0;

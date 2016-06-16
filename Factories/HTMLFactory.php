@@ -15,6 +15,7 @@ namespace Panda\Ui\Factories;
 
 use Exception;
 use Panda\Ui\Contracts\Factories\HTMLFactoryInterface;
+use Panda\Ui\Html\HTMLDocument;
 use Panda\Ui\Html\HTMLElement;
 
 /**
@@ -40,7 +41,7 @@ class HTMLFactory extends DOMFactory implements HTMLFactoryInterface
     {
         $id = $id ?: 'elm' . mt_rand();
 
-        return new HTMLElement($name, $value, $id, $class);
+        return new HTMLElement($this->getHTMLDocument(), $name, $value, $id, $class);
     }
 
     /**
@@ -135,6 +136,26 @@ class HTMLFactory extends DOMFactory implements HTMLFactoryInterface
 
         // Return the script
         return $script;
+    }
+
+    /**
+     * @return HTMLDocument
+     */
+    public function getHTMLDocument()
+    {
+        return $this->getDOMDocument();
+    }
+
+    /**
+     * Set the HTMLDocument for creating html objects.
+     *
+     * @param HTMLDocument $HTMLDocument
+     *
+     * @return $this
+     */
+    public function setHTMLDocument(HTMLDocument $HTMLDocument)
+    {
+        return $this->setDOMDocument($HTMLDocument);
     }
 }
 

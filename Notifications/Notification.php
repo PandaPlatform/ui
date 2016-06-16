@@ -16,6 +16,7 @@ namespace Panda\Ui\Notifications;
 use Panda\Ui\Contracts\DOMBuilder;
 use Panda\Ui\Contracts\Factories\HTMLFactoryInterface;
 use Panda\Ui\Factories\HTMLFactory;
+use Panda\Ui\Html\HTMLDocument;
 use Panda\Ui\Html\HTMLElement;
 
 /**
@@ -66,22 +67,16 @@ class Notification extends HTMLElement implements DOMBuilder
     protected $body;
 
     /**
-     * @type HTMLFactoryInterface
-     */
-    protected $HTMLFactory;
-
-    /**
      * Notification constructor.
      *
-     * @param HTMLFactoryInterface $HTMLFactory
-     * @param string               $id
-     * @param string               $class
+     * @param HTMLDocument $HTMLDocument
+     * @param string       $id
+     * @param string       $class
      */
-    public function __construct($HTMLFactory = null, $id = '', $class = '')
+    public function __construct(HTMLDocument $HTMLDocument, $id = '', $class = '')
     {
-        parent::__construct($name = 'div', $value = '', $id, 'uiNotification');
+        parent::__construct($HTMLDocument, $name = 'div', $value = '', $id, 'uiNotification');
         $this->addClass($class);
-        $this->HTMLFactory = $HTMLFactory ?: new HTMLFactory();
     }
 
     /**
@@ -197,13 +192,5 @@ class Notification extends HTMLElement implements DOMBuilder
     public function getBody()
     {
         return $this->body;
-    }
-
-    /**
-     * @return HTMLFactoryInterface
-     */
-    public function getHTMLFactory()
-    {
-        return $this->HTMLFactory;
     }
 }

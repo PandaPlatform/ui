@@ -76,19 +76,19 @@ class HTMLPage extends HTMLDocument implements DOMBuilder
     public function build($title = '', $description = '', $keywords = '')
     {
         // Build html root element
-        $HTML = $this->create('html');
-        $this->append($HTML);
+        $html = $this->create('html');
+        $this->append($html);
 
         // Build head
         $this->head = $this->create('head');
-        $HTML->append($this->head);
+        $html->append($this->head);
 
         // Setup head elements
         $this->setupHead($title, $description, $keywords);
 
         // Build body
         $this->body = $this->create('body');
-        $HTML->append($this->body);
+        $html->append($this->body);
 
         return $this;
     }

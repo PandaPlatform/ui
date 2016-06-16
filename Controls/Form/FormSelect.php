@@ -15,7 +15,7 @@ namespace Panda\Ui\Controls\Form;
 
 use Exception;
 use Panda\Ui\Contracts\Factories\HTMLFormFactoryInterface;
-use Panda\Ui\Factories\FormFactory;
+use Panda\Ui\Html\HTMLDocument;
 
 /**
  * Class FormSelect
@@ -34,6 +34,7 @@ class FormSelect extends FormElement
     /**
      * Create a new form item.
      *
+     * @param HTMLDocument             $HTMLDocument
      * @param HTMLFormFactoryInterface $HTMLFormFactory The FormFactory to build the complex object
      * @param string                   $name            The input's name
      * @param string                   $id              The input's id
@@ -43,10 +44,10 @@ class FormSelect extends FormElement
      *
      * @throws Exception
      */
-    public function __construct($HTMLFormFactory = null, $name = '', $id = '', $class = '', $multiple = false, $required = false)
+    public function __construct(HTMLDocument $HTMLDocument, HTMLFormFactoryInterface $HTMLFormFactory, $name = '', $id = '', $class = '', $multiple = false, $required = false)
     {
         // Create FormElement
-        parent::__construct($itemName = 'select', $name, $value = '', $id, $class, $itemValue = '');
+        parent::__construct($HTMLDocument, $itemName = 'select', $name, $value = '', $id, $class, $itemValue = '');
         $this->attr('required', $required);
 
         // Add extra attributes
@@ -54,7 +55,8 @@ class FormSelect extends FormElement
             $this->attr('multiple', 'multiple');
         }
 
-        $this->HTMLFormFactory = $HTMLFormFactory ?: new FormFactory();
+        $this->HTMLFormFactory = $HTMLFormFactory;
+        $this->HTMLFormFactory->setHTMLDocument($HTMLDocument);
     }
 
     /**
@@ -72,7 +74,7 @@ class FormSelect extends FormElement
         // Create all options
         foreach ($options as $value => $title) {
             // Create option
-            $fi = new FormElement('option', '', $value, '', '', $title);
+            $fi = $this->getHTMLFormFactory()->buildFormElement('option', '', $value, '', '', $title);
 
             // Check if it's the selected value
             if ($value == $selectedValue) {
@@ -102,7 +104,7 @@ class FormSelect extends FormElement
         // Create all options
         foreach ($optionGroups as $groupLabel => $options) {
             // Create option group
-            $og = new FormElement('optgroup', $name = '', $value = '', $id = '', $class = '', $itemValue = '');
+            $og = $this->getHTMLFormFactory()->buildFormElement('optgroup', $name = '', $value = '', $id = '', $class = '', $itemValue = '');
             $og->attr('label', $groupLabel);
 
             // Create all options

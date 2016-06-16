@@ -12,6 +12,7 @@
 namespace Panda\Ui\Tests\Factories;
 
 use Panda\Ui\Factories\HTMLFactory;
+use Panda\Ui\Html\HTMLDocument;
 use PHPUnit_Framework_TestCase;
 
 // Initialize testing env
@@ -29,6 +30,7 @@ class HTMLFactoryTest extends PHPUnit_Framework_TestCase
         parent::setUp();
 
         $this->HTMLFactory = new HTMLFactory();
+        $this->HTMLFactory->setHTMLDocument(new HTMLDocument($this->HTMLFactory));
     }
 
     public function testBuildElement()
