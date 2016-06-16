@@ -179,15 +179,5 @@ abstract class DOMPrototype extends DOMDocument
     {
         $this->DOMFactory = $DOMFactory;
     }
-
-    /**
-     * Get the DOMDocument.
-     *
-     * @return DOMDocument
-     */
-    public function getDOMDocument()
-    {
-        return $this;
-    }
 }
 

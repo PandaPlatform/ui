@@ -58,6 +58,10 @@ class HTMLElement extends DOMItem
      */
     public function addClass($class)
     {
+        if (empty($class)) {
+            return $this;
+        }
+
         // Normalize class
         $class = trim($class);
         if (empty($class)) {
@@ -203,22 +207,25 @@ class HTMLElement extends DOMItem
         // If value is null, return inner HTML
         if (is_null($value)) {
             $inner = '';
-            foreach ($this->ownerDocument->childNodes as $child) {
-                $inner .= $this->ownerDocument->saveXML($child);
+            foreach ($this->childNodes as $child) {
+                $inner .= $this->ownerDocument->saveHTML($child);
             }
 
             return $inner;
         }
 
-        // $value holds our new inner HTML
+        // If no value, empty the html
         if (empty($value)) {
             // Empty the element
-            for ($x = $this->ownerDocument->childNodes->length - 1; $x >= 0; $x--) {
-                $this->ownerDocument->removeChild($this->childNodes->item($x));
+            for ($x = $this->childNodes->length - 1; $x >= 0; $x--) {
+                $this->removeChild($this->childNodes->item($x));
             }
 
             return $this;
         }
+
+        // Empty the element before adding new html
+        $this->innerHTML('');
 
         $f = $this->ownerDocument->createDocumentFragment();
         // appendXML() expects well-formed markup (XHTML)

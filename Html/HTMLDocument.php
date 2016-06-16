@@ -128,15 +128,5 @@ class HTMLDocument extends DOMPrototype
     {
         return $this->DOMFactory;
     }
-
-    /**
-     * Get the HTMLDocument.
-     *
-     * @return HTMLDocument
-     */
-    public function getHTMLDocument()
-    {
-        return $this;
-    }
 }
 
