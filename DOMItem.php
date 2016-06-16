@@ -14,6 +14,7 @@ declare(strict_types = 1);
 namespace Panda\Ui;
 
 use DOMAttr;
+use DOMDocument;
 use DOMElement;
 use DOMException;
 use DOMNode;
@@ -40,8 +41,12 @@ class DOMItem extends DOMElement
      */
     public function __construct($name, $value = '', $namespaceURI = '')
     {
+        // Create owner DOMDocument to be able to have the element as writable
+        $DOMDocument = new DOMDocument();
+
         // Create DOMElement
         parent::__construct($name, '', $namespaceURI);
+        $DOMDocument->appendChild($this);
 
         // Check if the content a DOMNode to append
         if (gettype($value) == 'string') {
@@ -217,12 +222,15 @@ class DOMItem extends DOMElement
      * @return $this
      * @throws InvalidArgumentException
      */
-    public function append($element)
+    public function append(&$element)
     {
         // Check element
         if (empty($element)) {
             throw new InvalidArgumentException('You are trying to append an empty element.');
         }
+
+        // Import element to owner document
+        $element = $this->ownerDocument->importNode($element, true);
 
         // Append element
         $this->appendChild($element);
@@ -239,11 +247,14 @@ class DOMItem extends DOMElement
      * @return $this
      * @throws InvalidArgumentException
      */
-    public function prepend($element)
+    public function prepend(&$element)
     {
         if (empty($element)) {
             throw new InvalidArgumentException('You are trying to prepend an empty element.');
         }
+
+        // Import element to owner document
+        $element = $this->ownerDocument->importNode($element, true);
 
         // Append before first child
         if ($this->childNodes->length > 0) {
@@ -276,6 +287,8 @@ class DOMItem extends DOMElement
      *
      * @param DOMItem $element The item to replace.
      *
+     * @return $this The new element.
+     *
      * @throws DOMException
      */
     public function replace($element)
@@ -285,8 +298,13 @@ class DOMItem extends DOMElement
             throw new DOMException('The current DOMItem has no parent.');
         }
 
+        // Import element to owner document
+        $element = $this->ownerDocument->importNode($element, true);
+
         // Replace the element
         $this->parentNode->replaceChild($element, $this);
+
+        return $element;
     }
 }
 

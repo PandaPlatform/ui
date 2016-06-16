@@ -200,12 +200,6 @@ class HTMLElement extends DOMItem
      */
     public function innerHTML($value = null, $faultTolerant = true, $convertEncoding = true)
     {
-        // Get owner document
-        if ($this->ownerDocument) {
-            $DOMDocument = new DOMDocument();
-            $DOMDocument->appendChild($this);
-        }
-
         // If value is null, return inner HTML
         if (is_null($value)) {
             $inner = '';
@@ -271,12 +265,6 @@ class HTMLElement extends DOMItem
      */
     public function outerHTML()
     {
-        // Get owner document
-        if ($this->ownerDocument) {
-            $DOMDocument = new DOMDocument();
-            $DOMDocument->appendChild($this);
-        }
-
         // Get outer html
         return $this->ownerDocument->saveHTML($this);
     }
