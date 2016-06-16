@@ -13,6 +13,7 @@ declare(strict_types = 1);
 
 namespace Panda\Ui\Factories;
 
+use DOMDocument;
 use Panda\Ui\Contracts\Factories\DOMFactoryInterface;
 use Panda\Ui\DOMItem;
 
@@ -35,7 +36,7 @@ class DOMFactory implements DOMFactoryInterface
      */
     public function buildElement($name = '', $value = '')
     {
-        return new DOMItem($name, $value);
+        return new DOMItem(new DOMDocument(), $name, $value);
     }
 }
 

@@ -13,7 +13,6 @@ declare(strict_types = 1);
 
 namespace Panda\Ui\Html;
 
-use DOMElement;
 use InvalidArgumentException;
 use Panda\Ui\Contracts\DOMBuilder;
 use Panda\Ui\Contracts\Factories\HTMLFactoryInterface;
@@ -34,14 +33,14 @@ class HTMLPage extends HTMLDocument implements DOMBuilder
      *
      * @var HTMLElement
      */
-    protected $HTMLHead;
+    protected $head;
 
     /**
      * The body tag object
      *
      * @var HTMLElement
      */
-    protected $HTMLBody;
+    protected $body;
 
     /**
      * Keeps the scripts to be inserted in the bottom of the page before exporting,
@@ -59,7 +58,6 @@ class HTMLPage extends HTMLDocument implements DOMBuilder
     {
         // Initialize-Clear Bottom Scripts
         $this->bottomScripts = [];
-        $HTMLFactory = $HTMLFactory ?: new HTMLFactory();
 
         // Call parent
         parent::__construct($HTMLFactory);
@@ -77,20 +75,20 @@ class HTMLPage extends HTMLDocument implements DOMBuilder
      */
     public function build($title = '', $description = '', $keywords = '')
     {
-        // Build HTML
+        // Build html root element
         $HTML = $this->create('html');
         $this->append($HTML);
 
-        // Build HEAD
-        $this->HTMLHead = $this->create('head');
-        $HTML->append($this->HTMLHead);
+        // Build head
+        $this->head = $this->create('head');
+        $HTML->append($this->head);
 
         // Setup head elements
         $this->setupHead($title, $description, $keywords);
 
-        // Build BODY
-        $this->HTMLBody = $this->create('body');
-        $HTML->append($this->HTMLBody);
+        // Build body
+        $this->body = $this->create('body');
+        $HTML->append($this->body);
 
         return $this;
     }
@@ -110,26 +108,6 @@ class HTMLPage extends HTMLDocument implements DOMBuilder
     }
 
     /**
-     * Returns the head tag object.
-     *
-     * @return DOMElement The head element.
-     */
-    public function getHead()
-    {
-        return $this->HTMLHead;
-    }
-
-    /**
-     * Returns the body tag object.
-     *
-     * @return DOMElement The body element.
-     */
-    public function getBody()
-    {
-        return $this->HTMLBody;
-    }
-
-    /**
      * Append element to head.
      *
      * @param HTMLElement $element The element to be appended.
@@ -146,7 +124,7 @@ class HTMLPage extends HTMLDocument implements DOMBuilder
         }
 
         // Append element to head
-        $this->HTMLHead->append($element);
+        $this->getHead()->append($element);
 
         return $this;
     }
@@ -168,7 +146,7 @@ class HTMLPage extends HTMLDocument implements DOMBuilder
         }
 
         // Append element to body
-        $this->HTMLBody->append($element);
+        $this->getBody()->append($element);
 
         return $this;
     }
@@ -368,6 +346,22 @@ class HTMLPage extends HTMLDocument implements DOMBuilder
     public function getHTMLFactory()
     {
         return $this->DOMFactory;
+    }
+
+    /**
+     * @return HTMLElement
+     */
+    public function getHead()
+    {
+        return $this->head;
+    }
+
+    /**
+     * @return HTMLElement
+     */
+    public function getBody()
+    {
+        return $this->body;
     }
 }
 

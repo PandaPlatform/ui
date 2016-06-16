@@ -14,6 +14,8 @@ declare(strict_types = 1);
 namespace Panda\Ui\Notifications;
 
 use Panda\Ui\Contracts\DOMBuilder;
+use Panda\Ui\Contracts\Factories\HTMLFactoryInterface;
+use Panda\Ui\Factories\HTMLFactory;
 use Panda\Ui\Html\HTMLElement;
 
 /**
@@ -64,15 +66,22 @@ class Notification extends HTMLElement implements DOMBuilder
     protected $body;
 
     /**
+     * @type HTMLFactoryInterface
+     */
+    protected $HTMLFactory;
+
+    /**
      * Notification constructor.
      *
-     * @param string $id
-     * @param string $class
+     * @param HTMLFactoryInterface $HTMLFactory
+     * @param string               $id
+     * @param string               $class
      */
-    public function __construct($id = '', $class = '')
+    public function __construct($HTMLFactory = null, $id = '', $class = '')
     {
         parent::__construct($name = 'div', $value = '', $id, 'uiNotification');
         $this->addClass($class);
+        $this->HTMLFactory = $HTMLFactory ?: new HTMLFactory();
     }
 
     /**
@@ -120,7 +129,7 @@ class Notification extends HTMLElement implements DOMBuilder
     public function append($content)
     {
         // Append a valid element to notification body
-        $this->body->append($content);
+        $this->getBody()->append($content);
 
         // Return notification object
         return $this;
@@ -135,7 +144,7 @@ class Notification extends HTMLElement implements DOMBuilder
      */
     public function appendCustomMessage($message)
     {
-        $customMessage = new HTMLElement('div', $message, '', 'customMessage');
+        $customMessage = $this->getHTMLFactory()->buildElement('div', $message, '', 'customMessage');
 
         return $this->append($customMessage);
     }
@@ -152,12 +161,12 @@ class Notification extends HTMLElement implements DOMBuilder
     private function buildHead($title, $disposable = false)
     {
         // Build Head Element
-        $head = new HTMLElement('div', $title, '', 'uiNtfHead');
+        $head = $this->getHTMLFactory()->buildElement('div', $title, '', 'uiNtfHead');
         parent::append($head);
 
         // Populate the close button
         if ($disposable) {
-            $closeBtn = new HTMLElement('span', '', '', 'closeBtn');
+            $closeBtn = $this->getHTMLFactory()->buildElement('span', '', '', 'closeBtn');
             $head->append($closeBtn);
         }
 
@@ -172,13 +181,29 @@ class Notification extends HTMLElement implements DOMBuilder
     private function buildBody()
     {
         // Build Body Element
-        $this->body = new HTMLElement('div', '', '', 'uiNtfBody');
+        $this->body = $this->getHTMLFactory()->buildElement('div', '', '', 'uiNtfBody');
         parent::append($this->body);
 
         // Populate the notification icon
-        $icon = new HTMLElement('span', '', '', 'uiNtfIcon');
-        $this->body->append($icon);
+        $icon = $this->getHTMLFactory()->buildElement('span', '', '', 'uiNtfIcon');
+        $this->append($icon);
 
         return $this;
+    }
+
+    /**
+     * @return HTMLElement
+     */
+    public function getBody()
+    {
+        return $this->body;
+    }
+
+    /**
+     * @return HTMLFactoryInterface
+     */
+    public function getHTMLFactory()
+    {
+        return $this->HTMLFactory;
     }
 }

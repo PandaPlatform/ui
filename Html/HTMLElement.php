@@ -14,6 +14,7 @@ declare(strict_types = 1);
 namespace Panda\Ui\Html;
 
 use DOMDocument;
+use DOMElement;
 use Exception;
 use Panda\Ui\DOMItem;
 
@@ -40,7 +41,7 @@ class HTMLElement extends DOMItem
     public function __construct($name, $value = '', $id = '', $class = '')
     {
         // Create DOMItem
-        parent::__construct($name, $value);
+        parent::__construct(new HTMLDocument(null), $name, $value);
 
         // Add extra attributes
         $this->attr('id', $id);
@@ -270,6 +271,36 @@ class HTMLElement extends DOMItem
     }
 
     /**
+     * Create a DOMItem from a given DOMElement.
+     *
+     * @param DOMElement $element
+     *
+     * @return HTMLElement
+     */
+    public static function fromDOMElement($element)
+    {
+        // Create a new item
+        $DOMElement = new HTMLElement($element->tagName ?: '', $element->nodeValue ?: '', $element->namespaceURI ?: '');
+
+        // Set all attributes
+        $counter = 0;
+        while ($counter < $element->attributes->length) {
+            $attribute = $element->attributes->item($counter);
+            $DOMElement->attr($attribute->name, $attribute->value);
+            $counter++;
+        }
+
+        // Set inner html
+        $html = '';
+        foreach ($element->childNodes as $child) {
+            $html .= $element->ownerDocument->saveHTML($child);
+        }
+        $DOMElement->innerHTML($html);
+
+        return $DOMElement;
+    }
+
+    /**
      * Get the DOMElement outer html.
      *
      * @return string
@@ -278,6 +309,14 @@ class HTMLElement extends DOMItem
     {
         // Get outer html
         return $this->ownerDocument->saveHTML($this);
+    }
+
+    /**
+     * @return HTMLDocument
+     */
+    public function getHTMLDocument()
+    {
+        return $this->getDOMDocument();
     }
 }
 

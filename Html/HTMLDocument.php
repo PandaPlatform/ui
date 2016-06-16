@@ -38,7 +38,7 @@ class HTMLDocument extends DOMPrototype
      * @param string               $version
      * @param string               $encoding
      */
-    public function __construct($HTMLFactory, $version = '1.0', $encoding = 'UTF_8')
+    public function __construct($HTMLFactory = null, $version = '1.0', $encoding = 'UTF_8')
     {
         // Construct DOMDocument
         $HTMLFactory = $HTMLFactory ?: new HTMLFactory();

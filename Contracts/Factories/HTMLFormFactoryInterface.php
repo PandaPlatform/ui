@@ -25,6 +25,20 @@ use Panda\Ui\Controls\Form\FormElement;
 interface HTMLFormFactoryInterface extends HTMLFactoryInterface
 {
     /**
+     * Build an html form element.
+     *
+     * @param string $itemName
+     * @param string $name
+     * @param string $value
+     * @param string $id
+     * @param string $class
+     * @param string $itemValue
+     *
+     * @return FormElement
+     */
+    public function buildFormElement($itemName = '', $name = '', $value = '', $id = '', $class = '', $itemValue = '');
+
+    /**
      * Build an html form input.
      *
      * @param string $type

@@ -33,20 +33,26 @@ use InvalidArgumentException;
 class DOMItem extends DOMElement
 {
     /**
+     * @type DOMDocument
+     */
+    protected $DOMDocument;
+
+    /**
      * Create a new DOM Item.
      *
+     * @param DOMDocument    $DOMDocument
      * @param string         $name
      * @param string|DOMItem $value
      * @param string         $namespaceURI
      */
-    public function __construct($name, $value = '', $namespaceURI = '')
+    public function __construct($DOMDocument, $name, $value = '', $namespaceURI = '')
     {
         // Create owner DOMDocument to be able to have the element as writable
-        $DOMDocument = new DOMDocument();
+        $this->DOMDocument = $DOMDocument ?: new DOMDocument();
 
         // Create DOMElement
         parent::__construct($name, '', $namespaceURI);
-        $DOMDocument->appendChild($this);
+        $this->DOMDocument->appendChild($this);
 
         // Check if the content a DOMNode to append
         if (gettype($value) == 'string') {
@@ -309,6 +315,14 @@ class DOMItem extends DOMElement
         $this->parentNode->replaceChild($element, $this);
 
         return $element;
+    }
+
+    /**
+     * @return DOMDocument
+     */
+    public function getDOMDocument()
+    {
+        return $this->DOMDocument;
     }
 }
 

@@ -47,23 +47,15 @@ class DialogFrame extends WindowFrame
     private $form;
 
     /**
-     * A formFactory object for building the form input objects.
-     *
-     * @var HTMLFormFactoryInterface
-     */
-    private $formFactory;
-
-    /**
      * dialogFrame constructor.
      *
      * @param HTMLFormFactoryInterface $FormFactory
      * @param string                   $id
      * @param string                   $class
      */
-    public function __construct($FormFactory, $id, $class)
+    public function __construct($FormFactory = null, $id = '', $class = '')
     {
-        parent::__construct($id, $class);
-        $this->formFactory = $FormFactory;
+        parent::__construct($FormFactory, $id, $class);
     }
 
     /**
@@ -88,7 +80,7 @@ class DialogFrame extends WindowFrame
         parent::build($title);
 
         // Build Form
-        $this->form = new SimpleForm($this->formFactory, $id = '', $action, $async = true, $fileUpload);
+        $this->form = new SimpleForm($this->getFormFactory(), $id = '', $action, $async = true, $fileUpload);
         $this->form->build(false, true);
         $this->appendToBody($this->form);
 
@@ -113,7 +105,7 @@ class DialogFrame extends WindowFrame
      */
     public function getFormFactory()
     {
-        return $this->formFactory;
+        return $this->getHTMLFactory();
     }
 
     /**
@@ -138,7 +130,7 @@ class DialogFrame extends WindowFrame
     private function buildControls($type = self::TYPE_OK_CANCEL)
     {
         // Create dialog controls container
-        $controlsContainer = new HTMLElement('div', '', '', 'dialogControls');
+        $controlsContainer = $this->getFormFactory()->buildElement('div', '', '', 'dialogControls');
         $this->form->append($controlsContainer);
 
         // Button Container
@@ -150,9 +142,9 @@ class DialogFrame extends WindowFrame
         $lbl_reset = ($type == self::TYPE_OK_CANCEL ? 'cancel' : 'no');
 
         // Insert Controls
-        $submitBtn = $this->formFactory->buildSubmitButton($lbl_submit, '', '', 'dlgExec positive');
+        $submitBtn = $this->getFormFactory()->buildSubmitButton($lbl_submit, '', '', 'dlgExec positive');
         $btnContainer->append($submitBtn);
-        $resetBtn = $this->formFactory->buildResetButton($lbl_reset, '', 'dlgCancel');
+        $resetBtn = $this->getFormFactory()->buildResetButton($lbl_reset, '', 'dlgCancel');
         $btnContainer->append($resetBtn);
 
         return $this;

@@ -13,7 +13,6 @@ declare(strict_types = 1);
 
 namespace Panda\Ui\Contracts\Factories;
 
-use Panda\Ui\DOMItem;
 use Panda\Ui\Html\HTMLElement;
 
 /**
@@ -33,7 +32,7 @@ interface HTMLFactoryInterface extends DOMFactoryInterface
      * @param string $id
      * @param string $class
      *
-     * @return DOMItem
+     * @return HTMLElement
      */
     public function buildElement($name = '', $value = '', $id = '', $class = '');
 
@@ -46,7 +45,7 @@ interface HTMLFactoryInterface extends DOMFactoryInterface
      * @param string $id
      * @param string $class
      *
-     * @return mixed
+     * @return HTMLElement
      */
     public function buildWeblink($href = '', $target = '_self', $content = '', $id = '', $class = '');
 
@@ -78,7 +77,7 @@ interface HTMLFactoryInterface extends DOMFactoryInterface
      * @param string $src
      * @param bool   $async
      *
-     * @return mixed
+     * @return HTMLElement
      */
     public function buildScript($src, $async = false);
 }

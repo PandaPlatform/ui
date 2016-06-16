@@ -14,6 +14,8 @@ declare(strict_types = 1);
 namespace Panda\Ui\Popups;
 
 use Panda\Ui\Contracts\DOMBuilder;
+use Panda\Ui\Contracts\Factories\HTMLFactoryInterface;
+use Panda\Ui\Factories\HTMLFactory;
 use Panda\Ui\Html\HTMLElement;
 
 /**
@@ -109,13 +111,20 @@ class Popup extends HTMLElement implements DOMBuilder
     protected $parent = '';
 
     /**
+     * @type HTMLFactoryInterface
+     */
+    protected $HTMLFactory;
+
+    /**
      * Popup constructor.
      *
+     * @param null   $HTMLFactory
      * @param string $id
      */
-    public function __construct($id = '')
+    public function __construct($HTMLFactory = null, $id = '')
     {
         parent::__construct($name = 'div', $value = '', $id, 'uiPopup');
+        $this->HTMLFactory = $HTMLFactory ?: new HTMLFactory();
     }
 
     /**
@@ -129,7 +138,7 @@ class Popup extends HTMLElement implements DOMBuilder
     public function build($content = null)
     {
         // Create the instructions holder
-        $info = new HTMLElement('div', '', '', 'info init');
+        $info = $this->getHTMLFactory()->buildElement('div', '', '', 'info init');
         $this->append($info);
 
         // Set attributes
@@ -385,5 +394,13 @@ class Popup extends HTMLElement implements DOMBuilder
         $this->invertDock = $orientation;
 
         return $this;
+    }
+
+    /**
+     * @return HTMLFactoryInterface
+     */
+    public function getHTMLFactory()
+    {
+        return $this->HTMLFactory;
     }
 }

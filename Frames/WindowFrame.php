@@ -14,7 +14,9 @@ declare(strict_types = 1);
 namespace Panda\Ui\Frames;
 
 use Panda\Ui\Contracts\DOMBuilder;
+use Panda\Ui\Contracts\Factories\HTMLFactoryInterface;
 use Panda\Ui\DOMItem;
+use Panda\Ui\Factories\HTMLFactory;
 use Panda\Ui\Html\HTMLElement;
 use Panda\Ui\Popups\Popup;
 
@@ -43,15 +45,22 @@ class WindowFrame extends Popup implements DOMBuilder
     protected $body;
 
     /**
+     * @type HTMLFactoryInterface
+     */
+    protected $HTMLFactory;
+
+    /**
      * Create a new frame popup instance.
      *
-     * @param string $id
-     * @param string $class
+     * @param HTMLFactoryInterface $HTMLFactory
+     * @param string               $id
+     * @param string               $class
      */
-    public function __construct($id = '', $class = '')
+    public function __construct($HTMLFactory = null, $id = '', $class = '')
     {
         // Create popup
         parent::__construct($id);
+        $this->HTMLFactory = $HTMLFactory ?: new HTMLFactory();
 
         // Set basic properties
         $this->type(Popup::TP_PERSISTENT, false);
@@ -59,7 +68,7 @@ class WindowFrame extends Popup implements DOMBuilder
 
         // Create wFrame
         $id = 'wf_' . (empty($id) ? mt_rand() : $id);
-        $this->wFrame = new HTMLElement('div', '', $id, 'wFrame');
+        $this->wFrame = $this->getHTMLFactory()->buildElement('div', '', $id, 'wFrame');
         $this->wFrame->addClass($class);
     }
 
@@ -73,19 +82,19 @@ class WindowFrame extends Popup implements DOMBuilder
     public function build($title = '')
     {
         // Create header
-        $frameHeader = new HTMLElement('div', '', '', 'frameHeader');
+        $frameHeader = $this->getHTMLFactory()->buildElement('div', '', '', 'frameHeader');
         $this->append($frameHeader);
 
         // Header Title
-        $frameTitle = new HTMLElement('span', $title, '', 'frameTitle');
+        $frameTitle = $this->getHTMLFactory()->buildElement('span', $title, '', 'frameTitle');
         $frameHeader->append($frameTitle);
 
         // Close button
-        $closeBtn = new HTMLElement('span', '', '', 'closeBtn');
+        $closeBtn = $this->getHTMLFactory()->buildElement('span', '', '', 'closeBtn');
         $frameHeader->append($closeBtn);
 
         // Create body
-        $this->body = new HTMLElement('div', '', '', 'frameBody');
+        $this->body = $this->getHTMLFactory()->buildElement('div', '', '', 'frameBody');
         $this->appendToFrame($this->body);
 
         return parent::build($this->wFrame);
@@ -117,5 +126,13 @@ class WindowFrame extends Popup implements DOMBuilder
         $this->body->append($element);
 
         return $this;
+    }
+
+    /**
+     * @return HTMLFactoryInterface
+     */
+    public function getHTMLFactory()
+    {
+        return $this->HTMLFactory;
     }
 }

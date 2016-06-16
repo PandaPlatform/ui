@@ -38,13 +38,11 @@ class Form extends HTMLElement
      * @param HTMLFormFactoryInterface $HTMLFormFactory The Form Factory interface to generate all elements.
      * @param string                   $id              The form id.
      * @param string                   $action          The form action url string.
-     *                                                  It is empty by default.
      * @param bool                     $async           Sets the async attribute for simple forms.
-     *                                                  It is TRUE by default.
      * @param bool                     $fileUpload      This marks the form ready for file upload. It adds the enctype
      *                                                  attribute where no characters are encoded. This value is
      *                                                  required when you are using forms that have a file upload
-     *                                                  control. It is FALSE by default.
+     *                                                  control.
      *
      * @throws Exception
      */
