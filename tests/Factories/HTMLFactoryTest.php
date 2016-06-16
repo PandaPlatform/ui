@@ -1,9 +1,12 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: ioannispapikas
- * Date: 16/06/16
- * Time: 16:46
+
+/*
+ * This file is part of the Panda framework Ui component.
+ *
+ * (c) Ioannis Papikas <papikas.ioan@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace Panda\Ui\Tests\Factories;
@@ -12,7 +15,7 @@ use Panda\Ui\Factories\HTMLFactory;
 use PHPUnit_Framework_TestCase;
 
 // Initialize testing env
-include('../init.php');
+include '../init.php';
 
 class HTMLFactoryTest extends PHPUnit_Framework_TestCase
 {

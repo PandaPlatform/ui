@@ -20,6 +20,7 @@ use Panda\Ui\Html\HTMLPage;
  * Creates an HTMLPage and appends the current view inside the body.
  *
  * @package Panda\Ui\Views
+ *
  * @version 0.1
  */
 class ViewPage extends HTMLPage

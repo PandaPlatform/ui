@@ -1,12 +1,21 @@
 <?php
 
+/*
+ * This file is part of the Panda framework Ui component.
+ *
+ * (c) Ioannis Papikas <papikas.ioan@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Panda\Ui\Tests;
 
 use Panda\Ui\DOMItem;
 use PHPUnit_Framework_TestCase;
 
 // Initialize testing env
-include('init.php');
+include 'init.php';
 
 class DOMItemTest extends PHPUnit_Framework_TestCase
 {
@@ -42,14 +51,14 @@ class DOMItemTest extends PHPUnit_Framework_TestCase
     public function testData()
     {
         // Test data array
-        $data = array();
+        $data = [];
         $data['t1'] = "t1_value";
         $data['t2'] = "t2_value";
         $this->DOMItem->data('dtest', $data);
         $this->assertEquals(json_encode($data, JSON_FORCE_OBJECT), $this->DOMItem->getAttribute('data-dtest'));
 
         // Test empty array
-        $data = array();
+        $data = [];
         $this->DOMItem->data('dtest-empty', $data);
         $this->assertEquals(json_encode($data, JSON_FORCE_OBJECT), '{' . $this->DOMItem->getAttribute('data-dtest-empty') . '}');
     }

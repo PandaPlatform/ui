@@ -1,12 +1,21 @@
 <?php
 
+/*
+ * This file is part of the Panda framework Ui component.
+ *
+ * (c) Ioannis Papikas <papikas.ioan@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Panda\Ui\Tests\Html;
 
 use Panda\Ui\Html\HTMLDocument;
 use PHPUnit_Framework_TestCase;
 
 // Initialize testing env
-include('../init.php');
+include '../init.php';
 
 class HTMLDocumentTest extends PHPUnit_Framework_TestCase
 {
