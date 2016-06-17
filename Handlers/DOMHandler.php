@@ -43,7 +43,7 @@ class DOMHandler implements DOMHandlerInterface
      *
      * @return string If the given value is empty, it returns True if the attribute is removed, False otherwise.If the
      *                given value is empty, it returns True if the attribute is removed, False otherwise. It returns
-     * the new attribute otherwise.
+     *                the new attribute otherwise.
      *
      * @throws Exception
      */
@@ -192,52 +192,52 @@ class DOMHandler implements DOMHandlerInterface
     /**
      * Append an element as a child.
      *
-     * @param DOMElement $element    The DOMElement to handle.
-     * @param DOMNode    $newElement The child element.
+     * @param DOMElement $parent The DOMElement to handle.
+     * @param DOMNode    $child  The child element.
      *
      * @return DOMElement
      *
      * @throws InvalidArgumentException
      */
-    public function append(DOMElement &$element, &$newElement)
+    public function append(DOMElement &$parent, &$child)
     {
         // Check element
-        if (empty($newElement)) {
+        if (empty($child)) {
             throw new InvalidArgumentException('You are trying to append an empty element.');
         }
 
         // Append element
-        $element->appendChild($newElement);
+        $parent->appendChild($child);
 
         // Return the DOMElement
-        return $element;
+        return $parent;
     }
 
     /**
      * Prepends (appends first in the list) a DOMElement.
      *
-     * @param DOMElement $element    The DOMElement to handle.
-     * @param DOMNode    $newElement The child element.
+     * @param DOMElement $parent The DOMElement to handle.
+     * @param DOMNode    $child  The child element.
      *
      * @return DOMElement
      *
      * @throws InvalidArgumentException
      */
-    public function prepend(DOMElement &$element, &$newElement)
+    public function prepend(DOMElement &$parent, &$child)
     {
-        if (empty($newElement)) {
+        if (empty($child)) {
             throw new InvalidArgumentException('You are trying to prepend an empty element.');
         }
 
         // Append before first child
-        if ($element->childNodes->length > 0) {
-            $element->insertBefore($newElement, $element->childNodes->item(0));
+        if ($parent->childNodes->length > 0) {
+            $parent->insertBefore($child, $parent->childNodes->item(0));
         } else {
-            $this->append($element, $newElement);
+            $this->append($parent, $child);
         }
 
         // Return the DOMElement
-        return $element;
+        return $parent;
     }
 
     /**
@@ -260,23 +260,23 @@ class DOMHandler implements DOMHandlerInterface
     /**
      * Replace the DOMItem.
      *
-     * @param DOMElement $element    The DOMElement to handle.
-     * @param DOMNode    $newElement The item to replace.
+     * @param DOMElement $old The DOMElement to handle.
+     * @param DOMNode    $new The item to replace.
      *
      * @return DOMElement The new element.
      *
      * @throws Exception
      */
-    public function replace(DOMElement &$element, &$newElement)
+    public function replace(DOMElement &$old, &$new)
     {
         // Check if the element has a parent node
-        if (empty($element->parentNode)) {
+        if (empty($old->parentNode)) {
             throw new DOMException('The current DOMItem has no parent.');
         }
 
         // Replace the element
-        $element->parentNode->replaceChild($newElement, $element);
+        $old->parentNode->replaceChild($new, $old);
 
-        return $newElement;
+        return $new;
     }
 }

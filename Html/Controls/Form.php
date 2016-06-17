@@ -45,8 +45,10 @@ class Form extends HTMLElement implements DOMBuilder
     {
         // Create HTML Form element
         parent::__construct($HTMLDocument, $name = 'form', $value = '', $id = '');
-        $this->HTMLFormFactory = $HTMLFormFactory;
-        $this->HTMLFormFactory->setHTMLDocument($this->getHTMLDocument());
+
+        // Set FormFactory
+        $HTMLFormFactory->setHTMLDocument($this->getHTMLDocument());
+        $this->setHTMLFormFactory($HTMLFormFactory);
     }
 
     /**

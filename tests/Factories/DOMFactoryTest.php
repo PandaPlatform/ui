@@ -31,7 +31,7 @@ class DOMFactoryTest extends PHPUnit_Framework_TestCase
         parent::setUp();
 
         $this->DOMFactory = new DOMFactory();
-        $this->DOMFactory->setDOMDocument(new DOMPrototype($this->DOMFactory, new DOMHandler()));
+        $this->DOMFactory->setDOMDocument(new DOMPrototype(new DOMHandler(), $this->DOMFactory));
     }
 
     public function testBuildElement()

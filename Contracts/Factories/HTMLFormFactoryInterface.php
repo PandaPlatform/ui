@@ -13,6 +13,7 @@ declare(strict_types = 1);
 
 namespace Panda\Ui\Contracts\Factories;
 
+use Panda\Ui\Html\Controls\Form;
 use Panda\Ui\Html\Controls\Form\FormElement;
 
 /**
@@ -24,6 +25,18 @@ use Panda\Ui\Html\Controls\Form\FormElement;
  */
 interface HTMLFormFactoryInterface extends HTMLFactoryInterface
 {
+    /**
+     * Build a form control.
+     *
+     * @param string $id
+     * @param string $action
+     * @param bool   $async
+     * @param bool   $fileUpload
+     *
+     * @return Form
+     */
+    public function buildForm($id = '', $action = '', $async = false, $fileUpload = false);
+
     /**
      * Build an html form element.
      *

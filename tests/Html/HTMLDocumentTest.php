@@ -30,7 +30,7 @@ class HTMLDocumentTest extends PHPUnit_Framework_TestCase
     {
         parent::setUp();
 
-        $this->HTMLDocument = new HTMLDocument(new HTMLFactory(), new HTMLHandler());
+        $this->HTMLDocument = new HTMLDocument(new HTMLHandler(), new HTMLFactory());
     }
 
     public function testMagic()

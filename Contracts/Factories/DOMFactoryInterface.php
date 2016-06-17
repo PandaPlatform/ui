@@ -58,14 +58,5 @@ interface DOMFactoryInterface
      * @return DOMHandlerInterface
      */
     public function getDOMHandler();
-
-    /**
-     * Set the DOMHandler for editing the elements.
-     *
-     * @param DOMHandlerInterface $DOMHandler
-     *
-     * @return mixed
-     */
-    public function setDOMHandler(DOMHandlerInterface $DOMHandler);
 }
 

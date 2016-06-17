@@ -31,7 +31,7 @@ class HTMLFactoryTest extends PHPUnit_Framework_TestCase
         parent::setUp();
 
         $this->HTMLFactory = new HTMLFactory();
-        $this->HTMLFactory->setHTMLDocument(new HTMLDocument($this->HTMLFactory, new HTMLHandler()));
+        $this->HTMLFactory->setHTMLDocument(new HTMLDocument(new HTMLHandler(), $this->HTMLFactory));
     }
 
     public function testBuildElement()

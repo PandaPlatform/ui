@@ -163,19 +163,7 @@ class HTMLFactory extends DOMFactory implements HTMLFactoryInterface
      */
     public function getHTMLHandler()
     {
-        return $this->getDOMHandler();
-    }
-
-    /**
-     * Set the HTMLHandler for editing the elements.
-     *
-     * @param HTMLHandlerInterface $HTMLHandler
-     *
-     * @return mixed
-     */
-    public function setHTMLHandler(HTMLHandlerInterface $HTMLHandler)
-    {
-        $this->setDOMHandler($HTMLHandler);
+        return $this->getHTMLDocument()->getHTMLHandler();
     }
 }
 

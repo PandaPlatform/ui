@@ -31,7 +31,7 @@ class DOMItemTest extends PHPUnit_Framework_TestCase
     {
         parent::setUp();
 
-        $this->DOMItem = new DOMItem(new DOMPrototype(new DOMFactory(), new DOMHandler()), 'item', 'value');
+        $this->DOMItem = new DOMItem(new DOMPrototype(new DOMHandler(), new DOMFactory()), 'item', 'value');
     }
 
     public function testDOMItem()

@@ -112,7 +112,7 @@ class Notification extends HTMLElement implements DOMBuilder
      *
      * @return $this
      */
-    public function append($content)
+    public function appendToBody($content)
     {
         // Append a valid element to notification body
         $this->getBody()->append($content);
@@ -148,7 +148,7 @@ class Notification extends HTMLElement implements DOMBuilder
     {
         // Build Head Element
         $head = $this->getHTMLDocument()->getHTMLFactory()->buildElement('div', $title, '', 'uiNtfHead');
-        parent::append($head);
+        $this->append($head);
 
         // Populate the close button
         if ($disposable) {
@@ -168,11 +168,11 @@ class Notification extends HTMLElement implements DOMBuilder
     {
         // Build Body Element
         $this->body = $this->getHTMLDocument()->getHTMLFactory()->buildElement('div', '', '', 'uiNtfBody');
-        parent::append($this->body);
+        $this->append($this->body);
 
         // Populate the notification icon
         $icon = $this->getHTMLDocument()->getHTMLFactory()->buildElement('span', '', '', 'uiNtfIcon');
-        $this->append($icon);
+        $this->appendToBody($icon);
 
         return $this;
     }

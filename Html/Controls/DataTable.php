@@ -67,7 +67,7 @@ class DataTable extends HTMLElement implements DOMBuilder
     protected $columnRatios;
 
     /**
-     * @type HTMLFormFactoryInterface
+     * @var HTMLFormFactoryInterface
      */
     protected $formFactory;
 
@@ -259,7 +259,7 @@ class DataTable extends HTMLElement implements DOMBuilder
                 $contentValue = '' . $contentValue;
                 $itemIdentifier = strtolower(str_replace(' ', '', $contentValue));
             } elseif ($contentValue->tagName == 'span') {
-                $itemIdentifier = strtolower(str_replace(' ', '', $contentValue->getElement()->nodeValue));
+                $itemIdentifier = strtolower(str_replace(' ', '', $contentValue->nodeValue));
             }
 
             // Set text wrapper

@@ -15,6 +15,7 @@ namespace Panda\Ui;
 
 use DOMDocument;
 use DOMElement;
+use DOMNode;
 use DOMNodeList;
 use DOMXPath;
 use InvalidArgumentException;
@@ -35,7 +36,7 @@ use Panda\Ui\Contracts\Handlers\DOMHandlerInterface;
 class DOMPrototype extends DOMDocument
 {
     /**
-     * @type DOMHandlerInterface
+     * @var DOMHandlerInterface
      */
     protected $DOMHandler;
 
@@ -47,12 +48,12 @@ class DOMPrototype extends DOMDocument
     /**
      * Create a new DOM Document.
      *
-     * @param DOMFactoryInterface $DOMFactory
      * @param DOMHandlerInterface $DOMHandler
+     * @param DOMFactoryInterface $DOMFactory
      * @param string              $version
      * @param string              $encoding
      */
-    public function __construct(DOMFactoryInterface $DOMFactory, DOMHandlerInterface $DOMHandler, $version = '1.0', $encoding = 'UTF_8')
+    public function __construct(DOMHandlerInterface $DOMHandler, DOMFactoryInterface $DOMFactory, $version = '1.0', $encoding = 'UTF_8')
     {
         // Construct DOMDocument
         parent::__construct($version, $encoding);
@@ -61,9 +62,8 @@ class DOMPrototype extends DOMDocument
         $this->DOMHandler = $DOMHandler;
 
         // Set DOMFactory
-        $this->DOMFactory = $DOMFactory;
-        $this->DOMFactory->setDOMDocument($this);
-        $this->DOMFactory->setDOMHandler($DOMHandler);
+        $DOMFactory->setDOMDocument($this);
+        $this->setDOMFactory($DOMFactory);
     }
 
     /**
@@ -132,7 +132,7 @@ class DOMPrototype extends DOMDocument
      * @param string $id       The id of the element
      * @param string $nodeName The node name of the element. If not set, it searches for all nodes (*).
      *
-     * @return mixed Returns the DOMElement or NULL if it doesn't exist.
+     * @return DOMNode|DOMNodeList Returns the DOMElement or NULL if it doesn't exist.
      */
     public function find($id, $nodeName = '*')
     {
@@ -144,7 +144,7 @@ class DOMPrototype extends DOMDocument
             return $list->item(0);
         }
 
-        return null;
+        return $list;
     }
 
     /**
@@ -199,6 +199,7 @@ class DOMPrototype extends DOMDocument
     public function setDOMFactory($DOMFactory)
     {
         $this->DOMFactory = $DOMFactory;
+        $DOMFactory->setDOMDocument($this);
 
         return $this;
     }

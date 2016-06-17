@@ -99,26 +99,26 @@ interface DOMHandlerInterface
     /**
      * Append an element as a child.
      *
-     * @param DOMElement|DOMNode $element    The DOMElement to handle.
-     * @param DOMNode            $newElement The child element.
+     * @param DOMElement|DOMNode $parent The DOMElement to handle.
+     * @param DOMNode            $child  The child element.
      *
      * @return DOMElement
      *
      * @throws InvalidArgumentException
      */
-    public function append(DOMElement &$element, &$newElement);
+    public function append(DOMElement &$parent, &$child);
 
     /**
      * Prepends (appends first in the list) a DOMElement.
      *
-     * @param DOMElement|DOMNode $element    The DOMElement to handle.
-     * @param DOMNode            $newElement The child element.
+     * @param DOMElement|DOMNode $parent The DOMElement to handle.
+     * @param DOMNode            $child  The child element.
      *
      * @return DOMElement
      *
      * @throws InvalidArgumentException
      */
-    public function prepend(DOMElement &$element, &$newElement);
+    public function prepend(DOMElement &$parent, &$child);
 
     /**
      * Remove the DOMItem from the parent
@@ -132,12 +132,12 @@ interface DOMHandlerInterface
     /**
      * Replace the DOMItem.
      *
-     * @param DOMElement|DOMNode $element    The DOMElement to handle.
-     * @param DOMNode            $newElement The item to replace.
+     * @param DOMElement|DOMNode $old The DOMElement to handle.
+     * @param DOMNode            $new The item to replace.
      *
      * @return DOMElement The new element.
      *
      * @throws DOMException
      */
-    public function replace(DOMElement &$element, &$newElement);
+    public function replace(DOMElement &$old, &$new);
 }

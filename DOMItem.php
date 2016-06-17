@@ -31,7 +31,7 @@ use Panda\Ui\Contracts\Handlers\DOMHandlerInterface;
 class DOMItem extends DOMElement
 {
     /**
-     * @type DOMPrototype
+     * @var DOMPrototype
      */
     protected $DOMDocument;
 

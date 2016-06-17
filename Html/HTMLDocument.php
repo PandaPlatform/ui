@@ -34,18 +34,15 @@ class HTMLDocument extends DOMPrototype
     /**
      * Create a new DOM Document.
      *
-     * @param HTMLFactoryInterface $HTMLFactory
      * @param HTMLHandlerInterface $HTMLHandler
+     * @param HTMLFactoryInterface $HTMLFactory
      * @param string               $version
      * @param string               $encoding
      */
-    public function __construct(HTMLFactoryInterface $HTMLFactory, HTMLHandlerInterface $HTMLHandler, $version = '1.0', $encoding = 'UTF_8')
+    public function __construct(HTMLHandlerInterface $HTMLHandler, HTMLFactoryInterface $HTMLFactory, $version = '1.0', $encoding = 'UTF_8')
     {
         // Construct DOMDocument
-        parent::__construct($HTMLFactory, $HTMLHandler, $version, $encoding);
-
-        // Set HTMLHandler for the factory
-        $this->getHTMLFactory()->setHTMLHandler($HTMLHandler);
+        parent::__construct($HTMLHandler, $HTMLFactory, $version, $encoding);
     }
 
     /**

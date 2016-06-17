@@ -68,7 +68,7 @@ class WindowFrame extends Popup implements DOMBuilder
 
         // Create header
         $frameHeader = $this->getHTMLDocument()->getHTMLFactory()->buildElement('div', '', '', 'frameHeader');
-        $this->append($frameHeader);
+        $this->appendToFrame($frameHeader);
 
         // Header Title
         $frameTitle = $this->getHTMLDocument()->getHTMLFactory()->buildElement('span', $title, '', 'frameTitle');

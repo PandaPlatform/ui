@@ -58,7 +58,6 @@ class DialogFrame extends WindowFrame
         parent::__construct($HTMLDocument);
 
         // Set the HTML Factory
-        $FormFactory->setHTMLHandler($HTMLDocument->getHTMLHandler());
         $HTMLDocument->setHTMLFactory($FormFactory);
     }
 
@@ -81,11 +80,11 @@ class DialogFrame extends WindowFrame
         $this->background($background);
 
         // Build window frame
-        parent::build($title);
+        parent::build($id = '', $class = 'dialogFrame', $title);
 
         // Build Form
-        $this->form = new SimpleForm($this->getHTMLDocument(), $this->getFormFactory(), $id = '', $action, $async = true, $fileUpload);
-        $this->form->build(false, true);
+        $this->form = new SimpleForm($this->getHTMLDocument(), $this->getFormFactory());
+        $this->form->build($id = '', $action, $async = true, $fileUpload, $defaultButtons = false, $requiredNotes = true);
         $this->appendToBody($this->form);
 
         // Build Controls

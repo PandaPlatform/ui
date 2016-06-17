@@ -15,6 +15,7 @@ namespace Panda\Ui\Factories;
 
 use Exception;
 use Panda\Ui\Contracts\Factories\HTMLFormFactoryInterface;
+use Panda\Ui\Html\Controls\Form;
 use Panda\Ui\Html\Controls\Form\FormButton;
 use Panda\Ui\Html\Controls\Form\FormElement;
 use Panda\Ui\Html\Controls\Form\FormInput;
@@ -30,6 +31,25 @@ use Panda\Ui\Html\Controls\Form\FormSelect;
  */
 class FormFactory extends HTMLFactory implements HTMLFormFactoryInterface
 {
+    /**
+     * Build a form control.
+     *
+     * @param string $id
+     * @param string $action
+     * @param bool   $async
+     * @param bool   $fileUpload
+     *
+     * @return Form
+     */
+    public function buildForm($id = '', $action = '', $async = false, $fileUpload = false)
+    {
+        // Create form control
+        $form = new Form($this->getHTMLDocument(), $this);
+        $form->build($id, $action, $async, $fileUpload);
+
+        return $form;
+    }
+
     /**
      * Build an html form element.
      *
