@@ -67,7 +67,7 @@ class DataTable extends HTMLElement implements DOMBuilder
     protected $columnRatios;
 
     /**
-     * @type HTMLFormFactoryInterface
+     * @var HTMLFormFactoryInterface
      */
     protected $formFactory;
 

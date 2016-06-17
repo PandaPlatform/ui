@@ -28,12 +28,12 @@ use Panda\Ui\DOMPrototype;
 class DOMFactory implements DOMFactoryInterface
 {
     /**
-     * @type DOMPrototype
+     * @var DOMPrototype
      */
     protected $DOMDocument;
 
     /**
-     * @type DOMHandlerInterface
+     * @var DOMHandlerInterface
      */
     protected $DOMHandler;
 
@@ -77,21 +77,7 @@ class DOMFactory implements DOMFactoryInterface
      */
     public function getDOMHandler()
     {
-        return $this->DOMHandler;
-    }
-
-    /**
-     * Set the DOMHandler for editing the elements.
-     *
-     * @param DOMHandlerInterface $DOMHandler
-     *
-     * @return $this
-     */
-    public function setDOMHandler(DOMHandlerInterface $DOMHandler)
-    {
-        $this->DOMHandler = $DOMHandler;
-
-        return $this;
+        return $this->getDOMDocument()->getDOMHandler();
     }
 }
 

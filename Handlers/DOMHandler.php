@@ -43,7 +43,7 @@ class DOMHandler implements DOMHandlerInterface
      *
      * @return string If the given value is empty, it returns True if the attribute is removed, False otherwise.If the
      *                given value is empty, it returns True if the attribute is removed, False otherwise. It returns
-     * the new attribute otherwise.
+     *                the new attribute otherwise.
      *
      * @throws Exception
      */

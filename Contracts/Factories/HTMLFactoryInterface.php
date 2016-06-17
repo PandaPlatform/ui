@@ -105,14 +105,5 @@ interface HTMLFactoryInterface extends DOMFactoryInterface
      * @return HTMLHandlerInterface
      */
     public function getHTMLHandler();
-
-    /**
-     * Set the HTMLHandler for editing the elements.
-     *
-     * @param HTMLHandlerInterface $HTMLHandler
-     *
-     * @return mixed
-     */
-    public function setHTMLHandler(HTMLHandlerInterface $HTMLHandler);
 }
 

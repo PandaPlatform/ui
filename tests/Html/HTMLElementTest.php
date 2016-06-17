@@ -31,7 +31,7 @@ class HTMLElementTest extends PHPUnit_Framework_TestCase
     {
         parent::setUp();
 
-        $this->HTMLElement = new HTMLElement(new HTMLDocument(new HTMLFactory(), new HTMLHandler()), $name = 'div', $value = 'value', $id = 'id', $class = 'class');
+        $this->HTMLElement = new HTMLElement(new HTMLDocument(new HTMLHandler(), new HTMLFactory()), $name = 'div', $value = 'value', $id = 'id', $class = 'class');
     }
 
     public function testHTMLElement()

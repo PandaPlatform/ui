@@ -51,8 +51,10 @@ class Form extends HTMLElement
     {
         // Create HTML Form element
         parent::__construct($HTMLDocument, $name = 'form', $value = '', $id);
-        $this->HTMLFormFactory = $HTMLFormFactory;
-        $this->HTMLFormFactory->setHTMLDocument($this->getHTMLDocument());
+
+        // Set FormFactory
+        $HTMLFormFactory->setHTMLDocument($this->getHTMLDocument());
+        $this->setHTMLFormFactory($HTMLFormFactory);
 
         // Add extra attributes
         $this->attr('method', 'post');
