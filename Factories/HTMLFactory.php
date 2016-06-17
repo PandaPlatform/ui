@@ -171,11 +171,11 @@ class HTMLFactory extends DOMFactory implements HTMLFactoryInterface
      *
      * @param HTMLHandlerInterface $HTMLHandler
      *
-     * @return mixed
+     * @return $this
      */
     public function setHTMLHandler(HTMLHandlerInterface $HTMLHandler)
     {
-        $this->setDOMHandler($HTMLHandler);
+        return $this->setDOMHandler($HTMLHandler);
     }
 }
 

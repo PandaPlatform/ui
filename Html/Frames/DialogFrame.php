@@ -60,6 +60,7 @@ class DialogFrame extends WindowFrame
         parent::__construct($HTMLDocument, $id, $class);
 
         // Set the HTML Factory
+        $FormFactory->setHTMLDocument($HTMLDocument);
         $FormFactory->setHTMLHandler($HTMLDocument->getHTMLHandler());
         $HTMLDocument->setHTMLFactory($FormFactory);
     }

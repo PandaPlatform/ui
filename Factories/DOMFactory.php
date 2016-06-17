@@ -85,11 +85,13 @@ class DOMFactory implements DOMFactoryInterface
      *
      * @param DOMHandlerInterface $DOMHandler
      *
-     * @return mixed
+     * @return $this
      */
     public function setDOMHandler(DOMHandlerInterface $DOMHandler)
     {
         $this->DOMHandler = $DOMHandler;
+
+        return $this;
     }
 }
 
