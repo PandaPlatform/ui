@@ -113,24 +113,27 @@ class Popup extends HTMLElement implements DOMBuilder
      * Popup constructor.
      *
      * @param HTMLDocument $HTMLDocument
-     * @param string       $id
      */
-    public function __construct(HTMLDocument $HTMLDocument, $id = '')
+    public function __construct(HTMLDocument $HTMLDocument)
     {
         // Create object
-        parent::__construct($HTMLDocument, $name = 'div', $value = '', $id, 'uiPopup');
+        parent::__construct($HTMLDocument, $name = 'div', $value = '', $id = '', $class = 'uiPopup');
     }
 
     /**
      * Builds the popup according to settings given.
      * The settings must be defined before the build function.
      *
+     * @param string      $id
      * @param HTMLElement $content The content of the popup.
      *
      * @return $this
      */
-    public function build($content = null)
+    public function build($id = '', $content = null)
     {
+        // Set element attributes
+        $this->attr('id', $id);
+
         // Create the instructions holder
         $info = $this->getHTMLDocument()->getHTMLFactory()->buildElement('div', '', '', 'info init');
         $this->append($info);

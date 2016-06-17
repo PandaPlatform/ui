@@ -14,6 +14,7 @@ declare(strict_types = 1);
 namespace Panda\Ui\Html\Controls;
 
 use Exception;
+use Panda\Ui\Contracts\DOMBuilder;
 use Panda\Ui\Contracts\Factories\HTMLFormFactoryInterface;
 use Panda\Ui\Html\HTMLDocument;
 use Panda\Ui\Html\HTMLElement;
@@ -25,7 +26,7 @@ use Panda\Ui\Html\HTMLElement;
  *
  * @version 0.1
  */
-class Form extends HTMLElement
+class Form extends HTMLElement implements DOMBuilder
 {
     /**
      * @var HTMLFormFactoryInterface
@@ -37,24 +38,33 @@ class Form extends HTMLElement
      *
      * @param HTMLDocument             $HTMLDocument
      * @param HTMLFormFactoryInterface $HTMLFormFactory The Form Factory interface to generate all elements.
-     * @param string                   $id              The form id.
-     * @param string                   $action          The form action url string.
-     * @param bool                     $async           Sets the async attribute for simple forms.
-     * @param bool                     $fileUpload      This marks the form ready for file upload. It adds the enctype
-     *                                                  attribute where no characters are encoded. This value is
-     *                                                  required when you are using forms that have a file upload
-     *                                                  control.
      *
      * @throws Exception
      */
-    public function __construct(HTMLDocument $HTMLDocument, HTMLFormFactoryInterface $HTMLFormFactory, $id = '', $action = '', $async = false, $fileUpload = false)
+    public function __construct(HTMLDocument $HTMLDocument, HTMLFormFactoryInterface $HTMLFormFactory)
     {
         // Create HTML Form element
-        parent::__construct($HTMLDocument, $name = 'form', $value = '', $id);
+        parent::__construct($HTMLDocument, $name = 'form', $value = '', $id = '');
         $this->HTMLFormFactory = $HTMLFormFactory;
         $this->HTMLFormFactory->setHTMLDocument($this->getHTMLDocument());
+    }
 
+    /**
+     * Build the element.
+     *
+     * @param string $id         The form id.
+     * @param string $action     The form action url string.
+     * @param bool   $async      Sets the async attribute for simple forms.
+     * @param bool   $fileUpload This marks the form ready for file upload. It adds the enctype attribute where no
+     *                           characters are encoded. This value is required when you are using forms that have a
+     *                           file upload control.
+     *
+     * @return $this
+     */
+    public function build($id = '', $action = '', $async = false, $fileUpload = false)
+    {
         // Add extra attributes
+        $this->attr('id', $id);
         $this->attr('method', 'post');
         $this->attr('action', $action);
         $this->attr('async', $async);
@@ -63,6 +73,8 @@ class Form extends HTMLElement
         if ($fileUpload) {
             $this->attr('enctype', 'multipart/form-data');
         }
+
+        return $this;
     }
 
     /**

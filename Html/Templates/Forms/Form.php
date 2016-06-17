@@ -68,35 +68,28 @@ class Form extends FormControl implements DOMBuilder
     protected $pu = false;
 
     /**
-     * @param HTMLDocument             $HTMLDocument
-     * @param HTMLFormFactoryInterface $HTMLFormFactory The Form Factory interface to generate all elements.
-     * @param string                   $id              The form id.
-     * @param string                   $action          The form action url string.
-     *                                                  It is empty by default.
-     * @param bool                     $async           Sets the async attribute for simple forms.
-     *                                                  It is TRUE by default.
-     * @param bool                     $fileUpload      This marks the form ready for file upload. It adds the enctype
-     *                                                  attribute where no characters are encoded. This value is
-     *                                                  required when you are using forms that have a file upload
-     *                                                  control. It is FALSE by default.
+     * Build the form element.
+     *
+     * @param string $id         The form id.
+     * @param string $action     The form action url string.
+     * @param bool   $async      Sets the async attribute for simple forms.
+     * @param bool   $fileUpload This marks the form ready for file upload. It adds the enctype attribute where no
+     *                           characters are encoded. This value is required when you are using forms that have a
+     *                           file upload control.
+     *
+     * @return $this
      */
-    public function __construct(HTMLDocument $HTMLDocument, HTMLFormFactoryInterface $HTMLFormFactory, $id = '', $action = '', $async = true, $fileUpload = false)
+    public function build($id = '', $action = '', $async = true, $fileUpload = false)
     {
         // Set the formID
         $this->formId = ($id ?: 'f' . mt_rand());
 
-        // Create Form element
-        parent::__construct($HTMLDocument, $HTMLFormFactory, $this->formId, $action, $async, $fileUpload);
+        // Build the form
+        parent::build($id, $action, $async, $fileUpload);
 
         // Add extra class
         $this->addClass('form-template');
-    }
 
-    /**
-     * Builds the form spine and sets the UIObject.
-     */
-    public function build()
-    {
         // Create form report element
         $this->formReport = $this->getHTMLDocument()->getHTMLFactory()->buildElement('div', '', '', self::FORM_REPORT_CLASS);
         $this->append($this->formReport);

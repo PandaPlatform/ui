@@ -44,17 +44,16 @@ class WindowFrame extends Popup implements DOMBuilder
     protected $body;
 
     /**
-     * Create a new frame popup instance.
+     * Builds the window frame structure.
      *
-     * @param HTMLDocument $HTMLDocument
-     * @param string       $id
-     * @param string       $class
+     * @param string         $id
+     * @param string         $class
+     * @param string|DOMItem $title The frame's title.
+     *
+     * @return $this
      */
-    public function __construct(HTMLDocument $HTMLDocument, $id = '', $class = '')
+    public function build($id = '', $class = '', $title = '')
     {
-        // Create popup
-        parent::__construct($HTMLDocument, $id);
-
         // Set basic properties
         $this->type(Popup::TP_PERSISTENT, false);
         $this->binding('on');
@@ -63,17 +62,10 @@ class WindowFrame extends Popup implements DOMBuilder
         $id = 'wf_' . (empty($id) ? mt_rand() : $id);
         $this->wFrame = $this->getHTMLDocument()->getHTMLFactory()->buildElement('div', '', $id, 'wFrame');
         $this->wFrame->addClass($class);
-    }
 
-    /**
-     * Builds the window frame structure.
-     *
-     * @param string|DOMItem $title The frame's title.
-     *
-     * @return $this
-     */
-    public function build($title = '')
-    {
+        // Build parent element
+        parent::build($id, $this->wFrame);
+
         // Create header
         $frameHeader = $this->getHTMLDocument()->getHTMLFactory()->buildElement('div', '', '', 'frameHeader');
         $this->append($frameHeader);
@@ -90,7 +82,7 @@ class WindowFrame extends Popup implements DOMBuilder
         $this->body = $this->getHTMLDocument()->getHTMLFactory()->buildElement('div', '', '', 'frameBody');
         $this->appendToFrame($this->body);
 
-        return parent::build($this->wFrame);
+        return $this;
     }
 
     /**

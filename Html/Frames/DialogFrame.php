@@ -51,13 +51,11 @@ class DialogFrame extends WindowFrame
      *
      * @param HTMLDocument             $HTMLDocument
      * @param HTMLFormFactoryInterface $FormFactory
-     * @param string                   $id
-     * @param string                   $class
      */
-    public function __construct(HTMLDocument $HTMLDocument, HTMLFormFactoryInterface $FormFactory, $id = '', $class = '')
+    public function __construct(HTMLDocument $HTMLDocument, HTMLFormFactoryInterface $FormFactory)
     {
         // Create the object
-        parent::__construct($HTMLDocument, $id, $class);
+        parent::__construct($HTMLDocument);
 
         // Set the HTML Factory
         $FormFactory->setHTMLHandler($HTMLDocument->getHTMLHandler());

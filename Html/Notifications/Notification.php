@@ -68,27 +68,20 @@ class Notification extends HTMLElement implements DOMBuilder
      * Notification constructor.
      *
      * @param HTMLDocument $HTMLDocument
-     * @param string       $id
-     * @param string       $class
      */
-    public function __construct(HTMLDocument $HTMLDocument, $id = '', $class = '')
+    public function __construct(HTMLDocument $HTMLDocument)
     {
-        parent::__construct($HTMLDocument, $name = 'div', $value = '', $id, 'uiNotification');
-        $this->addClass($class);
+        parent::__construct($HTMLDocument, $name = 'div', $value = '', $id = '', 'uiNotification');
     }
 
     /**
      * Builds the notification.
      *
-     * @param string $type       The notification's type.
-     *                           Use class constants to define this type.
+     * @param string $type       The notification's type. Use class constants to define this type.
      *                           It is INFO by default.
      * @param bool   $header     Specified whether the notification will have header or not.
-     *                           It is FALSE by default.
      * @param bool   $timeout    If TRUE, sets the notification to fade out after 1.5 seconds.
-     *                           It is FALSE by default.
      * @param bool   $disposable Lets the user to be able to close the notification.
-     *                           It is FALSE by default.
      *
      * @return $this
      */

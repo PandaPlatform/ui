@@ -38,19 +38,27 @@ class SimpleForm extends Form implements DOMBuilder
     /**
      * Builds the form.
      *
-     * @param bool $defaultButtons Options whether the form will have the default control buttons (execute and reset
-     *                             buttons). It is TRUE by default.
-     * @param bool $requiredNotes  Whether the form has required visual input fields.
+     * @param string $id             The form id.
+     * @param string $action         The form action url string.
+     * @param bool   $async          Sets the async attribute for simple forms.
+     * @param bool   $fileUpload     This marks the form ready for file upload. It adds the enctype attribute where no
+     *                               characters are encoded. This value is required when you are using forms that have a
+     *                               file upload control.
+     * @param bool   $defaultButtons Options whether the form will have the default control buttons (execute and reset
+     *                               buttons). It is TRUE by default.
+     * @param bool   $requiredNotes  Whether the form has required visual input fields.
      *
      * @return $this
      */
-    public function build($defaultButtons = true, $requiredNotes = false)
+    public function build($id = '', $action = '', $async = true, $fileUpload = false, $defaultButtons = true, $requiredNotes = false)
     {
+        // Build form template
+        parent::build($id, $action, $async, $fileUpload);
+
         // Add extra template attributes
         $this->addClass('form-simple');
 
-        // Build form template
-        parent::build();
+        // Build simple form
         if ($requiredNotes) {
             $this->buildRequiredNotes();
         }

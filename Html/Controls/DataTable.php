@@ -76,14 +76,11 @@ class DataTable extends HTMLElement implements DOMBuilder
      *
      * @param HTMLDocument             $HTMLDocument
      * @param HTMLFormFactoryInterface $FormFactory
-     * @param string                   $id
-     * @param string                   $class
      */
-    public function __construct(HTMLDocument $HTMLDocument, HTMLFormFactoryInterface $FormFactory, $id = '', $class = '')
+    public function __construct(HTMLDocument $HTMLDocument, HTMLFormFactoryInterface $FormFactory)
     {
         // Create object
-        $id = $id ?: 'dt' . mt_rand();
-        parent::__construct($HTMLDocument, $name = 'div', $value = '', $id, $class = 'uiDataTable initialize');
+        parent::__construct($HTMLDocument, $name = 'div', $value = '', $id = '', $class = 'uiDataTable initialize');
 
         // Set fields
         $this->formFactory = $FormFactory;
@@ -93,15 +90,20 @@ class DataTable extends HTMLElement implements DOMBuilder
     /**
      * Build the datatable.
      *
-     * @param bool $checkable  If set to TRUE, the dataGridList will have a checkbox at the start of each row.
-     *                         It is FALSE by default.
-     * @param bool $withBorder Defines whether the gridList will have visual border.
-     *                         It is TRUE by default.
+     * @param string $id
+     * @param string $class
+     * @param bool   $checkable  If set to TRUE, the dataGridList will have a checkbox at the start of each row.
+     * @param bool   $withBorder Defines whether the gridList will have visual border.
      *
      * @return $this
      */
-    public function build($checkable = false, $withBorder = true)
+    public function build($id = '', $class = '', $checkable = false, $withBorder = true)
     {
+        // Set element attributes
+        $id = $id ?: 'dt' . mt_rand();
+        $this->attr('id', $id);
+        $this->addClass($class);
+
         // Set object variables
         $this->checkable = (!$checkable ? false : true);
         $this->checkList = (!$checkable ? null : []);
