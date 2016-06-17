@@ -11,9 +11,8 @@
 
 namespace Panda\Ui\Tests\Html;
 
-use DOMDocument;
-use DOMElement;
 use Panda\Ui\Factories\HTMLFactory;
+use Panda\Ui\Handlers\HTMLHandler;
 use Panda\Ui\Html\HTMLDocument;
 use Panda\Ui\Html\HTMLElement;
 use PHPUnit_Framework_TestCase;
@@ -32,7 +31,7 @@ class HTMLElementTest extends PHPUnit_Framework_TestCase
     {
         parent::setUp();
 
-        $this->HTMLElement = new HTMLElement(new HTMLDocument(new HTMLFactory()), $name = 'div', $value = 'value', $id = 'id', $class = 'class');
+        $this->HTMLElement = new HTMLElement(new HTMLDocument(new HTMLFactory(), new HTMLHandler()), $name = 'div', $value = 'value', $id = 'id', $class = 'class');
     }
 
     public function testHTMLElement()
@@ -41,32 +40,6 @@ class HTMLElementTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('value', $this->HTMLElement->nodeValue);
         $this->assertEquals('id', $this->HTMLElement->getAttribute('id'));
         $this->assertEquals('class', $this->HTMLElement->getAttribute('class'));
-    }
-
-    public function testFromDOMElement()
-    {
-        // Setup DOMElement
-        $document = new DOMDocument();
-        $t = new DOMElement('dom', 'test', '');
-        $document->appendChild($t);
-
-        // Check element
-        $newElement = $this->HTMLElement->fromDOMElement($t);
-        $this->assertEquals('dom', $newElement->tagName);
-        $this->assertEquals('test', $newElement->nodeValue);
-
-        // Check with attributes
-        $t->setAttribute('t1', 't1');
-        $t->setAttribute('t2', 't2');
-        $newElement = $this->HTMLElement->fromDOMElement($t);
-        $this->assertEquals('t1', $newElement->attr('t1'));
-
-        // Check inner html
-        $s = new DOMElement('s', 'new_element');
-        $t->appendChild($s);
-        $s->setAttribute('t3', 't3');
-        $newElement = $this->HTMLElement->fromDOMElement($t);
-        $this->assertEquals('test<s t3="t3">new_element</s>', $newElement->innerHTML());
     }
 
     public function testAddRemoveHasClass()

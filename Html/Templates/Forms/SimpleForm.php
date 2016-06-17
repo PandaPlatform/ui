@@ -11,7 +11,7 @@
 
 declare(strict_types = 1);
 
-namespace Panda\Ui\Templates\Forms;
+namespace Panda\Ui\Html\Templates\Forms;
 
 use Panda\Ui\Contracts\DOMBuilder;
 use Panda\Ui\Html\HTMLElement;
@@ -22,7 +22,7 @@ use Panda\Ui\Html\HTMLElement;
  * Builds an html form with a specific layout, if the user wants to.
  * It has access to the FormFactory (it extends it) and can build every form control.
  *
- * @package Panda\Ui\Templates\Forms
+ * @package Panda\Ui\Html\Templates\Forms
  *
  * @version 0.1
  */

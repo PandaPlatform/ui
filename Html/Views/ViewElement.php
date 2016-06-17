@@ -11,17 +11,17 @@
 
 declare(strict_types = 1);
 
-namespace Panda\Ui\Views;
+namespace Panda\Ui\Html\Views;
 
-use Exception;
 use InvalidArgumentException;
+use Panda\Ui\Html\HTMLDocument;
 use Panda\Ui\Html\HTMLElement;
 
 /**
  * Class ViewElement
  * Creates an HTMLElement loading an external html view.
  *
- * @package Panda\Ui\Views
+ * @package Panda\Ui\Html\Views
  *
  * @version 0.1
  */
@@ -30,6 +30,7 @@ class ViewElement extends HTMLElement
     /**
      * Create a new View Element.
      *
+     * @param HTMLDocument       $HTMLDocument
      * @param string             $view  The external html view file.
      * @param string             $name  The element name.
      * @param string|HTMLElement $value The element value.
@@ -37,12 +38,11 @@ class ViewElement extends HTMLElement
      * @param string             $id    The element id attribute value.
      * @param string             $class The element class attribute value.
      *
-     * @throws Exception
      */
-    public function __construct($view, $name = 'div', $value = '', $id = '', $class = '')
+    public function __construct(HTMLDocument $HTMLDocument, $view, $name = 'div', $value = '', $id = '', $class = '')
     {
         // Create DOMItem
-        parent::__construct($name, $value, $id, $class);
+        parent::__construct($HTMLDocument, $name, $value, $id, $class);
 
         // Load external view file
         if (!empty($view)) {

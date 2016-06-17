@@ -15,6 +15,7 @@ namespace Panda\Ui\Factories;
 
 use Exception;
 use Panda\Ui\Contracts\Factories\HTMLFactoryInterface;
+use Panda\Ui\Contracts\Handlers\HTMLHandlerInterface;
 use Panda\Ui\Html\HTMLDocument;
 use Panda\Ui\Html\HTMLElement;
 
@@ -39,8 +40,6 @@ class HTMLFactory extends DOMFactory implements HTMLFactoryInterface
      */
     public function buildElement($name = '', $value = '', $id = '', $class = '')
     {
-        $id = $id ?: 'elm' . mt_rand();
-
         return new HTMLElement($this->getHTMLDocument(), $name, $value, $id, $class);
     }
 
@@ -60,7 +59,6 @@ class HTMLFactory extends DOMFactory implements HTMLFactoryInterface
     public function buildWeblink($href = '', $target = '_self', $content = '', $id = '', $class = '')
     {
         // Create weblink element
-        $id = $id ?: 'wbl' . mt_rand();
         $weblink = $this->buildElement($name = 'a', $content, $id, $class);
 
         // Add attributes
@@ -156,6 +154,28 @@ class HTMLFactory extends DOMFactory implements HTMLFactoryInterface
     public function setHTMLDocument(HTMLDocument $HTMLDocument)
     {
         return $this->setDOMDocument($HTMLDocument);
+    }
+
+    /**
+     * Get the HTMLHandler for editing the elements.
+     *
+     * @return HTMLHandlerInterface
+     */
+    public function getHTMLHandler()
+    {
+        return $this->getDOMHandler();
+    }
+
+    /**
+     * Set the HTMLHandler for editing the elements.
+     *
+     * @param HTMLHandlerInterface $HTMLHandler
+     *
+     * @return mixed
+     */
+    public function setHTMLHandler(HTMLHandlerInterface $HTMLHandler)
+    {
+        $this->setDOMHandler($HTMLHandler);
     }
 }
 

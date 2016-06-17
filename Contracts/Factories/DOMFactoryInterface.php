@@ -13,6 +13,7 @@ declare(strict_types = 1);
 
 namespace Panda\Ui\Contracts\Factories;
 
+use Panda\Ui\Contracts\Handlers\DOMHandlerInterface;
 use Panda\Ui\DOMItem;
 use Panda\Ui\DOMPrototype;
 
@@ -36,6 +37,13 @@ interface DOMFactoryInterface
     public function buildElement($name = '', $value = '');
 
     /**
+     * Get the DOMPrototype for creating objects.
+     *
+     * @return DOMPrototype
+     */
+    public function getDOMDocument();
+
+    /**
      * Set the DOMPrototype for creating objects.
      *
      * @param DOMPrototype $DOMDocument
@@ -43,5 +51,21 @@ interface DOMFactoryInterface
      * @return mixed
      */
     public function setDOMDocument(DOMPrototype $DOMDocument);
+
+    /**
+     * Get the DOMHandler for editing the elements.
+     *
+     * @return DOMHandlerInterface
+     */
+    public function getDOMHandler();
+
+    /**
+     * Set the DOMHandler for editing the elements.
+     *
+     * @param DOMHandlerInterface $DOMHandler
+     *
+     * @return mixed
+     */
+    public function setDOMHandler(DOMHandlerInterface $DOMHandler);
 }
 

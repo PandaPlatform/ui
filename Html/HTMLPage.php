@@ -16,6 +16,7 @@ namespace Panda\Ui\Html;
 use InvalidArgumentException;
 use Panda\Ui\Contracts\DOMBuilder;
 use Panda\Ui\Contracts\Factories\HTMLFactoryInterface;
+use Panda\Ui\Contracts\Handlers\HTMLHandlerInterface;
 use Panda\Ui\Factories\HTMLFactory;
 
 /**
@@ -53,14 +54,15 @@ class HTMLPage extends HTMLDocument implements DOMBuilder
      * HTMLPage constructor.
      *
      * @param HTMLFactoryInterface $HTMLFactory
+     * @param HTMLHandlerInterface $HTMLHandler
      */
-    public function __construct(HTMLFactoryInterface $HTMLFactory)
+    public function __construct(HTMLFactoryInterface $HTMLFactory, HTMLHandlerInterface $HTMLHandler)
     {
         // Initialize-Clear Bottom Scripts
         $this->bottomScripts = [];
 
         // Call parent
-        parent::__construct($HTMLFactory);
+        parent::__construct($HTMLFactory, $HTMLHandler);
     }
 
     /**

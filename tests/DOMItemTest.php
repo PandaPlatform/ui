@@ -12,6 +12,9 @@
 namespace Panda\Ui\Tests;
 
 use Panda\Ui\DOMItem;
+use Panda\Ui\DOMPrototype;
+use Panda\Ui\Factories\DOMFactory;
+use Panda\Ui\Handlers\DOMHandler;
 use PHPUnit_Framework_TestCase;
 
 // Initialize testing env
@@ -28,13 +31,13 @@ class DOMItemTest extends PHPUnit_Framework_TestCase
     {
         parent::setUp();
 
-        $this->DOMItem = new DOMItem(new \DOMDocument(), 'item', 'value');
+        $this->DOMItem = new DOMItem(new DOMPrototype(new DOMFactory(), new DOMHandler()), 'item', 'value');
     }
 
     public function testDOMItem()
     {
         $this->assertEquals('item', $this->DOMItem->tagName);
-        $this->assertEquals('value', $this->DOMItem->nodeValue);
+        $this->assertEquals('value', $this->DOMItem->nodeValue());
     }
 
     public function testAttr()

@@ -14,6 +14,7 @@ declare(strict_types = 1);
 namespace Panda\Ui\Factories;
 
 use Panda\Ui\Contracts\Factories\DOMFactoryInterface;
+use Panda\Ui\Contracts\Handlers\DOMHandlerInterface;
 use Panda\Ui\DOMItem;
 use Panda\Ui\DOMPrototype;
 
@@ -30,6 +31,11 @@ class DOMFactory implements DOMFactoryInterface
      * @type DOMPrototype
      */
     protected $DOMDocument;
+
+    /**
+     * @type DOMHandlerInterface
+     */
+    protected $DOMHandler;
 
     /**
      * Build a DOM item.
@@ -62,6 +68,28 @@ class DOMFactory implements DOMFactoryInterface
         $this->DOMDocument = $DOMDocument;
 
         return $this;
+    }
+
+    /**
+     * Get the DOMHandler for editing the elements.
+     *
+     * @return DOMHandlerInterface
+     */
+    public function getDOMHandler()
+    {
+        return $this->DOMHandler;
+    }
+
+    /**
+     * Set the DOMHandler for editing the elements.
+     *
+     * @param DOMHandlerInterface $DOMHandler
+     *
+     * @return mixed
+     */
+    public function setDOMHandler(DOMHandlerInterface $DOMHandler)
+    {
+        $this->DOMHandler = $DOMHandler;
     }
 }
 

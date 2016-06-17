@@ -17,6 +17,8 @@ namespace Panda\Ui\Contracts;
  * Interface DOMBuilder
  *
  * @package Panda\Ui\Contracts
+ *
+ * @version 0.1
  */
 interface DOMBuilder
 {

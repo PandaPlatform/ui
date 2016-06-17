@@ -11,11 +11,9 @@
 
 declare(strict_types = 1);
 
-namespace Panda\Ui\Notifications;
+namespace Panda\Ui\Html\Notifications;
 
 use Panda\Ui\Contracts\DOMBuilder;
-use Panda\Ui\Contracts\Factories\HTMLFactoryInterface;
-use Panda\Ui\Factories\HTMLFactory;
 use Panda\Ui\Html\HTMLDocument;
 use Panda\Ui\Html\HTMLElement;
 
@@ -25,7 +23,7 @@ use Panda\Ui\Html\HTMLElement;
  * It can be used to notify the user for changes and updates, show warning messages or show succeed messages after a
  * successful post.
  *
- * @package Panda\Ui\Notifications
+ * @package Panda\Ui\Html\Notifications
  *
  * @version 0.1
  */
@@ -139,7 +137,7 @@ class Notification extends HTMLElement implements DOMBuilder
      */
     public function appendCustomMessage($message)
     {
-        $customMessage = $this->getHTMLFactory()->buildElement('div', $message, '', 'customMessage');
+        $customMessage = $this->getHTMLDocument()->getHTMLFactory()->buildElement('div', $message, '', 'customMessage');
 
         return $this->append($customMessage);
     }
@@ -156,12 +154,12 @@ class Notification extends HTMLElement implements DOMBuilder
     private function buildHead($title, $disposable = false)
     {
         // Build Head Element
-        $head = $this->getHTMLFactory()->buildElement('div', $title, '', 'uiNtfHead');
+        $head = $this->getHTMLDocument()->getHTMLFactory()->buildElement('div', $title, '', 'uiNtfHead');
         parent::append($head);
 
         // Populate the close button
         if ($disposable) {
-            $closeBtn = $this->getHTMLFactory()->buildElement('span', '', '', 'closeBtn');
+            $closeBtn = $this->getHTMLDocument()->getHTMLFactory()->buildElement('span', '', '', 'closeBtn');
             $head->append($closeBtn);
         }
 
@@ -176,11 +174,11 @@ class Notification extends HTMLElement implements DOMBuilder
     private function buildBody()
     {
         // Build Body Element
-        $this->body = $this->getHTMLFactory()->buildElement('div', '', '', 'uiNtfBody');
+        $this->body = $this->getHTMLDocument()->getHTMLFactory()->buildElement('div', '', '', 'uiNtfBody');
         parent::append($this->body);
 
         // Populate the notification icon
-        $icon = $this->getHTMLFactory()->buildElement('span', '', '', 'uiNtfIcon');
+        $icon = $this->getHTMLDocument()->getHTMLFactory()->buildElement('span', '', '', 'uiNtfIcon');
         $this->append($icon);
 
         return $this;

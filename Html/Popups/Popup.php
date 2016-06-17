@@ -11,7 +11,7 @@
 
 declare(strict_types = 1);
 
-namespace Panda\Ui\Popups;
+namespace Panda\Ui\Html\Popups;
 
 use Panda\Ui\Contracts\DOMBuilder;
 use Panda\Ui\Html\HTMLDocument;
@@ -20,7 +20,7 @@ use Panda\Ui\Html\HTMLElement;
 /**
  * Class Popup
  *
- * @package Panda\Ui\Popups
+ * @package Panda\Ui\Html\Popups
  *
  * @version 0.1
  */

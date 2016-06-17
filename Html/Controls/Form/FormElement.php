@@ -11,7 +11,7 @@
 
 declare(strict_types = 1);
 
-namespace Panda\Ui\Controls\Form;
+namespace Panda\Ui\Html\Controls\Form;
 
 use Panda\Ui\Html\HTMLDocument;
 use Panda\Ui\Html\HTMLElement;
@@ -19,7 +19,7 @@ use Panda\Ui\Html\HTMLElement;
 /**
  * Class FormElement
  *
- * @package Panda\Ui\Controls\Form
+ * @package Panda\Ui\Html\Controls\Form
  *
  * @version 0.1
  */

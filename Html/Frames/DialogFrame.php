@@ -11,17 +11,17 @@
 
 declare(strict_types = 1);
 
-namespace Panda\Ui\Frames;
+namespace Panda\Ui\Html\Frames;
 
 use Panda\Ui\Contracts\Factories\HTMLFormFactoryInterface;
 use Panda\Ui\Html\HTMLDocument;
-use Panda\Ui\Templates\Forms\SimpleForm;
+use Panda\Ui\Html\Templates\Forms\SimpleForm;
 
 /**
  * Window Dialog Frame
  * Creates a dialog frame popup to display content to the user and perform an action.
  *
- * @package Panda\Ui\Frames
+ * @package Panda\Ui\Html\Frames
  *
  * @version 0.1
  */
@@ -56,7 +56,12 @@ class DialogFrame extends WindowFrame
      */
     public function __construct(HTMLDocument $HTMLDocument, HTMLFormFactoryInterface $FormFactory, $id = '', $class = '')
     {
-        parent::__construct($HTMLDocument, $FormFactory, $id, $class);
+        // Create the object
+        parent::__construct($HTMLDocument, $id, $class);
+
+        // Set the HTML Factory
+        $FormFactory->setHTMLHandler($HTMLDocument->getHTMLHandler());
+        $HTMLDocument->setHTMLFactory($FormFactory);
     }
 
     /**
@@ -106,7 +111,7 @@ class DialogFrame extends WindowFrame
      */
     public function getFormFactory()
     {
-        return $this->getHTMLFactory();
+        return $this->getHTMLDocument()->getHTMLFactory();
     }
 
     /**
@@ -135,7 +140,7 @@ class DialogFrame extends WindowFrame
         $this->form->append($controlsContainer);
 
         // Button Container
-        $btnContainer = $this->getHTMLFactory()->buildElement('div', '', '', 'ctrls');
+        $btnContainer = $this->getFormFactory()->buildElement('div', '', '', 'ctrls');
         $controlsContainer->append($btnContainer);
 
         // Set button literals

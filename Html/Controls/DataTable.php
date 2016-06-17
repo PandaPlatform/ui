@@ -11,7 +11,7 @@
 
 declare(strict_types = 1);
 
-namespace Panda\Ui\Controls;
+namespace Panda\Ui\Html\Controls;
 
 use InvalidArgumentException;
 use LogicException;
@@ -26,7 +26,7 @@ use Panda\Ui\Html\HTMLElement;
  * If you would like to use the javascript interface for adding, removing and selecting rows, identify each column
  * (including ratios, headers and every row) with a key identifier. However, the sequence of elements must be the same.
  *
- * @package Panda\Ui\Controls
+ * @package Panda\Ui\Html\Controls
  * @version 0.1
  */
 class DataTable extends HTMLElement implements DOMBuilder

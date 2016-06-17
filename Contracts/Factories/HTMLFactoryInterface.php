@@ -13,6 +13,7 @@ declare(strict_types = 1);
 
 namespace Panda\Ui\Contracts\Factories;
 
+use Panda\Ui\Contracts\Handlers\HTMLHandlerInterface;
 use Panda\Ui\Html\HTMLDocument;
 use Panda\Ui\Html\HTMLElement;
 
@@ -83,6 +84,13 @@ interface HTMLFactoryInterface extends DOMFactoryInterface
     public function buildScript($src, $async = false);
 
     /**
+     * Get the HTMLDocument for creating html objects.
+     *
+     * @return HTMLDocument
+     */
+    public function getHTMLDocument();
+
+    /**
      * Set the HTMLDocument for creating html objects.
      *
      * @param HTMLDocument $HTMLDocument
@@ -90,5 +98,21 @@ interface HTMLFactoryInterface extends DOMFactoryInterface
      * @return mixed
      */
     public function setHTMLDocument(HTMLDocument $HTMLDocument);
+
+    /**
+     * Get the HTMLHandler for editing the elements.
+     *
+     * @return HTMLHandlerInterface
+     */
+    public function getHTMLHandler();
+
+    /**
+     * Set the HTMLHandler for editing the elements.
+     *
+     * @param HTMLHandlerInterface $HTMLHandler
+     *
+     * @return mixed
+     */
+    public function setHTMLHandler(HTMLHandlerInterface $HTMLHandler);
 }
 

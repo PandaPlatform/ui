@@ -15,11 +15,11 @@ namespace Panda\Ui\Factories;
 
 use Exception;
 use Panda\Ui\Contracts\Factories\HTMLFormFactoryInterface;
-use Panda\Ui\Controls\Form\FormButton;
-use Panda\Ui\Controls\Form\FormElement;
-use Panda\Ui\Controls\Form\FormInput;
-use Panda\Ui\Controls\Form\FormLabel;
-use Panda\Ui\Controls\Form\FormSelect;
+use Panda\Ui\Html\Controls\Form\FormButton;
+use Panda\Ui\Html\Controls\Form\FormElement;
+use Panda\Ui\Html\Controls\Form\FormInput;
+use Panda\Ui\Html\Controls\Form\FormLabel;
+use Panda\Ui\Html\Controls\Form\FormSelect;
 
 /**
  * Class FormFactory
@@ -46,7 +46,7 @@ class FormFactory extends HTMLFactory implements HTMLFormFactoryInterface
     {
         // Create form input
         $id = $id ?: 'fe' . mt_rand();
-        $element = new FormElement($itemName, $name, $value, $id, $class, $itemValue);
+        $element = new FormElement($this->getHTMLDocument(), $itemName, $name, $value, $id, $class, $itemValue);
 
         // Return form element
         return $element;
@@ -71,7 +71,7 @@ class FormFactory extends HTMLFactory implements HTMLFormFactoryInterface
     {
         // Create form input
         $id = $id ?: 'fi' . mt_rand();
-        $element = new FormInput($type, $name, $id, $class, $value, $required);
+        $element = new FormInput($this->getHTMLDocument(), $type, $name, $id, $class, $value, $required);
 
         // Add extra attributes
         $element->attr('autofocus', $autofocus);
@@ -118,7 +118,7 @@ class FormFactory extends HTMLFactory implements HTMLFormFactoryInterface
     public function buildLabel($content, $for = '', $class = '')
     {
         // Create new form label
-        $element = new FormLabel($content, $for);
+        $element = new FormLabel($this->getHTMLDocument(), $content, $for);
 
         // Add class
         $element->addClass($class);
@@ -142,7 +142,7 @@ class FormFactory extends HTMLFactory implements HTMLFormFactoryInterface
     {
         // Create new form button
         $id = $id ?: 'fb' . mt_rand();
-        $element = new FormButton($type, $name, $id, $title);
+        $element = new FormButton($this->getHTMLDocument(), $type, $name, $id, $title);
 
         // Add class
         $element->addClass($class);
@@ -208,7 +208,7 @@ class FormFactory extends HTMLFactory implements HTMLFormFactoryInterface
     {
         // Create Form Item
         $id = $id ?: 'ftxt' . mt_rand();
-        $element = new FormElement($itemName = 'textarea', $name, $id, $value, $class, $itemValue = '');
+        $element = $this->buildFormElement($itemName = 'textarea', $name, $id, $value, $class, $itemValue = '');
         $element->nodeValue($value);
 
         // Set attributes
@@ -233,7 +233,7 @@ class FormFactory extends HTMLFactory implements HTMLFormFactoryInterface
     {
         // Create fieldset item
         $id = $id ?: 'flds' . mt_rand();
-        $element = new FormElement($itemName = 'fieldset', $name, $value = '', $id, $class, $itemValue = '');
+        $element = $this->buildFormElement($itemName = 'fieldset', $name, $value = '', $id, $class, $itemValue = '');
 
         // Create and append legend
         $legend = $this->buildElement('legend', $title);
@@ -260,7 +260,7 @@ class FormFactory extends HTMLFactory implements HTMLFormFactoryInterface
     {
         // Create select form input
         $id = $id ?: 'fs' . mt_rand();
-        $element = new FormSelect($this, $name, $id, $class, $multiple, $required);
+        $element = new FormSelect($this->getHTMLDocument(), $this, $name, $id, $class, $multiple, $required);
 
         // Insert options if any
         $element->addOptions($options, $selectedValue);

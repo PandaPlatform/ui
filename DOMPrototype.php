@@ -19,7 +19,7 @@ use DOMNodeList;
 use DOMXPath;
 use InvalidArgumentException;
 use Panda\Ui\Contracts\Factories\DOMFactoryInterface;
-use Panda\Ui\Factories\DOMFactory;
+use Panda\Ui\Contracts\Handlers\DOMHandlerInterface;
 
 /**
  * Abstract Document Object Model Prototype Class
@@ -32,8 +32,13 @@ use Panda\Ui\Factories\DOMFactory;
  *
  * @version 0.1
  */
-abstract class DOMPrototype extends DOMDocument
+class DOMPrototype extends DOMDocument
 {
+    /**
+     * @type DOMHandlerInterface
+     */
+    protected $DOMHandler;
+
     /**
      * @var DOMFactoryInterface
      */
@@ -43,17 +48,22 @@ abstract class DOMPrototype extends DOMDocument
      * Create a new DOM Document.
      *
      * @param DOMFactoryInterface $DOMFactory
+     * @param DOMHandlerInterface $DOMHandler
      * @param string              $version
      * @param string              $encoding
      */
-    public function __construct(DOMFactoryInterface $DOMFactory, $version = '1.0', $encoding = 'UTF_8')
+    public function __construct(DOMFactoryInterface $DOMFactory, DOMHandlerInterface $DOMHandler, $version = '1.0', $encoding = 'UTF_8')
     {
         // Construct DOMDocument
         parent::__construct($version, $encoding);
 
+        // Set DOMHandler
+        $this->DOMHandler = $DOMHandler;
+
         // Set DOMFactory
         $this->DOMFactory = $DOMFactory;
         $this->DOMFactory->setDOMDocument($this);
+        $this->DOMFactory->setDOMHandler($DOMHandler);
     }
 
     /**
@@ -67,7 +77,7 @@ abstract class DOMPrototype extends DOMDocument
     public function create($name = 'div', $value = '')
     {
         // Create a new DOMItem
-        return new DOMItem($this, $name, $value);
+        return $this->getDOMFactory()->buildElement($name, $value);
     }
 
     /**
@@ -128,7 +138,7 @@ abstract class DOMPrototype extends DOMDocument
     {
         $nodeName = (empty($nodeName) ? '*' : $nodeName);
         $q = '//' . $nodeName . "[@id='$id']";
-        $list = self::evaluate($q);
+        $list = $this->evaluate($q);
 
         if ($list->length > 0) {
             return $list->item(0);
@@ -166,6 +176,14 @@ abstract class DOMPrototype extends DOMDocument
     }
 
     /**
+     * @return DOMHandlerInterface
+     */
+    public function getDOMHandler()
+    {
+        return $this->DOMHandler;
+    }
+
+    /**
      * @return DOMFactoryInterface
      */
     public function getDOMFactory()
@@ -175,10 +193,14 @@ abstract class DOMPrototype extends DOMDocument
 
     /**
      * @param DOMFactoryInterface $DOMFactory
+     *
+     * @return $this
      */
     public function setDOMFactory($DOMFactory)
     {
         $this->DOMFactory = $DOMFactory;
+
+        return $this;
     }
 }
 

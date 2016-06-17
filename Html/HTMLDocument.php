@@ -16,6 +16,7 @@ namespace Panda\Ui\Html;
 use DOMNodeList;
 use Exception;
 use Panda\Ui\Contracts\Factories\HTMLFactoryInterface;
+use Panda\Ui\Contracts\Handlers\HTMLHandlerInterface;
 use Panda\Ui\DOMPrototype;
 use Panda\Ui\Helpers\HTMLHelper;
 use Symfony\Component\CssSelector\CssSelectorConverter;
@@ -34,13 +35,17 @@ class HTMLDocument extends DOMPrototype
      * Create a new DOM Document.
      *
      * @param HTMLFactoryInterface $HTMLFactory
+     * @param HTMLHandlerInterface $HTMLHandler
      * @param string               $version
      * @param string               $encoding
      */
-    public function __construct(HTMLFactoryInterface $HTMLFactory, $version = '1.0', $encoding = 'UTF_8')
+    public function __construct(HTMLFactoryInterface $HTMLFactory, HTMLHandlerInterface $HTMLHandler, $version = '1.0', $encoding = 'UTF_8')
     {
         // Construct DOMDocument
-        parent::__construct($HTMLFactory, $version, $encoding);
+        parent::__construct($HTMLFactory, $HTMLHandler, $version, $encoding);
+
+        // Set HTMLHandler for the factory
+        $this->getHTMLFactory()->setHTMLHandler($HTMLHandler);
     }
 
     /**
@@ -121,11 +126,29 @@ class HTMLDocument extends DOMPrototype
     }
 
     /**
+     * @return HTMLHandlerInterface
+     */
+    public function getHTMLHandler()
+    {
+        return $this->getDOMHandler();
+    }
+
+    /**
      * @return HTMLFactoryInterface
      */
     public function getHTMLFactory()
     {
-        return $this->DOMFactory;
+        return $this->getDOMFactory();
+    }
+
+    /**
+     * @param HTMLFactoryInterface $HTMLFactory
+     *
+     * @return $this
+     */
+    public function setHTMLFactory($HTMLFactory)
+    {
+        return $this->setDOMFactory($HTMLFactory);
     }
 }
 

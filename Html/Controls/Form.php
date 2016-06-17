@@ -11,18 +11,17 @@
 
 declare(strict_types = 1);
 
-namespace Panda\Ui\Controls;
+namespace Panda\Ui\Html\Controls;
 
 use Exception;
 use Panda\Ui\Contracts\Factories\HTMLFormFactoryInterface;
-use Panda\Ui\Factories\FormFactory;
 use Panda\Ui\Html\HTMLDocument;
 use Panda\Ui\Html\HTMLElement;
 
 /**
  * HTML Form Class. Create HTML forms
  *
- * @package Panda\Ui\Html
+ * @package Panda\Ui\Html\Controls
  *
  * @version 0.1
  */

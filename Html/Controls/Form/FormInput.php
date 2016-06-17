@@ -11,7 +11,7 @@
 
 declare(strict_types = 1);
 
-namespace Panda\Ui\Controls\Form;
+namespace Panda\Ui\Html\Controls\Form;
 
 use Exception;
 use InvalidArgumentException;
@@ -20,7 +20,7 @@ use Panda\Ui\Html\HTMLDocument;
 /**
  * Class FormInput
  *
- * @package Panda\Ui\Controls\Form
+ * @package Panda\Ui\Html\Controls\Form
  *
  * @version 0.1
  */

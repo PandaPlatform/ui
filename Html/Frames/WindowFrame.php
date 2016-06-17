@@ -11,19 +11,19 @@
 
 declare(strict_types = 1);
 
-namespace Panda\Ui\Frames;
+namespace Panda\Ui\Html\Frames;
 
 use Panda\Ui\Contracts\DOMBuilder;
 use Panda\Ui\DOMItem;
 use Panda\Ui\Html\HTMLDocument;
 use Panda\Ui\Html\HTMLElement;
-use Panda\Ui\Popups\Popup;
+use Panda\Ui\Html\Popups\Popup;
 
 /**
  * Window Frame Prototype
  * It's the window frame prototype for building frames (windows, dialogs etc.).
  *
- * @package Panda\Ui\Frames
+ * @package Panda\Ui\Html\Frames
  *
  * @version 0.1
  */

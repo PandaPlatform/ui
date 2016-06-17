@@ -13,14 +13,12 @@ declare(strict_types = 1);
 
 namespace Panda\Ui;
 
-use DOMAttr;
-use DOMDocument;
 use DOMElement;
 use DOMException;
-use DOMNode;
 use DOMText;
 use Exception;
 use InvalidArgumentException;
+use Panda\Ui\Contracts\Handlers\DOMHandlerInterface;
 
 /**
  * Abstract Document Object Model Item Class.
@@ -33,19 +31,19 @@ use InvalidArgumentException;
 class DOMItem extends DOMElement
 {
     /**
-     * @type DOMDocument
+     * @type DOMPrototype
      */
     protected $DOMDocument;
 
     /**
      * Create a new DOM Item.
      *
-     * @param DOMDocument    $DOMDocument
+     * @param DOMPrototype   $DOMDocument
      * @param string         $name
      * @param string|DOMItem $value
      * @param string         $namespaceURI
      */
-    public function __construct(DOMDocument $DOMDocument, $name, $value = '', $namespaceURI = '')
+    public function __construct(DOMPrototype $DOMDocument, $name, $value = '', $namespaceURI = '')
     {
         // Create owner DOMDocument to be able to have the element as writable
         $this->DOMDocument = $DOMDocument;
@@ -85,32 +83,7 @@ class DOMItem extends DOMElement
      */
     public function attr($name, $value = '', $validate = false)
     {
-        // If value is null or false, remove attribute
-        if (is_null($value) || (is_bool($value) && $value === false)) {
-            return $this->removeAttribute($name);
-        }
-
-        // If value is empty (null is empty but is caught above, except 0), get attribute
-        if (empty($value) && $value !== 0) {
-            return $this->getAttribute($name);
-        }
-
-        // Check if id is valid
-        if ($name == 'id') {
-            $match = preg_match('/^[a-zA-Z][\w\_\-\.\:]*$/i', $value);
-            if (!$match && $validate) {
-                throw new Exception('The given value is not valid for the given attribute name.', 1);
-            }
-        }
-
-        // Set attribute
-        if (is_bool($value) && $value === true) {
-            $this->setAttributeNode(new DOMAttr($name));
-        } else {
-            $this->setAttribute($name, trim((string)$value));
-        }
-
-        return $value;
+        return $this->getDOMHandler()->attr($this, $name, $value, $validate);
     }
 
     /**
@@ -123,23 +96,7 @@ class DOMItem extends DOMElement
      */
     public function attrs($value = [])
     {
-        if (empty($value)) {
-            // Get current attributes
-            $attrs = [];
-            foreach ($this->attributes as $attr) {
-                $attrs[$attr->name] = $attr->value;
-            }
-
-            // Return the current attributes
-            return $attrs;
-        } elseif (is_array($value) && count($value) > 0) {
-            // Set the given attributes
-            foreach ($value as $key => $val) {
-                $this->attr($key, $val);
-            }
-        }
-
-        return [];
+        return $this->getDOMHandler()->attrs($this, $value);
     }
 
 
@@ -155,13 +112,7 @@ class DOMItem extends DOMElement
      */
     public function appendAttr($name, $value)
     {
-        // Create new attribute value
-        $value = trim((string)$value);
-        $old_value = $this->getAttribute($name);
-        $value = trim(trim((string)$old_value) . ' ' . $value);
-
-        // Set new attribute value
-        return $this->attr($name, $value);
+        return $this->getDOMHandler()->appendAttr($this, $name, $value);
     }
 
     /**
@@ -176,30 +127,7 @@ class DOMItem extends DOMElement
      */
     public function data($name, $value = [])
     {
-        // Check if value is empty
-        if (empty($value)) {
-            return false;
-        }
-
-        // Set normal data attribute
-        if (!is_array($value)) {
-            return $this->attr('data-' . $name, $value);
-        }
-
-        // Clear empty values
-        foreach ($value as $key => $attr) {
-            if (empty($attr) && $attr !== 0) {
-                unset($value[$key]);
-            }
-        }
-
-        // Encode attribute data
-        $jsonValue = json_encode($value, JSON_FORCE_OBJECT);
-
-        // Don't add anything if empty
-        $jsonValue = str_replace('{}', '', $jsonValue);
-
-        return $this->attr('data-' . $name, $jsonValue);
+        return $this->getDOMHandler()->data($this, $name, $value);
     }
 
     /**
@@ -213,19 +141,13 @@ class DOMItem extends DOMElement
      */
     public function nodeValue($value = null)
     {
-        // If given value is null, return the current value
-        if (is_null($value)) {
-            return $this->nodeValue;
-        }
-
-        // Return the new value
-        return $this->nodeValue = $value;
+        return $this->getDOMHandler()->nodeValue($this, $value);
     }
 
     /**
      * Append an element as a child.
      *
-     * @param DOMNode $element
+     * @param DOMElement $element
      *
      * @return $this
      *
@@ -233,16 +155,7 @@ class DOMItem extends DOMElement
      */
     public function append(&$element)
     {
-        // Check element
-        if (empty($element)) {
-            throw new InvalidArgumentException('You are trying to append an empty element.');
-        }
-
-        // Append element
-        $this->appendChild($element);
-
-        // Return the DOMItem
-        return $this;
+        return $this->getDOMHandler()->append($this, $element);
     }
 
     /**
@@ -256,22 +169,7 @@ class DOMItem extends DOMElement
      */
     public function prepend(&$element)
     {
-        if (empty($element)) {
-            throw new InvalidArgumentException('You are trying to prepend an empty element.');
-        }
-
-        // Import element to owner document
-        $element = $this->ownerDocument->importNode($element, true);
-
-        // Append before first child
-        if ($this->childNodes->length > 0) {
-            $this->insertBefore($element, $this->childNodes->item(0));
-        } else {
-            $this->append($element);
-        }
-
-        // Return the DOMItem
-        return $this;
+        return $this->getDOMHandler()->prepend($this, $element);
     }
 
     /**
@@ -281,12 +179,7 @@ class DOMItem extends DOMElement
      */
     public function remove()
     {
-        if (empty($this->parentNode)) {
-            throw new DOMException('The current DOMItem has no parent.');
-        }
-
-        // Remove the element
-        $this->parentNode->removeChild($this);
+        return $this->getDOMHandler()->remove($this);
     }
 
     /**
@@ -300,26 +193,23 @@ class DOMItem extends DOMElement
      */
     public function replace($element)
     {
-        // Check if the element has a parent node
-        if (empty($this->parentNode)) {
-            throw new DOMException('The current DOMItem has no parent.');
-        }
-
-        // Import element to owner document
-        $element = $this->ownerDocument->importNode($element, true);
-
-        // Replace the element
-        $this->parentNode->replaceChild($element, $this);
-
-        return $element;
+        return $this->getDOMHandler()->replace($this, $element);
     }
 
     /**
-     * @return DOMDocument
+     * @return DOMPrototype
      */
     public function getDOMDocument()
     {
         return $this->DOMDocument;
+    }
+
+    /**
+     * @return DOMHandlerInterface
+     */
+    public function getDOMHandler()
+    {
+        return $this->getDOMDocument()->getDOMHandler();
     }
 }
 

@@ -13,7 +13,7 @@ declare(strict_types = 1);
 
 namespace Panda\Ui\Contracts\Factories;
 
-use Panda\Ui\Controls\Form\FormElement;
+use Panda\Ui\Html\Controls\Form\FormElement;
 
 /**
  * Interface HTMLFormFactoryInterface
