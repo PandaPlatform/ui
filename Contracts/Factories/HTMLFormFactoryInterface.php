@@ -13,18 +13,44 @@ declare(strict_types = 1);
 
 namespace Panda\Ui\Contracts\Factories;
 
-use Panda\Ui\Controls\Form\FormButton;
-use Panda\Ui\Controls\Form\FormElement;
-use Panda\Ui\Controls\Form\FormLabel;
-use Panda\Ui\Html\HTMLElement;
+use Panda\Ui\Html\Controls\Form;
+use Panda\Ui\Html\Controls\Form\FormElement;
 
 /**
  * Interface HTMLFormFactoryInterface
  *
  * @package Panda\Ui\Contracts
+ *
+ * @version 0.1
  */
 interface HTMLFormFactoryInterface extends HTMLFactoryInterface
 {
+    /**
+     * Build a form control.
+     *
+     * @param string $id
+     * @param string $action
+     * @param bool   $async
+     * @param bool   $fileUpload
+     *
+     * @return Form
+     */
+    public function buildForm($id = '', $action = '', $async = false, $fileUpload = false);
+
+    /**
+     * Build an html form element.
+     *
+     * @param string $itemName
+     * @param string $name
+     * @param string $value
+     * @param string $id
+     * @param string $class
+     * @param string $itemValue
+     *
+     * @return FormElement
+     */
+    public function buildFormElement($itemName = '', $name = '', $value = '', $id = '', $class = '', $itemValue = '');
+
     /**
      * Build an html form input.
      *
@@ -36,7 +62,7 @@ interface HTMLFormFactoryInterface extends HTMLFactoryInterface
      * @param bool   $autofocus
      * @param bool   $required
      *
-     * @return HTMLElement
+     * @return FormElement
      */
     public function buildInput($type = 'text', $name = '', $value = '', $id = '', $class = '', $autofocus = false, $required = false);
 
@@ -49,7 +75,7 @@ interface HTMLFormFactoryInterface extends HTMLFactoryInterface
      * @param bool   $required
      * @param string $accept
      *
-     * @return HTMLElement
+     * @return FormElement
      */
     public function buildFileInput($name = '', $id = '', $class = '', $required = false, $accept = '');
 
@@ -60,7 +86,7 @@ interface HTMLFormFactoryInterface extends HTMLFactoryInterface
      * @param string $for
      * @param string $class
      *
-     * @return FormLabel
+     * @return FormElement
      */
     public function buildLabel($content, $for = '', $class = '');
 
@@ -73,7 +99,7 @@ interface HTMLFormFactoryInterface extends HTMLFactoryInterface
      * @param string $id
      * @param string $class
      *
-     * @return FormButton
+     * @return FormElement
      */
     public function buildButton($type, $title, $name = '', $id = '', $class = '');
 
@@ -85,7 +111,7 @@ interface HTMLFormFactoryInterface extends HTMLFactoryInterface
      * @param string $id
      * @param string $class
      *
-     * @return FormButton
+     * @return FormElement
      */
     public function buildSubmitButton($title, $name = '', $id = '', $class = '');
 
@@ -96,7 +122,7 @@ interface HTMLFormFactoryInterface extends HTMLFactoryInterface
      * @param string $id
      * @param string $class
      *
-     * @return FormButton
+     * @return FormElement
      */
     public function buildResetButton($title, $id = '', $class = '');
 
@@ -137,7 +163,7 @@ interface HTMLFormFactoryInterface extends HTMLFactoryInterface
      * @param string $selectedValue
      * @param bool   $required
      *
-     * @return mixed
+     * @return FormElement
      */
     public function buildSelect($name = '', $multiple = false, $id = '', $class = '', $options = [], $selectedValue = '', $required = false);
 }

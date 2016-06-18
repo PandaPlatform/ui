@@ -16,8 +16,8 @@ namespace Panda\Ui\Html;
 use DOMNodeList;
 use Exception;
 use Panda\Ui\Contracts\Factories\HTMLFactoryInterface;
+use Panda\Ui\Contracts\Handlers\HTMLHandlerInterface;
 use Panda\Ui\DOMPrototype;
-use Panda\Ui\Factories\HTMLFactory;
 use Panda\Ui\Helpers\HTMLHelper;
 use Symfony\Component\CssSelector\CssSelectorConverter;
 
@@ -26,6 +26,7 @@ use Symfony\Component\CssSelector\CssSelectorConverter;
  * Create an HTML specific DOMDocument.
  *
  * @package Panda\Ui\Html
+ *
  * @version 0.1
  */
 class HTMLDocument extends DOMPrototype
@@ -33,15 +34,15 @@ class HTMLDocument extends DOMPrototype
     /**
      * Create a new DOM Document.
      *
+     * @param HTMLHandlerInterface $HTMLHandler
      * @param HTMLFactoryInterface $HTMLFactory
      * @param string               $version
      * @param string               $encoding
      */
-    public function __construct($HTMLFactory, $version = '1.0', $encoding = 'UTF_8')
+    public function __construct(HTMLHandlerInterface $HTMLHandler, HTMLFactoryInterface $HTMLFactory, $version = '1.0', $encoding = 'UTF_8')
     {
         // Construct DOMDocument
-        $HTMLFactory = $HTMLFactory ?: new HTMLFactory($this);
-        parent::__construct($HTMLFactory, $version, $encoding);
+        parent::__construct($HTMLHandler, $HTMLFactory, $version, $encoding);
     }
 
     /**
@@ -53,12 +54,13 @@ class HTMLDocument extends DOMPrototype
      * @param string $class The class attribute
      *
      * @return HTMLElement The HTMLElement created
+     *
      * @throws Exception
      */
     public function create($name = 'div', $value = '', $id = '', $class = '')
     {
         // Create a new HTMLElement
-        return new HTMLElement($this, $name, $value, $id, $class);
+        return $this->getHTMLFactory()->buildElement($name, $value, $id, $class);
     }
 
     /**
@@ -80,9 +82,9 @@ class HTMLDocument extends DOMPrototype
         }
 
         // Get rest of attributes
-        $value = $arguments[0];
-        $id = $arguments[1];
-        $class = $arguments[2];
+        $value = (count($arguments) > 0 ? $arguments[0] : '');
+        $id = (count($arguments) > 0 ? $arguments[1] : '');
+        $class = (count($arguments) > 1 ? $arguments[2] : '');
 
         // Create element
         return $this->create($name, $value, $id, $class);
@@ -121,21 +123,29 @@ class HTMLDocument extends DOMPrototype
     }
 
     /**
+     * @return HTMLHandlerInterface
+     */
+    public function getHTMLHandler()
+    {
+        return $this->getDOMHandler();
+    }
+
+    /**
      * @return HTMLFactoryInterface
      */
     public function getHTMLFactory()
     {
-        return $this->DOMFactory;
+        return $this->getDOMFactory();
     }
 
     /**
-     * Get the HTMLDocument.
+     * @param HTMLFactoryInterface $HTMLFactory
      *
-     * @return HTMLDocument
+     * @return $this
      */
-    public function getHTMLDocument()
+    public function setHTMLFactory($HTMLFactory)
     {
-        return $this;
+        return $this->setDOMFactory($HTMLFactory);
     }
 }
 

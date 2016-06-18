@@ -9,24 +9,8 @@
  * file that was distributed with this source code.
  */
 
-declare(strict_types = 1);
-
-namespace Panda\Ui\Contracts;
-
 /**
- * Interface DOMBuilder
- *
- * @package Panda\Ui\Contracts
- *
- * @version 0.1
+ * Initialize the application autoloader to take care of all
+ * automatic class loads while testing.
  */
-interface DOMBuilder
-{
-    /**
-     * Build the element.
-     *
-     * @return $this
-     */
-    public function build();
-}
-
+require __DIR__ . '/../vendor/autoload.php';

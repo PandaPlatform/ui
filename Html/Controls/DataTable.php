@@ -11,23 +11,22 @@
 
 declare(strict_types = 1);
 
-namespace Panda\Ui\Controls;
+namespace Panda\Ui\Html\Controls;
 
 use InvalidArgumentException;
 use LogicException;
 use Panda\Ui\Contracts\DOMBuilder;
-use Panda\Ui\DOMPrototype;
-use Panda\Ui\Factories\FormFactory;
+use Panda\Ui\Contracts\Factories\HTMLFormFactoryInterface;
+use Panda\Ui\Html\HTMLDocument;
 use Panda\Ui\Html\HTMLElement;
 
 /**
- * Class DataTable
- * The DataΤαβλε can be used to present multiple data in the form of a grid.
+ * The DataTable can be used to present multiple data in the form of a grid.
  *
  * If you would like to use the javascript interface for adding, removing and selecting rows, identify each column
  * (including ratios, headers and every row) with a key identifier. However, the sequence of elements must be the same.
  *
- * @package Panda\Ui\Controls
+ * @package Panda\Ui\Html\Controls
  * @version 0.1
  */
 class DataTable extends HTMLElement implements DOMBuilder
@@ -37,61 +36,74 @@ class DataTable extends HTMLElement implements DOMBuilder
      *
      * @var HTMLElement
      */
-    private $gridList;
+    protected $gridList;
 
     /**
      * Horizontal capacity
      *
      * @var int
      */
-    private $hSize = 0;
+    protected $hSize = 0;
 
     /**
      * If set to TRUE a checkbox will be prepended in each row
      *
      * @var bool
      */
-    private $checkable = false;
+    protected $checkable = false;
 
     /**
      * A list of the row checkboxes
      *
      * @var array
      */
-    private $checkList;
+    protected $checkList;
 
     /**
      * Requested width ratios for the columns
      *
      * @var array
      */
-    private $columnRatios;
+    protected $columnRatios;
+
+    /**
+     * @var HTMLFormFactoryInterface
+     */
+    protected $formFactory;
 
     /**
      * DataTable constructor.
      *
-     * @param DOMPrototype $HTMLDocument
-     * @param string       $id
-     * @param string       $class
+     * @param HTMLDocument             $HTMLDocument
+     * @param HTMLFormFactoryInterface $FormFactory
      */
-    public function __construct(DOMPrototype $HTMLDocument, $id = '', $class = '')
+    public function __construct(HTMLDocument $HTMLDocument, HTMLFormFactoryInterface $FormFactory)
     {
-        $id = $id ?: 'dt' . mt_rand();
-        parent::__construct($HTMLDocument, $name = 'div', $value = '', $id, $class = 'uiDataTable initialize');
+        // Create object
+        parent::__construct($HTMLDocument, $name = 'div', $value = '', $id = '', $class = 'uiDataTable initialize');
+
+        // Set fields
+        $this->formFactory = $FormFactory;
+        $this->formFactory->setHTMLDocument($this->getHTMLDocument());
     }
 
     /**
      * Build the datatable.
      *
-     * @param bool $checkable  If set to TRUE, the dataGridList will have a checkbox at the start of each row.
-     *                         It is FALSE by default.
-     * @param bool $withBorder Defines whether the gridList will have visual border.
-     *                         It is TRUE by default.
+     * @param string $id
+     * @param string $class
+     * @param bool   $checkable  If set to TRUE, the dataGridList will have a checkbox at the start of each row.
+     * @param bool   $withBorder Defines whether the gridList will have visual border.
      *
      * @return $this
      */
-    public function build($checkable = false, $withBorder = true)
+    public function build($id = '', $class = '', $checkable = false, $withBorder = true)
     {
+        // Set element attributes
+        $id = $id ?: 'dt' . mt_rand();
+        $this->attr('id', $id);
+        $this->addClass($class);
+
         // Set object variables
         $this->checkable = (!$checkable ? false : true);
         $this->checkList = (!$checkable ? null : []);
@@ -105,7 +117,7 @@ class DataTable extends HTMLElement implements DOMBuilder
         }
 
         // Create grid list
-        $this->gridList = $this->getHTMLDocument()->create('ul', '', '', 'DataTableList');
+        $this->gridList = $this->getFormFactory()->buildElement('ul', '', '', 'DataTableList');
         $this->append($this->gridList);
 
         return $this;
@@ -175,7 +187,7 @@ class DataTable extends HTMLElement implements DOMBuilder
         }
 
         // Create new grid content wrapper
-        $gridListContentWrapper = $this->getHTMLDocument()->create('div', '', '', 'DataTableContentWrapper');
+        $gridListContentWrapper = $this->getFormFactory()->buildElement('div', '', '', 'DataTableContentWrapper');
         $this->gridList->append($gridListContentWrapper);
         $this->gridList = $gridListContentWrapper;
     }
@@ -224,7 +236,7 @@ class DataTable extends HTMLElement implements DOMBuilder
         }
 
         // Create grid row object
-        $gridRow = $this->getHTMLDocument()->create('li', '', '', ($class == '' ? 'DataTableRow' : $class));
+        $gridRow = $this->getFormFactory()->buildElement('li', '', '', ($class == '' ? 'DataTableRow' : $class));
 
         // Trim contents to the column size
         if ($this->hSize < count($contents)) {
@@ -234,7 +246,7 @@ class DataTable extends HTMLElement implements DOMBuilder
         // Add extra columns
         $contentsCount = count($contents);
         for ($i = 0; $i < $this->hSize - $contentsCount; $i++) {
-            $contents[] = $this->getHTMLDocument()->create('span');
+            $contents[] = $this->getFormFactory()->buildElement('span');
         }
 
         // Insert contents to row
@@ -247,17 +259,17 @@ class DataTable extends HTMLElement implements DOMBuilder
                 $contentValue = '' . $contentValue;
                 $itemIdentifier = strtolower(str_replace(' ', '', $contentValue));
             } elseif ($contentValue->tagName == 'span') {
-                $itemIdentifier = strtolower(str_replace(' ', '', $contentValue->getElement()->nodeValue));
+                $itemIdentifier = strtolower(str_replace(' ', '', $contentValue->nodeValue));
             }
 
             // Set text wrapper
-            $gridTextWrapper = $this->getHTMLDocument()->create('span', $contentValue, '', 'DataTableTextWrapper');
+            $gridTextWrapper = $this->getFormFactory()->buildElement('span', $contentValue, '', 'DataTableTextWrapper');
 
             // Set item style
             $gridTextWrapper->appendAttr('style', 'max-width:100%;width:100%;box-sizing:border-box;');
 
             // Create grid cell with given text
-            $gridCell = $this->getHTMLDocument()->create('div', $gridTextWrapper, '', 'DataTableCell');
+            $gridCell = $this->getFormFactory()->buildElement('div', $gridTextWrapper, '', 'DataTableCell');
             $gridRow->append($gridCell);
 
             // Set header (if any)
@@ -266,7 +278,7 @@ class DataTable extends HTMLElement implements DOMBuilder
                 $gridCell->data('column-name', $itemIdentifier);
 
                 // Add sorting icon
-                $sortingIcon = $this->getHTMLDocument()->create('div', '', '', 'sortingIcon');
+                $sortingIcon = $this->getFormFactory()->buildElement('div', '', '', 'sortingIcon');
                 $gridTextWrapper->append($sortingIcon);
             }
 
@@ -300,11 +312,10 @@ class DataTable extends HTMLElement implements DOMBuilder
     private function appendCheckRow($row, $checkName, $checked, $checkValue = '')
     {
         // Create the check item
-        $gridCheck = $this->getHTMLDocument()->create('div', '', '', 'DataTableCheck');
+        $gridCheck = $this->getFormFactory()->buildElement('div', '', '', 'DataTableCheck');
 
         // Get the checkbox
-        $formFactory = new FormFactory($this->getHTMLDocument());
-        $chk = $formFactory->buildInput($type = 'checkbox', $name = $checkName, $value = $checkValue, $id = '', $class = '', $autofocus = false, $required = false);
+        $chk = $this->getFormFactory()->buildInput($type = 'checkbox', $name = $checkName, $value = $checkValue, $id = '', $class = '', $autofocus = false, $required = false);
         if ($checked) {
             $chk->attr('checked', 'checked');
         }
@@ -315,6 +326,14 @@ class DataTable extends HTMLElement implements DOMBuilder
         $row->prepend($gridCheck);
 
         return $this;
+    }
+
+    /**
+     * @return HTMLFormFactoryInterface
+     */
+    public function getFormFactory()
+    {
+        return $this->formFactory;
     }
 }
 

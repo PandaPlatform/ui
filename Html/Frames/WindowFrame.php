@@ -11,19 +11,21 @@
 
 declare(strict_types = 1);
 
-namespace Panda\Ui\Frames;
+namespace Panda\Ui\Html\Frames;
 
 use Panda\Ui\Contracts\DOMBuilder;
 use Panda\Ui\DOMItem;
-use Panda\Ui\DOMPrototype;
+use Panda\Ui\Html\HTMLDocument;
 use Panda\Ui\Html\HTMLElement;
-use Panda\Ui\Popups\Popup;
+use Panda\Ui\Html\Popups\Popup;
 
 /**
  * Window Frame Prototype
  * It's the window frame prototype for building frames (windows, dialogs etc.).
  *
- * @package Panda\Ui\Frames
+ * @package Panda\Ui\Html\Frames
+ *
+ * @version 0.1
  */
 class WindowFrame extends Popup implements DOMBuilder
 {
@@ -42,53 +44,45 @@ class WindowFrame extends Popup implements DOMBuilder
     protected $body;
 
     /**
-     * Create a new frame popup instance.
-     *
-     * @param DOMPrototype $HTMLDocument
-     * @param string       $id    The frame's id.
-     * @param string       $class The frame's class.
-     */
-    public function __construct($HTMLDocument, $id = '', $class = '')
-    {
-        // Create popup
-        parent::__construct($HTMLDocument, $id);
-
-        // Set basic properties
-        $this->type(Popup::TP_PERSISTENT, false);
-        $this->binding("on");
-
-        // Create wFrame
-        $id = 'wf_' . (empty($id) ? mt_rand() : $id);
-        $this->wFrame = $this->getHTMLDocument()->create('div', '', $id, 'wFrame');
-        $this->wFrame->addClass($class);
-    }
-
-    /**
      * Builds the window frame structure.
      *
+     * @param string         $id
+     * @param string         $class
      * @param string|DOMItem $title The frame's title.
      *
      * @return $this
      */
-    public function build($title = '')
+    public function build($id = '', $class = '', $title = '')
     {
+        // Set basic properties
+        $this->type(Popup::TP_PERSISTENT, false);
+        $this->binding('on');
+
+        // Create wFrame
+        $id = 'wf_' . (empty($id) ? mt_rand() : $id);
+        $this->wFrame = $this->getHTMLDocument()->getHTMLFactory()->buildElement('div', '', $id, 'wFrame');
+        $this->wFrame->addClass($class);
+
+        // Build parent element
+        parent::build($id, $this->wFrame);
+
         // Create header
-        $frameHeader = $this->getHTMLDocument()->create('div', '', '', 'frameHeader');
+        $frameHeader = $this->getHTMLDocument()->getHTMLFactory()->buildElement('div', '', '', 'frameHeader');
         $this->appendToFrame($frameHeader);
 
         // Header Title
-        $frameTitle = $this->getHTMLDocument()->create('span', $title, '', 'frameTitle');
+        $frameTitle = $this->getHTMLDocument()->getHTMLFactory()->buildElement('span', $title, '', 'frameTitle');
         $frameHeader->append($frameTitle);
 
         // Close button
-        $closeBtn = $this->getHTMLDocument()->create('span', '', '', 'closeBtn');
+        $closeBtn = $this->getHTMLDocument()->getHTMLFactory()->buildElement('span', '', '', 'closeBtn');
         $frameHeader->append($closeBtn);
 
         // Create body
-        $this->body = $this->getHTMLDocument()->create('div', '', '', 'frameBody');
+        $this->body = $this->getHTMLDocument()->getHTMLFactory()->buildElement('div', '', '', 'frameBody');
         $this->appendToFrame($this->body);
 
-        return parent::build($this->wFrame);
+        return $this;
     }
 
     /**

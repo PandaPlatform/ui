@@ -11,10 +11,10 @@
 
 declare(strict_types = 1);
 
-namespace Panda\Ui\Notifications;
+namespace Panda\Ui\Html\Notifications;
 
 use Panda\Ui\Contracts\DOMBuilder;
-use Panda\Ui\DOMPrototype;
+use Panda\Ui\Html\HTMLDocument;
 use Panda\Ui\Html\HTMLElement;
 
 /**
@@ -23,7 +23,8 @@ use Panda\Ui\Html\HTMLElement;
  * It can be used to notify the user for changes and updates, show warning messages or show succeed messages after a
  * successful post.
  *
- * @package Panda\Ui\Notifications
+ * @package Panda\Ui\Html\Notifications
+ *
  * @version 0.1
  */
 class Notification extends HTMLElement implements DOMBuilder
@@ -66,28 +67,21 @@ class Notification extends HTMLElement implements DOMBuilder
     /**
      * Notification constructor.
      *
-     * @param DOMPrototype $HTMLDocument
-     * @param string       $id
-     * @param string       $class
+     * @param HTMLDocument $HTMLDocument
      */
-    public function __construct($HTMLDocument, $id = '', $class = '')
+    public function __construct(HTMLDocument $HTMLDocument)
     {
-        parent::__construct($HTMLDocument, $name = 'div', $value = '', $id, 'uiNotification');
-        $this->addClass($class);
+        parent::__construct($HTMLDocument, $name = 'div', $value = '', $id = '', 'uiNotification');
     }
 
     /**
      * Builds the notification.
      *
-     * @param string $type       The notification's type.
-     *                           Use class constants to define this type.
+     * @param string $type       The notification's type. Use class constants to define this type.
      *                           It is INFO by default.
      * @param bool   $header     Specified whether the notification will have header or not.
-     *                           It is FALSE by default.
      * @param bool   $timeout    If TRUE, sets the notification to fade out after 1.5 seconds.
-     *                           It is FALSE by default.
      * @param bool   $disposable Lets the user to be able to close the notification.
-     *                           It is FALSE by default.
      *
      * @return $this
      */
@@ -118,10 +112,10 @@ class Notification extends HTMLElement implements DOMBuilder
      *
      * @return $this
      */
-    public function append($content)
+    public function appendToBody($content)
     {
         // Append a valid element to notification body
-        $this->body->append($content);
+        $this->getBody()->append($content);
 
         // Return notification object
         return $this;
@@ -136,7 +130,7 @@ class Notification extends HTMLElement implements DOMBuilder
      */
     public function appendCustomMessage($message)
     {
-        $customMessage = $this->getHTMLDocument()->create('div', $message, '', 'customMessage');
+        $customMessage = $this->getHTMLDocument()->getHTMLFactory()->buildElement('div', $message, '', 'customMessage');
 
         return $this->append($customMessage);
     }
@@ -153,12 +147,12 @@ class Notification extends HTMLElement implements DOMBuilder
     private function buildHead($title, $disposable = false)
     {
         // Build Head Element
-        $head = $this->getHTMLDocument()->create('div', $title, '', 'uiNtfHead');
-        parent::append($head);
+        $head = $this->getHTMLDocument()->getHTMLFactory()->buildElement('div', $title, '', 'uiNtfHead');
+        $this->append($head);
 
         // Populate the close button
         if ($disposable) {
-            $closeBtn = $this->getHTMLDocument()->create('span', '', '', 'closeBtn');
+            $closeBtn = $this->getHTMLDocument()->getHTMLFactory()->buildElement('span', '', '', 'closeBtn');
             $head->append($closeBtn);
         }
 
@@ -173,13 +167,21 @@ class Notification extends HTMLElement implements DOMBuilder
     private function buildBody()
     {
         // Build Body Element
-        $this->body = $this->getHTMLDocument()->create('div', '', '', 'uiNtfBody');
-        parent::append($this->body);
+        $this->body = $this->getHTMLDocument()->getHTMLFactory()->buildElement('div', '', '', 'uiNtfBody');
+        $this->append($this->body);
 
         // Populate the notification icon
-        $icon = $this->getHTMLDocument()->create('span', '', '', 'uiNtfIcon');
-        $this->body->append($icon);
+        $icon = $this->getHTMLDocument()->getHTMLFactory()->buildElement('span', '', '', 'uiNtfIcon');
+        $this->appendToBody($icon);
 
         return $this;
+    }
+
+    /**
+     * @return HTMLElement
+     */
+    public function getBody()
+    {
+        return $this->body;
     }
 }

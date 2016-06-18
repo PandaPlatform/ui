@@ -11,7 +11,7 @@
 
 declare(strict_types = 1);
 
-namespace Panda\Ui\Controls\Form;
+namespace Panda\Ui\Html\Controls\Form;
 
 use Exception;
 use InvalidArgumentException;
@@ -20,7 +20,8 @@ use Panda\Ui\Html\HTMLDocument;
 /**
  * Class FormInput
  *
- * @package Panda\Ui\Controls\Form
+ * @package Panda\Ui\Html\Controls\Form
+ *
  * @version 0.1
  */
 class FormInput extends FormElement
@@ -59,7 +60,7 @@ class FormInput extends FormElement
     /**
      * Create a new form input item.
      *
-     * @param HTMLDocument $HTMLDocument The DOMDocument to create the element
+     * @param HTMLDocument $HTMLDocument The input's parent document
      * @param string       $type         The input's type
      * @param string       $name         The input's name
      * @param string       $id           The input's id

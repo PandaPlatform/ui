@@ -11,7 +11,7 @@
 
 declare(strict_types = 1);
 
-namespace Panda\Ui\Controls\Form;
+namespace Panda\Ui\Html\Controls\Form;
 
 use Exception;
 use InvalidArgumentException;
@@ -20,7 +20,8 @@ use Panda\Ui\Html\HTMLDocument;
 /**
  * Class FormButton
  *
- * @package Panda\Ui\Controls\Form
+ * @package Panda\Ui\Html\Controls\Form
+ *
  * @version 0.1
  */
 class FormButton extends FormElement
@@ -39,7 +40,7 @@ class FormButton extends FormElement
     /**
      * Create a new form button.
      *
-     * @param HTMLDocument $HTMLDocument The DOMDocument to create the element
+     * @param HTMLDocument $HTMLDocument The button's parent document
      * @param string       $type         The button's type attribute
      * @param string       $name         The button's name attribute
      * @param string       $id           The button's id attribute

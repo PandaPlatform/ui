@@ -15,6 +15,7 @@ namespace Panda\Ui\Factories;
 
 use Exception;
 use Panda\Ui\Contracts\Factories\HTMLFactoryInterface;
+use Panda\Ui\Contracts\Handlers\HTMLHandlerInterface;
 use Panda\Ui\Html\HTMLDocument;
 use Panda\Ui\Html\HTMLElement;
 
@@ -22,28 +23,11 @@ use Panda\Ui\Html\HTMLElement;
  * Class HTMLFactory
  *
  * @package Panda\Ui\Html
+ *
+ * @version 0.1
  */
 class HTMLFactory extends DOMFactory implements HTMLFactoryInterface
 {
-    /***
-     * @var HTMLDocument
-     */
-    protected $Document;
-
-    /**
-     * HTMLFactory constructor.
-     *
-     * @param HTMLDocument $Document
-     */
-    public function __construct($Document = null)
-    {
-        // Initialize current HTMLDocument
-        $this->Document = $Document;
-
-        // Construct DOMFactory
-        parent::__construct($Document);
-    }
-
     /**
      * Build an HTML Element.
      *
@@ -56,27 +40,25 @@ class HTMLFactory extends DOMFactory implements HTMLFactoryInterface
      */
     public function buildElement($name = '', $value = '', $id = '', $class = '')
     {
-        $id = $id ?: 'elm' . mt_rand();
-
-        return new HTMLElement($this->Document, $name, $value, $id, $class);
+        return new HTMLElement($this->getHTMLDocument(), $name, $value, $id, $class);
     }
 
     /**
      * Build an HTML weblink <a> element.
      *
-     * @param string $href    The weblink's href attribute.
-     * @param string $target  The weblink's target attribute.
-     * @param string $content The weblink's element content value.
-     * @param string $id      The weblinkt's id attribute.
-     * @param string $class   The weblinkt's class attribute.
+     * @param string $href    The weblink href attribute.
+     * @param string $target  The weblink target attribute.
+     * @param string $content The weblink element content value.
+     * @param string $id      The weblink id attribute.
+     * @param string $class   The weblink class attribute.
      *
      * @return HTMLElement
+     *
      * @throws Exception
      */
     public function buildWeblink($href = '', $target = '_self', $content = '', $id = '', $class = '')
     {
         // Create weblink element
-        $id = $id ?: 'wbl' . mt_rand();
         $weblink = $this->buildElement($name = 'a', $content, $id, $class);
 
         // Add attributes
@@ -90,18 +72,19 @@ class HTMLFactory extends DOMFactory implements HTMLFactoryInterface
     /**
      * Build a meta element.
      *
-     * @param string $name      The meta's name attribute.
-     * @param string $content   The meta's content attribute.
-     * @param string $httpEquiv The meta's http-equiv attribute.
-     * @param string $charset   The meta's charset attribute.
+     * @param string $name      The meta name attribute.
+     * @param string $content   The meta content attribute.
+     * @param string $httpEquiv The meta http-equiv attribute.
+     * @param string $charset   The meta charset attribute.
      *
      * @return HTMLElement
+     *
      * @throws Exception
      */
     public function buildMeta($name = '', $content = '', $httpEquiv = '', $charset = '')
     {
         // Create meta element
-        $meta = $this->getDocument()->create('meta');
+        $meta = $this->buildElement('meta', $value = '', $id = '', $class = '');
         $meta->attr('name', $name);
         $meta->attr('http-equiv', $httpEquiv);
         $meta->attr('content', htmlspecialchars($content));
@@ -114,16 +97,17 @@ class HTMLFactory extends DOMFactory implements HTMLFactoryInterface
     /**
      * Build an html link element.
      *
-     * @param string $rel  The link's rel attribute.
-     * @param string $href The link's href attribute.
+     * @param string $rel  The link rel attribute.
+     * @param string $href The link href attribute.
      *
      * @return HTMLElement
+     *
      * @throws Exception
      */
     public function buildLink($rel, $href)
     {
         // Build the link element
-        $link = $this->getDocument()->create('link');
+        $link = $this->buildElement($name = 'link', $value = '', $id = '', $class = '');
         $link->attr('rel', $rel);
         $link->attr('href', $href);
 
@@ -134,16 +118,17 @@ class HTMLFactory extends DOMFactory implements HTMLFactoryInterface
     /**
      * Build an html script element.
      *
-     * @param string $src   The script's src attribute.
-     * @param bool   $async The script's async attribute.
+     * @param string $src   The script src attribute.
+     * @param bool   $async The script async attribute.
      *
      * @return HTMLElement
+     *
      * @throws Exception
      */
     public function buildScript($src, $async = false)
     {
         // Build the script element
-        $script = $this->getDocument()->create('script');
+        $script = $this->buildElement($name = 'script', $value = '', $id = '', $class = '');
         $script->attr('src', $src);
         $script->attr('async', $async);
 
@@ -154,17 +139,31 @@ class HTMLFactory extends DOMFactory implements HTMLFactoryInterface
     /**
      * @return HTMLDocument
      */
-    public function getDocument()
+    public function getHTMLDocument()
     {
-        return $this->Document;
+        return $this->getDOMDocument();
     }
 
     /**
-     * @param HTMLDocument $Document
+     * Set the HTMLDocument for creating html objects.
+     *
+     * @param HTMLDocument $HTMLDocument
+     *
+     * @return $this
      */
-    public function setDocument($Document)
+    public function setHTMLDocument(HTMLDocument $HTMLDocument)
     {
-        $this->Document = $Document;
+        return $this->setDOMDocument($HTMLDocument);
+    }
+
+    /**
+     * Get the HTMLHandler for editing the elements.
+     *
+     * @return HTMLHandlerInterface
+     */
+    public function getHTMLHandler()
+    {
+        return $this->getHTMLDocument()->getHTMLHandler();
     }
 }
 

@@ -13,10 +13,8 @@ declare(strict_types = 1);
 
 namespace Panda\Ui\Html;
 
-use DOMElement;
 use InvalidArgumentException;
 use Panda\Ui\Contracts\DOMBuilder;
-use Panda\Ui\Contracts\Factories\HTMLFactoryInterface;
 use Panda\Ui\Factories\HTMLFactory;
 
 /**
@@ -24,6 +22,7 @@ use Panda\Ui\Factories\HTMLFactory;
  * Helps building HTML Pages in HTML5 format
  *
  * @package Panda\Ui\Html
+ *
  * @version 0.1
  */
 class HTMLPage extends HTMLDocument implements DOMBuilder
@@ -33,37 +32,21 @@ class HTMLPage extends HTMLDocument implements DOMBuilder
      *
      * @var HTMLElement
      */
-    protected $HTMLHead;
+    protected $head;
 
     /**
      * The body tag object
      *
      * @var HTMLElement
      */
-    protected $HTMLBody;
+    protected $body;
 
     /**
      * Keeps the scripts to be inserted in the bottom of the page before exporting,
      *
      * @var array
      */
-    private $bottomScripts;
-
-    /**
-     * HTMLPage constructor.
-     *
-     * @param HTMLFactoryInterface|null $HTMLFactory
-     */
-    public function __construct($HTMLFactory = null)
-    {
-        // Initialize-Clear Bottom Scripts
-        $this->bottomScripts = [];
-        $HTMLFactory = $HTMLFactory ?: new HTMLFactory();
-        $HTMLFactory->setDocument($this);
-
-        // Call parent
-        parent::__construct($HTMLFactory);
-    }
+    protected $bottomScripts = [];
 
     /**
      * Builds the spine of the page.
@@ -77,20 +60,20 @@ class HTMLPage extends HTMLDocument implements DOMBuilder
      */
     public function build($title = '', $description = '', $keywords = '')
     {
-        // Build HTML
-        $HTML = $this->create('html');
-        $this->append($HTML);
+        // Build html root element
+        $html = $this->create('html');
+        $this->append($html);
 
-        // Build HEAD
-        $this->HTMLHead = $this->create('head');
-        $HTML->append($this->HTMLHead);
+        // Build head
+        $this->head = $this->create('head');
+        $html->append($this->head);
 
         // Setup head elements
         $this->setupHead($title, $description, $keywords);
 
-        // Build BODY
-        $this->HTMLBody = $this->create('body');
-        $HTML->append($this->HTMLBody);
+        // Build body
+        $this->body = $this->create('body');
+        $html->append($this->body);
 
         return $this;
     }
@@ -110,31 +93,12 @@ class HTMLPage extends HTMLDocument implements DOMBuilder
     }
 
     /**
-     * Returns the head tag object.
-     *
-     * @return DOMElement The head element.
-     */
-    public function getHead()
-    {
-        return $this->HTMLHead->getDOMElement();
-    }
-
-    /**
-     * Returns the body tag object.
-     *
-     * @return DOMElement The body element.
-     */
-    public function getBody()
-    {
-        return $this->HTMLBody->getDOMElement();
-    }
-
-    /**
      * Append element to head.
      *
      * @param HTMLElement $element The element to be appended.
      *
      * @return $this
+     *
      * @throws InvalidArgumentException
      */
     protected function appendToHead($element)
@@ -145,7 +109,7 @@ class HTMLPage extends HTMLDocument implements DOMBuilder
         }
 
         // Append element to head
-        $this->HTMLHead->append($element);
+        $this->getHead()->append($element);
 
         return $this;
     }
@@ -156,6 +120,7 @@ class HTMLPage extends HTMLDocument implements DOMBuilder
      * @param HTMLElement $element The element to be appended.
      *
      * @return $this
+     *
      * @throws InvalidArgumentException
      */
     protected function appendToBody($element)
@@ -166,7 +131,7 @@ class HTMLPage extends HTMLDocument implements DOMBuilder
         }
 
         // Append element to body
-        $this->HTMLBody->append($element);
+        $this->getBody()->append($element);
 
         return $this;
     }
@@ -273,7 +238,7 @@ class HTMLPage extends HTMLDocument implements DOMBuilder
         $headTitle = $this->select('title')->item(0);
         if (!is_null($headTitle)) {
             $headTitle_new = $this->create('title', $title);
-            $headTitle->parentNode->replaceChild($headTitle_new->getDOMElement(), $headTitle);
+            $headTitle->parentNode->replaceChild($headTitle_new, $headTitle);
         } else {
             $headTitle = $this->create('title', $title);
             $this->appendToHead($headTitle);
@@ -336,22 +301,28 @@ class HTMLPage extends HTMLDocument implements DOMBuilder
      * the page.
      *
      * @param HTMLElement $script The script tag element.
+     *
+     * @return $this
      */
     private function addToBottomScripts($script)
     {
         $this->bottomScripts[] = $script;
+
+        return $this;
     }
 
     /**
      * Appends all bottom scripts to the body.
      *
-     * @return    void
+     * @return $this
      */
     private function flushBottomScripts()
     {
         foreach ($this->bottomScripts as $script) {
             $this->appendToBody($script);
         }
+
+        return $this;
     }
 
     /**
@@ -360,6 +331,22 @@ class HTMLPage extends HTMLDocument implements DOMBuilder
     public function getHTMLFactory()
     {
         return $this->DOMFactory;
+    }
+
+    /**
+     * @return HTMLElement
+     */
+    public function getHead()
+    {
+        return $this->head;
+    }
+
+    /**
+     * @return HTMLElement
+     */
+    public function getBody()
+    {
+        return $this->body;
     }
 }
 

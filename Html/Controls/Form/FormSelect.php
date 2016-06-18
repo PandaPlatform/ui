@@ -11,32 +11,40 @@
 
 declare(strict_types = 1);
 
-namespace Panda\Ui\Controls\Form;
+namespace Panda\Ui\Html\Controls\Form;
 
 use Exception;
+use Panda\Ui\Contracts\Factories\HTMLFormFactoryInterface;
 use Panda\Ui\Html\HTMLDocument;
 
 /**
  * Class FormSelect
  *
- * @package Panda\Ui\Controls\Form
+ * @package Panda\Ui\Html\Controls\Form
+ *
  * @version 0.1
  */
 class FormSelect extends FormElement
 {
     /**
+     * @type HTMLFormFactoryInterface
+     */
+    protected $HTMLFormFactory;
+
+    /**
      * Create a new form item.
      *
-     * @param HTMLDocument $HTMLDocument The DOMDocument to create the element
-     * @param string       $name         The input's name
-     * @param string       $id           The input's id
-     * @param string       $class        The input's class
-     * @param bool         $multiple     Option for multiple selection.
-     * @param bool         $required     Sets the input as required for the form.
+     * @param HTMLDocument             $HTMLDocument
+     * @param HTMLFormFactoryInterface $HTMLFormFactory The FormFactory to build the complex object
+     * @param string                   $name            The input's name
+     * @param string                   $id              The input's id
+     * @param string                   $class           The input's class
+     * @param bool                     $multiple        Option for multiple selection.
+     * @param bool                     $required        Sets the input as required for the form.
      *
      * @throws Exception
      */
-    public function __construct(HTMLDocument $HTMLDocument, $name = '', $id = '', $class = '', $multiple = false, $required = false)
+    public function __construct(HTMLDocument $HTMLDocument, HTMLFormFactoryInterface $HTMLFormFactory, $name = '', $id = '', $class = '', $multiple = false, $required = false)
     {
         // Create FormElement
         parent::__construct($HTMLDocument, $itemName = 'select', $name, $value = '', $id, $class, $itemValue = '');
@@ -46,6 +54,9 @@ class FormSelect extends FormElement
         if ($multiple) {
             $this->attr('multiple', 'multiple');
         }
+
+        $this->HTMLFormFactory = $HTMLFormFactory;
+        $this->HTMLFormFactory->setHTMLDocument($HTMLDocument);
     }
 
     /**
@@ -63,7 +74,7 @@ class FormSelect extends FormElement
         // Create all options
         foreach ($options as $value => $title) {
             // Create option
-            $fi = new FormElement($this->getDOMDocument(), 'option', '', $value, '', '', $title);
+            $fi = $this->getHTMLFormFactory()->buildFormElement('option', '', $value, '', '', $title);
 
             // Check if it's the selected value
             if ($value == $selectedValue) {
@@ -92,14 +103,14 @@ class FormSelect extends FormElement
     {
         // Create all options
         foreach ($optionGroups as $groupLabel => $options) {
-            // Create option froup
-            $og = new FormElement($this->getDOMDocument(), 'optgroup', $name = '', $value = '', $id = '', $class = '', $itemValue = '');
+            // Create option group
+            $og = $this->getHTMLFormFactory()->buildFormElement('optgroup', $name = '', $value = '', $id = '', $class = '', $itemValue = '');
             $og->attr('label', $groupLabel);
 
             // Create all options
             foreach ($options as $value => $title) {
                 // Create option
-                $fi = new FormElement($this->getDOMDocument(), 'option', '', $value, '', '', $title);
+                $fi = $this->getHTMLFormFactory()->buildFormElement('option', '', $value, '', '', $title);
 
                 // Check if it's the selected value
                 if ($value == $selectedValue) {
@@ -116,6 +127,14 @@ class FormSelect extends FormElement
 
         // Return FormSelect object
         return $this;
+    }
+
+    /**
+     * @return HTMLFormFactoryInterface
+     */
+    public function getHTMLFormFactory()
+    {
+        return $this->HTMLFormFactory;
     }
 }
 

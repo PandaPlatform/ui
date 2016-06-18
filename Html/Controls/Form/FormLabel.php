@@ -11,15 +11,17 @@
 
 declare(strict_types = 1);
 
-namespace Panda\Ui\Controls\Form;
+namespace Panda\Ui\Html\Controls\Form;
 
 use Exception;
+use Panda\Ui\DOMItem;
 use Panda\Ui\Html\HTMLDocument;
 
 /**
  * Class FormLabel
  *
- * @package Panda\Ui\Controls\Form
+ * @package Panda\Ui\Html\Controls\Form
+ *
  * @version 0.1
  */
 class FormLabel extends FormElement
@@ -27,16 +29,13 @@ class FormLabel extends FormElement
     /**
      * Create a new form input item.
      *
-     * @param HTMLDocument $HTMLDocument The DOMDocument to create the element
-     * @param null         $content      The label value. It  can be string or DOMElement.
-     *                                   It is NULL by default.
-     * @param string       $for          The element's id that the label is pointing to.
-     *                                   The 'for' attribute.
+     * @param HTMLDocument   $HTMLDocument The label's parent document.
+     * @param string|DOMItem $content      The label value.
+     * @param string         $for          The for attribute, the element's id that the label is pointing to.
      *
      * @throws Exception
-     *
      */
-    public function __construct(HTMLDocument $HTMLDocument, $content = null, $for = '')
+    public function __construct(HTMLDocument $HTMLDocument, $content = '', $for = '')
     {
         // Create HTMLElement
         parent::__construct($HTMLDocument, $name = 'label', $name = '', $value = '', $id = '', $class = '', $content);

@@ -11,17 +11,19 @@
 
 declare(strict_types = 1);
 
-namespace Panda\Ui\Frames;
+namespace Panda\Ui\Html\Frames;
 
 use Panda\Ui\Contracts\Factories\HTMLFormFactoryInterface;
-use Panda\Ui\DOMPrototype;
-use Panda\Ui\Templates\Forms\SimpleForm;
+use Panda\Ui\Html\HTMLDocument;
+use Panda\Ui\Html\Templates\Forms\SimpleForm;
 
 /**
  * Window Dialog Frame
  * Creates a dialog frame popup to display content to the user and perform an action.
  *
- * @package Panda\Ui\Frames
+ * @package Panda\Ui\Html\Frames
+ *
+ * @version 0.1
  */
 class DialogFrame extends WindowFrame
 {
@@ -45,39 +47,30 @@ class DialogFrame extends WindowFrame
     private $form;
 
     /**
-     * A formFactory object for building the form input objects.
-     *
-     * @var HTMLFormFactoryInterface
-     */
-    private $formFactory;
-
-    /**
      * dialogFrame constructor.
      *
-     * @param DOMPrototype             $HTMLDocument
+     * @param HTMLDocument             $HTMLDocument
      * @param HTMLFormFactoryInterface $FormFactory
-     * @param string                   $id
-     * @param string                   $class
      */
-    public function __construct($HTMLDocument, $FormFactory, $id, $class = '')
+    public function __construct(HTMLDocument $HTMLDocument, HTMLFormFactoryInterface $FormFactory)
     {
-        parent::__construct($HTMLDocument, $id, $class = 'dialogFrame ' . $class);
-        $this->formFactory = $FormFactory;
+        // Create the object
+        parent::__construct($HTMLDocument);
+
+        // Set the HTML Factory
+        $HTMLDocument->setHTMLFactory($FormFactory);
     }
 
     /**
      * Builds the frame along with the form action.
      *
-     * @param mixed  $title       The dialog's title.
-     * @param string $action      The form action to post the dialog to.
-     *                            Leave empty in order to engage with module or application protocol.
-     *                            It is empty by default.
-     * @param bool   $background  Defines whether the dialog popup will have a background.
-     *                            It is TRUE by default, as a dialog.
-     * @param string $type        The dialog buttons type.
-     *                            Use class constants to define an OK/Cancel or Yes/No type.
-     *                            Default type is OK/Cancel.
-     * @param bool   $fileUpload
+     * @param mixed  $title      The dialog's title.
+     * @param string $action     The form action to post the dialog to.
+     *                           Leave empty in order to engage with module or application protocol.
+     * @param bool   $background Defines whether the dialog popup will have a background.
+     * @param string $type       The dialog buttons type.
+     *                           Use class constants to define an OK/Cancel or Yes/No type.
+     * @param bool   $fileUpload Enable the dialog form for file upload.
      *
      * @return $this
      */
@@ -87,11 +80,11 @@ class DialogFrame extends WindowFrame
         $this->background($background);
 
         // Build window frame
-        parent::build($title);
+        parent::build($id = '', $class = 'dialogFrame', $title);
 
         // Build Form
-        $this->form = new SimpleForm($this->getHTMLDocument(), $this->formFactory, $id = '', $action, $async = true, $fileUpload);
-        $this->form->build(false, true);
+        $this->form = new SimpleForm($this->getHTMLDocument(), $this->getFormFactory());
+        $this->form->build($id = '', $action, $async = true, $fileUpload, $defaultButtons = false, $requiredNotes = true);
         $this->appendToBody($this->form);
 
         // Build Controls
@@ -115,7 +108,7 @@ class DialogFrame extends WindowFrame
      */
     public function getFormFactory()
     {
-        return $this->formFactory;
+        return $this->getHTMLDocument()->getHTMLFactory();
     }
 
     /**
@@ -140,11 +133,11 @@ class DialogFrame extends WindowFrame
     private function buildControls($type = self::TYPE_OK_CANCEL)
     {
         // Create dialog controls container
-        $controlsContainer = $this->getHTMLDocument()->create('div', '', '', 'dialogControls');
+        $controlsContainer = $this->getFormFactory()->buildElement('div', '', '', 'dialogControls');
         $this->form->append($controlsContainer);
 
         // Button Container
-        $btnContainer = $this->getHTMLDocument()->create('div', '', '', 'ctrls');
+        $btnContainer = $this->getFormFactory()->buildElement('div', '', '', 'ctrls');
         $controlsContainer->append($btnContainer);
 
         // Set button literals
@@ -152,9 +145,9 @@ class DialogFrame extends WindowFrame
         $lbl_reset = ($type == self::TYPE_OK_CANCEL ? 'cancel' : 'no');
 
         // Insert Controls
-        $submitBtn = $this->formFactory->buildSubmitButton($lbl_submit, '', '', 'dlgExec positive');
+        $submitBtn = $this->getFormFactory()->buildSubmitButton($lbl_submit, '', '', 'dlgExec positive');
         $btnContainer->append($submitBtn);
-        $resetBtn = $this->formFactory->buildResetButton($lbl_reset, '', 'dlgCancel');
+        $resetBtn = $this->getFormFactory()->buildResetButton($lbl_reset, '', 'dlgCancel');
         $btnContainer->append($resetBtn);
 
         return $this;

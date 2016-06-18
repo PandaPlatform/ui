@@ -11,15 +11,16 @@
 
 declare(strict_types = 1);
 
-namespace Panda\Ui\Controls\Form;
+namespace Panda\Ui\Html\Controls\Form;
 
-use Panda\Ui\DOMPrototype;
+use Panda\Ui\Html\HTMLDocument;
 use Panda\Ui\Html\HTMLElement;
 
 /**
  * Class FormElement
  *
- * @package Panda\Ui\Controls\Form
+ * @package Panda\Ui\Html\Controls\Form
+ *
  * @version 0.1
  */
 class FormElement extends HTMLElement
@@ -35,16 +36,18 @@ class FormElement extends HTMLElement
     /**
      * Create a new form item.
      *
-     * @param DOMPrototype $HTMLDocument The DOMDocument to create the element
-     * @param string       $itemName     The item's tagName
-     * @param string       $name         The item's name attribute
-     * @param string       $value        The item's value attribute
-     * @param string       $id           The item's id attribute
-     * @param string       $class        The item's class attribute
-     * @param string       $itemValue    The item's content value.
+     * @param HTMLDocument $HTMLDocument The item's parent document
+     * @param string       $itemName     The item tagName
+     * @param string       $name         The item name attribute
+     * @param string       $value        The item value attribute
+     * @param string       $id           The item id attribute
+     * @param string       $class        The item class attribute
+     * @param string       $itemValue    The item content value.
      *                                   It can be string or DOMElement.
+     *
+     * @throws \Exception
      */
-    public function __construct(DOMPrototype $HTMLDocument, $itemName = '', $name = '', $value = '', $id = '', $class = '', $itemValue = '')
+    public function __construct(HTMLDocument $HTMLDocument, $itemName = '', $name = '', $value = '', $id = '', $class = '', $itemValue = '')
     {
         // Create HTMLElement
         parent::__construct($HTMLDocument, $itemName, $itemValue, $id, $class);

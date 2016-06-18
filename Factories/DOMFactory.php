@@ -14,26 +14,24 @@ declare(strict_types = 1);
 namespace Panda\Ui\Factories;
 
 use Panda\Ui\Contracts\Factories\DOMFactoryInterface;
+use Panda\Ui\Contracts\Handlers\DOMHandlerInterface;
 use Panda\Ui\DOMItem;
 use Panda\Ui\DOMPrototype;
 
+/**
+ * Class DOMFactory
+ *
+ * @package Panda\Ui\Factories
+ *
+ * @version 0.1
+ */
 class DOMFactory implements DOMFactoryInterface
 {
-    /***
+    /**
      * @var DOMPrototype
      */
-    protected $Document;
-
-    /**
-     * Create a new HTMLFactory.
-     *
-     * @param DOMPrototype $DOMPrototype
-     */
-    public function __construct(DOMPrototype $DOMPrototype = null)
-    {
-        $this->Document = $DOMPrototype;
-    }
-
+    protected $DOMDocument;
+    
     /**
      * Build a DOM item.
      *
@@ -41,27 +39,40 @@ class DOMFactory implements DOMFactoryInterface
      * @param string $value
      *
      * @return DOMItem
-     *
      */
     public function buildElement($name = '', $value = '')
     {
-        return new DOMItem($this->Document, $name, $value);
+        return new DOMItem($this->getDOMDocument(), $name, $value);
     }
 
     /**
      * @return DOMPrototype
      */
-    public function getDocument()
+    public function getDOMDocument()
     {
-        return $this->Document;
+        return $this->DOMDocument;
     }
 
     /**
-     * @param DOMPrototype $Prototype
+     * @param DOMPrototype $DOMDocument
+     *
+     * @return $this
      */
-    public function setDocument($Prototype)
+    public function setDOMDocument(DOMPrototype $DOMDocument)
     {
-        $this->Document = $Prototype;
+        $this->DOMDocument = $DOMDocument;
+
+        return $this;
+    }
+
+    /**
+     * Get the DOMHandler for editing the elements.
+     *
+     * @return DOMHandlerInterface
+     */
+    public function getDOMHandler()
+    {
+        return $this->getDOMDocument()->getDOMHandler();
     }
 }
 

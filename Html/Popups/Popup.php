@@ -11,16 +11,17 @@
 
 declare(strict_types = 1);
 
-namespace Panda\Ui\Popups;
+namespace Panda\Ui\Html\Popups;
 
 use Panda\Ui\Contracts\DOMBuilder;
-use Panda\Ui\DOMPrototype;
+use Panda\Ui\Html\HTMLDocument;
 use Panda\Ui\Html\HTMLElement;
 
 /**
  * Class Popup
  *
- * @package Panda\Ui\Popups
+ * @package Panda\Ui\Html\Popups
+ *
  * @version 0.1
  */
 class Popup extends HTMLElement implements DOMBuilder
@@ -111,29 +112,33 @@ class Popup extends HTMLElement implements DOMBuilder
     /**
      * Popup constructor.
      *
-     * @param DOMPrototype $HTMLDocument
-     * @param string       $id
+     * @param HTMLDocument $HTMLDocument
      */
-    public function __construct($HTMLDocument, $id = '')
+    public function __construct(HTMLDocument $HTMLDocument)
     {
-        parent::__construct($HTMLDocument, $name = 'div', $value = '', $id, 'uiPopup');
+        // Create object
+        parent::__construct($HTMLDocument, $name = 'div', $value = '', $id = '', $class = 'uiPopup');
     }
 
     /**
      * Builds the popup according to settings given.
      * The settings must be defined before the build function.
      *
+     * @param string      $id
      * @param HTMLElement $content The content of the popup.
      *
      * @return $this
      */
-    public function build($content = null)
+    public function build($id = '', $content = null)
     {
+        // Set element attributes
+        $this->attr('id', $id);
+
         // Create the instructions holder
-        $info = $this->getHTMLDocument()->create('div', '', '', 'info init');
+        $info = $this->getHTMLDocument()->getHTMLFactory()->buildElement('div', '', '', 'info init');
         $this->append($info);
 
-        //_____ Popup Attributes
+        // Set attributes
         $settings = [];
         $settings['binding'] = $this->binding;
         $settings['type'] = $this->type;
@@ -152,7 +157,7 @@ class Popup extends HTMLElement implements DOMBuilder
         $info->data('popup-extra', $extra);
 
         // Create the popup content holder
-        $innerContent = $this->getHTMLDocument()->create('div', $content, '', 'popupContent');
+        $innerContent = $this->getHTMLDocument()->getHTMLFactory()->buildElement('div', $content, '', 'popupContent');
         $this->append($innerContent);
 
         return $this;
@@ -161,8 +166,7 @@ class Popup extends HTMLElement implements DOMBuilder
     /**
      * Gets or defines the binding property.
      *
-     * @param string $binding The binding value.
-     *                        Can be either 'on' or 'one', like jQuery listeners.
+     * @param string $binding The binding value. Can be either 'on' or 'one', like jQuery listeners.
      *                        'On' listens all the time.
      *                        'One' listens only the first time.
      *
@@ -296,7 +300,6 @@ class Popup extends HTMLElement implements DOMBuilder
      *                          places on the screen. Finally, if only the position is set as an array, this is used to
      *                          position the popup in relation with the window ['fixed'] or the parent ['absolute'].
      *                          That array can have the following keys: [top | bottom | left | right | position]
-     *
      * @param string $alignment Alignment can be:
      *                          [top | bottom | left | right | center (wherever this makes sense)].
      *

@@ -11,7 +11,7 @@
 
 declare(strict_types = 1);
 
-namespace Panda\Ui\Templates\Forms;
+namespace Panda\Ui\Html\Templates\Forms;
 
 use Panda\Ui\Contracts\DOMBuilder;
 use Panda\Ui\Html\HTMLElement;
@@ -22,7 +22,8 @@ use Panda\Ui\Html\HTMLElement;
  * Builds an html form with a specific layout, if the user wants to.
  * It has access to the FormFactory (it extends it) and can build every form control.
  *
- * @package Panda\Ui\Templates\Forms
+ * @package Panda\Ui\Html\Templates\Forms
+ *
  * @version 0.1
  */
 class SimpleForm extends Form implements DOMBuilder
@@ -37,19 +38,27 @@ class SimpleForm extends Form implements DOMBuilder
     /**
      * Builds the form.
      *
-     * @param bool $defaultButtons Options whether the form will have the default control buttons (execute and reset
-     *                             buttons). It is TRUE by default.
-     * @param bool $requiredNotes  Whether the form has required visual input fields.
+     * @param string $id             The form id.
+     * @param string $action         The form action url string.
+     * @param bool   $async          Sets the async attribute for simple forms.
+     * @param bool   $fileUpload     This marks the form ready for file upload. It adds the enctype attribute where no
+     *                               characters are encoded. This value is required when you are using forms that have a
+     *                               file upload control.
+     * @param bool   $defaultButtons Options whether the form will have the default control buttons (execute and reset
+     *                               buttons). It is TRUE by default.
+     * @param bool   $requiredNotes  Whether the form has required visual input fields.
      *
      * @return $this
      */
-    public function build($defaultButtons = true, $requiredNotes = false)
+    public function build($id = '', $action = '', $async = true, $fileUpload = false, $defaultButtons = true, $requiredNotes = false)
     {
+        // Build form template
+        parent::build($id, $action, $async, $fileUpload);
+
         // Add extra template attributes
         $this->addClass('form-simple');
 
-        // Build form template
-        parent::build();
+        // Build simple form
         if ($requiredNotes) {
             $this->buildRequiredNotes();
         }
@@ -68,15 +77,15 @@ class SimpleForm extends Form implements DOMBuilder
     private function buildRequiredNotes()
     {
         // Build the required notes container
-        $requireNotesContainer = $this->getHTMLDocument()->create('div', '', '', 'form-simple-required-notes');
+        $requireNotesContainer = $this->getHTMLDocument()->getHTMLFactory()->buildElement('div', '', '', 'form-simple-required-notes');
 
         // Create note
-        $note = $this->getHTMLDocument()->create('p', '', '', 'rqNote');
+        $note = $this->getHTMLDocument()->getHTMLFactory()->buildElement('p', '', '', 'rqNote');
         $requireNotesContainer->append($note);
 
         $star = $this->requiredStar();
         $note->append($star);
-        $title = $this->getHTMLDocument()->create('span', 'All fields marked with asterisk are required.');
+        $title = $this->getHTMLDocument()->getHTMLFactory()->buildElement('span', 'All fields marked with asterisk are required.');
         $note->append($title);
 
         // Append before controls
@@ -94,7 +103,7 @@ class SimpleForm extends Form implements DOMBuilder
     private function buildControls($defaultButtons)
     {
         // Create form controls
-        $this->formControls = $this->getHTMLDocument()->create('div', '', '', 'form-controls');
+        $this->formControls = $this->getHTMLDocument()->getHTMLFactory()->buildElement('div', '', '', 'form-controls');
         $this->append($this->formControls);
 
         // Insert Default buttons for save and reset
@@ -166,7 +175,7 @@ class SimpleForm extends Form implements DOMBuilder
             $label->append($this->requiredStar());
         }
 
-        $colonSpan = $this->getHTMLDocument()->create('span', ':');
+        $colonSpan = $this->getHTMLDocument()->getHTMLFactory()->buildElement('span', ':');
         $label->append($colonSpan);
 
         return $label;
@@ -209,7 +218,7 @@ class SimpleForm extends Form implements DOMBuilder
      */
     public function formRow()
     {
-        return $this->getHTMLDocument()->create('div', '', '', 'form-simple-row');
+        return $this->getHTMLDocument()->getHTMLFactory()->buildElement('div', '', '', 'form-simple-row');
     }
 
     /**
@@ -234,7 +243,7 @@ class SimpleForm extends Form implements DOMBuilder
      */
     private function formNotes($notes)
     {
-        return $this->getHTMLDocument()->create('div', $notes, '', 'form-simple-notes');
+        return $this->getHTMLDocument()->getHTMLFactory()->buildElement('div', $notes, '', 'form-simple-notes');
     }
 
     /**
@@ -244,7 +253,7 @@ class SimpleForm extends Form implements DOMBuilder
      */
     private function requiredStar()
     {
-        return $this->getHTMLDocument()->create('span', '*', '', 'required');
+        return $this->getHTMLDocument()->getHTMLFactory()->buildElement('span', '*', '', 'required');
     }
 }
 

@@ -15,11 +15,12 @@ namespace Panda\Ui;
 
 use DOMDocument;
 use DOMElement;
+use DOMNode;
 use DOMNodeList;
 use DOMXPath;
 use InvalidArgumentException;
 use Panda\Ui\Contracts\Factories\DOMFactoryInterface;
-use Panda\Ui\Factories\DOMFactory;
+use Panda\Ui\Contracts\Handlers\DOMHandlerInterface;
 
 /**
  * Abstract Document Object Model Prototype Class
@@ -28,10 +29,17 @@ use Panda\Ui\Factories\DOMFactory;
  * do with DOM structure and XML manipulation (XML files,
  * HTML files etc.).
  *
- * @version    0.1
+ * @package Panda\Ui
+ *
+ * @version 0.1
  */
-abstract class DOMPrototype extends DOMDocument
+class DOMPrototype extends DOMDocument
 {
+    /**
+     * @var DOMHandlerInterface
+     */
+    protected $DOMHandler;
+
     /**
      * @var DOMFactoryInterface
      */
@@ -40,18 +48,22 @@ abstract class DOMPrototype extends DOMDocument
     /**
      * Create a new DOM Document.
      *
+     * @param DOMHandlerInterface $DOMHandler
      * @param DOMFactoryInterface $DOMFactory
      * @param string              $version
      * @param string              $encoding
      */
-    public function __construct($DOMFactory, $version = '1.0', $encoding = 'UTF_8')
+    public function __construct(DOMHandlerInterface $DOMHandler, DOMFactoryInterface $DOMFactory, $version = '1.0', $encoding = 'UTF_8')
     {
         // Construct DOMDocument
         parent::__construct($version, $encoding);
 
+        // Set DOMHandler
+        $this->DOMHandler = $DOMHandler;
+
         // Set DOMFactory
-        $this->DOMFactory = $DOMFactory ?: new DOMFactory();
-        $this->DOMFactory->setDocument($this);
+        $DOMFactory->setDOMDocument($this);
+        $this->setDOMFactory($DOMFactory);
     }
 
     /**
@@ -65,7 +77,7 @@ abstract class DOMPrototype extends DOMDocument
     public function create($name = 'div', $value = '')
     {
         // Create a new DOMItem
-        return new DOMItem($this, $name, $value);
+        return $this->getDOMFactory()->buildElement($name, $value);
     }
 
     /**
@@ -81,8 +93,6 @@ abstract class DOMPrototype extends DOMDocument
         if (empty($element)) {
             throw new InvalidArgumentException('You are trying to append an empty element.');
         }
-        // Import element to the document
-        $element = $this->importNode($element->getDOMElement(), true);
 
         // Append element
         $this->appendChild($element);
@@ -102,6 +112,7 @@ abstract class DOMPrototype extends DOMDocument
      * @return DOMNodeList Returns a typed result if possible or a DOMNodeList containing all nodes matching the given
      *                     XPath expression. If the expression is malformed or the contextnode is invalid,
      *                     DOMXPath::evaluate() returns False.
+     *
      * @throws InvalidArgumentException
      */
     public function evaluate($query, $context = null)
@@ -121,19 +132,19 @@ abstract class DOMPrototype extends DOMDocument
      * @param string $id       The id of the element
      * @param string $nodeName The node name of the element. If not set, it searches for all nodes (*).
      *
-     * @return mixed Returns the DOMElement or NULL if it doesn't exist.
+     * @return DOMNode|DOMNodeList Returns the DOMElement or NULL if it doesn't exist.
      */
     public function find($id, $nodeName = '*')
     {
         $nodeName = (empty($nodeName) ? '*' : $nodeName);
         $q = '//' . $nodeName . "[@id='$id']";
-        $list = self::evaluate($q);
+        $list = $this->evaluate($q);
 
         if ($list->length > 0) {
             return $list->item(0);
         }
 
-        return null;
+        return $list;
     }
 
     /**
@@ -165,6 +176,14 @@ abstract class DOMPrototype extends DOMDocument
     }
 
     /**
+     * @return DOMHandlerInterface
+     */
+    public function getDOMHandler()
+    {
+        return $this->DOMHandler;
+    }
+
+    /**
      * @return DOMFactoryInterface
      */
     public function getDOMFactory()
@@ -174,19 +193,14 @@ abstract class DOMPrototype extends DOMDocument
 
     /**
      * @param DOMFactoryInterface $DOMFactory
+     *
+     * @return $this
      */
     public function setDOMFactory($DOMFactory)
     {
         $this->DOMFactory = $DOMFactory;
-    }
+        $DOMFactory->setDOMDocument($this);
 
-    /**
-     * Get the DOMDocument.
-     *
-     * @return DOMDocument
-     */
-    public function getDOMDocument()
-    {
         return $this;
     }
 }

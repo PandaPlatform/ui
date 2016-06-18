@@ -13,13 +13,16 @@ declare(strict_types = 1);
 
 namespace Panda\Ui\Contracts\Factories;
 
-use Panda\Ui\DOMItem;
+use Panda\Ui\Contracts\Handlers\HTMLHandlerInterface;
+use Panda\Ui\Html\HTMLDocument;
 use Panda\Ui\Html\HTMLElement;
 
 /**
  * Interface HTMLFactoryInterface
  *
  * @package Panda\Ui\Contracts
+ *
+ * @version 0.1
  */
 interface HTMLFactoryInterface extends DOMFactoryInterface
 {
@@ -31,7 +34,7 @@ interface HTMLFactoryInterface extends DOMFactoryInterface
      * @param string $id
      * @param string $class
      *
-     * @return DOMItem
+     * @return HTMLElement
      */
     public function buildElement($name = '', $value = '', $id = '', $class = '');
 
@@ -44,7 +47,7 @@ interface HTMLFactoryInterface extends DOMFactoryInterface
      * @param string $id
      * @param string $class
      *
-     * @return mixed
+     * @return HTMLElement
      */
     public function buildWeblink($href = '', $target = '_self', $content = '', $id = '', $class = '');
 
@@ -76,8 +79,31 @@ interface HTMLFactoryInterface extends DOMFactoryInterface
      * @param string $src
      * @param bool   $async
      *
-     * @return mixed
+     * @return HTMLElement
      */
     public function buildScript($src, $async = false);
+
+    /**
+     * Get the HTMLDocument for creating html objects.
+     *
+     * @return HTMLDocument
+     */
+    public function getHTMLDocument();
+
+    /**
+     * Set the HTMLDocument for creating html objects.
+     *
+     * @param HTMLDocument $HTMLDocument
+     *
+     * @return mixed
+     */
+    public function setHTMLDocument(HTMLDocument $HTMLDocument);
+
+    /**
+     * Get the HTMLHandler for editing the elements.
+     *
+     * @return HTMLHandlerInterface
+     */
+    public function getHTMLHandler();
 }
 

@@ -11,44 +11,55 @@
 
 declare(strict_types = 1);
 
-namespace Panda\Ui\Views;
+namespace Panda\Ui\Html\Views;
 
-use Exception;
 use InvalidArgumentException;
-use Panda\Ui\DOMPrototype;
+use Panda\Ui\Contracts\DOMBuilder;
+use Panda\Ui\Html\HTMLDocument;
 use Panda\Ui\Html\HTMLElement;
 
 /**
  * Class ViewElement
  * Creates an HTMLElement loading an external html view.
  *
- * @package Panda\Ui\Views
+ * @package Panda\Ui\Html\Views
+ *
  * @version 0.1
  */
-class ViewElement extends HTMLElement
+class ViewElement extends HTMLElement implements DOMBuilder
 {
     /**
-     * Create a new HTMLObject.
+     * Create a new View Element.
      *
-     * @param DOMPrototype $HTMLDocument The DOMDocument to create the element
-     * @param string       $view         The external html view file.
-     * @param string       $name         The elemenet name.
-     * @param string       $value        The element value.
-     *                                   It can be text or another HTMLElement.
-     * @param string       $id           The element id attribute value.
-     * @param string       $class        The element class attribute value.
-     *
-     * @throws Exception
+     * @param HTMLDocument $HTMLDocument
      */
-    public function __construct($HTMLDocument, $view = '', $name = 'div', $value = '', $id = '', $class = '')
+    public function __construct(HTMLDocument $HTMLDocument)
     {
         // Create DOMItem
-        parent::__construct($HTMLDocument, $name, $value, $id, $class);
+        parent::__construct($HTMLDocument, $name = 'div', $value = '', $id = '', $class = '');
+    }
 
+    /**
+     * Build the element.
+     *
+     * @param string $view
+     * @param string $id
+     * @param string $class
+     *
+     * @return $this
+     */
+    public function build($view = '', $id = '', $class = '')
+    {
         // Load external view file
         if (!empty($view)) {
             $this->loadView($view);
         }
+
+        // Set attributes
+        $this->attr('id', $id);
+        $this->addClass($class);
+
+        return $this;
     }
 
     /**
