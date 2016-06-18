@@ -25,10 +25,9 @@
             "Panda\\Ui\\": ""
         }
     },
-    "version": "0.2-dev",
     "extra": {
         "branch-alias": {
-            "dev-master": "0.2-dev"
+            "dev-master": "1.0.x-dev"
         }
     }
 }
