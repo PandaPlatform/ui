@@ -13,6 +13,7 @@ declare(strict_types = 1);
 
 namespace Panda\Ui\Html;
 
+use DOMNodeList;
 use Exception;
 use Panda\Ui\Contracts\Handlers\HTMLHandlerInterface;
 use Panda\Ui\DOMItem;
@@ -30,11 +31,11 @@ class HTMLElement extends DOMItem
     /**
      * Create a new HTMLObject.
      *
-     * @param HTMLDocument         $HTMLDocument
-     * @param string               $name  The elemenet name.
-     * @param string|HTMLElement   $value The element value.
-     * @param string               $id    The element id attribute value.
-     * @param string               $class The element class attribute value.
+     * @param HTMLDocument       $HTMLDocument
+     * @param string             $name  The elemenet name.
+     * @param string|HTMLElement $value The element value.
+     * @param string             $id    The element id attribute value.
+     * @param string             $class The element class attribute value.
      *
      */
     public function __construct(HTMLDocument $HTMLDocument, $name, $value = '', $id = '', $class = '')
@@ -131,6 +132,23 @@ class HTMLElement extends DOMItem
     public function outerHTML()
     {
         return $this->getHTMLHandler()->outerHTML($this);
+    }
+
+    /**
+     * Selects nodes in the owner html document that match a given css selector.
+     *
+     * @param string $selector The css selector to search for in the html document.
+     *                         It does not support pseudo-* for the moment and only supports simple equality
+     *                         attribute-wise. Can hold multiple selectors separated with comma.
+     * @param mixed  $context  Can either be a DOMElement as the context of the search, or a css selector.
+     *                         If the selector results in multiple DOMNodes, then the first is selected as the context.
+     *                         It is NULL by default.
+     *
+     * @return DOMNodeList|false Returns the node list that matches the given css selector, or FALSE on malformed input.
+     */
+    public function select($selector, $context = null)
+    {
+        return $this->getHTMLDocument()->select($selector, $context);
     }
 
     /**

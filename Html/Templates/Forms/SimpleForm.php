@@ -170,13 +170,15 @@ class SimpleForm extends Form implements DOMBuilder
         // Create label
         $label = $this->formLabel($title, $for);
 
-        // Set Required indicator
-        if ($required) {
-            $label->append($this->requiredStar());
-        }
+        if (!empty($title)) {
+            // Set Required indicator
+            if ($required) {
+                $label->append($this->requiredStar());
+            }
 
-        $colonSpan = $this->getHTMLDocument()->getHTMLFactory()->buildElement('span', ':');
-        $label->append($colonSpan);
+            $colonSpan = $this->getHTMLDocument()->getHTMLFactory()->buildElement('span', ':');
+            $label->append($colonSpan);
+        }
 
         return $label;
     }
