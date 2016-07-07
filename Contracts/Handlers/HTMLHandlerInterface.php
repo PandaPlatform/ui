@@ -13,9 +13,12 @@ declare(strict_types = 1);
 
 namespace Panda\Ui\Contracts\Handlers;
 
+use DOMDocument;
 use DOMElement;
 use DOMNode;
+use DOMNodeList;
 use Exception;
+use InvalidArgumentException;
 
 /**
  * Interface HTMLHandlerInterface
@@ -100,4 +103,22 @@ interface HTMLHandlerInterface extends DOMHandlerInterface
      * @return string
      */
     public function outerHTML(DOMElement $element);
+
+    /**
+     * Selects nodes in the html document that match a given css selector.
+     *
+     * @param DOMDocument $document The DOMDocument to select to.
+     * @param string      $selector The css selector to search for in the html document.
+     *                              It does not support pseudo-* for the moment and only supports simple equality
+     *                              attribute-wise. Can hold multiple selectors separated with comma.
+     * @param mixed       $context  Can either be a DOMElement as the context of the search, or a css selector.
+     *                              If the selector results in multiple DOMNodes, then the first is selected as the
+     *                              context. It is NULL by default.
+     *
+     * @return DOMNodeList|false Returns the node list that matches the given css selector, or FALSE on malformed
+     *                           input.
+     *
+     * @throws InvalidArgumentException
+     */
+    public function select(DOMDocument $document, $selector, $context = null);
 }

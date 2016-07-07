@@ -14,9 +14,12 @@ declare(strict_types = 1);
 namespace Panda\Ui\Handlers;
 
 use DOMAttr;
+use DOMDocument;
 use DOMElement;
 use DOMException;
 use DOMNode;
+use DOMNodeList;
+use DOMXPath;
 use Exception;
 use InvalidArgumentException;
 use Panda\Ui\Contracts\Handlers\DOMHandlerInterface;
@@ -278,5 +281,30 @@ class DOMHandler implements DOMHandlerInterface
         $old->parentNode->replaceChild($new, $old);
 
         return $new;
+    }
+
+    /**
+     * Evaluate an XPath Query on the document
+     *
+     * @param DOMDocument $document The DOMDocument to handle.
+     * @param string      $query    The XPath query to be evaluated
+     * @param DOMElement  $context  The optional contextnode can be specified for doing relative XPath queries.
+     *                              By default, the queries are relative to the root element.
+     *
+     * @return DOMNodeList Returns a typed result if possible or a DOMNodeList containing all nodes matching the given
+     *                     XPath expression. If the expression is malformed or the contextnode is invalid,
+     *                     DOMXPath::evaluate() returns False.
+     *
+     * @throws InvalidArgumentException
+     */
+    public function evaluate(DOMDocument $document, $query, $context = null)
+    {
+        $xpath = new DOMXPath($document);
+        $result = $xpath->evaluate($query, $context);
+        if ($result === false) {
+            throw new InvalidArgumentException('The expression is malformed or the contextnode is invalid.');
+        }
+
+        return $result;
     }
 }

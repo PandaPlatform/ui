@@ -117,13 +117,7 @@ class DOMPrototype extends DOMDocument
      */
     public function evaluate($query, $context = null)
     {
-        $xpath = new DOMXPath($this);
-        $result = $xpath->evaluate($query, $context);
-        if ($result === false) {
-            throw new InvalidArgumentException('The expression is malformed or the contextnode is invalid.');
-        }
-
-        return $result;
+        return $this->getDOMHandler()->evaluate($this, $query, $context);
     }
 
     /**
