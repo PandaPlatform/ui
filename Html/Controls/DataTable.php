@@ -225,7 +225,7 @@ class DataTable extends HTMLElement implements DOMBuilder
      * @param string $class    Extra classes for styling specific rows (used for header)
      * @param bool   $header   Whether this row is the header of the list.
      *
-     * @return HTMLElement The row inserted.
+     * @return HTMLElement
      * @throws LogicException
      */
     private function appendSimpleRow($contents, $class = '', $header = false)
