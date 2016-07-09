@@ -27,7 +27,7 @@ use Panda\Ui\Html\HTMLDocument;
 class FormSelect extends FormElement
 {
     /**
-     * @type HTMLFormFactoryInterface
+     * @var HTMLFormFactoryInterface
      */
     protected $HTMLFormFactory;
 

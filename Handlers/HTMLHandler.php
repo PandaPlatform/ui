@@ -15,7 +15,6 @@ namespace Panda\Ui\Handlers;
 
 use DOMDocument;
 use DOMElement;
-use DOMNode;
 use DOMNodeList;
 use Exception;
 use InvalidArgumentException;

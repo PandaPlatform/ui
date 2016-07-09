@@ -15,7 +15,6 @@ namespace Panda\Ui\Html\Frames;
 
 use Panda\Ui\Contracts\DOMBuilder;
 use Panda\Ui\DOMItem;
-use Panda\Ui\Html\HTMLDocument;
 use Panda\Ui\Html\HTMLElement;
 use Panda\Ui\Html\Popups\Popup;
 

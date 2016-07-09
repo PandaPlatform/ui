@@ -31,11 +31,11 @@ class HTMLElement extends DOMItem
     /**
      * Create a new HTMLObject.
      *
-     * @param HTMLDocument       $HTMLDocument
-     * @param string             $name  The elemenet name.
-     * @param string|HTMLElement $value The element value.
-     * @param string             $id    The element id attribute value.
-     * @param string             $class The element class attribute value.
+     * @param HTMLDocument       $HTMLDocument The owner HTMLDocument.
+     * @param string             $name         The elemenet name.
+     * @param string|HTMLElement $value        The element value.
+     * @param string             $id           The element id attribute value.
+     * @param string             $class        The element class attribute value.
      *
      */
     public function __construct(HTMLDocument $HTMLDocument, $name, $value = '', $id = '', $class = '')

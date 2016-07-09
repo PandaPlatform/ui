@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the Panda framework Ui component.
+ *
+ * (c) Ioannis Papikas <papikas.ioan@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types = 1);
 
 namespace Panda\Ui\Helpers;
@@ -16,9 +25,9 @@ use Panda\Ui\Html\HTMLElement;
  */
 class NavigationUiHelper
 {
-    const DISPLAY_NONE = "none";
-    const DISPLAY_ALL = "all";
-    const DISPLAY_TOGGLE = "toggle";
+    const DISPLAY_NONE = 'none';
+    const DISPLAY_ALL = 'all';
+    const DISPLAY_TOGGLE = 'toggle';
 
     /**
      * Adds static navigation handler
@@ -33,20 +42,20 @@ class NavigationUiHelper
      *                                                will be selected
      * @param string               $display           Defines the type of action for the rest items of the group.
      *                                                Accepted values:
-     *                                                - "none" : hides all other items
-     *                                                - "all" : shows all other items
-     *                                                - "toggle" : toggles the appearance of the handler item
+     *                                                - 'none' : hides all other items
+     *                                                - 'all' : shows all other items
+     *                                                - 'toggle' : toggles the appearance of the handler item
      */
     public static function staticNav(HTMLHandlerInterface $HTMLHandler, HTMLElement $HTMLElement, $ref, $targetContainerId, $targetGroupId, $navGroup, $display = self::DISPLAY_NONE)
     {
-        $staticNav = array();
+        $staticNav = [];
         $staticNav['ref'] = $ref;
         $staticNav['targetcontainerid'] = $targetContainerId;
         $staticNav['targetgroupid'] = $targetGroupId;
         $staticNav['navgroup'] = $navGroup;
         $staticNav['display'] = $display;
 
-        $HTMLHandler->data($HTMLElement, "static-nav", $staticNav);
+        $HTMLHandler->data($HTMLElement, 'static-nav', $staticNav);
     }
 
     /**
@@ -58,6 +67,6 @@ class NavigationUiHelper
      */
     public static function setTargetGroupId(HTMLHandlerInterface $HTMLHandler, HTMLElement $HTMLElement, $targetGroupId)
     {
-        $HTMLHandler->data($HTMLElement, "data-targetgroupid", $targetGroupId);
+        $HTMLHandler->data($HTMLElement, 'data-targetgroupid', $targetGroupId);
     }
 }

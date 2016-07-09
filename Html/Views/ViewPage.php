@@ -13,7 +13,6 @@ declare(strict_types = 1);
 
 namespace Panda\Ui\Html\Views;
 
-use Panda\Ui\Contracts\DOMBuilder;
 use Panda\Ui\Html\HTMLPage;
 
 /**

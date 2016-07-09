@@ -99,7 +99,6 @@ class DOMItem extends DOMElement
         return $this->getDOMHandler()->attrs($this, $value);
     }
 
-
     /**
      * Append a value into an attribute with a space between.
      *
