@@ -62,4 +62,3 @@ class FormButton extends FormElement
         $this->attr('type', $type);
     }
 }
-

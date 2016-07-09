@@ -44,4 +44,3 @@ class FormLabel extends FormElement
         $this->attr('for', $for);
     }
 }
-

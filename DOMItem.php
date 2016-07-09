@@ -212,4 +212,3 @@ class DOMItem extends DOMElement
         return $this->getDOMDocument()->getDOMHandler();
     }
 }
-

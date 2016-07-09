@@ -198,4 +198,3 @@ class DOMPrototype extends DOMDocument
         return $this;
     }
 }
-

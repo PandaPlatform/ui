@@ -95,4 +95,3 @@ class Form extends HTMLElement implements DOMBuilder
         $this->HTMLFormFactory = $HTMLFormFactory;
     }
 }
-

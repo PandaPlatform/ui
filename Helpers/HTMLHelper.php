@@ -46,4 +46,3 @@ class HTMLHelper
         return in_array($tag, static::$validHTMLTags);
     }
 }
-

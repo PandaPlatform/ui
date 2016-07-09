@@ -106,4 +106,3 @@ interface HTMLFactoryInterface extends DOMFactoryInterface
      */
     public function getHTMLHandler();
 }
-

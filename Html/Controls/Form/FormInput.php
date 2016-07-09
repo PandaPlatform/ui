@@ -93,4 +93,3 @@ class FormInput extends FormElement
         $this->attr('required', $required);
     }
 }
-

@@ -132,4 +132,3 @@ class HTMLDocument extends DOMPrototype
         return $this->setDOMFactory($HTMLFactory);
     }
 }
-

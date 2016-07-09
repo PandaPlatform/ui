@@ -59,4 +59,3 @@ interface DOMFactoryInterface
      */
     public function getDOMHandler();
 }
-

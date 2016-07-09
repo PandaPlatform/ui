@@ -75,4 +75,3 @@ class DOMFactory implements DOMFactoryInterface
         return $this->getDOMDocument()->getDOMHandler();
     }
 }
-

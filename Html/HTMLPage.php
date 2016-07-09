@@ -349,4 +349,3 @@ class HTMLPage extends HTMLDocument implements DOMBuilder
         return $this->body;
     }
 }
-

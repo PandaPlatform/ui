@@ -289,4 +289,3 @@ class FormFactory extends HTMLFactory implements HTMLFormFactoryInterface
         return $element;
     }
 }
-

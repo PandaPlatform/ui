@@ -167,4 +167,3 @@ class HTMLElement extends DOMItem
         return $this->getDOMHandler();
     }
 }
-

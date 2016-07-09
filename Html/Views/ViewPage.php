@@ -59,4 +59,3 @@ class ViewPage extends HTMLPage
         return $this->view;
     }
 }
-

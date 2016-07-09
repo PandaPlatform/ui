@@ -258,4 +258,3 @@ class SimpleForm extends Form implements DOMBuilder
         return $this->getHTMLDocument()->getHTMLFactory()->buildElement('span', '*', '', 'required');
     }
 }
-

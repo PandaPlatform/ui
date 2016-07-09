@@ -147,4 +147,3 @@ class Form extends FormControl implements DOMBuilder
         return $this;
     }
 }
-

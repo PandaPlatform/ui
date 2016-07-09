@@ -78,4 +78,3 @@ class FormElement extends HTMLElement
         return $valid === 1;
     }
 }
-

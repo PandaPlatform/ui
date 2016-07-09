@@ -336,4 +336,3 @@ class DataTable extends HTMLElement implements DOMBuilder
         return $this->formFactory;
     }
 }
-

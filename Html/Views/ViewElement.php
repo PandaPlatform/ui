@@ -104,4 +104,3 @@ class ViewElement extends HTMLElement implements DOMBuilder
         return $this->outerHTML();
     }
 }
-

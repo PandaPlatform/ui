@@ -29,4 +29,3 @@ interface DOMBuilder
      */
     public function build();
 }
-

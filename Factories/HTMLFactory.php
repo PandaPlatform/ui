@@ -166,4 +166,3 @@ class HTMLFactory extends DOMFactory implements HTMLFactoryInterface
         return $this->getHTMLDocument()->getHTMLHandler();
     }
 }
-
