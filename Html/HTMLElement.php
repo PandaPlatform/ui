@@ -73,7 +73,6 @@ class HTMLElement extends DOMItem
         return $this->getHTMLHandler()->removeClass($this, $class);
     }
 
-
     /**
      * Check if the given DOMElement has a given class.
      *
