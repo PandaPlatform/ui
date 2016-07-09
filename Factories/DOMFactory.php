@@ -9,8 +9,6 @@
  * file that was distributed with this source code.
  */
 
-declare(strict_types = 1);
-
 namespace Panda\Ui\Factories;
 
 use Panda\Ui\Contracts\Factories\DOMFactoryInterface;
@@ -75,4 +73,3 @@ class DOMFactory implements DOMFactoryInterface
         return $this->getDOMDocument()->getDOMHandler();
     }
 }
-

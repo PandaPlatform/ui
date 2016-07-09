@@ -9,8 +9,6 @@
  * file that was distributed with this source code.
  */
 
-declare(strict_types = 1);
-
 namespace Panda\Ui\Contracts\Factories;
 
 use Panda\Ui\Contracts\Handlers\DOMHandlerInterface;
@@ -59,4 +57,3 @@ interface DOMFactoryInterface
      */
     public function getDOMHandler();
 }
-

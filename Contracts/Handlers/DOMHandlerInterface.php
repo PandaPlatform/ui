@@ -9,13 +9,13 @@
  * file that was distributed with this source code.
  */
 
-declare(strict_types = 1);
-
 namespace Panda\Ui\Contracts\Handlers;
 
+use DOMDocument;
 use DOMElement;
 use DOMException;
 use DOMNode;
+use DOMNodeList;
 use Exception;
 use InvalidArgumentException;
 
@@ -140,4 +140,20 @@ interface DOMHandlerInterface
      * @throws DOMException
      */
     public function replace(DOMElement &$old, &$new);
+
+    /**
+     * Evaluate an XPath Query on the document
+     *
+     * @param DOMDocument $document The DOMDocument to handle.
+     * @param string      $query    The XPath query to be evaluated
+     * @param DOMElement  $context  The optional contextnode can be specified for doing relative XPath queries.
+     *                              By default, the queries are relative to the root element.
+     *
+     * @return DOMNodeList Returns a typed result if possible or a DOMNodeList containing all nodes matching the given
+     *                     XPath expression. If the expression is malformed or the contextnode is invalid,
+     *                     DOMXPath::evaluate() returns False.
+     *
+     * @throws InvalidArgumentException
+     */
+    public function evaluate(DOMDocument $document, $query, $context = null);
 }

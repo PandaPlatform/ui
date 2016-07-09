@@ -9,8 +9,6 @@
  * file that was distributed with this source code.
  */
 
-declare(strict_types = 1);
-
 namespace Panda\Ui\Html\Templates\Forms;
 
 use Panda\Ui\Contracts\DOMBuilder;
@@ -147,4 +145,3 @@ class Form extends FormControl implements DOMBuilder
         return $this;
     }
 }
-

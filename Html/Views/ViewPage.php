@@ -9,11 +9,8 @@
  * file that was distributed with this source code.
  */
 
-declare(strict_types = 1);
-
 namespace Panda\Ui\Html\Views;
 
-use Panda\Ui\Contracts\DOMBuilder;
 use Panda\Ui\Html\HTMLPage;
 
 /**
@@ -59,4 +56,3 @@ class ViewPage extends HTMLPage
         return $this->view;
     }
 }
-

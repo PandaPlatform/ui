@@ -9,8 +9,6 @@
  * file that was distributed with this source code.
  */
 
-declare(strict_types = 1);
-
 namespace Panda\Ui\Html\Templates\Forms;
 
 use Panda\Ui\Contracts\DOMBuilder;
@@ -258,4 +256,3 @@ class SimpleForm extends Form implements DOMBuilder
         return $this->getHTMLDocument()->getHTMLFactory()->buildElement('span', '*', '', 'required');
     }
 }
-

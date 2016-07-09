@@ -9,8 +9,6 @@
  * file that was distributed with this source code.
  */
 
-declare(strict_types = 1);
-
 namespace Panda\Ui\Html;
 
 use InvalidArgumentException;
@@ -349,4 +347,3 @@ class HTMLPage extends HTMLDocument implements DOMBuilder
         return $this->body;
     }
 }
-

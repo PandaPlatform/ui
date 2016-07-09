@@ -9,8 +9,6 @@
  * file that was distributed with this source code.
  */
 
-declare(strict_types = 1);
-
 namespace Panda\Ui;
 
 use DOMDocument;
@@ -117,13 +115,7 @@ class DOMPrototype extends DOMDocument
      */
     public function evaluate($query, $context = null)
     {
-        $xpath = new DOMXPath($this);
-        $result = $xpath->evaluate($query, $context);
-        if ($result === false) {
-            throw new InvalidArgumentException('The expression is malformed or the contextnode is invalid.');
-        }
-
-        return $result;
+        return $this->getDOMHandler()->evaluate($this, $query, $context);
     }
 
     /**
@@ -204,4 +196,3 @@ class DOMPrototype extends DOMDocument
         return $this;
     }
 }
-

@@ -9,8 +9,6 @@
  * file that was distributed with this source code.
  */
 
-declare(strict_types = 1);
-
 namespace Panda\Ui\Html\Controls\Form;
 
 use Exception;
@@ -93,4 +91,3 @@ class FormInput extends FormElement
         $this->attr('required', $required);
     }
 }
-

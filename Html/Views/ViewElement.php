@@ -9,8 +9,6 @@
  * file that was distributed with this source code.
  */
 
-declare(strict_types = 1);
-
 namespace Panda\Ui\Html\Views;
 
 use InvalidArgumentException;
@@ -104,4 +102,3 @@ class ViewElement extends HTMLElement implements DOMBuilder
         return $this->outerHTML();
     }
 }
-

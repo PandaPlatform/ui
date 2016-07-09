@@ -9,8 +9,6 @@
  * file that was distributed with this source code.
  */
 
-declare(strict_types = 1);
-
 namespace Panda\Ui;
 
 use DOMElement;
@@ -98,7 +96,6 @@ class DOMItem extends DOMElement
     {
         return $this->getDOMHandler()->attrs($this, $value);
     }
-
 
     /**
      * Append a value into an attribute with a space between.
@@ -212,4 +209,3 @@ class DOMItem extends DOMElement
         return $this->getDOMDocument()->getDOMHandler();
     }
 }
-

@@ -9,8 +9,6 @@
  * file that was distributed with this source code.
  */
 
-declare(strict_types = 1);
-
 namespace Panda\Ui\Html;
 
 use DOMNodeList;
@@ -19,7 +17,6 @@ use Panda\Ui\Contracts\Factories\HTMLFactoryInterface;
 use Panda\Ui\Contracts\Handlers\HTMLHandlerInterface;
 use Panda\Ui\DOMPrototype;
 use Panda\Ui\Helpers\HTMLHelper;
-use Symfony\Component\CssSelector\CssSelectorConverter;
 
 /**
  * HTML Document Class
@@ -104,22 +101,7 @@ class HTMLDocument extends DOMPrototype
      */
     public function select($selector, $context = null)
     {
-        // Get xpath from css selector
-        $converter = new CssSelectorConverter();
-        $xpath = $converter->toXPath($selector);
-
-        // Get the context node if css context
-        if (!empty($context) && is_string($context)) {
-            $ctxList = self::select($context);
-            if (empty($ctxList) || empty($ctxList->length)) {
-                return false;
-            }
-
-            $context = $ctxList->item(0);
-        }
-
-        // Evaluate xpath and return the node list
-        return $this->evaluate($xpath, $context);
+        return $this->getHTMLHandler()->select($this, $selector, $context);
     }
 
     /**
@@ -148,4 +130,3 @@ class HTMLDocument extends DOMPrototype
         return $this->setDOMFactory($HTMLFactory);
     }
 }
-

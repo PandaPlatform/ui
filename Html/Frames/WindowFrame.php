@@ -9,13 +9,10 @@
  * file that was distributed with this source code.
  */
 
-declare(strict_types = 1);
-
 namespace Panda\Ui\Html\Frames;
 
 use Panda\Ui\Contracts\DOMBuilder;
 use Panda\Ui\DOMItem;
-use Panda\Ui\Html\HTMLDocument;
 use Panda\Ui\Html\HTMLElement;
 use Panda\Ui\Html\Popups\Popup;
 

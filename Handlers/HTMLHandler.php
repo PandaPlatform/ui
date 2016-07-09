@@ -9,14 +9,15 @@
  * file that was distributed with this source code.
  */
 
-declare(strict_types = 1);
-
 namespace Panda\Ui\Handlers;
 
 use DOMDocument;
 use DOMElement;
+use DOMNodeList;
 use Exception;
+use InvalidArgumentException;
 use Panda\Ui\Contracts\Handlers\HTMLHandlerInterface;
+use Symfony\Component\CssSelector\CssSelectorConverter;
 
 /**
  * Class HTMLHandler
@@ -262,5 +263,41 @@ class HTMLHandler extends DOMHandler implements HTMLHandlerInterface
     {
         // Get outer html
         return $element->ownerDocument->saveHTML($element);
+    }
+
+    /**
+     * Selects nodes in the html document that match a given css selector.
+     *
+     * @param DOMDocument $document The DOMDocument to select to.
+     * @param string      $selector The css selector to search for in the html document.
+     *                              It does not support pseudo-* for the moment and only supports simple equality
+     *                              attribute-wise. Can hold multiple selectors separated with comma.
+     * @param mixed       $context  Can either be a DOMElement as the context of the search, or a css selector.
+     *                              If the selector results in multiple DOMNodes, then the first is selected as the
+     *                              context.
+     *
+     * @return DOMNodeList|false Returns the node list that matches the given css selector, or FALSE on malformed
+     *                           input.
+     *
+     * @throws InvalidArgumentException
+     */
+    public function select(DOMDocument $document, $selector, $context = null)
+    {
+        // Get xpath from css selector
+        $converter = new CssSelectorConverter();
+        $xpath = $converter->toXPath($selector);
+
+        // Get the context node if css context
+        if (!empty($context) && is_string($context)) {
+            $ctxList = $this->select($document, $context);
+            if (empty($ctxList) || empty($ctxList->length)) {
+                return false;
+            }
+
+            $context = $ctxList->item(0);
+        }
+
+        // Evaluate xpath and return the node list
+        return $this->evaluate($document, $xpath, $context);
     }
 }

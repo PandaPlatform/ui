@@ -9,8 +9,6 @@
  * file that was distributed with this source code.
  */
 
-declare(strict_types = 1);
-
 namespace Panda\Ui\Contracts\Factories;
 
 use Panda\Ui\Html\Controls\Form;
@@ -167,4 +165,3 @@ interface HTMLFormFactoryInterface extends HTMLFactoryInterface
      */
     public function buildSelect($name = '', $multiple = false, $id = '', $class = '', $options = [], $selectedValue = '', $required = false);
 }
-

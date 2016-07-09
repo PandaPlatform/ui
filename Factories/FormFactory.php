@@ -9,8 +9,6 @@
  * file that was distributed with this source code.
  */
 
-declare(strict_types = 1);
-
 namespace Panda\Ui\Factories;
 
 use Exception;
@@ -289,4 +287,3 @@ class FormFactory extends HTMLFactory implements HTMLFormFactoryInterface
         return $element;
     }
 }
-

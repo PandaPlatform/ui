@@ -9,8 +9,6 @@
  * file that was distributed with this source code.
  */
 
-declare(strict_types = 1);
-
 namespace Panda\Ui\Html\Controls\Form;
 
 use Exception;
@@ -27,7 +25,7 @@ use Panda\Ui\Html\HTMLDocument;
 class FormSelect extends FormElement
 {
     /**
-     * @type HTMLFormFactoryInterface
+     * @var HTMLFormFactoryInterface
      */
     protected $HTMLFormFactory;
 
@@ -137,4 +135,3 @@ class FormSelect extends FormElement
         return $this->HTMLFormFactory;
     }
 }
-

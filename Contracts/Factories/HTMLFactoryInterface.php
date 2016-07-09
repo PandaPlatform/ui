@@ -9,8 +9,6 @@
  * file that was distributed with this source code.
  */
 
-declare(strict_types = 1);
-
 namespace Panda\Ui\Contracts\Factories;
 
 use Panda\Ui\Contracts\Handlers\HTMLHandlerInterface;
@@ -106,4 +104,3 @@ interface HTMLFactoryInterface extends DOMFactoryInterface
      */
     public function getHTMLHandler();
 }
-
