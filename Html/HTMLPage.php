@@ -79,15 +79,17 @@ class HTMLPage extends HTMLDocument implements DOMBuilder
     /**
      * Returns the entire HTML page in HTML5 format.
      *
+     * @param bool $format
+     *
      * @return string The html output.
      */
-    public function getHTML()
+    public function getHTML($format = false)
     {
         // Insert Bottom Scripts (if any)
         $this->flushBottomScripts();
 
         // Return text/html
-        return "<!DOCTYPE html>\n" . parent::getHTML();
+        return "<!DOCTYPE html>\n" . parent::getHTML($format);
     }
 
     /**

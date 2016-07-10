@@ -1,6 +1,8 @@
 # Panda Ui Component
 This is the Panda Ui Component.
 
+[![StyleCI](https://styleci.io/repos/55763384/shield)](https://styleci.io/repos/55763384)
+
 This component is able to create html pages using the DOM structure fast and easy. Some of the features include:
 - Template pages
 - Form factories and builders
