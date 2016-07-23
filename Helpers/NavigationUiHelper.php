@@ -11,7 +11,7 @@
 
 namespace Panda\Ui\Helpers;
 
-use DOMElement;
+use DOMNode;
 use Panda\Ui\Contracts\Handlers\HTMLHandlerInterface;
 
 /**
@@ -31,7 +31,7 @@ class NavigationUiHelper
      * Adds static navigation handler
      *
      * @param HTMLHandlerInterface $HTMLHandler       The HTMLHandler to set attributes.
-     * @param DOMElement           $HTMLElement       The element to receive the navigation handler
+     * @param DOMNode              $HTMLElement       The element to receive the navigation handler
      * @param string               $ref               The target's id to perform the action
      * @param string               $targetContainerId The container's id of the group in which the target resides
      * @param string               $targetGroupId     The group of the items to handle together when performing the
@@ -44,7 +44,7 @@ class NavigationUiHelper
      *                                                - 'all' : shows all other items
      *                                                - 'toggle' : toggles the appearance of the handler item
      */
-    public static function staticNav(HTMLHandlerInterface $HTMLHandler, DOMElement $HTMLElement, $ref, $targetContainerId, $targetGroupId, $navGroup, $display = self::DISPLAY_NONE)
+    public static function staticNav(HTMLHandlerInterface $HTMLHandler, DOMNode $HTMLElement, $ref, $targetContainerId, $targetGroupId, $navGroup, $display = self::DISPLAY_NONE)
     {
         $staticNav = [];
         $staticNav['ref'] = $ref;
@@ -60,10 +60,10 @@ class NavigationUiHelper
      * Adds static navigation group selector (staticNav's targetGroupId)
      *
      * @param HTMLHandlerInterface $HTMLHandler   The HTMLHandler to set attributes.
-     * @param DOMElement           $HTMLElement   The element to receive the selector
+     * @param DOMNode              $HTMLElement   The element to receive the selector
      * @param string               $targetGroupId The group id
      */
-    public static function setTargetGroupId(HTMLHandlerInterface $HTMLHandler, DOMElement $HTMLElement, $targetGroupId)
+    public static function setTargetGroupId(HTMLHandlerInterface $HTMLHandler, DOMNode $HTMLElement, $targetGroupId)
     {
         $HTMLHandler->data($HTMLElement, 'data-targetgroupid', $targetGroupId);
     }
