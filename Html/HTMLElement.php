@@ -13,8 +13,10 @@ namespace Panda\Ui\Html;
 
 use DOMNodeList;
 use Exception;
+use Panda\Ui\Contracts\Handlers\DOMHandlerInterface;
 use Panda\Ui\Contracts\Handlers\HTMLHandlerInterface;
 use Panda\Ui\DOMItem;
+use Panda\Ui\DOMPrototype;
 
 /**
  * HTMLElement Class
@@ -148,7 +150,7 @@ class HTMLElement extends DOMItem
     }
 
     /**
-     * @return HTMLDocument
+     * @return HTMLDocument|DOMPrototype
      */
     public function getHTMLDocument()
     {
@@ -156,7 +158,7 @@ class HTMLElement extends DOMItem
     }
 
     /**
-     * @return HTMLHandlerInterface
+     * @return HTMLHandlerInterface|DOMHandlerInterface
      */
     public function getHTMLHandler()
     {

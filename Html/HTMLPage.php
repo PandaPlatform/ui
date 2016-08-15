@@ -13,7 +13,8 @@ namespace Panda\Ui\Html;
 
 use InvalidArgumentException;
 use Panda\Ui\Contracts\DOMBuilder;
-use Panda\Ui\Factories\HTMLFactory;
+use Panda\Ui\Contracts\Factories\DOMFactoryInterface;
+use Panda\Ui\Contracts\Factories\HTMLFactoryInterface;
 
 /**
  * HTML Page Prototype/Builder
@@ -326,7 +327,7 @@ class HTMLPage extends HTMLDocument implements DOMBuilder
     }
 
     /**
-     * @return HTMLFactory
+     * @return HTMLFactoryInterface|DOMFactoryInterface
      */
     public function getHTMLFactory()
     {

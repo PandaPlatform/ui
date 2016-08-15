@@ -11,6 +11,7 @@
 
 namespace Panda\Ui\Html\Frames;
 
+use Panda\Ui\Contracts\Factories\HTMLFactoryInterface;
 use Panda\Ui\Contracts\Factories\HTMLFormFactoryInterface;
 use Panda\Ui\Html\HTMLDocument;
 use Panda\Ui\Html\Templates\Forms\SimpleForm;
@@ -102,7 +103,7 @@ class DialogFrame extends WindowFrame
     /**
      * Get the frame's form factory object.
      *
-     * @return HTMLFormFactoryInterface
+     * @return HTMLFormFactoryInterface|HTMLFactoryInterface
      */
     public function getFormFactory()
     {

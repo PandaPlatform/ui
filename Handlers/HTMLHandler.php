@@ -47,7 +47,7 @@ class HTMLHandler extends DOMHandler implements HTMLHandlerInterface
         // Normalize class
         $class = trim($class);
         if (empty($class)) {
-            return $this;
+            return $element;
         }
 
         // Get current class
@@ -56,13 +56,13 @@ class HTMLHandler extends DOMHandler implements HTMLHandlerInterface
         // Check if class already exists
         $classes = explode(' ', $currentClass);
         if (in_array($class, $classes)) {
-            return $this;
+            return $element;
         }
 
         // Append new class
         $this->appendAttr($element, 'class', $class);
 
-        // Return the HTML element
+        // Return the DOM Element
         return $element;
     }
 
@@ -85,7 +85,7 @@ class HTMLHandler extends DOMHandler implements HTMLHandlerInterface
         $classes = explode(' ', $currentClass);
         $classKey = array_search($class, $classes);
         if ($classKey === false) {
-            return $this;
+            return $element;
         }
 
         // Remove class and set new class attribute

@@ -11,6 +11,7 @@
 
 namespace Panda\Ui\Tests\Html;
 
+use DOMElement;
 use Panda\Ui\Factories\HTMLFactory;
 use Panda\Ui\Handlers\HTMLHandler;
 use Panda\Ui\Html\HTMLDocument;
@@ -36,6 +37,7 @@ class HTMLDocumentTest extends PHPUnit_Framework_TestCase
     public function testMagic()
     {
         // Test simple div
+        /** @var DOMElement $element */
         $element = $this->HTMLDocument->div($value = 'div_value', $id = 'id', $class = 'class');
         $this->assertEquals('div', $element->tagName);
         $this->assertEquals('div_value', $element->nodeValue);
@@ -43,6 +45,7 @@ class HTMLDocumentTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('class', $element->getAttribute('class'));
 
         // Test other elements
+        /** @var DOMElement $element */
         $element = $this->HTMLDocument->p();
         $this->assertEquals('p', $element->tagName);
     }

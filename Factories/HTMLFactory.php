@@ -14,6 +14,7 @@ namespace Panda\Ui\Factories;
 use Exception;
 use Panda\Ui\Contracts\Factories\HTMLFactoryInterface;
 use Panda\Ui\Contracts\Handlers\HTMLHandlerInterface;
+use Panda\Ui\DOMPrototype;
 use Panda\Ui\Html\HTMLDocument;
 use Panda\Ui\Html\HTMLElement;
 
@@ -135,7 +136,7 @@ class HTMLFactory extends DOMFactory implements HTMLFactoryInterface
     }
 
     /**
-     * @return HTMLDocument
+     * @return HTMLDocument|DOMPrototype
      */
     public function getHTMLDocument()
     {
