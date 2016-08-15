@@ -113,21 +113,6 @@ class DOMItem extends DOMElement
     }
 
     /**
-     * Inserts a data-[name] attribute.
-     * It supports single value or an array of values.
-     *
-     * @param string $name  The data name of the attribute (data-[name])
-     * @param mixed  $value The data value.
-     *                      It can be a single value or an array of values.
-     *
-     * @return bool|string TRUE or the new value on success, FALSE on failure.
-     */
-    public function data($name, $value = [])
-    {
-        return $this->getDOMHandler()->data($this, $name, $value);
-    }
-
-    /**
      * Sets or gets the nodeValue of the given DOMElement.
      * Returns the old value or the DOMElement if value is set.
      *
