@@ -102,7 +102,7 @@ class HTMLPage extends HTMLDocument implements DOMBuilder
      *
      * @throws InvalidArgumentException
      */
-    protected function appendToHead($element)
+    public function appendToHead($element)
     {
         // Check if the element is valid
         if (empty($element)) {
@@ -124,7 +124,7 @@ class HTMLPage extends HTMLDocument implements DOMBuilder
      *
      * @throws InvalidArgumentException
      */
-    protected function appendToBody($element)
+    public function appendToBody($element)
     {
         // Check if the element is valid
         if (empty($element)) {
@@ -147,7 +147,7 @@ class HTMLPage extends HTMLDocument implements DOMBuilder
      *
      * @return HTMLElement The meta element.
      */
-    protected function addMeta($name = '', $content = '', $httpEquiv = '', $charset = '')
+    public function addMeta($name = '', $content = '', $httpEquiv = '', $charset = '')
     {
         // Create meta element
         $meta = $this->getHTMLFactory()->buildMeta($name, $content, $httpEquiv, $charset);
