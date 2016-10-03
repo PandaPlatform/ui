@@ -129,7 +129,7 @@ class DOMItem extends DOMElement
     /**
      * Append an element as a child.
      *
-     * @param DOMElement $element
+     * @param DOMElement $element The child element
      *
      * @return $this
      *
@@ -138,6 +138,22 @@ class DOMItem extends DOMElement
     public function append(&$element)
     {
         return $this->getDOMHandler()->append($this, $element);
+    }
+
+    /**
+     * Append the current object to the given element.
+     *
+     * @param DOMElement $element The parent element
+     *
+     * @return $this
+     *
+     * @throws InvalidArgumentException
+     */
+    public function appendTo(&$element)
+    {
+        $this->getDOMHandler()->append($element, $this);
+
+        return $this;
     }
 
     /**
@@ -152,6 +168,22 @@ class DOMItem extends DOMElement
     public function prepend(&$element)
     {
         return $this->getDOMHandler()->prepend($this, $element);
+    }
+
+    /**
+     * Prepends (appends first in the list) the current object to the given element.
+     *
+     * @param DOMItem $element The parent element.
+     *
+     * @return $this
+     *
+     * @throws InvalidArgumentException
+     */
+    public function prependTo(&$element)
+    {
+        $this->getDOMHandler()->prepend($element, $this);
+
+        return $this;
     }
 
     /**

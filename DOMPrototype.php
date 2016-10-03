@@ -15,7 +15,6 @@ use DOMDocument;
 use DOMElement;
 use DOMNode;
 use DOMNodeList;
-use DOMXPath;
 use InvalidArgumentException;
 use Panda\Ui\Contracts\Factories\DOMFactoryInterface;
 use Panda\Ui\Contracts\Handlers\DOMHandlerInterface;
