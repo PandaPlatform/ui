@@ -58,6 +58,11 @@ class DOMPrototype extends DOMDocument
         // Set DOMHandler
         $this->DOMHandler = $DOMHandler;
 
+        // Check if factory is associated with another document and make a copy
+        if (!empty($DOMFactory->getDOMDocument())) {
+            $DOMFactory = clone $DOMFactory;
+        }
+
         // Set DOMFactory
         $DOMFactory->setDOMDocument($this);
         $this->setDOMFactory($DOMFactory);
