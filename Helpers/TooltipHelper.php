@@ -30,13 +30,16 @@ class TooltipHelper
      * @param DOMNode              $HTMLElement
      * @param string               $content
      * @param int                  $delay
+     * @param string               $position
      */
-    public static function set(HTMLHandlerInterface $HTMLHandler, DOMNode $HTMLElement, $content, $delay = 0)
+    public static function set(HTMLHandlerInterface $HTMLHandler, DOMNode $HTMLElement, $content, $delay = 0, $position = '')
     {
         // Set tooltip attribute array
-        $tooltip = [];
-        $tooltip['content'] = $content;
-        $tooltip['delay'] = $delay;
+        $tooltip = [
+            'content' => $content,
+            'delay' => $delay,
+            'position' => $position
+        ];
 
         $HTMLHandler->data($HTMLElement, 'ui-tooltip', $tooltip);
     }

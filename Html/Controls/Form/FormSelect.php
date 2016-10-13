@@ -53,6 +53,11 @@ class FormSelect extends FormElement
             $this->attr('multiple', 'multiple');
         }
 
+        // Check if factory is associated with another document and make a copy
+        if (!empty($HTMLFormFactory->getHTMLDocument()) && $HTMLFormFactory->getHTMLDocument() != $HTMLDocument) {
+            $HTMLFormFactory = clone $HTMLFormFactory;
+        }
+
         $this->HTMLFormFactory = $HTMLFormFactory;
         $this->HTMLFormFactory->setHTMLDocument($HTMLDocument);
     }

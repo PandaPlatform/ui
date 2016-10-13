@@ -80,6 +80,11 @@ class DataTable extends HTMLElement implements DOMBuilder
         // Create object
         parent::__construct($HTMLDocument, $name = 'div', $value = '', $id = '', $class = 'uiDataTable initialize');
 
+        // Check if factory is associated with another document and make a copy
+        if (!empty($FormFactory->getHTMLDocument()) && $FormFactory->getHTMLDocument() != $HTMLDocument) {
+            $FormFactory = clone $FormFactory;
+        }
+
         // Set fields
         $this->formFactory = $FormFactory;
         $this->formFactory->setHTMLDocument($this->getHTMLDocument());

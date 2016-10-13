@@ -264,7 +264,7 @@ class DOMHandler implements DOMHandlerInterface
      * @param DOMElement $old The DOMElement to handle.
      * @param DOMNode    $new The item to replace.
      *
-     * @return DOMElement The new element.
+     * @return DOMElement|DOMNode The new element.
      *
      * @throws Exception
      */

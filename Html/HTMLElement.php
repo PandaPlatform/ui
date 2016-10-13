@@ -13,8 +13,10 @@ namespace Panda\Ui\Html;
 
 use DOMNodeList;
 use Exception;
+use Panda\Ui\Contracts\Handlers\DOMHandlerInterface;
 use Panda\Ui\Contracts\Handlers\HTMLHandlerInterface;
 use Panda\Ui\DOMItem;
+use Panda\Ui\DOMPrototype;
 
 /**
  * HTMLElement Class
@@ -43,6 +45,21 @@ class HTMLElement extends DOMItem
         // Add extra attributes
         $this->attr('id', $id);
         $this->addClass($class);
+    }
+
+    /**
+     * Inserts a data-[name] attribute.
+     * It supports single value or an array of values.
+     *
+     * @param string $name  The data name of the attribute (data-[name])
+     * @param mixed  $value The data value.
+     *                      It can be a single value or an array of values.
+     *
+     * @return bool|string TRUE or the new value on success, FALSE on failure.
+     */
+    public function data($name, $value = [])
+    {
+        return $this->getHTMLHandler()->data($this, $name, $value);
     }
 
     /**
@@ -148,7 +165,7 @@ class HTMLElement extends DOMItem
     }
 
     /**
-     * @return HTMLDocument
+     * @return HTMLDocument|DOMPrototype
      */
     public function getHTMLDocument()
     {
@@ -156,7 +173,7 @@ class HTMLElement extends DOMItem
     }
 
     /**
-     * @return HTMLHandlerInterface
+     * @return HTMLHandlerInterface|DOMHandlerInterface
      */
     public function getHTMLHandler()
     {
