@@ -21,8 +21,6 @@ use Panda\Ui\Contracts\Factories\HTMLFactoryInterface;
  * Helps building HTML Pages in HTML5 format
  *
  * @package Panda\Ui\Html
- *
- * @version 0.1
  */
 class HTMLPage extends HTMLDocument implements DOMBuilder
 {
@@ -261,8 +259,7 @@ class HTMLPage extends HTMLDocument implements DOMBuilder
         foreach ($data as $property => $content) {
             // Create the open graph meta
             $og = $this->getHTMLFactory()->buildMeta($name = '', $content, $httpEquiv = '', $charset = '');
-            $og->attr($og, 'property', 'og:' . $property);
-            $og->attr($og, 'content', $content);
+            $og->attr('property', 'og:' . $property);
 
             // Append meta to head
             $this->appendToHead($og);
