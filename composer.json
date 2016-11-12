@@ -4,8 +4,6 @@
     "license": "MIT",
     "homepage": "http://pandaphp.org",
     "support": {
-        "issues": "https://github.com/PandaPlatform/ui/issues",
-        "source": "https://github.com/PandaPlatform/ui"
     },
     "authors": [
         {

@@ -17,10 +17,7 @@ use Panda\Ui\Html\HTMLDocument;
 
 /**
  * Class FormSelect
- *
  * @package Panda\Ui\Html\Controls\Form
- *
- * @version 0.1
  */
 class FormSelect extends FormElement
 {
