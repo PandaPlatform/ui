@@ -171,7 +171,8 @@ class SimpleForm extends Form implements DOMBuilder
         if (!empty($title)) {
             // Set Required indicator
             if ($required) {
-                $label->append($this->requiredStar());
+                $star = $this->requiredStar();
+                $label->append($star);
             }
 
             $colonSpan = $this->getHTMLDocument()->getHTMLFactory()->buildElement('span', ':');
