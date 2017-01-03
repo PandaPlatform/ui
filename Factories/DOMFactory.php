@@ -29,7 +29,7 @@ class DOMFactory implements DOMFactoryInterface
      * @var DOMPrototype
      */
     protected $DOMDocument;
-    
+
     /**
      * Build a DOM item.
      *

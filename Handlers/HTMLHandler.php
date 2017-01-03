@@ -155,7 +155,7 @@ class HTMLHandler extends DOMHandler implements HTMLHandlerInterface
                 return $styles[$name];
             }
 
-            return null;
+            return;
         } else {
             $styles[$name] = $val;
         }
