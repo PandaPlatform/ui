@@ -77,7 +77,7 @@ class HTMLDocument extends DOMPrototype
         // Get method name and check for a valid html tag
         $name = strtolower($name);
         if (!HTMLHelper::validHtmlTag($name)) {
-            return null;
+            return;
         }
 
         // Get rest of attributes
