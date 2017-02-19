@@ -161,6 +161,9 @@ class HTMLElement extends DOMItem
      */
     public function select($selector, $context = null)
     {
+        // Set context to the current element if empty
+        $context = $context ?: $this;
+
         return $this->getHTMLDocument()->select($selector, $context);
     }
 

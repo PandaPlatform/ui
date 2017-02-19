@@ -65,6 +65,6 @@ class NavigationUiHelper
      */
     public static function setTargetGroupId(HTMLHandlerInterface $HTMLHandler, DOMNode $HTMLElement, $targetGroupId)
     {
-        $HTMLHandler->data($HTMLElement, 'data-targetgroupid', $targetGroupId);
+        $HTMLHandler->data($HTMLElement, 'targetgroupid', $targetGroupId);
     }
 }
