@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Panda framework Ui component.
+ * This file is part of the Panda UI Package.
  *
  * (c) Ioannis Papikas <papikas.ioan@gmail.com>
  *
@@ -12,14 +12,11 @@
 namespace Panda\Ui\Helpers;
 
 /**
- * Document Object Model Helper file
- *
+ * Document Object Model (DOM/HTML) Helper file
  * This file is a helper containing tool functions
  * for html-specific functionality.
  *
  * @package Panda\Ui\Helpers
- *
- * @version 0.1
  */
 class HTMLHelper
 {

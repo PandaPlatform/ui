@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Panda framework Ui component.
+ * This file is part of the Panda UI Package.
  *
  * (c) Ioannis Papikas <papikas.ioan@gmail.com>
  *
@@ -13,6 +13,7 @@ namespace Panda\Ui\Html;
 
 use DOMNodeList;
 use Exception;
+use InvalidArgumentException;
 use Panda\Ui\Contracts\Handlers\DOMHandlerInterface;
 use Panda\Ui\Contracts\Handlers\HTMLHandlerInterface;
 use Panda\Ui\DOMItem;
@@ -23,8 +24,6 @@ use Panda\Ui\DOMPrototype;
  * Extends the DOMItem with HTML-specific functionality
  *
  * @package Panda\Ui\Html
- *
- * @version 0.1
  */
 class HTMLElement extends DOMItem
 {
@@ -36,6 +35,8 @@ class HTMLElement extends DOMItem
      * @param string|HTMLElement $value        The element value.
      * @param string             $id           The element id attribute value.
      * @param string             $class        The element class attribute value.
+     *
+     * @throws Exception
      */
     public function __construct(HTMLDocument $HTMLDocument, $name, $value = '', $id = '', $class = '')
     {
@@ -158,6 +159,7 @@ class HTMLElement extends DOMItem
      *                         It is NULL by default.
      *
      * @return DOMNodeList|false Returns the node list that matches the given css selector, or FALSE on malformed input.
+     * @throws InvalidArgumentException
      */
     public function select($selector, $context = null)
     {

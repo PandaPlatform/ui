@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Panda framework Ui component.
+ * This file is part of the Panda UI Package.
  *
  * (c) Ioannis Papikas <papikas.ioan@gmail.com>
  *
@@ -11,6 +11,7 @@
 
 namespace Panda\Ui\Html\Controls;
 
+use Exception;
 use InvalidArgumentException;
 use LogicException;
 use Panda\Ui\Contracts\DOMBuilder;
@@ -25,7 +26,6 @@ use Panda\Ui\Html\HTMLElement;
  * (including ratios, headers and every row) with a key identifier. However, the sequence of elements must be the same.
  *
  * @package Panda\Ui\Html\Controls
- * @version 0.1
  */
 class DataTable extends HTMLElement implements DOMBuilder
 {
@@ -99,6 +99,8 @@ class DataTable extends HTMLElement implements DOMBuilder
      * @param bool   $withBorder Defines whether the gridList will have visual border.
      *
      * @return $this
+     * @throws InvalidArgumentException
+     * @throws Exception
      */
     public function build($id = '', $class = '', $checkable = false, $withBorder = true)
     {
@@ -133,6 +135,7 @@ class DataTable extends HTMLElement implements DOMBuilder
      *                      the requested ratios will be ignored.
      *
      * @return $this
+     * @throws InvalidArgumentException
      */
     public function setColumnRatios($ratios)
     {
@@ -174,6 +177,9 @@ class DataTable extends HTMLElement implements DOMBuilder
      * Creates headers in the dataGridList
      *
      * @param array $headers An array with the header contents (can be text or DOMElement)
+     *
+     * @throws InvalidArgumentException
+     * @throws LogicException
      */
     public function setHeaders($headers)
     {
@@ -207,6 +213,7 @@ class DataTable extends HTMLElement implements DOMBuilder
      *                           It is empty by default.
      *
      * @return $this
+     * @throws LogicException
      */
     public function appendRow($contents = [], $checkName = null, $checked = false, $checkValue = '')
     {
@@ -229,6 +236,8 @@ class DataTable extends HTMLElement implements DOMBuilder
      * @param bool   $header   Whether this row is the header of the list.
      *
      * @return HTMLElement
+     * @throws Exception
+     * @throws InvalidArgumentException
      * @throws LogicException
      */
     private function appendSimpleRow($contents, $class = '', $header = false)
@@ -311,6 +320,8 @@ class DataTable extends HTMLElement implements DOMBuilder
      *                                It is empty by default.
      *
      * @return $this
+     * @throws Exception
+     * @throws InvalidArgumentException
      */
     private function appendCheckRow($row, $checkName, $checked, $checkValue = '')
     {

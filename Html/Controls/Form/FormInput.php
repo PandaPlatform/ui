@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Panda framework Ui component.
+ * This file is part of the Panda UI Package.
  *
  * (c) Ioannis Papikas <papikas.ioan@gmail.com>
  *
@@ -17,10 +17,7 @@ use Panda\Ui\Html\HTMLDocument;
 
 /**
  * Class FormInput
- *
  * @package Panda\Ui\Html\Controls\Form
- *
- * @version 0.1
  */
 class FormInput extends FormElement
 {

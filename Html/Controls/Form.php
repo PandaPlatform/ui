@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Panda framework Ui component.
+ * This file is part of the Panda UI Package.
  *
  * (c) Ioannis Papikas <papikas.ioan@gmail.com>
  *
@@ -18,11 +18,8 @@ use Panda\Ui\Html\HTMLDocument;
 use Panda\Ui\Html\HTMLElement;
 
 /**
- * HTML Form Class. Create HTML forms
- *
+ * Class Form
  * @package Panda\Ui\Html\Controls
- *
- * @version 0.1
  */
 class Form extends HTMLElement implements DOMBuilder
 {
@@ -60,6 +57,7 @@ class Form extends HTMLElement implements DOMBuilder
      *                           file upload control.
      *
      * @return $this
+     * @throws Exception
      */
     public function build($id = '', $action = '', $async = false, $fileUpload = false)
     {

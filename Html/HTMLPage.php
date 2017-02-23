@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Panda framework Ui component.
+ * This file is part of the Panda UI Package.
  *
  * (c) Ioannis Papikas <papikas.ioan@gmail.com>
  *
@@ -11,6 +11,7 @@
 
 namespace Panda\Ui\Html;
 
+use Exception;
 use InvalidArgumentException;
 use Panda\Ui\Contracts\DOMBuilder;
 use Panda\Ui\Contracts\Factories\DOMFactoryInterface;
@@ -54,6 +55,8 @@ class HTMLPage extends HTMLDocument implements DOMBuilder
      * @param string $keywords    The keywords meta value.
      *
      * @return $this
+     * @throws Exception
+     * @throws InvalidArgumentException
      */
     public function build($title = '', $description = '', $keywords = '')
     {
@@ -81,6 +84,7 @@ class HTMLPage extends HTMLDocument implements DOMBuilder
      * @param bool $format
      *
      * @return string The html output.
+     * @throws InvalidArgumentException
      */
     public function getHTML($format = false)
     {
@@ -144,6 +148,7 @@ class HTMLPage extends HTMLDocument implements DOMBuilder
      * @param string $charset   The meta charset attribute.
      *
      * @return HTMLElement The meta element.
+     * @throws InvalidArgumentException
      */
     public function addMeta($name = '', $content = '', $httpEquiv = '', $charset = '')
     {
@@ -163,6 +168,7 @@ class HTMLPage extends HTMLDocument implements DOMBuilder
      * @param string $href The href attribute of the link
      *
      * @return HTMLElement The style element created.
+     * @throws InvalidArgumentException
      */
     public function addStyle($href)
     {
@@ -186,6 +192,7 @@ class HTMLPage extends HTMLDocument implements DOMBuilder
      *                       The default value is FALSE.
      *
      * @return HTMLElement The script element created.
+     * @throws InvalidArgumentException
      */
     public function addScript($src, $async = false, $bottom = false)
     {
@@ -210,6 +217,7 @@ class HTMLPage extends HTMLDocument implements DOMBuilder
      * @param string $href The icon URL
      *
      * @return $this
+     * @throws InvalidArgumentException
      */
     public function addIcon($href)
     {
@@ -230,6 +238,8 @@ class HTMLPage extends HTMLDocument implements DOMBuilder
      * @param string $title The new page title.
      *
      * @return $this
+     * @throws Exception
+     * @throws InvalidArgumentException
      */
     public function setTitle($title)
     {
@@ -253,6 +263,8 @@ class HTMLPage extends HTMLDocument implements DOMBuilder
      *                    The og: at the property name is inserted automatically.
      *
      * @return $this
+     * @throws Exception
+     * @throws InvalidArgumentException
      */
     public function addOpenGraphMeta($data = [])
     {
@@ -276,6 +288,8 @@ class HTMLPage extends HTMLDocument implements DOMBuilder
      * @param string $keywords    The keywords meta.
      *
      * @return $this
+     * @throws Exception
+     * @throws InvalidArgumentException
      */
     private function setupHead($title, $description, $keywords)
     {
@@ -313,6 +327,7 @@ class HTMLPage extends HTMLDocument implements DOMBuilder
      * Appends all bottom scripts to the body.
      *
      * @return $this
+     * @throws InvalidArgumentException
      */
     private function flushBottomScripts()
     {

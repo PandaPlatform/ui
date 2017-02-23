@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Panda framework Ui component.
+ * This file is part of the Panda UI Package.
  *
  * (c) Ioannis Papikas <papikas.ioan@gmail.com>
  *
@@ -11,6 +11,7 @@
 
 namespace Panda\Ui\Html\Views;
 
+use Exception;
 use InvalidArgumentException;
 use Panda\Ui\Contracts\DOMBuilder;
 use Panda\Ui\Html\HTMLDocument;
@@ -21,8 +22,6 @@ use Panda\Ui\Html\HTMLElement;
  * Creates an HTMLElement loading an external html view.
  *
  * @package Panda\Ui\Html\Views
- *
- * @version 0.1
  */
 class ViewElement extends HTMLElement implements DOMBuilder
 {
@@ -45,6 +44,8 @@ class ViewElement extends HTMLElement implements DOMBuilder
      * @param string $class
      *
      * @return $this
+     * @throws Exception
+     * @throws InvalidArgumentException
      */
     public function build($view = '', $id = '', $class = '')
     {
@@ -64,7 +65,7 @@ class ViewElement extends HTMLElement implements DOMBuilder
      * Load external html view into the html element.
      * It clears the inner html of the element first.
      *
-     * @param string $view
+     * @param string $view The full file path of the view
      *
      * @return $this
      *

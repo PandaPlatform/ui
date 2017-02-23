@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Panda framework Ui component.
+ * This file is part of the Panda UI Package.
  *
  * (c) Ioannis Papikas <papikas.ioan@gmail.com>
  *
@@ -11,16 +11,15 @@
 
 namespace Panda\Ui\Html\Popups;
 
+use Exception;
+use InvalidArgumentException;
 use Panda\Ui\Contracts\DOMBuilder;
 use Panda\Ui\Html\HTMLDocument;
 use Panda\Ui\Html\HTMLElement;
 
 /**
  * Class Popup
- *
  * @package Panda\Ui\Html\Popups
- *
- * @version 0.1
  */
 class Popup extends HTMLElement implements DOMBuilder
 {
@@ -126,6 +125,8 @@ class Popup extends HTMLElement implements DOMBuilder
      * @param HTMLElement $content The content of the popup.
      *
      * @return $this
+     * @throws Exception
+     * @throws InvalidArgumentException
      */
     public function build($id = '', $content = null)
     {

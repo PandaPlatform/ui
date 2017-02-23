@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Panda framework Ui component.
+ * This file is part of the Panda UI Package.
  *
  * (c) Ioannis Papikas <papikas.ioan@gmail.com>
  *
@@ -11,6 +11,8 @@
 
 namespace Panda\Ui\Html\Templates\Forms;
 
+use Exception;
+use InvalidArgumentException;
 use Panda\Ui\Contracts\DOMBuilder;
 use Panda\Ui\Html\Controls\Form as FormControl;
 use Panda\Ui\Html\HTMLElement;
@@ -23,8 +25,6 @@ use Panda\Ui\Html\HTMLElement;
  * It implements the FormProtocol.
  *
  * @package Panda\Ui\Html\Templates\Forms
- *
- * @version 0.1
  */
 class Form extends FormControl implements DOMBuilder
 {
@@ -74,6 +74,8 @@ class Form extends FormControl implements DOMBuilder
      *                           file upload control.
      *
      * @return $this
+     * @throws Exception
+     * @throws InvalidArgumentException
      */
     public function build($id = '', $action = '', $async = true, $fileUpload = false)
     {
@@ -123,6 +125,7 @@ class Form extends FormControl implements DOMBuilder
      * @param HTMLElement $element
      *
      * @return $this
+     * @throws InvalidArgumentException
      */
     public function appendToBody($element)
     {
@@ -137,6 +140,7 @@ class Form extends FormControl implements DOMBuilder
      * @param HTMLElement $element
      *
      * @return $this
+     * @throws InvalidArgumentException
      */
     public function appendToReport($element)
     {

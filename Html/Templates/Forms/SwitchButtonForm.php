@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Panda framework Ui component.
+ * This file is part of the Panda UI Package.
  *
  * (c) Ioannis Papikas <papikas.ioan@gmail.com>
  *
@@ -11,6 +11,8 @@
 
 namespace Panda\Ui\Html\Templates\Forms;
 
+use Exception;
+use InvalidArgumentException;
 use Panda\Ui\Contracts\DOMBuilder;
 use Panda\Ui\Html\Controls\Form\SwitchButton;
 
@@ -30,6 +32,8 @@ class SwitchButtonForm extends Form implements DOMBuilder
      * @param string $itemValue
      *
      * @return $this
+     * @throws Exception
+     * @throws InvalidArgumentException
      */
     public function build($id = '', $action = '', $async = true, $fileUpload = false, $active = false, $itemName = '', $itemValue = '')
     {
