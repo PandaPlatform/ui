@@ -8,6 +8,8 @@ This component is able to create html pages using the DOM structure fast and eas
 - Form factories and builders
 - HTML relative queries
 
+You can read a full documentation on the functionality of the library from the [wiki](https://github.com/PandaPlatform/panda-ui-php/wiki) of this repository.
+
 ## Panda PHP Framework
 Panda is a web application framework build with simplicity and wisdom. We are building Panda to be a light yet powerfull framework that will be part of the web php community. Panda includes a lot of common libraries but also includes functionality for common tasks and needs for many web projects like sessions, routing, authentication and more.
 
