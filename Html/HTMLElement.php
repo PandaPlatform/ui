@@ -94,9 +94,9 @@ class HTMLElement extends DOMItem
     /**
      * Check if the given DOMElement has a given class.
      *
-     * @param string $class The class name.
+     * @param string $class
      *
-     * @return bool True if the element has the class, false otherwise.
+     * @return bool
      */
     public function hasClass($class)
     {
@@ -158,7 +158,7 @@ class HTMLElement extends DOMItem
      *                         If the selector results in multiple DOMNodes, then the first is selected as the context.
      *                         It is NULL by default.
      *
-     * @return DOMNodeList|false Returns the node list that matches the given css selector, or FALSE on malformed input.
+     * @return DOMNodeList|false
      * @throws InvalidArgumentException
      */
     public function select($selector, $context = null)

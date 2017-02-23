@@ -11,6 +11,7 @@
 
 namespace Panda\Ui\Html\Frames;
 
+use Exception;
 use InvalidArgumentException;
 use Panda\Ui\Contracts\Factories\HTMLFactoryInterface;
 use Panda\Ui\Contracts\Factories\HTMLFormFactoryInterface;
@@ -71,6 +72,7 @@ class DialogFrame extends WindowFrame
      * @param bool   $fileUpload Enable the dialog form for file upload.
      *
      * @return $this
+     * @throws Exception
      * @throws InvalidArgumentException
      */
     public function build($title = 'Dialog Frame', $action = '', $background = true, $type = self::TYPE_OK_CANCEL, $fileUpload = false)
@@ -113,8 +115,8 @@ class DialogFrame extends WindowFrame
     /**
      * Get the dialog's form id.
      *
-     * @return string The form id.
-     * @throws \Exception
+     * @return string
+     * @throws Exception
      */
     public function getFormId()
     {

@@ -32,7 +32,6 @@ class HTMLHandler extends DOMHandler implements HTMLHandlerInterface
      * @param string     $class   The class name.
      *
      * @return DOMElement
-     *
      * @throws Exception
      */
     public function addClass(DOMElement &$element, $class)
@@ -70,7 +69,6 @@ class HTMLHandler extends DOMHandler implements HTMLHandlerInterface
      * @param string     $class   The class name.
      *
      * @return DOMElement
-     *
      * @throws Exception
      */
     public function removeClass(DOMElement &$element, $class)
@@ -102,7 +100,7 @@ class HTMLHandler extends DOMHandler implements HTMLHandlerInterface
      * @param DOMElement $element The DOMElement to handle.
      * @param string     $class   The class name.
      *
-     * @return bool True if the element has the class, false otherwise.
+     * @return bool
      * @throws Exception
      */
     public function hasClass(DOMElement $element, $class)
@@ -276,9 +274,7 @@ class HTMLHandler extends DOMHandler implements HTMLHandlerInterface
      *                              If the selector results in multiple DOMNodes, then the first is selected as the
      *                              context.
      *
-     * @return DOMNodeList|false Returns the node list that matches the given css selector, or FALSE on malformed
-     *                           input.
-     *
+     * @return DOMNodeList|false
      * @throws InvalidArgumentException
      */
     public function select(DOMDocument $document, $selector, $context = null)

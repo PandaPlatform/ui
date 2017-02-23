@@ -83,7 +83,7 @@ class HTMLPage extends HTMLDocument implements DOMBuilder
      *
      * @param bool $format
      *
-     * @return string The html output.
+     * @return string
      * @throws InvalidArgumentException
      */
     public function getHTML($format = false)
@@ -101,7 +101,6 @@ class HTMLPage extends HTMLDocument implements DOMBuilder
      * @param HTMLElement $element The element to be appended.
      *
      * @return $this
-     *
      * @throws InvalidArgumentException
      */
     public function appendToHead($element)
@@ -123,7 +122,6 @@ class HTMLPage extends HTMLDocument implements DOMBuilder
      * @param HTMLElement $element The element to be appended.
      *
      * @return $this
-     *
      * @throws InvalidArgumentException
      */
     public function appendToBody($element)
@@ -147,7 +145,7 @@ class HTMLPage extends HTMLDocument implements DOMBuilder
      * @param string $httpEquiv The meta http-equiv attribute.
      * @param string $charset   The meta charset attribute.
      *
-     * @return HTMLElement The meta element.
+     * @return HTMLElement
      * @throws InvalidArgumentException
      */
     public function addMeta($name = '', $content = '', $httpEquiv = '', $charset = '')
@@ -167,7 +165,7 @@ class HTMLPage extends HTMLDocument implements DOMBuilder
      *
      * @param string $href The href attribute of the link
      *
-     * @return HTMLElement The style element created.
+     * @return HTMLElement
      * @throws InvalidArgumentException
      */
     public function addStyle($href)
@@ -191,7 +189,7 @@ class HTMLPage extends HTMLDocument implements DOMBuilder
      * @param bool   $bottom Indicator whether the script tag will be placed at the bottom of the page.
      *                       The default value is FALSE.
      *
-     * @return HTMLElement The script element created.
+     * @return HTMLElement
      * @throws InvalidArgumentException
      */
     public function addScript($src, $async = false, $bottom = false)

@@ -36,6 +36,7 @@ class FormFactory extends HTMLFactory implements HTMLFormFactoryInterface
      * @param bool   $fileUpload
      *
      * @return Form
+     * @throws Exception
      */
     public function buildForm($id = '', $action = '', $async = false, $fileUpload = false)
     {
@@ -79,8 +80,7 @@ class FormFactory extends HTMLFactory implements HTMLFormFactoryInterface
      * @param bool   $autofocus Inserts the autofocus attribute to the input.
      * @param bool   $required  Indicates this input as required.
      *
-     * @return FormElement The form input element
-     *
+     * @return FormElement
      * @throws Exception
      */
     public function buildInput($type = 'text', $name = '', $value = '', $id = '', $class = '', $autofocus = false, $required = false)
@@ -105,8 +105,7 @@ class FormFactory extends HTMLFactory implements HTMLFormFactoryInterface
      * @param bool   $required Indicates this input as required.
      * @param string $accept   The accept attribute for the file dialog.
      *
-     * @return FormElement The form file input element.
-     *
+     * @return FormElement
      * @throws Exception
      */
     public function buildFileInput($name = '', $id = '', $class = '', $required = false, $accept = '')
@@ -129,7 +128,7 @@ class FormFactory extends HTMLFactory implements HTMLFormFactoryInterface
      * @param string $for     The input's id where this label is pointing to.
      * @param string $class   The extra class for the label.
      *
-     * @return FormElement The form label element
+     * @return FormElement
      * @throws Exception
      */
     public function buildLabel($content, $for = '', $class = '')
@@ -153,7 +152,7 @@ class FormFactory extends HTMLFactory implements HTMLFormFactoryInterface
      * @param string $id    The button's id attribute.
      * @param string $class The extra class of the button
      *
-     * @return FormElement The form button element
+     * @return FormElement
      * @throws Exception
      */
     public function buildButton($type, $title, $name = '', $id = '', $class = '')
@@ -177,8 +176,7 @@ class FormFactory extends HTMLFactory implements HTMLFormFactoryInterface
      * @param string $id    The button's id attribute
      * @param string $class The extra class of the button
      *
-     * @return FormElement The submit button.
-     *
+     * @return FormElement
      * @throws Exception
      */
     public function buildSubmitButton($title, $name = '', $id = '', $class = '')
@@ -196,8 +194,7 @@ class FormFactory extends HTMLFactory implements HTMLFormFactoryInterface
      * @param string $id    The button's id attribute
      * @param string $class The extra class of the button
      *
-     * @return FormElement The reset button
-     *
+     * @return FormElement
      * @throws Exception
      */
     public function buildResetButton($title, $id = '', $class = '')
@@ -218,8 +215,7 @@ class FormFactory extends HTMLFactory implements HTMLFormFactoryInterface
      * @param bool   $autofocus Inserts the autofocus attribute to the input.
      * @param bool   $required  Indicates this textarea as required.
      *
-     * @return FormElement The html form textarea.
-     *
+     * @return FormElement
      * @throws Exception
      */
     public function buildTextarea($name = '', $value = '', $id = '', $class = '', $autofocus = false, $required = false)
@@ -245,7 +241,7 @@ class FormFactory extends HTMLFactory implements HTMLFormFactoryInterface
      * @param string $id    The fieldset id.
      * @param string $class The fieldset class.
      *
-     * @return FormElement The fieldset form element.
+     * @return FormElement
      * @throws InvalidArgumentException
      */
     public function buildFieldset($title, $name = '', $id = '', $class = '')
@@ -273,7 +269,7 @@ class FormFactory extends HTMLFactory implements HTMLFormFactoryInterface
      * @param string $selectedValue The select's selected value among options.
      * @param bool   $required      Sets the input as required for the form.
      *
-     * @return FormElement The select form element.
+     * @return FormElement
      * @throws Exception
      */
     public function buildSelect($name = '', $multiple = false, $id = '', $class = '', $options = [], $selectedValue = '', $required = false)

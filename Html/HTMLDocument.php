@@ -51,8 +51,7 @@ class HTMLDocument extends DOMPrototype
      * @param string $id    The id attribute
      * @param string $class The class attribute
      *
-     * @return HTMLElement The HTMLElement created
-     *
+     * @return HTMLElement
      * @throws Exception
      */
     public function create($name = 'div', $value = '', $id = '', $class = '')
@@ -69,7 +68,7 @@ class HTMLDocument extends DOMPrototype
      * @param array  $arguments All function arguments.
      *                          They serve as the content, id and class, like DOM::create().
      *
-     * @return mixed The DOMElement created or Null if the tag is not valid.
+     * @return mixed
      * @throws Exception
      */
     public function __call($name, $arguments)
@@ -99,7 +98,7 @@ class HTMLDocument extends DOMPrototype
      *                         If the selector results in multiple DOMNodes, then the first is selected as the context.
      *                         It is NULL by default.
      *
-     * @return DOMNodeList|false Returns the node list that matches the given css selector, or FALSE on malformed input.
+     * @return DOMNodeList|false
      * @throws InvalidArgumentException
      */
     public function select($selector, $context = null)
