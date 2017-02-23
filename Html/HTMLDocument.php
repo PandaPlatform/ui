@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Panda framework Ui component.
+ * This file is part of the Panda UI Package.
  *
  * (c) Ioannis Papikas <papikas.ioan@gmail.com>
  *
@@ -13,6 +13,7 @@ namespace Panda\Ui\Html;
 
 use DOMNodeList;
 use Exception;
+use InvalidArgumentException;
 use Panda\Ui\Contracts\Factories\DOMFactoryInterface;
 use Panda\Ui\Contracts\Factories\HTMLFactoryInterface;
 use Panda\Ui\Contracts\Handlers\DOMHandlerInterface;
@@ -25,8 +26,6 @@ use Panda\Ui\Helpers\HTMLHelper;
  * Create an HTML specific DOMDocument.
  *
  * @package Panda\Ui\Html
- *
- * @version 0.1
  */
 class HTMLDocument extends DOMPrototype
 {
@@ -71,6 +70,7 @@ class HTMLDocument extends DOMPrototype
      *                          They serve as the content, id and class, like DOM::create().
      *
      * @return mixed The DOMElement created or Null if the tag is not valid.
+     * @throws Exception
      */
     public function __call($name, $arguments)
     {
@@ -100,6 +100,7 @@ class HTMLDocument extends DOMPrototype
      *                         It is NULL by default.
      *
      * @return DOMNodeList|false Returns the node list that matches the given css selector, or FALSE on malformed input.
+     * @throws InvalidArgumentException
      */
     public function select($selector, $context = null)
     {

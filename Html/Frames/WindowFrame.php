@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Panda framework Ui component.
+ * This file is part of the Panda UI Package.
  *
  * (c) Ioannis Papikas <papikas.ioan@gmail.com>
  *
@@ -11,6 +11,8 @@
 
 namespace Panda\Ui\Html\Frames;
 
+use Exception;
+use InvalidArgumentException;
 use Panda\Ui\Contracts\DOMBuilder;
 use Panda\Ui\DOMItem;
 use Panda\Ui\Html\HTMLElement;
@@ -21,8 +23,6 @@ use Panda\Ui\Html\Popups\Popup;
  * It's the window frame prototype for building frames (windows, dialogs etc.).
  *
  * @package Panda\Ui\Html\Frames
- *
- * @version 0.1
  */
 class WindowFrame extends Popup implements DOMBuilder
 {
@@ -48,6 +48,8 @@ class WindowFrame extends Popup implements DOMBuilder
      * @param string|DOMItem $title The frame's title.
      *
      * @return $this
+     * @throws Exception
+     * @throws InvalidArgumentException
      */
     public function build($id = '', $class = '', $title = '')
     {
@@ -88,6 +90,7 @@ class WindowFrame extends Popup implements DOMBuilder
      * @param DOMItem $element The element to be appended.
      *
      * @return $this
+     * @throws InvalidArgumentException
      */
     public function appendToFrame($element)
     {
@@ -102,6 +105,7 @@ class WindowFrame extends Popup implements DOMBuilder
      * @param DOMItem $element The element to be appended.
      *
      * @return $this
+     * @throws InvalidArgumentException
      */
     public function appendToBody($element)
     {

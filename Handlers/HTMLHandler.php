@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Panda framework Ui component.
+ * This file is part of the Panda UI Package.
  *
  * (c) Ioannis Papikas <papikas.ioan@gmail.com>
  *
@@ -21,10 +21,7 @@ use Symfony\Component\CssSelector\CssSelectorConverter;
 
 /**
  * Class HTMLHandler
- *
  * @package Panda\Ui\Handlers
- *
- * @version 0.1
  */
 class HTMLHandler extends DOMHandler implements HTMLHandlerInterface
 {
@@ -106,6 +103,7 @@ class HTMLHandler extends DOMHandler implements HTMLHandlerInterface
      * @param string     $class   The class name.
      *
      * @return bool True if the element has the class, false otherwise.
+     * @throws Exception
      */
     public function hasClass(DOMElement $element, $class)
     {
@@ -130,6 +128,7 @@ class HTMLHandler extends DOMHandler implements HTMLHandlerInterface
      *                            appended to the style attribute and the new attribute will be returned.
      *
      * @return DOMElement|mixed
+     * @throws Exception
      */
     public function style(DOMElement &$element, $name, $val = '')
     {
@@ -188,6 +187,7 @@ class HTMLHandler extends DOMHandler implements HTMLHandlerInterface
      * @param bool       $convertEncoding Option to convert the encoding of the value to UTF-8.
      *
      * @return DOMElement|mixed
+     * @throws InvalidArgumentException
      */
     public function innerHTML(DOMElement &$element, $value = null, $faultTolerant = true, $convertEncoding = true)
     {

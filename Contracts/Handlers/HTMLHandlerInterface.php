@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Panda framework Ui component.
+ * This file is part of the Panda UI Package.
  *
  * (c) Ioannis Papikas <papikas.ioan@gmail.com>
  *
@@ -20,10 +20,7 @@ use InvalidArgumentException;
 
 /**
  * Interface HTMLHandlerInterface
- *
  * @package Panda\Ui\Contracts\Handlers
- *
- * @version 0.1
  */
 interface HTMLHandlerInterface extends DOMHandlerInterface
 {

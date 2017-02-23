@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Panda framework Ui component.
+ * This file is part of the Panda UI Package.
  *
  * (c) Ioannis Papikas <papikas.ioan@gmail.com>
  *
@@ -24,10 +24,7 @@ use Panda\Ui\Contracts\Handlers\DOMHandlerInterface;
 
 /**
  * Class DOMHandler
- *
  * @package Panda\Ui\Handlers
- *
- * @version 0.1
  */
 class DOMHandler implements DOMHandlerInterface
 {
@@ -86,6 +83,7 @@ class DOMHandler implements DOMHandlerInterface
      *                            The key is the name of the attribute.
      *
      * @return array
+     * @throws Exception
      */
     public function attrs(DOMElement &$element, $value = [])
     {
@@ -140,6 +138,7 @@ class DOMHandler implements DOMHandlerInterface
      *                            It can be a single value or an array of values.
      *
      * @return bool|string TRUE or the new value on success, FALSE on failure.
+     * @throws Exception
      */
     public function data(DOMElement &$element, $name, $value = [])
     {

@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Panda framework Ui component.
+ * This file is part of the Panda UI Package.
  *
  * (c) Ioannis Papikas <papikas.ioan@gmail.com>
  *
@@ -12,6 +12,7 @@
 namespace Panda\Ui\Factories;
 
 use Exception;
+use InvalidArgumentException;
 use Panda\Ui\Contracts\Factories\HTMLFormFactoryInterface;
 use Panda\Ui\Html\Controls\Form;
 use Panda\Ui\Html\Controls\Form\FormButton;
@@ -22,10 +23,7 @@ use Panda\Ui\Html\Controls\Form\FormSelect;
 
 /**
  * Class FormFactory
- *
- * @package Panda\Ui\Controls
- *
- * @version 0.1
+ * @package Panda\Ui\Factories
  */
 class FormFactory extends HTMLFactory implements HTMLFormFactoryInterface
 {
@@ -132,6 +130,7 @@ class FormFactory extends HTMLFactory implements HTMLFormFactoryInterface
      * @param string $class   The extra class for the label.
      *
      * @return FormElement The form label element
+     * @throws Exception
      */
     public function buildLabel($content, $for = '', $class = '')
     {
@@ -155,6 +154,7 @@ class FormFactory extends HTMLFactory implements HTMLFormFactoryInterface
      * @param string $class The extra class of the button
      *
      * @return FormElement The form button element
+     * @throws Exception
      */
     public function buildButton($type, $title, $name = '', $id = '', $class = '')
     {
@@ -246,6 +246,7 @@ class FormFactory extends HTMLFactory implements HTMLFormFactoryInterface
      * @param string $class The fieldset class.
      *
      * @return FormElement The fieldset form element.
+     * @throws InvalidArgumentException
      */
     public function buildFieldset($title, $name = '', $id = '', $class = '')
     {
@@ -273,6 +274,7 @@ class FormFactory extends HTMLFactory implements HTMLFormFactoryInterface
      * @param bool   $required      Sets the input as required for the form.
      *
      * @return FormElement The select form element.
+     * @throws Exception
      */
     public function buildSelect($name = '', $multiple = false, $id = '', $class = '', $options = [], $selectedValue = '', $required = false)
     {

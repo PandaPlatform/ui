@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Panda framework Ui component.
+ * This file is part of the Panda UI Package.
  *
  * (c) Ioannis Papikas <papikas.ioan@gmail.com>
  *
@@ -11,6 +11,8 @@
 
 namespace Panda\Ui\Html\Notifications;
 
+use Exception;
+use InvalidArgumentException;
 use Panda\Ui\Contracts\DOMBuilder;
 use Panda\Ui\Html\HTMLDocument;
 use Panda\Ui\Html\HTMLElement;
@@ -22,8 +24,6 @@ use Panda\Ui\Html\HTMLElement;
  * successful post.
  *
  * @package Panda\Ui\Html\Notifications
- *
- * @version 0.1
  */
 class Notification extends HTMLElement implements DOMBuilder
 {
@@ -82,6 +82,7 @@ class Notification extends HTMLElement implements DOMBuilder
      * @param bool   $disposable Lets the user to be able to close the notification.
      *
      * @return $this
+     * @throws Exception
      */
     public function build($type = self::INFO, $header = false, $timeout = false, $disposable = false)
     {
@@ -109,6 +110,7 @@ class Notification extends HTMLElement implements DOMBuilder
      * @param HTMLElement $content The element to be appended.
      *
      * @return $this
+     * @throws InvalidArgumentException
      */
     public function appendToBody($content)
     {
@@ -125,6 +127,7 @@ class Notification extends HTMLElement implements DOMBuilder
      * @param mixed $message The message content (string or HTMLElement)
      *
      * @return $this
+     * @throws InvalidArgumentException
      */
     public function appendCustomMessage($message)
     {
@@ -141,6 +144,7 @@ class Notification extends HTMLElement implements DOMBuilder
      *                                       notification.
      *
      * @return $this
+     * @throws InvalidArgumentException
      */
     private function buildHead($title, $disposable = false)
     {
@@ -161,6 +165,7 @@ class Notification extends HTMLElement implements DOMBuilder
      * Builds the notification body.
      *
      * @return $this
+     * @throws InvalidArgumentException
      */
     private function buildBody()
     {

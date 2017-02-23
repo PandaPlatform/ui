@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Panda framework Ui component.
+ * This file is part of the Panda UI Package.
  *
  * (c) Ioannis Papikas <papikas.ioan@gmail.com>
  *
@@ -11,12 +11,11 @@
 
 namespace Panda\Ui\Contracts;
 
+use Exception;
+
 /**
  * Interface DOMBuilder
- *
  * @package Panda\Ui\Contracts
- *
- * @version 0.1
  */
 interface DOMBuilder
 {
@@ -24,6 +23,7 @@ interface DOMBuilder
      * Build the element.
      *
      * @return $this
+     * @throws Exception
      */
     public function build();
 }

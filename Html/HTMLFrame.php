@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Panda framework Ui component.
+ * This file is part of the Panda UI Package.
  *
  * (c) Ioannis Papikas <papikas.ioan@gmail.com>
  *
@@ -11,12 +11,11 @@
 
 namespace Panda\Ui\Html;
 
+use Exception;
+
 /**
  * Class HTMLFrame
- *
  * @package Panda\Ui\Html
- *
- * @version 0.1
  */
 class HTMLFrame extends HTMLElement
 {
@@ -29,6 +28,8 @@ class HTMLFrame extends HTMLElement
      * @param string       $id
      * @param string       $class
      * @param array        $sandbox
+     *
+     * @throws Exception
      */
     public function __construct(HTMLDocument $HTMLDocument, $src, $name = '', $id = '', $class = '', $sandbox = [])
     {

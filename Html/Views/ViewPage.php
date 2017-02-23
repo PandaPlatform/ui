@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Panda framework Ui component.
+ * This file is part of the Panda UI Package.
  *
  * (c) Ioannis Papikas <papikas.ioan@gmail.com>
  *
@@ -11,6 +11,7 @@
 
 namespace Panda\Ui\Html\Views;
 
+use InvalidArgumentException;
 use Panda\Ui\Html\HTMLPage;
 
 /**
@@ -18,8 +19,6 @@ use Panda\Ui\Html\HTMLPage;
  * Creates an HTMLPage and appends the current view inside the body.
  *
  * @package Panda\Ui\Views
- *
- * @version 0.1
  */
 class ViewPage extends HTMLPage
 {
@@ -38,6 +37,7 @@ class ViewPage extends HTMLPage
      * @param string $class
      *
      * @return $this
+     * @throws InvalidArgumentException
      */
     public function addView($view, $name, $value = '', $id = '', $class = '')
     {

@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Panda framework Ui component.
+ * This file is part of the Panda UI Package.
  *
  * (c) Ioannis Papikas <papikas.ioan@gmail.com>
  *
@@ -11,6 +11,8 @@
 
 namespace Panda\Ui\Html\Controls\Form;
 
+use Exception;
+use InvalidArgumentException;
 use Panda\Ui\Contracts\DOMBuilder;
 use Panda\Ui\Html\HTMLDocument;
 use Panda\Ui\Html\HTMLElement;
@@ -32,6 +34,8 @@ class SwitchButton extends HTMLElement implements DOMBuilder
      * @param HTMLDocument $HTMLDocument The item's parent document
      * @param bool         $active       Whether the switch is on or off
      * @param string       $class        The item class attribute
+     *
+     * @throws Exception
      */
     public function __construct(HTMLDocument $HTMLDocument, $active = false, $class = '')
     {
@@ -53,6 +57,8 @@ class SwitchButton extends HTMLElement implements DOMBuilder
      * @param string $itemValue
      *
      * @return $this
+     * @throws Exception
+     * @throws InvalidArgumentException
      */
     public function build($itemName = '', $itemValue = '')
     {

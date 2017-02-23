@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Panda framework Ui component.
+ * This file is part of the Panda UI Package.
  *
  * (c) Ioannis Papikas <papikas.ioan@gmail.com>
  *
@@ -20,10 +20,7 @@ use Panda\Ui\Html\HTMLElement;
 
 /**
  * Class HTMLFactory
- *
- * @package Panda\Ui\Html
- *
- * @version 0.1
+ * @package Panda\Ui\Factories
  */
 class HTMLFactory extends DOMFactory implements HTMLFactoryInterface
 {

@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Panda framework Ui component.
+ * This file is part of the Panda UI Package.
  *
  * (c) Ioannis Papikas <papikas.ioan@gmail.com>
  *
@@ -11,6 +11,7 @@
 
 namespace Panda\Ui\Html\Frames;
 
+use InvalidArgumentException;
 use Panda\Ui\Contracts\Factories\HTMLFactoryInterface;
 use Panda\Ui\Contracts\Factories\HTMLFormFactoryInterface;
 use Panda\Ui\Html\HTMLDocument;
@@ -21,8 +22,6 @@ use Panda\Ui\Html\Templates\Forms\SimpleForm;
  * Creates a dialog frame popup to display content to the user and perform an action.
  *
  * @package Panda\Ui\Html\Frames
- *
- * @version 0.1
  */
 class DialogFrame extends WindowFrame
 {
@@ -72,6 +71,7 @@ class DialogFrame extends WindowFrame
      * @param bool   $fileUpload Enable the dialog form for file upload.
      *
      * @return $this
+     * @throws InvalidArgumentException
      */
     public function build($title = 'Dialog Frame', $action = '', $background = true, $type = self::TYPE_OK_CANCEL, $fileUpload = false)
     {
@@ -114,6 +114,7 @@ class DialogFrame extends WindowFrame
      * Get the dialog's form id.
      *
      * @return string The form id.
+     * @throws \Exception
      */
     public function getFormId()
     {
@@ -128,6 +129,7 @@ class DialogFrame extends WindowFrame
      *                     Default type is OK/Cancel.
      *
      * @return $this
+     * @throws InvalidArgumentException
      */
     private function buildControls($type = self::TYPE_OK_CANCEL)
     {

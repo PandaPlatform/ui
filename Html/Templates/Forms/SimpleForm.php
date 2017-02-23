@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Panda framework Ui component.
+ * This file is part of the Panda UI Package.
  *
  * (c) Ioannis Papikas <papikas.ioan@gmail.com>
  *
@@ -11,6 +11,8 @@
 
 namespace Panda\Ui\Html\Templates\Forms;
 
+use Exception;
+use InvalidArgumentException;
 use Panda\Ui\Contracts\DOMBuilder;
 use Panda\Ui\Html\HTMLElement;
 
@@ -21,8 +23,6 @@ use Panda\Ui\Html\HTMLElement;
  * It has access to the FormFactory (it extends it) and can build every form control.
  *
  * @package Panda\Ui\Html\Templates\Forms
- *
- * @version 0.1
  */
 class SimpleForm extends Form implements DOMBuilder
 {
@@ -47,6 +47,8 @@ class SimpleForm extends Form implements DOMBuilder
      * @param bool   $requiredNotes  Whether the form has required visual input fields.
      *
      * @return $this
+     * @throws Exception
+     * @throws InvalidArgumentException
      */
     public function build($id = '', $action = '', $async = true, $fileUpload = false, $defaultButtons = true, $requiredNotes = false)
     {
@@ -71,6 +73,7 @@ class SimpleForm extends Form implements DOMBuilder
      * Build the required notes container.
      *
      * @return $this
+     * @throws InvalidArgumentException
      */
     private function buildRequiredNotes()
     {
@@ -97,6 +100,8 @@ class SimpleForm extends Form implements DOMBuilder
      *
      * @param bool $defaultButtons Options whether the form will have the default control buttons (execute and reset
      *                             buttons).
+     *
+     * @throws InvalidArgumentException
      */
     private function buildControls($defaultButtons)
     {
@@ -128,6 +133,8 @@ class SimpleForm extends Form implements DOMBuilder
      * @param string      $notes
      *
      * @return HTMLElement
+     * @throws Exception
+     * @throws InvalidArgumentException
      */
     public function buildRow($title, $input, $required = false, $notes = '')
     {
@@ -162,6 +169,7 @@ class SimpleForm extends Form implements DOMBuilder
      * @param bool   $required
      *
      * @return HTMLElement
+     * @throws InvalidArgumentException
      */
     private function buildLabel($title, $for, $required = false)
     {
@@ -191,6 +199,8 @@ class SimpleForm extends Form implements DOMBuilder
      * @param string      $notes
      *
      * @return $this
+     * @throws Exception
+     * @throws InvalidArgumentException
      */
     public function appendRow($title, $input, $required = false, $notes = '')
     {
@@ -204,6 +214,7 @@ class SimpleForm extends Form implements DOMBuilder
      * @param HTMLElement $element
      *
      * @return $this
+     * @throws InvalidArgumentException
      */
     public function appendToControls($element)
     {
