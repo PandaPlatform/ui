@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Panda UI Package.
+ * This file is part of the Panda Ui Package.
  *
  * (c) Ioannis Papikas <papikas.ioan@gmail.com>
  *
@@ -16,9 +16,10 @@ use Panda\Ui\Handlers\HTMLHandler;
 use Panda\Ui\Html\HTMLDocument;
 use PHPUnit_Framework_TestCase;
 
-// Initialize testing env
-include '../init.php';
-
+/**
+ * Class HTMLFactoryTest
+ * @package Panda\Ui\Tests\Factories
+ */
 class HTMLFactoryTest extends PHPUnit_Framework_TestCase
 {
     /**
@@ -26,6 +27,9 @@ class HTMLFactoryTest extends PHPUnit_Framework_TestCase
      */
     private $HTMLFactory;
 
+    /**
+     * {@inheritdoc}
+     */
     public function setUp()
     {
         parent::setUp();
@@ -34,6 +38,9 @@ class HTMLFactoryTest extends PHPUnit_Framework_TestCase
         $this->HTMLFactory->setHTMLDocument(new HTMLDocument(new HTMLHandler(), $this->HTMLFactory));
     }
 
+    /**
+     * @covers \Panda\Ui\Factories\HTMLFactory::buildElement
+     */
     public function testBuildElement()
     {
         $element = $this->HTMLFactory->buildElement($name = 'item', $value = 'value', $id = 'id', $class = 'class');
@@ -43,9 +50,13 @@ class HTMLFactoryTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('class', $element->getAttribute('class'));
     }
 
-    public function testBuildWeblink()
+    /**
+     * @covers \Panda\Ui\Factories\HTMLFactory::buildWebLink
+     * @throws \Exception
+     */
+    public function testBuildWebLink()
     {
-        $element = $this->HTMLFactory->buildWeblink($href = 'http://test.example.com', $target = '_self', $content = 'test_weblink', $id = 'weblink_id', $class = 'weblink_class');
+        $element = $this->HTMLFactory->buildWebLink($href = 'http://test.example.com', $target = '_self', $content = 'test_weblink', $id = 'weblink_id', $class = 'weblink_class');
         $this->assertEquals('a', $element->tagName);
         $this->assertEquals('test_weblink', $element->nodeValue);
         $this->assertEquals('weblink_id', $element->getAttribute('id'));
@@ -54,6 +65,10 @@ class HTMLFactoryTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('_self', $element->getAttribute('target'));
     }
 
+    /**
+     * @covers \Panda\Ui\Factories\HTMLFactory::buildMeta
+     * @throws \Exception
+     */
     public function testBuildMeta()
     {
         $element = $this->HTMLFactory->buildMeta($name = 'test_meta', $content = 'meta_content', $httpEquiv = 'http_equiv', $charset = 'utf-8');
@@ -64,6 +79,10 @@ class HTMLFactoryTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('utf-8', $element->getAttribute('charset'));
     }
 
+    /**
+     * @covers \Panda\Ui\Factories\HTMLFactory::buildLink
+     * @throws \Exception
+     */
     public function testBuildLink()
     {
         $element = $this->HTMLFactory->buildLink($rel = 'rel', $href = 'http://test.link.com');
@@ -72,6 +91,10 @@ class HTMLFactoryTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('http://test.link.com', $element->getAttribute('href'));
     }
 
+    /**
+     * @covers \Panda\Ui\Factories\HTMLFactory::buildScript
+     * @throws \Exception
+     */
     public function testBuildScript()
     {
         $element = $this->HTMLFactory->buildScript($src = 'http://test.script.com', $async = true);

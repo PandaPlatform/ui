@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Panda UI Package.
+ * This file is part of the Panda Ui Package.
  *
  * (c) Ioannis Papikas <papikas.ioan@gmail.com>
  *

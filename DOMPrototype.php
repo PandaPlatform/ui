@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Panda UI Package.
+ * This file is part of the Panda Ui Package.
  *
  * (c) Ioannis Papikas <papikas.ioan@gmail.com>
  *
@@ -24,11 +24,9 @@ use Panda\Ui\Contracts\Handlers\DOMHandlerInterface;
  *
  * This object can be used for any operation that has to
  * do with DOM structure and XML manipulation (XML files,
- * HTML files etc.).
+ * HTML files and more).
  *
  * @package Panda\Ui
- *
- * @version 0.1
  */
 class DOMPrototype extends DOMDocument
 {
@@ -88,6 +86,7 @@ class DOMPrototype extends DOMDocument
      * @param DOMItem $element
      *
      * @return DOMPrototype
+     * @throws InvalidArgumentException
      */
     public function append($element)
     {
@@ -129,6 +128,7 @@ class DOMPrototype extends DOMDocument
      * @param string $nodeName The node name of the element. If not set, it searches for all nodes (*).
      *
      * @return DOMNode|DOMNodeList Returns the DOMElement or NULL if it doesn't exist.
+     * @throws InvalidArgumentException
      */
     public function find($id, $nodeName = '*')
     {

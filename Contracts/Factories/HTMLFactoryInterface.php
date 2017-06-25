@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Panda UI Package.
+ * This file is part of the Panda Ui Package.
  *
  * (c) Ioannis Papikas <papikas.ioan@gmail.com>
  *
@@ -44,7 +44,7 @@ interface HTMLFactoryInterface extends DOMFactoryInterface
      *
      * @return HTMLElement
      */
-    public function buildWeblink($href = '', $target = '_self', $content = '', $id = '', $class = '');
+    public function buildWebLink($href = '', $target = '_self', $content = '', $id = '', $class = '');
 
     /**
      * Build a meta element.

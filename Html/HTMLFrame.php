@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Panda UI Package.
+ * This file is part of the Panda Ui Package.
  *
  * (c) Ioannis Papikas <papikas.ioan@gmail.com>
  *
@@ -44,7 +44,7 @@ class HTMLFrame extends HTMLElement
 
         // Set sandbox
         if (is_array($sandbox) && !empty($sandbox)) {
-            $this->attr('sandbox', explode(' ', $sandbox));
+            $this->attr('sandbox', implode(' ', $sandbox));
         }
 
         // Set default iframe attributes

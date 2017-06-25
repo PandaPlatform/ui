@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Panda UI Package.
+ * This file is part of the Panda Ui Package.
  *
  * (c) Ioannis Papikas <papikas.ioan@gmail.com>
  *
@@ -11,6 +11,7 @@
 
 namespace Panda\Ui\Html\Frames;
 
+use DOMElement;
 use Exception;
 use InvalidArgumentException;
 use Panda\Ui\Contracts\Factories\HTMLFactoryInterface;
@@ -50,6 +51,8 @@ class DialogFrame extends WindowFrame
      *
      * @param HTMLDocument             $HTMLDocument
      * @param HTMLFormFactoryInterface $FormFactory
+     *
+     * @throws Exception
      */
     public function __construct(HTMLDocument $HTMLDocument, HTMLFormFactoryInterface $FormFactory)
     {
@@ -63,25 +66,29 @@ class DialogFrame extends WindowFrame
     /**
      * Builds the frame along with the form action.
      *
-     * @param mixed  $title      The dialog's title.
-     * @param string $action     The form action to post the dialog to.
-     *                           Leave empty in order to engage with module or application protocol.
-     * @param bool   $background Defines whether the dialog popup will have a background.
-     * @param string $type       The dialog buttons type.
-     *                           Use class constants to define an OK/Cancel or Yes/No type.
-     * @param bool   $fileUpload Enable the dialog form for file upload.
+     * @param string           $id
+     * @param string           $class
+     * @param DOMElement|mixed $content
+     * @param mixed            $title      The dialog's title.
+     * @param string           $action     The form action to post the dialog to.
+     *                                     Leave empty in order to engage with module or application protocol.
+     * @param bool             $background Defines whether the dialog popup will have a background.
+     * @param string           $type       The dialog buttons type.
+     *                                     Use class constants to define an OK/Cancel or Yes/No type.
+     * @param bool             $fileUpload Enable the dialog form for file upload.
      *
      * @return $this
      * @throws Exception
      * @throws InvalidArgumentException
      */
-    public function build($title = 'Dialog Frame', $action = '', $background = true, $type = self::TYPE_OK_CANCEL, $fileUpload = false)
+    public function build($id = '', $class = '', $content = null, $title = 'Dialog Frame', $action = '', $background = true, $type = self::TYPE_OK_CANCEL, $fileUpload = false)
     {
         // Set popup properties
         $this->background($background);
 
         // Build window frame
-        parent::build($id = '', $class = 'dialogFrame', $title);
+        parent::build($id, $class, $title);
+        $this->addClass('dialog-frame');
 
         // Build Form
         $this->form = new SimpleForm($this->getHTMLDocument(), $this->getFormFactory());
@@ -90,6 +97,9 @@ class DialogFrame extends WindowFrame
 
         // Build Controls
         $this->buildControls($type);
+
+        // Append any custom content
+        $this->appendToBody($content);
 
         return $this;
     }
@@ -136,11 +146,11 @@ class DialogFrame extends WindowFrame
     private function buildControls($type = self::TYPE_OK_CANCEL)
     {
         // Create dialog controls container
-        $controlsContainer = $this->getFormFactory()->buildElement('div', '', '', 'dialogControls');
+        $controlsContainer = $this->getFormFactory()->buildElement('div', '', '', 'dialog-controls');
         $this->form->append($controlsContainer);
 
         // Button Container
-        $btnContainer = $this->getFormFactory()->buildElement('div', '', '', 'ctrls');
+        $btnContainer = $this->getFormFactory()->buildElement('div', '', '', 'controls-container');
         $controlsContainer->append($btnContainer);
 
         // Set button literals
@@ -148,9 +158,9 @@ class DialogFrame extends WindowFrame
         $lbl_reset = ($type == self::TYPE_OK_CANCEL ? 'cancel' : 'no');
 
         // Insert Controls
-        $submitBtn = $this->getFormFactory()->buildSubmitButton($lbl_submit, '', '', 'dlgExec positive');
+        $submitBtn = $this->getFormFactory()->buildSubmitButton($lbl_submit, '', '', 'dialog-submit positive');
         $btnContainer->append($submitBtn);
-        $resetBtn = $this->getFormFactory()->buildResetButton($lbl_reset, '', 'dlgCancel');
+        $resetBtn = $this->getFormFactory()->buildResetButton($lbl_reset, '', 'dialog-cancel');
         $btnContainer->append($resetBtn);
 
         return $this;

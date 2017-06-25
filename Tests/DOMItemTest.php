@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Panda UI Package.
+ * This file is part of the Panda Ui Package.
  *
  * (c) Ioannis Papikas <papikas.ioan@gmail.com>
  *
@@ -11,15 +11,17 @@
 
 namespace Panda\Ui\Tests;
 
+use Exception;
 use Panda\Ui\DOMItem;
 use Panda\Ui\DOMPrototype;
 use Panda\Ui\Factories\DOMFactory;
 use Panda\Ui\Handlers\DOMHandler;
 use PHPUnit_Framework_TestCase;
 
-// Initialize testing env
-include 'init.php';
-
+/**
+ * Class DOMItemTest
+ * @package Panda\Ui\Tests
+ */
 class DOMItemTest extends PHPUnit_Framework_TestCase
 {
     /**
@@ -27,6 +29,9 @@ class DOMItemTest extends PHPUnit_Framework_TestCase
      */
     private $DOMItem;
 
+    /**
+     * {@inheritdoc}
+     */
     public function setUp()
     {
         parent::setUp();
@@ -34,13 +39,31 @@ class DOMItemTest extends PHPUnit_Framework_TestCase
         $this->DOMItem = new DOMItem(new DOMPrototype(new DOMHandler(), new DOMFactory()), 'item', 'value');
     }
 
+    /**
+     * @covers \Panda\Ui\DOMItem::__construct
+     */
     public function testDOMItem()
     {
         $this->assertEquals('item', $this->DOMItem->tagName);
         $this->assertEquals('value', $this->DOMItem->nodeValue());
     }
 
+    /**
+     * @covers \Panda\Ui\DOMItem::attr
+     * @throws Exception
+     */
     public function testAttr()
+    {
+        // Test simple attribute
+        $this->DOMItem->attr('test_attr', 'attr_value');
+        $this->assertEquals('attr_value', $this->DOMItem->getAttribute('test_attr'));
+    }
+
+    /**
+     * @covers \Panda\Ui\DOMItem::appendAttr
+     * @throws Exception
+     */
+    public function testAppendAttr()
     {
         // Test simple attribute
         $this->DOMItem->attr('test_attr', 'attr_value');
@@ -51,27 +74,19 @@ class DOMItemTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('attr_value new_attr_value', $this->DOMItem->getAttribute('test_attr'));
     }
 
-    public function testData()
-    {
-        // Test data array
-        $data = [];
-        $data['t1'] = 't1_value';
-        $data['t2'] = 't2_value';
-        $this->DOMItem->data('dtest', $data);
-        $this->assertEquals(json_encode($data, JSON_FORCE_OBJECT), $this->DOMItem->getAttribute('data-dtest'));
-
-        // Test empty array
-        $data = [];
-        $this->DOMItem->data('dtest-empty', $data);
-        $this->assertEquals(json_encode($data, JSON_FORCE_OBJECT), '{' . $this->DOMItem->getAttribute('data-dtest-empty') . '}');
-    }
-
+    /**
+     * @covers \Panda\Ui\DOMItem::nodeValue
+     */
     public function testNodeValue()
     {
         $this->DOMItem->nodeValue('new_node_value');
         $this->assertEquals('new_node_value', $this->DOMItem->nodeValue);
     }
 
+    /**
+     * @covers \Panda\Ui\DOMItem::append
+     * @throws \InvalidArgumentException
+     */
     public function testAppend()
     {
         $newItem = new DOMItem($this->DOMItem->getDOMDocument(), 'new');
@@ -80,6 +95,10 @@ class DOMItemTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($newItem->ownerDocument, $this->DOMItem->ownerDocument);
     }
 
+    /**
+     * @covers \Panda\Ui\DOMItem::prepend
+     * @throws \InvalidArgumentException
+     */
     public function testPrepend()
     {
         // Simple prepend
@@ -96,12 +115,20 @@ class DOMItemTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($newItem, $this->DOMItem->childNodes->item(0));
     }
 
+    /**
+     * @covers \Panda\Ui\DOMItem::remove
+     * @throws \DOMException
+     */
     public function testRemove()
     {
         $this->DOMItem->remove();
         $this->assertNull($this->DOMItem->parentNode);
     }
 
+    /**
+     * @covers \Panda\Ui\DOMItem::replace
+     * @throws \DOMException
+     */
     public function testReplace()
     {
         $newItem = new DOMItem($this->DOMItem->getDOMDocument(), 'new');

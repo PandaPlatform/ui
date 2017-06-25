@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Panda UI Package.
+ * This file is part of the Panda Ui Package.
  *
  * (c) Ioannis Papikas <papikas.ioan@gmail.com>
  *
@@ -52,17 +52,17 @@ class HTMLFactory extends DOMFactory implements HTMLFactoryInterface
      *
      * @throws Exception
      */
-    public function buildWeblink($href = '', $target = '_self', $content = '', $id = '', $class = '')
+    public function buildWebLink($href = '', $target = '_self', $content = '', $id = '', $class = '')
     {
-        // Create weblink element
-        $weblink = $this->buildElement($name = 'a', $content, $id, $class);
+        // Create webLink element
+        $webLink = $this->buildElement($name = 'a', $content, $id, $class);
 
         // Add attributes
-        $weblink->attr('href', $href);
-        $weblink->attr('target', $target);
+        $webLink->attr('href', $href);
+        $webLink->attr('target', $target);
 
-        // Return the weblink
-        return $weblink;
+        // Return the webLink
+        return $webLink;
     }
 
     /**

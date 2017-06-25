@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Panda UI Package.
+ * This file is part of the Panda Ui Package.
  *
  * (c) Ioannis Papikas <papikas.ioan@gmail.com>
  *
@@ -45,9 +45,9 @@ class NavigationUiHelper
     {
         $staticNav = [];
         $staticNav['ref'] = $ref;
-        $staticNav['targetcontainerid'] = $targetContainerId;
-        $staticNav['targetgroupid'] = $targetGroupId;
-        $staticNav['navgroup'] = $navGroup;
+        $staticNav['target_container_id'] = $targetContainerId;
+        $staticNav['target_group_id'] = $targetGroupId;
+        $staticNav['nav_group'] = $navGroup;
         $staticNav['display'] = $display;
 
         $HTMLHandler->data($HTMLElement, 'static-nav', $staticNav);
@@ -62,6 +62,6 @@ class NavigationUiHelper
      */
     public static function setTargetGroupId(HTMLHandlerInterface $HTMLHandler, DOMNode $HTMLElement, $targetGroupId)
     {
-        $HTMLHandler->data($HTMLElement, 'targetgroupid', $targetGroupId);
+        $HTMLHandler->data($HTMLElement, 'target_group_id', $targetGroupId);
     }
 }

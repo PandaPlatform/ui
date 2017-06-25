@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Panda UI Package.
+ * This file is part of the Panda Ui Package.
  *
  * (c) Ioannis Papikas <papikas.ioan@gmail.com>
  *
@@ -24,6 +24,11 @@ use Panda\Ui\Helpers\HTMLHelper;
 /**
  * HTML Document Class
  * Create an HTML specific DOMDocument.
+ *
+ * Magic methods:
+ *
+ * @method div($value = '', $id = '', $class = '');
+ * @method p($value = '', $id = '', $class = '');
  *
  * @package Panda\Ui\Html
  */
@@ -76,7 +81,7 @@ class HTMLDocument extends DOMPrototype
         // Get method name and check for a valid html tag
         $name = strtolower($name);
         if (!HTMLHelper::validHtmlTag($name)) {
-            return;
+            throw new InvalidArgumentException(__METHOD__ . ': The given tag name is invalid.');
         }
 
         // Get rest of attributes

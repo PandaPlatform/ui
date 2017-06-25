@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Panda UI Package.
+ * This file is part of the Panda Ui Package.
  *
  * (c) Ioannis Papikas <papikas.ioan@gmail.com>
  *
@@ -11,6 +11,7 @@
 
 namespace Panda\Ui\Html\Frames;
 
+use DOMElement;
 use Exception;
 use InvalidArgumentException;
 use Panda\Ui\Contracts\DOMBuilder;
@@ -43,15 +44,16 @@ class WindowFrame extends Popup implements DOMBuilder
     /**
      * Builds the window frame structure.
      *
-     * @param string         $id
-     * @param string         $class
-     * @param string|DOMItem $title The frame's title.
+     * @param string           $id
+     * @param string           $class
+     * @param DOMElement|mixed $content
+     * @param string|DOMItem   $title The frame's title.
      *
      * @return $this
      * @throws Exception
      * @throws InvalidArgumentException
      */
-    public function build($id = '', $class = '', $title = '')
+    public function build($id = '', $class = '', $content = null, $title = 'Window Frame')
     {
         // Set basic properties
         $this->type(Popup::TP_PERSISTENT, false);
@@ -59,27 +61,30 @@ class WindowFrame extends Popup implements DOMBuilder
 
         // Create wFrame
         $id = 'wf_' . (empty($id) ? mt_rand() : $id);
-        $this->wFrame = $this->getHTMLDocument()->getHTMLFactory()->buildElement('div', '', $id, 'wFrame');
+        $this->wFrame = $this->getHTMLDocument()->getHTMLFactory()->buildElement('div', '', $id, 'window-frame');
         $this->wFrame->addClass($class);
 
-        // Build parent element
+        // Build parent element and append content to frame
         parent::build($id, $this->wFrame);
 
         // Create header
-        $frameHeader = $this->getHTMLDocument()->getHTMLFactory()->buildElement('div', '', '', 'frameHeader');
+        $frameHeader = $this->getHTMLDocument()->getHTMLFactory()->buildElement('div', '', '', 'frame-header');
         $this->appendToFrame($frameHeader);
 
         // Header Title
-        $frameTitle = $this->getHTMLDocument()->getHTMLFactory()->buildElement('span', $title, '', 'frameTitle');
+        $frameTitle = $this->getHTMLDocument()->getHTMLFactory()->buildElement('span', $title, '', 'frame-title');
         $frameHeader->append($frameTitle);
 
         // Close button
-        $closeBtn = $this->getHTMLDocument()->getHTMLFactory()->buildElement('span', '', '', 'closeBtn');
+        $closeBtn = $this->getHTMLDocument()->getHTMLFactory()->buildElement('span', '', '', 'button-close');
         $frameHeader->append($closeBtn);
 
         // Create body
-        $this->body = $this->getHTMLDocument()->getHTMLFactory()->buildElement('div', '', '', 'frameBody');
+        $this->body = $this->getHTMLDocument()->getHTMLFactory()->buildElement('div', '', '', 'frame-body');
         $this->appendToFrame($this->body);
+
+        // Append given content to frame body, if any
+        $this->appendToBody($content);
 
         return $this;
     }

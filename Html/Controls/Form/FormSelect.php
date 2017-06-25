@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Panda UI Package.
+ * This file is part of the Panda Ui Package.
  *
  * (c) Ioannis Papikas <papikas.ioan@gmail.com>
  *
@@ -51,7 +51,7 @@ class FormSelect extends FormElement
         }
 
         // Check if factory is associated with another document and make a copy
-        if (!empty($HTMLFormFactory->getHTMLDocument()) && $HTMLFormFactory->getHTMLDocument() != $HTMLDocument) {
+        if (!empty($HTMLFormFactory->getHTMLDocument()) && $HTMLFormFactory->getHTMLDocument() !== $HTMLDocument) {
             $HTMLFormFactory = clone $HTMLFormFactory;
         }
 

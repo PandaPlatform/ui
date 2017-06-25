@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Panda UI Package.
+ * This file is part of the Panda Ui Package.
  *
  * (c) Ioannis Papikas <papikas.ioan@gmail.com>
  *
@@ -17,9 +17,10 @@ use Panda\Ui\Html\HTMLDocument;
 use Panda\Ui\Html\HTMLElement;
 use PHPUnit_Framework_TestCase;
 
-// Initialize testing env
-include '../init.php';
-
+/**
+ * Class HTMLElementTest
+ * @package Panda\Ui\Tests\Html
+ */
 class HTMLElementTest extends PHPUnit_Framework_TestCase
 {
     /**
@@ -27,6 +28,9 @@ class HTMLElementTest extends PHPUnit_Framework_TestCase
      */
     private $HTMLElement;
 
+    /**
+     * {@inheritdoc}
+     */
     public function setUp()
     {
         parent::setUp();
@@ -34,6 +38,9 @@ class HTMLElementTest extends PHPUnit_Framework_TestCase
         $this->HTMLElement = new HTMLElement(new HTMLDocument(new HTMLHandler(), new HTMLFactory()), $name = 'div', $value = 'value', $id = 'id', $class = 'class');
     }
 
+    /**
+     * @covers \Panda\Ui\Html\HTMLElement::__construct
+     */
     public function testHTMLElement()
     {
         $this->assertEquals('div', $this->HTMLElement->tagName);
@@ -42,6 +49,32 @@ class HTMLElementTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('class', $this->HTMLElement->getAttribute('class'));
     }
 
+    /**
+     * @covers \Panda\Ui\Html\HTMLElement::data
+     */
+    public function testData()
+    {
+        // Test data array
+        $data = [];
+        $data['t1'] = 't1_value';
+        $data['t2'] = 't2_value';
+        $this->HTMLElement->data('test', $data);
+        $this->assertEquals(json_encode($data, JSON_FORCE_OBJECT), $this->HTMLElement->getAttribute('data-test'));
+
+        // Test empty array
+        $data = [];
+        $this->HTMLElement->data('test-empty', $data);
+        $this->assertEquals(json_encode($data, JSON_FORCE_OBJECT), '{' . $this->HTMLElement->getAttribute('data-test-empty') . '}');
+    }
+
+    /**
+     * @covers \Panda\Ui\Html\HTMLElement::addClass
+     * @covers \Panda\Ui\Html\HTMLElement::hasClass
+     * @covers \Panda\Ui\Html\HTMLElement::removeClass
+     *
+     * @throws \Exception
+     * @throws \PHPUnit_Framework_AssertionFailedError
+     */
     public function testAddRemoveHasClass()
     {
         // Add classes
@@ -68,6 +101,10 @@ class HTMLElementTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($this->HTMLElement->hasClass('class2'));
     }
 
+    /**
+     * @covers \Panda\Ui\Html\HTMLElement::style
+     * @throws \PHPUnit_Framework_AssertionFailedError
+     */
     public function testStyle()
     {
         // Add style and check
@@ -88,6 +125,10 @@ class HTMLElementTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('color: red', $this->HTMLElement->getAttribute('style'));
     }
 
+    /**
+     * @covers \Panda\Ui\Html\HTMLElement::innerHTML
+     * @throws \PHPUnit_Framework_AssertionFailedError
+     */
     public function testInnerHtml()
     {
         // Simple text as html
@@ -106,6 +147,9 @@ class HTMLElementTest extends PHPUnit_Framework_TestCase
         $this->assertEmpty($this->HTMLElement->innerHTML());
     }
 
+    /**
+     * @covers \Panda\Ui\Html\HTMLElement::innerHTML
+     */
     public function testOuterHtml()
     {
         // Simple text as html

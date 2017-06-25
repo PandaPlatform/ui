@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Panda UI Package.
+ * This file is part of the Panda Ui Package.
  *
  * (c) Ioannis Papikas <papikas.ioan@gmail.com>
  *
@@ -23,8 +23,6 @@ use Panda\Ui\Contracts\Handlers\DOMHandlerInterface;
  * This DOMItem implements extended DOMElement functionality.
  *
  * @package Panda\Ui
- *
- * @version 0.1
  */
 class DOMItem extends DOMElement
 {
@@ -40,6 +38,8 @@ class DOMItem extends DOMElement
      * @param string         $name
      * @param string|DOMItem $value
      * @param string         $namespaceURI
+     *
+     * @throws InvalidArgumentException
      */
     public function __construct(DOMPrototype $DOMDocument, $name, $value = '', $namespaceURI = '')
     {
@@ -137,7 +137,9 @@ class DOMItem extends DOMElement
      */
     public function append(&$element)
     {
-        return $this->getDOMHandler()->append($this, $element);
+        $this->getDOMHandler()->append($this, $element);
+
+        return $this;
     }
 
     /**
@@ -167,7 +169,9 @@ class DOMItem extends DOMElement
      */
     public function prepend(&$element)
     {
-        return $this->getDOMHandler()->prepend($this, $element);
+        $this->getDOMHandler()->prepend($this, $element);
+
+        return $this;
     }
 
     /**
@@ -201,7 +205,7 @@ class DOMItem extends DOMElement
      *
      * @param DOMItem $element The item to replace.
      *
-     * @return $this The new element.
+     * @return DOMElement The new element
      *
      * @throws DOMException
      */

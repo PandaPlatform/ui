@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Panda UI Package.
+ * This file is part of the Panda Ui Package.
  *
  * (c) Ioannis Papikas <papikas.ioan@gmail.com>
  *
@@ -16,9 +16,10 @@ use Panda\Ui\Factories\DOMFactory;
 use Panda\Ui\Handlers\DOMHandler;
 use PHPUnit_Framework_TestCase;
 
-// Initialize testing env
-include '../init.php';
-
+/**
+ * Class DOMFactoryTest
+ * @package Panda\Ui\Tests\Factories
+ */
 class DOMFactoryTest extends PHPUnit_Framework_TestCase
 {
     /**
@@ -26,6 +27,9 @@ class DOMFactoryTest extends PHPUnit_Framework_TestCase
      */
     private $DOMFactory;
 
+    /**
+     * {@inheritdoc}
+     */
     public function setUp()
     {
         parent::setUp();
@@ -34,6 +38,9 @@ class DOMFactoryTest extends PHPUnit_Framework_TestCase
         $this->DOMFactory->setDOMDocument(new DOMPrototype(new DOMHandler(), $this->DOMFactory));
     }
 
+    /**
+     * @covers \Panda\Ui\Factories\DOMFactory::buildElement
+     */
     public function testBuildElement()
     {
         $element = $this->DOMFactory->buildElement('item', 'value');

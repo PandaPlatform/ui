@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Panda UI Package.
+ * This file is part of the Panda Ui Package.
  *
  * (c) Ioannis Papikas <papikas.ioan@gmail.com>
  *
@@ -74,6 +74,8 @@ class DataTable extends HTMLElement implements DOMBuilder
      *
      * @param HTMLDocument             $HTMLDocument
      * @param HTMLFormFactoryInterface $FormFactory
+     *
+     * @throws Exception
      */
     public function __construct(HTMLDocument $HTMLDocument, HTMLFormFactoryInterface $FormFactory)
     {
@@ -81,7 +83,7 @@ class DataTable extends HTMLElement implements DOMBuilder
         parent::__construct($HTMLDocument, $name = 'div', $value = '', $id = '', $class = 'uiDataTable initialize');
 
         // Check if factory is associated with another document and make a copy
-        if (!empty($FormFactory->getHTMLDocument()) && $FormFactory->getHTMLDocument() != $HTMLDocument) {
+        if (!empty($FormFactory->getHTMLDocument()) && $FormFactory->getHTMLDocument() !== $HTMLDocument) {
             $FormFactory = clone $FormFactory;
         }
 
@@ -95,14 +97,14 @@ class DataTable extends HTMLElement implements DOMBuilder
      *
      * @param string $id
      * @param string $class
-     * @param bool   $checkable  If set to TRUE, the dataGridList will have a checkbox at the start of each row.
-     * @param bool   $withBorder Defines whether the gridList will have visual border.
+     * @param bool   $withCheckbox If set to TRUE, the dataGridList will have a checkbox at the start of each row.
+     * @param bool   $withBorder   Defines whether the gridList will have visual border.
      *
      * @return $this
      * @throws InvalidArgumentException
      * @throws Exception
      */
-    public function build($id = '', $class = '', $checkable = false, $withBorder = true)
+    public function build($id = '', $class = '', $withCheckbox = false, $withBorder = true)
     {
         // Set element attributes
         $id = $id ?: 'dt' . mt_rand();
@@ -110,8 +112,8 @@ class DataTable extends HTMLElement implements DOMBuilder
         $this->addClass($class);
 
         // Set object variables
-        $this->checkable = (!$checkable ? false : true);
-        $this->checkList = (!$checkable ? null : []);
+        $this->checkable = (!$withCheckbox ? false : true);
+        $this->checkList = (!$withCheckbox ? null : []);
 
         // Add extra classes
         if ($this->checkable) {
@@ -178,6 +180,7 @@ class DataTable extends HTMLElement implements DOMBuilder
      *
      * @param array $headers An array with the header contents (can be text or DOMElement)
      *
+     * @throws Exception
      * @throws InvalidArgumentException
      * @throws LogicException
      */
@@ -213,6 +216,8 @@ class DataTable extends HTMLElement implements DOMBuilder
      *                           It is empty by default.
      *
      * @return $this
+     * @throws Exception
+     * @throws InvalidArgumentException
      * @throws LogicException
      */
     public function appendRow($contents = [], $checkName = null, $checked = false, $checkValue = '')

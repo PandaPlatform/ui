@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Panda UI Package.
+ * This file is part of the Panda Ui Package.
  *
  * (c) Ioannis Papikas <papikas.ioan@gmail.com>
  *
@@ -17,9 +17,10 @@ use Panda\Ui\Handlers\HTMLHandler;
 use Panda\Ui\Html\HTMLDocument;
 use PHPUnit_Framework_TestCase;
 
-// Initialize testing env
-include '../init.php';
-
+/**
+ * Class HTMLDocumentTest
+ * @package Panda\Ui\Tests\Html
+ */
 class HTMLDocumentTest extends PHPUnit_Framework_TestCase
 {
     /**
@@ -27,6 +28,9 @@ class HTMLDocumentTest extends PHPUnit_Framework_TestCase
      */
     private $HTMLDocument;
 
+    /**
+     * {@inheritdoc}
+     */
     public function setUp()
     {
         parent::setUp();
@@ -34,6 +38,9 @@ class HTMLDocumentTest extends PHPUnit_Framework_TestCase
         $this->HTMLDocument = new HTMLDocument(new HTMLHandler(), new HTMLFactory());
     }
 
+    /**
+     * @covers \Panda\Ui\Html\HTMLDocument::__call
+     */
     public function testMagic()
     {
         // Test simple div

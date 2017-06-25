@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Panda UI Package.
+ * This file is part of the Panda Ui Package.
  *
  * (c) Ioannis Papikas <papikas.ioan@gmail.com>
  *
@@ -11,6 +11,7 @@
 
 namespace Panda\Ui\Html\Popups;
 
+use DOMElement;
 use Exception;
 use InvalidArgumentException;
 use Panda\Ui\Contracts\DOMBuilder;
@@ -27,7 +28,7 @@ class Popup extends HTMLElement implements DOMBuilder
     const TP_PERSISTENT = 'persistent';
     const TP_TOGGLE = 'toggle';
     const OR_HORIZONTAL = 'horizontal';
-    const OR_VERTIVAL = 'vertical';
+    const OR_VERTICAL = 'vertical';
     const OR_BOTH = 'both';
 
     /**
@@ -110,28 +111,32 @@ class Popup extends HTMLElement implements DOMBuilder
      * Popup constructor.
      *
      * @param HTMLDocument $HTMLDocument
+     *
+     * @throws Exception
      */
     public function __construct(HTMLDocument $HTMLDocument)
     {
         // Create object
-        parent::__construct($HTMLDocument, $name = 'div', $value = '', $id = '', $class = 'uiPopup');
+        parent::__construct($HTMLDocument, $name = 'div', $value = '', $id = '', $class = 'ui-popup');
     }
 
     /**
      * Builds the popup according to settings given.
      * The settings must be defined before the build function.
      *
-     * @param string      $id
-     * @param HTMLElement $content The content of the popup.
+     * @param string           $id
+     * @param string           $class
+     * @param DOMElement|mixed $content The content of the popup.
      *
      * @return $this
      * @throws Exception
      * @throws InvalidArgumentException
      */
-    public function build($id = '', $content = null)
+    public function build($id = '', $class = '', $content = null)
     {
         // Set element attributes
         $this->attr('id', $id);
+        $this->addClass($class);
 
         // Create the instructions holder
         $info = $this->getHTMLDocument()->getHTMLFactory()->buildElement('div', '', '', 'info init');
@@ -148,15 +153,15 @@ class Popup extends HTMLElement implements DOMBuilder
 
         $extra = [];
         $extra['id'] = $this->popupId;
-        $extra['parentid'] = $this->parent;
+        $extra['parent_id'] = $this->parent;
         $extra['position'] = $this->position;
-        $extra['distanceOffset'] = $this->distanceOffset;
-        $extra['alignOffset'] = $this->alignOffset;
-        $extra['invertDock'] = $this->invertDock;
+        $extra['distance_offset'] = $this->distanceOffset;
+        $extra['align_offset'] = $this->alignOffset;
+        $extra['invert_dock'] = $this->invertDock;
         $info->data('popup-extra', $extra);
 
         // Create the popup content holder
-        $innerContent = $this->getHTMLDocument()->getHTMLFactory()->buildElement('div', $content, '', 'popupContent');
+        $innerContent = $this->getHTMLDocument()->getHTMLFactory()->buildElement('div', $content, '', 'popup-content');
         $this->append($innerContent);
 
         return $this;
