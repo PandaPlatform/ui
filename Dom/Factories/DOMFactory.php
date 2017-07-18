@@ -11,9 +11,9 @@
 
 namespace Panda\Ui\Dom\Factories;
 
+use Panda\Ui\Dom\DOMItem;
+use Panda\Ui\Dom\DOMPrototype;
 use Panda\Ui\Dom\Handlers\DOMHandlerInterface;
-use Panda\Ui\DOMItem;
-use Panda\Ui\DOMPrototype;
 
 /**
  * Class DOMFactory
