@@ -61,7 +61,7 @@ class HTMLDocument extends DOMPrototype
     public function create($name = 'div', $value = '', $id = '', $class = '')
     {
         // Create a new HTMLElement
-        return $this->getHTMLFactory()->buildElement($name, $value, $id, $class);
+        return $this->getHTMLFactory()->buildHtmlElement($name, $value, $id, $class);
     }
 
     /**
