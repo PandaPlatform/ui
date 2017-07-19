@@ -14,7 +14,7 @@ namespace Panda\Ui\Components\Popups;
 use DOMElement;
 use Exception;
 use InvalidArgumentException;
-use Panda\Ui\Contracts\DOMBuilder;
+use Panda\Ui\Components\DOMBuilder;
 use Panda\Ui\Html\HTMLDocument;
 use Panda\Ui\Html\HTMLElement;
 

@@ -9,13 +9,13 @@
  * file that was distributed with this source code.
  */
 
-namespace Panda\Ui\Contracts;
+namespace Panda\Ui\Components;
 
 use Exception;
 
 /**
  * Interface DOMBuilder
- * @package Panda\Ui\Contracts
+ * @package Panda\Ui\Components
  */
 interface DOMBuilder
 {

@@ -14,7 +14,7 @@ namespace Panda\Ui\Components\Controls;
 use Exception;
 use InvalidArgumentException;
 use LogicException;
-use Panda\Ui\Contracts\DOMBuilder;
+use Panda\Ui\Components\DOMBuilder;
 use Panda\Ui\Factories\HTMLFormFactoryInterface;
 use Panda\Ui\Html\HTMLDocument;
 use Panda\Ui\Html\HTMLElement;

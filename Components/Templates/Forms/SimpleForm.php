@@ -13,7 +13,7 @@ namespace Panda\Ui\Components\Templates\Forms;
 
 use Exception;
 use InvalidArgumentException;
-use Panda\Ui\Contracts\DOMBuilder;
+use Panda\Ui\Components\DOMBuilder;
 use Panda\Ui\Html\HTMLElement;
 
 /**
