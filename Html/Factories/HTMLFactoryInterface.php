@@ -11,10 +11,10 @@
 
 namespace Panda\Ui\Html\Factories;
 
-use Panda\Ui\Components\HTMLDocument;
-use Panda\Ui\Components\HTMLElement;
 use Panda\Ui\Dom\Factories\DOMFactoryInterface;
 use Panda\Ui\Html\Handlers\HTMLHandlerInterface;
+use Panda\Ui\Html\HTMLDocument;
+use Panda\Ui\Html\HTMLElement;
 
 /**
  * Interface HTMLFactoryInterface

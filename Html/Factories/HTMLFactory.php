@@ -12,11 +12,11 @@
 namespace Panda\Ui\Html\Factories;
 
 use Exception;
-use Panda\Ui\Components\HTMLDocument;
-use Panda\Ui\Components\HTMLElement;
 use Panda\Ui\Dom\DOMPrototype;
 use Panda\Ui\Dom\Factories\DOMFactory;
 use Panda\Ui\Html\Handlers\HTMLHandlerInterface;
+use Panda\Ui\Html\HTMLDocument;
+use Panda\Ui\Html\HTMLElement;
 
 /**
  * Class HTMLFactory
