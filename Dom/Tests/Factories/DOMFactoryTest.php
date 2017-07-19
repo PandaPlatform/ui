@@ -18,7 +18,7 @@ use PHPUnit_Framework_TestCase;
 
 /**
  * Class DOMFactoryTest
- * @package Panda\Ui\Tests\Factories
+ * @package Panda\Ui\Dom\Tests\Factories
  */
 class DOMFactoryTest extends PHPUnit_Framework_TestCase
 {
