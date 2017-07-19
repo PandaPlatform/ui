@@ -47,7 +47,7 @@ class WindowFrame extends Popup implements DOMBuilder
      * @param string           $id
      * @param string           $class
      * @param DOMElement|mixed $content
-     * @param string|DOMItem   $title The frame's title.
+     * @param string|DOMItem   $title
      *
      * @return $this
      * @throws Exception
@@ -92,7 +92,7 @@ class WindowFrame extends Popup implements DOMBuilder
     /**
      * Appends an element to frame.
      *
-     * @param DOMItem $element The element to be appended.
+     * @param DOMItem $element
      *
      * @return $this
      * @throws InvalidArgumentException
@@ -107,7 +107,7 @@ class WindowFrame extends Popup implements DOMBuilder
     /**
      * Appends an element to frame body.
      *
-     * @param DOMItem $element The element to be appended.
+     * @param DOMItem $element
      *
      * @return $this
      * @throws InvalidArgumentException
