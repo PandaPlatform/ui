@@ -15,8 +15,8 @@ use DOMElement;
 use Exception;
 use InvalidArgumentException;
 use Panda\Ui\Components\Templates\Forms\SimpleForm;
-use Panda\Ui\Factories\HTMLFormFactoryInterface;
 use Panda\Ui\Html\Factories\HTMLFactoryInterface;
+use Panda\Ui\Html\Factories\HTMLFormFactoryInterface;
 use Panda\Ui\Html\HTMLDocument;
 
 /**

@@ -14,8 +14,8 @@ namespace Panda\Ui\Components\Frames;
 use DOMElement;
 use Exception;
 use InvalidArgumentException;
-use Panda\Ui\Components\DOMBuilder;
 use Panda\Ui\Components\Popups\Popup;
+use Panda\Ui\Dom\DOMBuilder;
 use Panda\Ui\Dom\DOMItem;
 use Panda\Ui\Html\HTMLElement;
 

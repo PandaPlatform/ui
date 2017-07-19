@@ -14,7 +14,7 @@ namespace Panda\Ui\Components\Notifications;
 use DOMElement;
 use Exception;
 use InvalidArgumentException;
-use Panda\Ui\Components\DOMBuilder;
+use Panda\Ui\Dom\DOMBuilder;
 use Panda\Ui\Html\HTMLDocument;
 use Panda\Ui\Html\HTMLElement;
 

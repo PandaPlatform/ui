@@ -13,8 +13,8 @@ namespace Panda\Ui\Components\Templates\Forms;
 
 use Exception;
 use InvalidArgumentException;
-use Panda\Ui\Components\Controls\Form as FormControl;
-use Panda\Ui\Components\DOMBuilder;
+use Panda\Ui\Dom\DOMBuilder;
+use Panda\Ui\Html\Controls\Form as FormControl;
 use Panda\Ui\Html\HTMLElement;
 
 /**
