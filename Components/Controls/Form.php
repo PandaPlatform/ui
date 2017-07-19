@@ -13,9 +13,9 @@ namespace Panda\Ui\Components\Controls;
 
 use Exception;
 use Panda\Ui\Contracts\DOMBuilder;
-use Panda\Ui\Contracts\Factories\HTMLFormFactoryInterface;
-use Panda\Ui\Components\HTMLDocument;
-use Panda\Ui\Components\HTMLElement;
+use Panda\Ui\Factories\HTMLFormFactoryInterface;
+use Panda\Ui\Html\HTMLDocument;
+use Panda\Ui\Html\HTMLElement;
 
 /**
  * Class Form

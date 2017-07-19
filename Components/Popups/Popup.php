@@ -15,8 +15,8 @@ use DOMElement;
 use Exception;
 use InvalidArgumentException;
 use Panda\Ui\Contracts\DOMBuilder;
-use Panda\Ui\Components\HTMLDocument;
-use Panda\Ui\Components\HTMLElement;
+use Panda\Ui\Html\HTMLDocument;
+use Panda\Ui\Html\HTMLElement;
 
 /**
  * Class Popup
@@ -139,7 +139,7 @@ class Popup extends HTMLElement implements DOMBuilder
         $this->addClass($class);
 
         // Create the instructions holder
-        $info = $this->getHTMLDocument()->getHTMLFactory()->buildElement('div', '', '', 'info init');
+        $info = $this->getHTMLDocument()->getHTMLFactory()->buildHtmlElement('div', '', '', 'info init');
         $this->append($info);
 
         // Set attributes
@@ -161,7 +161,7 @@ class Popup extends HTMLElement implements DOMBuilder
         $info->data('popup-extra', $extra);
 
         // Create the popup content holder
-        $innerContent = $this->getHTMLDocument()->getHTMLFactory()->buildElement('div', $content, '', 'popup-content');
+        $innerContent = $this->getHTMLDocument()->getHTMLFactory()->buildHtmlElement('div', $content, '', 'popup-content');
         $this->append($innerContent);
 
         return $this;

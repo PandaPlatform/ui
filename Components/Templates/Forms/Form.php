@@ -13,9 +13,9 @@ namespace Panda\Ui\Components\Templates\Forms;
 
 use Exception;
 use InvalidArgumentException;
-use Panda\Ui\Contracts\DOMBuilder;
 use Panda\Ui\Components\Controls\Form as FormControl;
-use Panda\Ui\Components\HTMLElement;
+use Panda\Ui\Contracts\DOMBuilder;
+use Panda\Ui\Html\HTMLElement;
 
 /**
  * Form Builder Prototype
@@ -89,11 +89,11 @@ class Form extends FormControl implements DOMBuilder
         $this->addClass('form-template');
 
         // Create form report element
-        $this->formReport = $this->getHTMLDocument()->getHTMLFactory()->buildElement('div', '', '', self::FORM_REPORT_CLASS);
+        $this->formReport = $this->getHTMLDocument()->getHTMLFactory()->buildHtmlElement('div', '', '', self::FORM_REPORT_CLASS);
         $this->append($this->formReport);
 
         // Create form body element
-        $this->formBody = $this->getHTMLDocument()->getHTMLFactory()->buildElement('div', '', '', 'form-body');
+        $this->formBody = $this->getHTMLDocument()->getHTMLFactory()->buildHtmlElement('div', '', '', 'form-body');
         $this->append($this->formBody);
 
         return $this;

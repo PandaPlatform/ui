@@ -13,8 +13,8 @@ namespace Panda\Ui\Components\Controls\Form;
 
 use DOMElement;
 use Exception;
-use Panda\Ui\Components\HTMLDocument;
-use Panda\Ui\Components\HTMLElement;
+use Panda\Ui\Html\HTMLDocument;
+use Panda\Ui\Html\HTMLElement;
 
 /**
  * Class FormElement

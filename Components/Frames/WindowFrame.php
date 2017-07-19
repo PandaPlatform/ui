@@ -14,10 +14,10 @@ namespace Panda\Ui\Components\Frames;
 use DOMElement;
 use Exception;
 use InvalidArgumentException;
-use Panda\Ui\Contracts\DOMBuilder;
-use Panda\Ui\DOMItem;
-use Panda\Ui\Components\HTMLElement;
 use Panda\Ui\Components\Popups\Popup;
+use Panda\Ui\Contracts\DOMBuilder;
+use Panda\Ui\Dom\DOMItem;
+use Panda\Ui\Html\HTMLElement;
 
 /**
  * Window Frame Prototype
@@ -61,26 +61,26 @@ class WindowFrame extends Popup implements DOMBuilder
 
         // Create wFrame
         $id = 'wf_' . (empty($id) ? mt_rand() : $id);
-        $this->wFrame = $this->getHTMLDocument()->getHTMLFactory()->buildElement('div', '', $id, 'window-frame');
+        $this->wFrame = $this->getHTMLDocument()->getHTMLFactory()->buildHtmlElement('div', '', $id, 'window-frame');
         $this->wFrame->addClass($class);
 
         // Build parent element and append content to frame
         parent::build($id, $this->wFrame);
 
         // Create header
-        $frameHeader = $this->getHTMLDocument()->getHTMLFactory()->buildElement('div', '', '', 'frame-header');
+        $frameHeader = $this->getHTMLDocument()->getHTMLFactory()->buildHtmlElement('div', '', '', 'frame-header');
         $this->appendToFrame($frameHeader);
 
         // Header Title
-        $frameTitle = $this->getHTMLDocument()->getHTMLFactory()->buildElement('span', $title, '', 'frame-title');
+        $frameTitle = $this->getHTMLDocument()->getHTMLFactory()->buildHtmlElement('span', $title, '', 'frame-title');
         $frameHeader->append($frameTitle);
 
         // Close button
-        $closeBtn = $this->getHTMLDocument()->getHTMLFactory()->buildElement('span', '', '', 'button-close');
+        $closeBtn = $this->getHTMLDocument()->getHTMLFactory()->buildHtmlElement('span', '', '', 'button-close');
         $frameHeader->append($closeBtn);
 
         // Create body
-        $this->body = $this->getHTMLDocument()->getHTMLFactory()->buildElement('div', '', '', 'frame-body');
+        $this->body = $this->getHTMLDocument()->getHTMLFactory()->buildHtmlElement('div', '', '', 'frame-body');
         $this->appendToFrame($this->body);
 
         // Append given content to frame body, if any

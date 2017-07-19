@@ -12,6 +12,8 @@
 namespace Panda\Ui\Components;
 
 use Exception;
+use Panda\Ui\Html\HTMLDocument;
+use Panda\Ui\Html\HTMLElement;
 
 /**
  * Class HTMLFrame

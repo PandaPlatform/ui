@@ -12,7 +12,7 @@
 namespace Panda\Ui\Helpers;
 
 use DOMNode;
-use Panda\Ui\Contracts\Handlers\HTMLHandlerInterface;
+use Panda\Ui\Html\Handlers\HTMLHandlerInterface;
 
 /**
  * Class NavigationUiHelper

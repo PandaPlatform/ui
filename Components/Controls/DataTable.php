@@ -15,9 +15,9 @@ use Exception;
 use InvalidArgumentException;
 use LogicException;
 use Panda\Ui\Contracts\DOMBuilder;
-use Panda\Ui\Contracts\Factories\HTMLFormFactoryInterface;
-use Panda\Ui\Components\HTMLDocument;
-use Panda\Ui\Components\HTMLElement;
+use Panda\Ui\Factories\HTMLFormFactoryInterface;
+use Panda\Ui\Html\HTMLDocument;
+use Panda\Ui\Html\HTMLElement;
 
 /**
  * The DataTable can be used to present multiple data in the form of a grid.
@@ -124,7 +124,7 @@ class DataTable extends HTMLElement implements DOMBuilder
         }
 
         // Create grid list
-        $this->gridList = $this->getFormFactory()->buildElement('ul', '', '', 'DataTableList');
+        $this->gridList = $this->getFormFactory()->buildHtmlElement('ul', '', '', 'DataTableList');
         $this->append($this->gridList);
 
         return $this;
@@ -199,7 +199,7 @@ class DataTable extends HTMLElement implements DOMBuilder
         }
 
         // Create new grid content wrapper
-        $gridListContentWrapper = $this->getFormFactory()->buildElement('div', '', '', 'DataTableContentWrapper');
+        $gridListContentWrapper = $this->getFormFactory()->buildHtmlElement('div', '', '', 'DataTableContentWrapper');
         $this->gridList->append($gridListContentWrapper);
         $this->gridList = $gridListContentWrapper;
     }
@@ -253,7 +253,7 @@ class DataTable extends HTMLElement implements DOMBuilder
         }
 
         // Create grid row object
-        $gridRow = $this->getFormFactory()->buildElement('li', '', '', ($class == '' ? 'DataTableRow' : $class));
+        $gridRow = $this->getFormFactory()->buildHtmlElement('li', '', '', ($class == '' ? 'DataTableRow' : $class));
 
         // Trim contents to the column size
         if ($this->hSize < count($contents)) {
@@ -263,7 +263,7 @@ class DataTable extends HTMLElement implements DOMBuilder
         // Add extra columns
         $contentsCount = count($contents);
         for ($i = 0; $i < $this->hSize - $contentsCount; $i++) {
-            $contents[] = $this->getFormFactory()->buildElement('span');
+            $contents[] = $this->getFormFactory()->buildHtmlElement('span');
         }
 
         // Insert contents to row
@@ -280,13 +280,13 @@ class DataTable extends HTMLElement implements DOMBuilder
             }
 
             // Set text wrapper
-            $gridTextWrapper = $this->getFormFactory()->buildElement('span', $contentValue, '', 'DataTableTextWrapper');
+            $gridTextWrapper = $this->getFormFactory()->buildHtmlElement('span', $contentValue, '', 'DataTableTextWrapper');
 
             // Set item style
             $gridTextWrapper->appendAttr('style', 'max-width:100%;width:100%;box-sizing:border-box;');
 
             // Create grid cell with given text
-            $gridCell = $this->getFormFactory()->buildElement('div', $gridTextWrapper, '', 'DataTableCell');
+            $gridCell = $this->getFormFactory()->buildHtmlElement('div', $gridTextWrapper, '', 'DataTableCell');
             $gridRow->append($gridCell);
 
             // Set header (if any)
@@ -295,7 +295,7 @@ class DataTable extends HTMLElement implements DOMBuilder
                 $gridCell->data('column-name', $itemIdentifier);
 
                 // Add sorting icon
-                $sortingIcon = $this->getFormFactory()->buildElement('div', '', '', 'sortingIcon');
+                $sortingIcon = $this->getFormFactory()->buildHtmlElement('div', '', '', 'sortingIcon');
                 $gridTextWrapper->append($sortingIcon);
             }
 
@@ -331,7 +331,7 @@ class DataTable extends HTMLElement implements DOMBuilder
     private function appendCheckRow($row, $checkName, $checked, $checkValue = '')
     {
         // Create the check item
-        $gridCheck = $this->getFormFactory()->buildElement('div', '', '', 'DataTableCheck');
+        $gridCheck = $this->getFormFactory()->buildHtmlElement('div', '', '', 'DataTableCheck');
 
         // Get the checkbox
         $chk = $this->getFormFactory()->buildInput($type = 'checkbox', $name = $checkName, $value = $checkValue, $id = '', $class = '', $autofocus = false, $required = false);

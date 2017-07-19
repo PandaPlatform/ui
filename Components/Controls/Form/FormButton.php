@@ -13,7 +13,7 @@ namespace Panda\Ui\Components\Controls\Form;
 
 use Exception;
 use InvalidArgumentException;
-use Panda\Ui\Components\HTMLDocument;
+use Panda\Ui\Html\HTMLDocument;
 
 /**
  * Class FormButton

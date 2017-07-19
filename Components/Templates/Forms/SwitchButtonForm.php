@@ -13,8 +13,8 @@ namespace Panda\Ui\Components\Templates\Forms;
 
 use Exception;
 use InvalidArgumentException;
-use Panda\Ui\Contracts\DOMBuilder;
 use Panda\Ui\Components\Controls\Form\SwitchButton;
+use Panda\Ui\Contracts\DOMBuilder;
 
 /**
  * Class SwitchButtonForm

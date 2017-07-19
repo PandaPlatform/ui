@@ -14,10 +14,10 @@ namespace Panda\Ui\Components\Frames;
 use DOMElement;
 use Exception;
 use InvalidArgumentException;
-use Panda\Ui\Contracts\Factories\HTMLFactoryInterface;
-use Panda\Ui\Contracts\Factories\HTMLFormFactoryInterface;
-use Panda\Ui\Components\HTMLDocument;
 use Panda\Ui\Components\Templates\Forms\SimpleForm;
+use Panda\Ui\Factories\HTMLFormFactoryInterface;
+use Panda\Ui\Html\Factories\HTMLFactoryInterface;
+use Panda\Ui\Html\HTMLDocument;
 
 /**
  * Window Dialog Frame
@@ -146,11 +146,11 @@ class DialogFrame extends WindowFrame
     private function buildControls($type = self::TYPE_OK_CANCEL)
     {
         // Create dialog controls container
-        $controlsContainer = $this->getFormFactory()->buildElement('div', '', '', 'dialog-controls');
+        $controlsContainer = $this->getFormFactory()->buildHtmlElement('div', '', '', 'dialog-controls');
         $this->form->append($controlsContainer);
 
         // Button Container
-        $btnContainer = $this->getFormFactory()->buildElement('div', '', '', 'controls-container');
+        $btnContainer = $this->getFormFactory()->buildHtmlElement('div', '', '', 'controls-container');
         $controlsContainer->append($btnContainer);
 
         // Set button literals

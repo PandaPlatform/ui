@@ -12,8 +12,8 @@
 namespace Panda\Ui\Components\Controls\Form;
 
 use Exception;
-use Panda\Ui\Contracts\Factories\HTMLFormFactoryInterface;
-use Panda\Ui\Components\HTMLDocument;
+use Panda\Ui\Factories\HTMLFormFactoryInterface;
+use Panda\Ui\Html\HTMLDocument;
 
 /**
  * Class FormSelect

@@ -14,7 +14,7 @@ namespace Panda\Ui\Components\Templates\Forms;
 use Exception;
 use InvalidArgumentException;
 use Panda\Ui\Contracts\DOMBuilder;
-use Panda\Ui\Components\HTMLElement;
+use Panda\Ui\Html\HTMLElement;
 
 /**
  * Simple Form Template builder
@@ -78,15 +78,15 @@ class SimpleForm extends Form implements DOMBuilder
     private function buildRequiredNotes()
     {
         // Build the required notes container
-        $requireNotesContainer = $this->getHTMLDocument()->getHTMLFactory()->buildElement('div', '', '', 'form-simple-required-notes');
+        $requireNotesContainer = $this->getHTMLDocument()->getHTMLFactory()->buildHtmlElement('div', '', '', 'form-simple-required-notes');
 
         // Create note
-        $note = $this->getHTMLDocument()->getHTMLFactory()->buildElement('p', '', '', 'rqNote');
+        $note = $this->getHTMLDocument()->getHTMLFactory()->buildHtmlElement('p', '', '', 'rqNote');
         $requireNotesContainer->append($note);
 
         $star = $this->requiredStar();
         $note->append($star);
-        $title = $this->getHTMLDocument()->getHTMLFactory()->buildElement('span', 'All fields marked with asterisk are required.');
+        $title = $this->getHTMLDocument()->getHTMLFactory()->buildHtmlElement('span', 'All fields marked with asterisk are required.');
         $note->append($title);
 
         // Append before controls
@@ -106,7 +106,7 @@ class SimpleForm extends Form implements DOMBuilder
     private function buildControls($defaultButtons)
     {
         // Create form controls
-        $this->formControls = $this->getHTMLDocument()->getHTMLFactory()->buildElement('div', '', '', 'form-controls');
+        $this->formControls = $this->getHTMLDocument()->getHTMLFactory()->buildHtmlElement('div', '', '', 'form-controls');
         $this->append($this->formControls);
 
         // Insert Default buttons for save and reset
@@ -230,7 +230,7 @@ class SimpleForm extends Form implements DOMBuilder
      */
     public function formRow()
     {
-        return $this->getHTMLDocument()->getHTMLFactory()->buildElement('div', '', '', 'form-simple-row');
+        return $this->getHTMLDocument()->getHTMLFactory()->buildHtmlElement('div', '', '', 'form-simple-row');
     }
 
     /**
@@ -255,7 +255,7 @@ class SimpleForm extends Form implements DOMBuilder
      */
     private function formNotes($notes)
     {
-        return $this->getHTMLDocument()->getHTMLFactory()->buildElement('div', $notes, '', 'form-simple-notes');
+        return $this->getHTMLDocument()->getHTMLFactory()->buildHtmlElement('div', $notes, '', 'form-simple-notes');
     }
 
     /**
@@ -265,6 +265,6 @@ class SimpleForm extends Form implements DOMBuilder
      */
     private function requiredStar()
     {
-        return $this->getHTMLDocument()->getHTMLFactory()->buildElement('span', '*', '', 'required');
+        return $this->getHTMLDocument()->getHTMLFactory()->buildHtmlElement('span', '*', '', 'required');
     }
 }

@@ -12,7 +12,7 @@
 namespace Panda\Ui\Helpers;
 
 use DOMNode;
-use Panda\Ui\Contracts\Handlers\HTMLHandlerInterface;
+use Panda\Ui\Html\Handlers\HTMLHandlerInterface;
 
 /**
  * Class TooltipHelper
@@ -35,7 +35,7 @@ class TooltipHelper
         $tooltip = [
             'content' => $content,
             'delay' => $delay,
-            'position' => $position
+            'position' => $position,
         ];
 
         $HTMLHandler->data($HTMLElement, 'ui-tooltip', $tooltip);

@@ -11,11 +11,12 @@
 
 namespace Panda\Ui\Components\Notifications;
 
+use DOMElement;
 use Exception;
 use InvalidArgumentException;
 use Panda\Ui\Contracts\DOMBuilder;
-use Panda\Ui\Components\HTMLDocument;
-use Panda\Ui\Components\HTMLElement;
+use Panda\Ui\Html\HTMLDocument;
+use Panda\Ui\Html\HTMLElement;
 
 /**
  * Notification
@@ -109,7 +110,7 @@ class Notification extends HTMLElement implements DOMBuilder
     /**
      * Appends an element to notification body
      *
-     * @param HTMLElement $content The element to be appended.
+     * @param DOMElement $content The element to be appended.
      *
      * @return $this
      * @throws InvalidArgumentException
@@ -133,7 +134,7 @@ class Notification extends HTMLElement implements DOMBuilder
      */
     public function appendCustomMessage($message)
     {
-        $customMessage = $this->getHTMLDocument()->getHTMLFactory()->buildElement('div', $message, '', 'custom-message');
+        $customMessage = $this->getHTMLDocument()->getHTMLFactory()->buildHtmlElement('div', $message, '', 'custom-message');
 
         return $this->append($customMessage);
     }
@@ -151,12 +152,12 @@ class Notification extends HTMLElement implements DOMBuilder
     private function buildHead($title, $disposable = false)
     {
         // Build Head Element
-        $head = $this->getHTMLDocument()->getHTMLFactory()->buildElement('div', $title, '', 'ui-notification-head');
+        $head = $this->getHTMLDocument()->getHTMLFactory()->buildHtmlElement('div', $title, '', 'ui-notification-head');
         $this->append($head);
 
         // Populate the close button
         if ($disposable) {
-            $closeBtn = $this->getHTMLDocument()->getHTMLFactory()->buildElement('span', '', '', 'button-close');
+            $closeBtn = $this->getHTMLDocument()->getHTMLFactory()->buildHtmlElement('span', '', '', 'button-close');
             $head->append($closeBtn);
         }
 
@@ -172,11 +173,11 @@ class Notification extends HTMLElement implements DOMBuilder
     private function buildBody()
     {
         // Build Body Element
-        $this->body = $this->getHTMLDocument()->getHTMLFactory()->buildElement('div', '', '', 'ui-notification-body');
+        $this->body = $this->getHTMLDocument()->getHTMLFactory()->buildHtmlElement('div', '', '', 'ui-notification-body');
         $this->append($this->body);
 
         // Populate the notification icon
-        $icon = $this->getHTMLDocument()->getHTMLFactory()->buildElement('span', '', '', 'ui-notification-icon');
+        $icon = $this->getHTMLDocument()->getHTMLFactory()->buildHtmlElement('span', '', '', 'ui-notification-icon');
         $this->appendToBody($icon);
 
         return $this;

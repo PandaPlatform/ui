@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Panda\Ui\Contracts\Factories;
+namespace Panda\Ui\Factories;
 
 use Panda\Ui\Components\Controls\Form;
 use Panda\Ui\Components\Controls\Form\FormElement;
