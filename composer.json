@@ -17,6 +17,10 @@
         "php": "^7.0",
         "symfony/css-selector": "~3.1"
     },
+    "replace": {
+        "panda/dom": "self.version",
+        "panda/html": "self.version"
+    },
     "require-dev": {
         "phpunit/phpunit": "~5.7"
     },
