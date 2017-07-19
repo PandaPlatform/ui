@@ -128,6 +128,7 @@ class DOMPrototype extends DOMDocument
      * @param string $nodeName The node name of the element. If not set, it searches for all nodes (*).
      *
      * @return DOMNode|DOMNodeList Returns the DOMElement or NULL if it doesn't exist.
+     *
      * @throws InvalidArgumentException
      */
     public function find($id, $nodeName = '*')
