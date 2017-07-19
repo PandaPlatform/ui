@@ -1,0 +1,34 @@
+{
+    "name": "panda/dom",
+    "description": "The Panda Html Package.",
+    "license": "MIT",
+    "homepage": "http://pandaphp.org",
+    "support": {
+        "source": "https://github.com/PandaPlatform/html",
+        "issues": "https://github.com/PandaPlatform/html/issues"
+    },
+    "authors": [
+        {
+            "name": "Ioannis Papikas",
+            "email": "papikas.ioan@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.0",
+        "panda/dom": "^3.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~5.7"
+    },
+    "autoload": {
+        "psr-4": {
+            "Panda\\Ui\\Html\\": ""
+        }
+    },
+    "minimum-stability": "dev",
+    "extra": {
+        "branch-alias": {
+            "dev-master": "3.0-dev"
+        }
+    }
+}
