@@ -13,6 +13,7 @@ namespace Panda\Ui\Contracts\Factories;
 
 use Panda\Ui\Components\Controls\Form;
 use Panda\Ui\Components\Controls\Form\FormElement;
+use Panda\Ui\Html\Factories\HTMLFactoryInterface;
 
 /**
  * Interface HTMLFormFactoryInterface

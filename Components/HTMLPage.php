@@ -14,8 +14,10 @@ namespace Panda\Ui\Components;
 use Exception;
 use InvalidArgumentException;
 use Panda\Ui\Contracts\DOMBuilder;
-use Panda\Ui\Contracts\Factories\DOMFactoryInterface;
-use Panda\Ui\Contracts\Factories\HTMLFactoryInterface;
+use Panda\Ui\Dom\Factories\DOMFactoryInterface;
+use Panda\Ui\Html\Factories\HTMLFactoryInterface;
+use Panda\Ui\Html\HTMLDocument;
+use Panda\Ui\Html\HTMLElement;
 
 /**
  * HTML Page Prototype/Builder
