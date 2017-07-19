@@ -15,8 +15,8 @@ use Exception;
 use Panda\Ui\Contracts\Factories\HTMLFactoryInterface;
 use Panda\Ui\Contracts\Handlers\HTMLHandlerInterface;
 use Panda\Ui\DOMPrototype;
-use Panda\Ui\Html\HTMLDocument;
-use Panda\Ui\Html\HTMLElement;
+use Panda\Ui\Components\HTMLDocument;
+use Panda\Ui\Components\HTMLElement;
 
 /**
  * Class HTMLFactory

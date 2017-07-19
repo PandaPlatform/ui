@@ -14,7 +14,7 @@ namespace Panda\Ui\Tests\Html;
 use DOMElement;
 use Panda\Ui\Factories\HTMLFactory;
 use Panda\Ui\Handlers\HTMLHandler;
-use Panda\Ui\Html\HTMLDocument;
+use Panda\Ui\Components\HTMLDocument;
 use PHPUnit_Framework_TestCase;
 
 /**

@@ -9,15 +9,15 @@
  * file that was distributed with this source code.
  */
 
-namespace Panda\Ui\Html\Frames;
+namespace Panda\Ui\Components\Frames;
 
 use DOMElement;
 use Exception;
 use InvalidArgumentException;
 use Panda\Ui\Contracts\Factories\HTMLFactoryInterface;
 use Panda\Ui\Contracts\Factories\HTMLFormFactoryInterface;
-use Panda\Ui\Html\HTMLDocument;
-use Panda\Ui\Html\Templates\Forms\SimpleForm;
+use Panda\Ui\Components\HTMLDocument;
+use Panda\Ui\Components\Templates\Forms\SimpleForm;
 
 /**
  * Window Dialog Frame

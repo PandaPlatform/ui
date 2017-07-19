@@ -9,12 +9,12 @@
  * file that was distributed with this source code.
  */
 
-namespace Panda\Ui\Html\Controls\Form;
+namespace Panda\Ui\Components\Controls\Form;
 
 use DOMElement;
 use Exception;
-use Panda\Ui\Html\HTMLDocument;
-use Panda\Ui\Html\HTMLElement;
+use Panda\Ui\Components\HTMLDocument;
+use Panda\Ui\Components\HTMLElement;
 
 /**
  * Class FormElement

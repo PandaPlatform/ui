@@ -12,8 +12,8 @@
 namespace Panda\Ui\Contracts\Factories;
 
 use Panda\Ui\Contracts\Handlers\HTMLHandlerInterface;
-use Panda\Ui\Html\HTMLDocument;
-use Panda\Ui\Html\HTMLElement;
+use Panda\Ui\Components\HTMLDocument;
+use Panda\Ui\Components\HTMLElement;
 
 /**
  * Interface HTMLFactoryInterface

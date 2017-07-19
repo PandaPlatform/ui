@@ -9,14 +9,14 @@
  * file that was distributed with this source code.
  */
 
-namespace Panda\Ui\Html\Popups;
+namespace Panda\Ui\Components\Popups;
 
 use DOMElement;
 use Exception;
 use InvalidArgumentException;
 use Panda\Ui\Contracts\DOMBuilder;
-use Panda\Ui\Html\HTMLDocument;
-use Panda\Ui\Html\HTMLElement;
+use Panda\Ui\Components\HTMLDocument;
+use Panda\Ui\Components\HTMLElement;
 
 /**
  * Class Popup

@@ -9,11 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Panda\Ui\Html\Controls\Form;
+namespace Panda\Ui\Components\Controls\Form;
 
 use Exception;
 use InvalidArgumentException;
-use Panda\Ui\Html\HTMLDocument;
+use Panda\Ui\Components\HTMLDocument;
 
 /**
  * Class FormButton

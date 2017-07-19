@@ -9,15 +9,15 @@
  * file that was distributed with this source code.
  */
 
-namespace Panda\Ui\Html\Frames;
+namespace Panda\Ui\Components\Frames;
 
 use DOMElement;
 use Exception;
 use InvalidArgumentException;
 use Panda\Ui\Contracts\DOMBuilder;
 use Panda\Ui\DOMItem;
-use Panda\Ui\Html\HTMLElement;
-use Panda\Ui\Html\Popups\Popup;
+use Panda\Ui\Components\HTMLElement;
+use Panda\Ui\Components\Popups\Popup;
 
 /**
  * Window Frame Prototype

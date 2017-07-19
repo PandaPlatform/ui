@@ -9,13 +9,13 @@
  * file that was distributed with this source code.
  */
 
-namespace Panda\Ui\Html\Templates\Forms;
+namespace Panda\Ui\Components\Templates\Forms;
 
 use Exception;
 use InvalidArgumentException;
 use Panda\Ui\Contracts\DOMBuilder;
-use Panda\Ui\Html\Controls\Form as FormControl;
-use Panda\Ui\Html\HTMLElement;
+use Panda\Ui\Components\Controls\Form as FormControl;
+use Panda\Ui\Components\HTMLElement;
 
 /**
  * Form Builder Prototype

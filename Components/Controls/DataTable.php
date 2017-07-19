@@ -9,15 +9,15 @@
  * file that was distributed with this source code.
  */
 
-namespace Panda\Ui\Html\Controls;
+namespace Panda\Ui\Components\Controls;
 
 use Exception;
 use InvalidArgumentException;
 use LogicException;
 use Panda\Ui\Contracts\DOMBuilder;
 use Panda\Ui\Contracts\Factories\HTMLFormFactoryInterface;
-use Panda\Ui\Html\HTMLDocument;
-use Panda\Ui\Html\HTMLElement;
+use Panda\Ui\Components\HTMLDocument;
+use Panda\Ui\Components\HTMLElement;
 
 /**
  * The DataTable can be used to present multiple data in the form of a grid.

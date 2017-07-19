@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Panda\Ui\Html;
+namespace Panda\Ui\Components;
 
 use DOMNodeList;
 use Exception;

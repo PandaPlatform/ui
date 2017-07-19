@@ -14,12 +14,12 @@ namespace Panda\Ui\Factories;
 use Exception;
 use InvalidArgumentException;
 use Panda\Ui\Contracts\Factories\HTMLFormFactoryInterface;
-use Panda\Ui\Html\Controls\Form;
-use Panda\Ui\Html\Controls\Form\FormButton;
-use Panda\Ui\Html\Controls\Form\FormElement;
-use Panda\Ui\Html\Controls\Form\FormInput;
-use Panda\Ui\Html\Controls\Form\FormLabel;
-use Panda\Ui\Html\Controls\Form\FormSelect;
+use Panda\Ui\Components\Controls\Form;
+use Panda\Ui\Components\Controls\Form\FormButton;
+use Panda\Ui\Components\Controls\Form\FormElement;
+use Panda\Ui\Components\Controls\Form\FormInput;
+use Panda\Ui\Components\Controls\Form\FormLabel;
+use Panda\Ui\Components\Controls\Form\FormSelect;
 
 /**
  * Class FormFactory

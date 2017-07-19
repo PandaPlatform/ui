@@ -9,12 +9,12 @@
  * file that was distributed with this source code.
  */
 
-namespace Panda\Ui\Html\Templates\Forms;
+namespace Panda\Ui\Components\Templates\Forms;
 
 use Exception;
 use InvalidArgumentException;
 use Panda\Ui\Contracts\DOMBuilder;
-use Panda\Ui\Html\Controls\Form\SwitchButton;
+use Panda\Ui\Components\Controls\Form\SwitchButton;
 
 /**
  * Class SwitchButtonForm
