@@ -34,7 +34,7 @@ class HTMLFactory extends DOMFactory implements HTMLFactoryInterface
      *
      * @return HTMLElement
      */
-    public function buildElement($name = '', $value = '', $id = '', $class = '')
+    public function buildHtmlElement($name = '', $value = '', $id = '', $class = '')
     {
         return new HTMLElement($this->getHTMLDocument(), $name, $value, $id, $class);
     }
@@ -55,7 +55,7 @@ class HTMLFactory extends DOMFactory implements HTMLFactoryInterface
     public function buildWebLink($href = '', $target = '_self', $content = '', $id = '', $class = '')
     {
         // Create webLink element
-        $webLink = $this->buildElement($name = 'a', $content, $id, $class);
+        $webLink = $this->buildHtmlElement($name = 'a', $content, $id, $class);
 
         // Add attributes
         $webLink->attr('href', $href);
@@ -80,7 +80,7 @@ class HTMLFactory extends DOMFactory implements HTMLFactoryInterface
     public function buildMeta($name = '', $content = '', $httpEquiv = '', $charset = '')
     {
         // Create meta element
-        $meta = $this->buildElement('meta', $value = '', $id = '', $class = '');
+        $meta = $this->buildHtmlElement('meta', $value = '', $id = '', $class = '');
         $meta->attr('name', $name);
         $meta->attr('http-equiv', $httpEquiv);
         $meta->attr('content', htmlspecialchars($content));
@@ -103,7 +103,7 @@ class HTMLFactory extends DOMFactory implements HTMLFactoryInterface
     public function buildLink($rel, $href)
     {
         // Build the link element
-        $link = $this->buildElement($name = 'link', $value = '', $id = '', $class = '');
+        $link = $this->buildHtmlElement($name = 'link', $value = '', $id = '', $class = '');
         $link->attr('rel', $rel);
         $link->attr('href', $href);
 
@@ -124,7 +124,7 @@ class HTMLFactory extends DOMFactory implements HTMLFactoryInterface
     public function buildScript($src, $async = false)
     {
         // Build the script element
-        $script = $this->buildElement($name = 'script', $value = '', $id = '', $class = '');
+        $script = $this->buildHtmlElement($name = 'script', $value = '', $id = '', $class = '');
         $script->attr('src', $src);
         $script->attr('async', $async);
 

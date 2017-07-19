@@ -23,7 +23,7 @@ use Panda\Ui\Html\HTMLElement;
 interface HTMLFactoryInterface extends DOMFactoryInterface
 {
     /**
-     * Build a DOM item.
+     * Build an HTML element.
      *
      * @param string $name
      * @param string $value
@@ -32,7 +32,7 @@ interface HTMLFactoryInterface extends DOMFactoryInterface
      *
      * @return HTMLElement
      */
-    public function buildElement($name = '', $value = '', $id = '', $class = '');
+    public function buildHtmlElement($name = '', $value = '', $id = '', $class = '');
 
     /**
      * Build an HTML weblink <a> element.
