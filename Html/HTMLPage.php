@@ -240,7 +240,7 @@ class HTMLPage extends HTMLDocument implements DOMBuilder
     public function setTitle($title)
     {
         // Check if title already exists
-        $headTitle = $this->select('title')->item(0);
+        $headTitle = $this->selectElement('title')->item(0);
         if (!is_null($headTitle)) {
             $headTitle_new = $this->create('title', $title);
             $headTitle->parentNode->replaceChild($headTitle_new, $headTitle);

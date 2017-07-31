@@ -24,10 +24,129 @@ use Panda\Ui\Html\Helpers\HTMLHelper;
 /**
  * Class HTMLDocument
  *
- * Magic methods:
+ * Magic methods (based on \Panda\Ui\Html\Helpers\HTMLHelper):
  *
+ * @method a($value = '', $id = '', $class = '');
+ * @method abbr($value = '', $id = '', $class = '');
+ * @method acronym($value = '', $id = '', $class = '');
+ * @method address($value = '', $id = '', $class = '');
+ * @method applet($value = '', $id = '', $class = '');
+ * @method area($value = '', $id = '', $class = '');
+ * @method article($value = '', $id = '', $class = '');
+ * @method aside($value = '', $id = '', $class = '');
+ * @method audio($value = '', $id = '', $class = '');
+ * @method b($value = '', $id = '', $class = '');
+ * @method base($value = '', $id = '', $class = '');
+ * @method basefont($value = '', $id = '', $class = '');
+ * @method bdi($value = '', $id = '', $class = '');
+ * @method bdo($value = '', $id = '', $class = '');
+ * @method big($value = '', $id = '', $class = '');
+ * @method blockquote($value = '', $id = '', $class = '');
+ * @method body($value = '', $id = '', $class = '');
+ * @method br($value = '', $id = '', $class = '');
+ * @method button($value = '', $id = '', $class = '');
+ * @method canvas($value = '', $id = '', $class = '');
+ * @method caption($value = '', $id = '', $class = '');
+ * @method center($value = '', $id = '', $class = '');
+ * @method cite($value = '', $id = '', $class = '');
+ * @method code($value = '', $id = '', $class = '');
+ * @method col($value = '', $id = '', $class = '');
+ * @method colgroup($value = '', $id = '', $class = '');
+ * @method datalist($value = '', $id = '', $class = '');
+ * @method dd($value = '', $id = '', $class = '');
+ * @method del($value = '', $id = '', $class = '');
+ * @method details($value = '', $id = '', $class = '');
+ * @method dfn($value = '', $id = '', $class = '');
+ * @method dialog($value = '', $id = '', $class = '');
+ * @method dir($value = '', $id = '', $class = '');
  * @method div($value = '', $id = '', $class = '');
+ * @method dl($value = '', $id = '', $class = '');
+ * @method dt($value = '', $id = '', $class = '');
+ * @method em($value = '', $id = '', $class = '');
+ * @method embed($value = '', $id = '', $class = '');
+ * @method fieldset($value = '', $id = '', $class = '');
+ * @method figcaption($value = '', $id = '', $class = '');
+ * @method figure($value = '', $id = '', $class = '');
+ * @method font($value = '', $id = '', $class = '');
+ * @method footer($value = '', $id = '', $class = '');
+ * @method form($value = '', $id = '', $class = '');
+ * @method frame($value = '', $id = '', $class = '');
+ * @method frameset($value = '', $id = '', $class = '');
+ * @method h1($value = '', $id = '', $class = '');
+ * @method h2($value = '', $id = '', $class = '');
+ * @method h3($value = '', $id = '', $class = '');
+ * @method h4($value = '', $id = '', $class = '');
+ * @method h5($value = '', $id = '', $class = '');
+ * @method h6($value = '', $id = '', $class = '');
+ * @method head($value = '', $id = '', $class = '');
+ * @method header($value = '', $id = '', $class = '');
+ * @method hr($value = '', $id = '', $class = '');
+ * @method html($value = '', $id = '', $class = '');
+ * @method i($value = '', $id = '', $class = '');
+ * @method iframe($value = '', $id = '', $class = '');
+ * @method image($value = '', $id = '', $class = '');
+ * @method input($value = '', $id = '', $class = '');
+ * @method ins($value = '', $id = '', $class = '');
+ * @method kbd($value = '', $id = '', $class = '');
+ * @method keygen($value = '', $id = '', $class = '');
+ * @method label($value = '', $id = '', $class = '');
+ * @method legend($value = '', $id = '', $class = '');
+ * @method li($value = '', $id = '', $class = '');
+ * @method link($value = '', $id = '', $class = '');
+ * @method main($value = '', $id = '', $class = '');
+ * @method map($value = '', $id = '', $class = '');
+ * @method mark($value = '', $id = '', $class = '');
+ * @method menu($value = '', $id = '', $class = '');
+ * @method menuitem($value = '', $id = '', $class = '');
+ * @method meta($value = '', $id = '', $class = '');
+ * @method meter($value = '', $id = '', $class = '');
+ * @method nav($value = '', $id = '', $class = '');
+ * @method noframes($value = '', $id = '', $class = '');
+ * @method noscript($value = '', $id = '', $class = '');
+ * @method object($value = '', $id = '', $class = '');
+ * @method ol($value = '', $id = '', $class = '');
+ * @method optgroup($value = '', $id = '', $class = '');
+ * @method option($value = '', $id = '', $class = '');
+ * @method output($value = '', $id = '', $class = '');
  * @method p($value = '', $id = '', $class = '');
+ * @method param($value = '', $id = '', $class = '');
+ * @method pre($value = '', $id = '', $class = '');
+ * @method progress($value = '', $id = '', $class = '');
+ * @method q($value = '', $id = '', $class = '');
+ * @method rp($value = '', $id = '', $class = '');
+ * @method rt($value = '', $id = '', $class = '');
+ * @method ruby($value = '', $id = '', $class = '');
+ * @method s($value = '', $id = '', $class = '');
+ * @method samp($value = '', $id = '', $class = '');
+ * @method script($value = '', $id = '', $class = '');
+ * @method section($value = '', $id = '', $class = '');
+ * @method select($value = '', $id = '', $class = '');
+ * @method small($value = '', $id = '', $class = '');
+ * @method source($value = '', $id = '', $class = '');
+ * @method span($value = '', $id = '', $class = '');
+ * @method strike($value = '', $id = '', $class = '');
+ * @method strong($value = '', $id = '', $class = '');
+ * @method style($value = '', $id = '', $class = '');
+ * @method sub($value = '', $id = '', $class = '');
+ * @method summary($value = '', $id = '', $class = '');
+ * @method sup($value = '', $id = '', $class = '');
+ * @method table($value = '', $id = '', $class = '');
+ * @method tbody($value = '', $id = '', $class = '');
+ * @method td($value = '', $id = '', $class = '');
+ * @method textarea($value = '', $id = '', $class = '');
+ * @method tfoot($value = '', $id = '', $class = '');
+ * @method th($value = '', $id = '', $class = '');
+ * @method thead($value = '', $id = '', $class = '');
+ * @method time($value = '', $id = '', $class = '');
+ * @method title($value = '', $id = '', $class = '');
+ * @method tr($value = '', $id = '', $class = '');
+ * @method track($value = '', $id = '', $class = '');
+ * @method tt($value = '', $id = '', $class = '');
+ * @method u($value = '', $id = '', $class = '');
+ * @method ul($value = '', $id = '', $class = '');
+ * @method var($value = '', $id = '', $class = '');
+ * @method video($value = '', $id = '', $class = '');
+ * @method wbr($value = '', $id = '', $class = '');
  *
  * @package Panda\Ui\Html
  */
@@ -105,7 +224,7 @@ class HTMLDocument extends DOMPrototype
      * @return DOMNodeList|false
      * @throws InvalidArgumentException
      */
-    public function select($selector, $context = null)
+    public function selectElement($selector, $context = null)
     {
         return $this->getHTMLHandler()->select($this, $selector, $context);
     }
