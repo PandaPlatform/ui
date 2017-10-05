@@ -14,13 +14,13 @@ namespace Panda\Ui\Dom\Tests\Factories;
 use Panda\Ui\Dom\DOMPrototype;
 use Panda\Ui\Dom\Factories\DOMFactory;
 use Panda\Ui\Dom\Handlers\DOMHandler;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class DOMFactoryTest
  * @package Panda\Ui\Dom\Tests\Factories
  */
-class DOMFactoryTest extends PHPUnit_Framework_TestCase
+class DOMFactoryTest extends TestCase
 {
     /**
      * @var DOMFactory

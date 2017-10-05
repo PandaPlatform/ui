@@ -26,10 +26,11 @@ interface DOMFactoryInterface
      *
      * @param string $name
      * @param string $value
+     * @param string $namespaceURI
      *
      * @return DOMItem
      */
-    public function buildElement($name = '', $value = '');
+    public function buildElement($name = '', $value = '', $namespaceURI = '');
 
     /**
      * Get the DOMPrototype for creating objects.

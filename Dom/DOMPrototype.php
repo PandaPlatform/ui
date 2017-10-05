@@ -69,15 +69,16 @@ class DOMPrototype extends DOMDocument
     /**
      * Creates and returns a DOMElement with the specified tagName and the given attributes
      *
-     * @param string $name  The tag of the element.
-     * @param mixed  $value The content of the element. It can be a string or a DOMElement.
+     * @param string $name         The tag of the element.
+     * @param mixed  $value        The content of the element. It can be a string or a DOMElement.
+     * @param string $namespaceURI The namespace uri of the element.
      *
      * @return DOMItem The DOMItem created
      */
-    public function create($name = 'div', $value = '')
+    public function create($name = 'div', $value = '', $namespaceURI = '')
     {
         // Create a new DOMItem
-        return $this->getDOMFactory()->buildElement($name, $value);
+        return $this->getDOMFactory()->buildElement($name, $value, $namespaceURI);
     }
 
     /**

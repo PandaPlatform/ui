@@ -16,13 +16,13 @@ use Panda\Ui\Dom\DOMItem;
 use Panda\Ui\Dom\DOMPrototype;
 use Panda\Ui\Dom\Factories\DOMFactory;
 use Panda\Ui\Dom\Handlers\DOMHandler;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class DOMItemTest
  * @package Panda\Ui\Dom\Tests
  */
-class DOMItemTest extends PHPUnit_Framework_TestCase
+class DOMItemTest extends TestCase
 {
     /**
      * @var DOMItem
@@ -36,16 +36,46 @@ class DOMItemTest extends PHPUnit_Framework_TestCase
     {
         parent::setUp();
 
-        $this->DOMItem = new DOMItem(new DOMPrototype(new DOMHandler(), new DOMFactory()), 'item', 'value');
+
     }
 
     /**
      * @covers \Panda\Ui\Dom\DOMItem::__construct
+     *
+     * @return DOMItem
      */
     public function testDOMItem()
     {
-        $this->assertEquals('item', $this->DOMItem->tagName);
-        $this->assertEquals('value', $this->DOMItem->nodeValue());
+        // Create new DOMItem
+        $tagName = 'item';
+        $nodeValue = 'value';
+        $domItem = new DOMItem(new DOMPrototype(new DOMHandler(), new DOMFactory()), $tagName, $nodeValue);
+
+        // Assert properties
+        $this->assertEquals($tagName, $domItem->tagName);
+        $this->assertEquals($nodeValue, $domItem->nodeValue());
+
+        return $domItem;
+    }
+
+    /**
+     * @covers \Panda\Ui\Dom\DOMItem::__construct
+     *
+     * @return DOMItem
+     */
+    public function testDOMItemWithNamespace()
+    {
+        // Create new DOMItem
+        $tagName = 'item:namespace';
+        $nodeValue = 'value';
+        $namespaceURI = 'http://xyz';
+        $domItem = new DOMItem(new DOMPrototype(new DOMHandler(), new DOMFactory()), $tagName, $nodeValue, $namespaceURI);
+
+        // Assert properties
+        $this->assertEquals($tagName, $domItem->tagName);
+        $this->assertEquals($nodeValue, $domItem->nodeValue());
+
+        return $domItem;
     }
 
     /**
@@ -54,9 +84,12 @@ class DOMItemTest extends PHPUnit_Framework_TestCase
      */
     public function testAttr()
     {
+        // Create DOMItem
+        $domItem = $this->testDOMItem();
+
         // Test simple attribute
-        $this->DOMItem->attr('test_attr', 'attr_value');
-        $this->assertEquals('attr_value', $this->DOMItem->getAttribute('test_attr'));
+        $domItem->attr('test_attr', 'attr_value');
+        $this->assertEquals('attr_value', $domItem->getAttribute('test_attr'));
     }
 
     /**
@@ -65,13 +98,16 @@ class DOMItemTest extends PHPUnit_Framework_TestCase
      */
     public function testAppendAttr()
     {
+        // Create DOMItem
+        $domItem = $this->testDOMItem();
+
         // Test simple attribute
-        $this->DOMItem->attr('test_attr', 'attr_value');
-        $this->assertEquals('attr_value', $this->DOMItem->getAttribute('test_attr'));
+        $domItem->attr('test_attr', 'attr_value');
+        $this->assertEquals('attr_value', $domItem->getAttribute('test_attr'));
 
         // Test append attribute
-        $this->DOMItem->appendAttr('test_attr', 'new_attr_value');
-        $this->assertEquals('attr_value new_attr_value', $this->DOMItem->getAttribute('test_attr'));
+        $domItem->appendAttr('test_attr', 'new_attr_value');
+        $this->assertEquals('attr_value new_attr_value', $domItem->getAttribute('test_attr'));
     }
 
     /**
@@ -79,8 +115,12 @@ class DOMItemTest extends PHPUnit_Framework_TestCase
      */
     public function testNodeValue()
     {
-        $this->DOMItem->nodeValue('new_node_value');
-        $this->assertEquals('new_node_value', $this->DOMItem->nodeValue);
+        // Create DOMItem
+        $domItem = $this->testDOMItem();
+
+        // Assert values
+        $domItem->nodeValue('new_node_value');
+        $this->assertEquals('new_node_value', $domItem->nodeValue);
     }
 
     /**
@@ -89,10 +129,13 @@ class DOMItemTest extends PHPUnit_Framework_TestCase
      */
     public function testAppend()
     {
-        $newItem = new DOMItem($this->DOMItem->getDOMDocument(), 'new');
-        $this->DOMItem->append($newItem);
-        $this->assertEquals($newItem->parentNode, $this->DOMItem);
-        $this->assertEquals($newItem->ownerDocument, $this->DOMItem->ownerDocument);
+        // Create DOMItem
+        $domItem = $this->testDOMItem();
+
+        $newItem = new DOMItem($domItem->getDOMDocument(), 'new');
+        $domItem->append($newItem);
+        $this->assertEquals($newItem->parentNode, $domItem);
+        $this->assertEquals($newItem->ownerDocument, $domItem->ownerDocument);
     }
 
     /**
@@ -101,18 +144,21 @@ class DOMItemTest extends PHPUnit_Framework_TestCase
      */
     public function testPrepend()
     {
+        // Create DOMItem
+        $domItem = $this->testDOMItem();
+
         // Simple prepend
-        $newItem = new DOMItem($this->DOMItem->getDOMDocument(), 'new');
-        $this->DOMItem->prepend($newItem);
-        $this->assertEquals($newItem->parentNode, $this->DOMItem);
-        $this->assertEquals($newItem->ownerDocument, $this->DOMItem->ownerDocument);
+        $newItem = new DOMItem($domItem->getDOMDocument(), 'new');
+        $domItem->prepend($newItem);
+        $this->assertEquals($newItem->parentNode, $domItem);
+        $this->assertEquals($newItem->ownerDocument, $domItem->ownerDocument);
 
         // Check actual prepend (in the beginning of the DOMElement)
-        $newItem = new DOMItem($this->DOMItem->getDOMDocument(), 'new2');
-        $this->DOMItem->prepend($newItem);
-        $this->assertEquals($newItem->parentNode, $this->DOMItem);
-        $this->assertEquals($newItem->ownerDocument, $this->DOMItem->ownerDocument);
-        $this->assertEquals($newItem, $this->DOMItem->childNodes->item(0));
+        $newItem = new DOMItem($domItem->getDOMDocument(), 'new2');
+        $domItem->prepend($newItem);
+        $this->assertEquals($newItem->parentNode, $domItem);
+        $this->assertEquals($newItem->ownerDocument, $domItem->ownerDocument);
+        $this->assertEquals($newItem, $domItem->childNodes->item(0));
     }
 
     /**
@@ -121,8 +167,11 @@ class DOMItemTest extends PHPUnit_Framework_TestCase
      */
     public function testRemove()
     {
-        $this->DOMItem->remove();
-        $this->assertNull($this->DOMItem->parentNode);
+        // Create DOMItem
+        $domItem = $this->testDOMItem();
+
+        $domItem->remove();
+        $this->assertNull($domItem->parentNode);
     }
 
     /**
@@ -131,7 +180,10 @@ class DOMItemTest extends PHPUnit_Framework_TestCase
      */
     public function testReplace()
     {
-        $newItem = new DOMItem($this->DOMItem->getDOMDocument(), 'new');
-        $this->assertEquals($newItem, $this->DOMItem->replace($newItem));
+        // Create DOMItem
+        $domItem = $this->testDOMItem();
+
+        $newItem = new DOMItem($domItem->getDOMDocument(), 'new');
+        $this->assertEquals($newItem, $domItem->replace($newItem));
     }
 }

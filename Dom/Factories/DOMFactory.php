@@ -31,12 +31,13 @@ class DOMFactory implements DOMFactoryInterface
      *
      * @param string $name
      * @param string $value
+     * @param string $namespaceURI
      *
      * @return DOMItem
      */
-    public function buildElement($name = '', $value = '')
+    public function buildElement($name = '', $value = '', $namespaceURI = '')
     {
-        return new DOMItem($this->getDOMDocument(), $name, $value);
+        return new DOMItem($this->getDOMDocument(), $name, $value, $namespaceURI);
     }
 
     /**
