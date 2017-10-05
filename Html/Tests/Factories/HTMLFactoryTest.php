@@ -14,13 +14,13 @@ namespace Panda\Ui\Html\Tests\Factories;
 use Panda\Ui\Html\Factories\HTMLFactory;
 use Panda\Ui\Html\Handlers\HTMLHandler;
 use Panda\Ui\Html\HTMLDocument;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class HTMLFactoryTest
  * @package Panda\Ui\Html\Tests\Factories
  */
-class HTMLFactoryTest extends PHPUnit_Framework_TestCase
+class HTMLFactoryTest extends TestCase
 {
     /**
      * @var HTMLFactory
