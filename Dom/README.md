@@ -4,6 +4,7 @@
 
 The Dom Package allows you to easily manipulate DOM Elements.
 
+[![StyleCI](https://styleci.io/repos/97611987/shield?branch=3.1)](https://styleci.io/repos/97611987/shield?branch=3.1)
 [![Latest Stable Version](https://poser.pugx.org/panda/dom/v/stable?format=flat-square)](https://packagist.org/packages/panda/dom)
 [![Total Downloads](https://poser.pugx.org/panda/dom/downloads?format=flat-square)](https://packagist.org/packages/panda/dom)
 [![License](https://poser.pugx.org/panda/dom/license?format=flat-square)](https://packagist.org/packages/panda/dom)
