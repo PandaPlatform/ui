@@ -25,18 +25,11 @@ use PHPUnit\Framework\TestCase;
 class DOMItemTest extends TestCase
 {
     /**
-     * @var DOMItem
-     */
-    private $DOMItem;
-
-    /**
      * {@inheritdoc}
      */
     public function setUp()
     {
         parent::setUp();
-
-
     }
 
     /**
