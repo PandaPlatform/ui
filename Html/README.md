@@ -4,6 +4,7 @@
 
 The Html Package allows you to create and manipulate Html Controls and other Html specific tools.
 
+[![StyleCI](https://styleci.io/repos/97729727/shield?branch=3.1)](https://styleci.io/repos/97729727/shield?branch=3.1)
 [![Latest Stable Version](https://poser.pugx.org/panda/html/v/stable?format=flat-square)](https://packagist.org/packages/panda/html)
 [![Total Downloads](https://poser.pugx.org/panda/html/downloads?format=flat-square)](https://packagist.org/packages/panda/html)
 [![License](https://poser.pugx.org/panda/html/license?format=flat-square)](https://packagist.org/packages/panda/html)
