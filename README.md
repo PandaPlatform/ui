@@ -7,6 +7,20 @@ This is the Panda Ui Package
 [![Total Downloads](https://poser.pugx.org/panda/ui/downloads?format=flat-square)](https://packagist.org/packages/panda/ui)
 [![License](https://poser.pugx.org/panda/ui/license?format=flat-square)](https://packagist.org/packages/panda/ui)
 
+- [Introduction](#introduction)
+- [Installation](#installation)
+  - [Through the composer](#through-the-composer)
+
+## Introduction
+Panda Ui component is a backend ui handler/renderer engine that enables generating html (including xml) content in a more structured way.
+
+This component is extending the normal DOM structure that is offered by the language itself, including some of the following classes:
+- [`DOMNode`](http://php.net/manual/en/class.domnode.php)
+- [`DOMDocument`](http://php.net/manual/en/class.domdocument.php)
+- [`DOMElement`](http://php.net/manual/en/class.domelement.php)
+
+This is the main reason why this component is so powerful, providing extra, faster and more clever functionality using existing components.
+
 This package is able to create html pages using the DOM structure fast and easy. Some of the features include:
 
 * Dom manipulation from PHP
@@ -17,8 +31,6 @@ This package is able to create html pages using the DOM structure fast and easy.
 * Form factories and builders
 * Generic components
 
-You can read a full documentation on the functionality of the library from the [wiki](https://github.com/PandaPlatform/ui/wiki) of this repository.
-
 ## Installation
 
 ### Through the composer
@@ -26,5 +38,11 @@ You can read a full documentation on the functionality of the library from the [
 Add the following line to your `composer.json` file:
 
 ```
-"panda/ui": "^3.0"
+"panda/ui": "^3.1"
 ```
+
+## Packages
+
+For extending reading on how to use the `DOM` and `Html` Packages, refer to their readme files:
+- [DOM Package](Dom/README.md)
+- [HTML Package](Html/README.md)
