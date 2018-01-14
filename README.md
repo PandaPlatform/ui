@@ -2,7 +2,7 @@
 
 This is the Panda Ui Package
 
-[![StyleCI](https://styleci.io/repos/55763384/shield)](https://styleci.io/repos/55763384)
+[![StyleCI](https://styleci.io/repos/55763384/shield?branch=3.1)](https://styleci.io/repos/55763384/shield?branch=3.1)
 [![Latest Stable Version](https://poser.pugx.org/panda/ui/v/stable?format=flat-square)](https://packagist.org/packages/panda/ui)
 [![Total Downloads](https://poser.pugx.org/panda/ui/downloads?format=flat-square)](https://packagist.org/packages/panda/ui)
 [![License](https://poser.pugx.org/panda/ui/license?format=flat-square)](https://packagist.org/packages/panda/ui)
