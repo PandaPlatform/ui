@@ -38,10 +38,12 @@ class DOMItem extends DOMElement
      * @param string         $name
      * @param string|DOMItem $value
      * @param string         $namespaceURI
+     * @param array          $attributes
      *
      * @throws InvalidArgumentException
+     * @throws Exception
      */
-    public function __construct(DOMPrototype $DOMDocument, $name, $value = '', $namespaceURI = '')
+    public function __construct(DOMPrototype $DOMDocument, $name, $value = '', $namespaceURI = '', $attributes = [])
     {
         // Create owner DOMDocument to be able to have the element as writable
         $this->DOMDocument = $DOMDocument;
@@ -53,7 +55,7 @@ class DOMItem extends DOMElement
         // Check if the content a DOMNode to append
         if (gettype($value) == 'string') {
             $valueNode = new DOMText($value);
-        } elseif (gettype($value) == 'object' && $value instanceof self) {
+        } else if (gettype($value) == 'object' && $value instanceof self) {
             $valueNode = $value;
         }
 
@@ -61,6 +63,9 @@ class DOMItem extends DOMElement
         if (!empty($valueNode)) {
             $this->append($valueNode);
         }
+
+        // Add attributes, if any
+        $this->attrs($attributes);
     }
 
     /**
