@@ -33,13 +33,15 @@ class HTMLElement extends DOMItem
      * @param string|HTMLElement $value        The element value.
      * @param string             $id           The element id attribute value.
      * @param string             $class        The element class attribute value.
+     * @param array              $attributes
      *
+     * @throws InvalidArgumentException
      * @throws Exception
      */
-    public function __construct(HTMLDocument $HTMLDocument, $name, $value = '', $id = '', $class = '')
+    public function __construct(HTMLDocument $HTMLDocument, $name, $value = '', $id = '', $class = '', $attributes = [])
     {
         // Create DOMItem
-        parent::__construct($HTMLDocument, $name, $value);
+        parent::__construct($HTMLDocument, $name, $value, '', $attributes);
 
         // Add extra attributes
         $this->attr('id', $id);

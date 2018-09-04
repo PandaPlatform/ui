@@ -62,10 +62,11 @@ class FormInput extends FormElement
      * @param string       $class        The input's class
      * @param string       $value        The input's value
      * @param bool         $required     Sets the input as required for the form.
+     * @param array        $attributes
      *
      * @throws Exception
      */
-    public function __construct(HTMLDocument $HTMLDocument, $type = 'text', $name = '', $id = '', $class = '', $value = '', $required = false)
+    public function __construct(HTMLDocument $HTMLDocument, $type = 'text', $name = '', $id = '', $class = '', $value = '', $required = false, $attributes = [])
     {
         // Check input type
         if (!$this->checkType($type)) {
@@ -80,7 +81,7 @@ class FormInput extends FormElement
         }
 
         // Create HTMLElement
-        parent::__construct($HTMLDocument, $itemName = 'input', $name, $value, $id, $class, $itemValue = '');
+        parent::__construct($HTMLDocument, $itemName = 'input', $name, $value, $id, $class, $itemValue = '', $attributes);
 
         // Add extra attributes
         $this->attr('type', $type);

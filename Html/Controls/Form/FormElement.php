@@ -40,13 +40,14 @@ class FormElement extends HTMLElement
      * @param string            $id           The item id attribute
      * @param string            $class        The item class attribute
      * @param string|DOMElement $itemValue    The item content value.
+     * @param array             $attributes
      *
      * @throws Exception
      */
-    public function __construct(HTMLDocument $HTMLDocument, $itemName = '', $name = '', $value = '', $id = '', $class = '', $itemValue = '')
+    public function __construct(HTMLDocument $HTMLDocument, $itemName = '', $name = '', $value = '', $id = '', $class = '', $itemValue = '', $attributes = [])
     {
         // Create HTMLElement
-        parent::__construct($HTMLDocument, $itemName, $itemValue, $id, $class);
+        parent::__construct($HTMLDocument, $itemName, $itemValue, $id, $class, $attributes);
 
         // Add extra attributes
         $this->attr('name', $name);

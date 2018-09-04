@@ -29,10 +29,11 @@ interface HTMLFactoryInterface extends DOMFactoryInterface
      * @param string $value
      * @param string $id
      * @param string $class
+     * @param array  $attributes
      *
      * @return HTMLElement
      */
-    public function buildHtmlElement($name = '', $value = '', $id = '', $class = '');
+    public function buildHtmlElement($name = '', $value = '', $id = '', $class = '', $attributes = []);
 
     /**
      * Build an HTML weblink <a> element.
@@ -42,10 +43,11 @@ interface HTMLFactoryInterface extends DOMFactoryInterface
      * @param string $content
      * @param string $id
      * @param string $class
+     * @param array  $attributes
      *
      * @return HTMLElement
      */
-    public function buildWebLink($href = '', $target = '_self', $content = '', $id = '', $class = '');
+    public function buildWebLink($href = '', $target = '_self', $content = '', $id = '', $class = '', $attributes = []);
 
     /**
      * Build a meta element.
@@ -64,10 +66,11 @@ interface HTMLFactoryInterface extends DOMFactoryInterface
      *
      * @param string $rel
      * @param string $href
+     * @param array  $attributes
      *
      * @return HTMLElement
      */
-    public function buildLink($rel, $href);
+    public function buildLink($rel, $href, $attributes = []);
 
     /**
      * Build an html script element.

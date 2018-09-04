@@ -31,12 +31,14 @@ class HTMLFactory extends DOMFactory implements HTMLFactoryInterface
      * @param string $value The element's content value.
      * @param string $id    The elements id attribute.
      * @param string $class The element's class attribute.
+     * @param array  $attributes
      *
      * @return HTMLElement
+     * @throws \InvalidArgumentException
      */
-    public function buildHtmlElement($name = '', $value = '', $id = '', $class = '')
+    public function buildHtmlElement($name = '', $value = '', $id = '', $class = '', $attributes = [])
     {
-        return new HTMLElement($this->getHTMLDocument(), $name, $value, $id, $class);
+        return new HTMLElement($this->getHTMLDocument(), $name, $value, $id, $class, $attributes);
     }
 
     /**
@@ -47,15 +49,17 @@ class HTMLFactory extends DOMFactory implements HTMLFactoryInterface
      * @param string $content The weblink element content value.
      * @param string $id      The weblink id attribute.
      * @param string $class   The weblink class attribute.
+     * @param array  $attributes
      *
      * @return HTMLElement
      *
+     * @throws \InvalidArgumentException
      * @throws Exception
      */
-    public function buildWebLink($href = '', $target = '_self', $content = '', $id = '', $class = '')
+    public function buildWebLink($href = '', $target = '_self', $content = '', $id = '', $class = '', $attributes = [])
     {
         // Create webLink element
-        $webLink = $this->buildHtmlElement($name = 'a', $content, $id, $class);
+        $webLink = $this->buildHtmlElement($name = 'a', $content, $id, $class, $attributes);
 
         // Add attributes
         $webLink->attr('href', $href);
@@ -95,15 +99,17 @@ class HTMLFactory extends DOMFactory implements HTMLFactoryInterface
      *
      * @param string $rel  The link rel attribute.
      * @param string $href The link href attribute.
+     * @param array  $attributes
      *
      * @return HTMLElement
      *
+     * @throws \InvalidArgumentException
      * @throws Exception
      */
-    public function buildLink($rel, $href)
+    public function buildLink($rel, $href, $attributes = [])
     {
         // Build the link element
-        $link = $this->buildHtmlElement($name = 'link', $value = '', $id = '', $class = '');
+        $link = $this->buildHtmlElement($name = 'link', $value = '', $id = '', $class = '', $attributes);
         $link->attr('rel', $rel);
         $link->attr('href', $href);
 

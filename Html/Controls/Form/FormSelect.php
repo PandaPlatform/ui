@@ -36,13 +36,14 @@ class FormSelect extends FormElement
      * @param string                   $class           The input's class
      * @param bool                     $multiple        Option for multiple selection.
      * @param bool                     $required        Sets the input as required for the form.
+     * @param array                    $attributes
      *
      * @throws Exception
      */
-    public function __construct(HTMLDocument $HTMLDocument, HTMLFormFactoryInterface $HTMLFormFactory, $name = '', $id = '', $class = '', $multiple = false, $required = false)
+    public function __construct(HTMLDocument $HTMLDocument, HTMLFormFactoryInterface $HTMLFormFactory, $name = '', $id = '', $class = '', $multiple = false, $required = false, $attributes = [])
     {
         // Create FormElement
-        parent::__construct($HTMLDocument, $itemName = 'select', $name, $value = '', $id, $class, $itemValue = '');
+        parent::__construct($HTMLDocument, $itemName = 'select', $name, $value = '', $id, $class, $itemValue = '', $attributes);
         $this->attr('required', $required);
 
         // Add extra attributes
