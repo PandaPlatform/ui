@@ -74,7 +74,7 @@ interface DOMHandlerInterface
      *
      * @param DOMElement|DOMNode $element The DOMElement to handle.
      * @param string             $name    The data name of the attribute (data-[name])
-     * @param mixed              $value   The data value.
+     * @param array|string       $value   The data value.
      *                                    It can be a single value or an array of values.
      *
      * @return bool|string TRUE or the new value on success, FALSE on failure.
