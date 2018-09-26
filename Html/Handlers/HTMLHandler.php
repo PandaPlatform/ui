@@ -147,7 +147,7 @@ class HTMLHandler extends DOMHandler implements HTMLHandlerInterface
         // If value is null or false, remove attribute
         if (is_null($val) || (is_bool($val) && $val === false)) {
             unset($styles[$name]);
-        } elseif (empty($val)) {
+        } else if (empty($val)) {
             if (isset($styles[$name])) {
                 return $styles[$name];
             }

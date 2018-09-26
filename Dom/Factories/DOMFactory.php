@@ -32,12 +32,14 @@ class DOMFactory implements DOMFactoryInterface
      * @param string $name
      * @param string $value
      * @param string $namespaceURI
+     * @param array  $attributes
      *
      * @return DOMItem
+     * @throws \InvalidArgumentException
      */
-    public function buildElement($name = '', $value = '', $namespaceURI = '')
+    public function buildElement($name = '', $value = '', $namespaceURI = '', $attributes = [])
     {
-        return new DOMItem($this->getDOMDocument(), $name, $value, $namespaceURI);
+        return new DOMItem($this->getDOMDocument(), $name, $value, $namespaceURI, $attributes);
     }
 
     /**

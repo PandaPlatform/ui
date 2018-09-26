@@ -33,13 +33,14 @@ class Form extends HTMLElement implements DOMBuilder
      *
      * @param HTMLDocument             $HTMLDocument
      * @param HTMLFormFactoryInterface $HTMLFormFactory The Form Factory interface to generate all elements.
+     * @param array                    $attributes
      *
      * @throws Exception
      */
-    public function __construct(HTMLDocument $HTMLDocument, HTMLFormFactoryInterface $HTMLFormFactory)
+    public function __construct(HTMLDocument $HTMLDocument, HTMLFormFactoryInterface $HTMLFormFactory, $attributes = [])
     {
         // Create HTML Form element
-        parent::__construct($HTMLDocument, $name = 'form', $value = '', $id = '');
+        parent::__construct($HTMLDocument, $name = 'form', $value = '', $id = '', $class = '', $attributes);
 
         // Set FormFactory
         $HTMLFormFactory->setHTMLDocument($this->getHTMLDocument());

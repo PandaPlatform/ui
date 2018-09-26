@@ -40,6 +40,7 @@ class HTMLFactoryTest extends TestCase
 
     /**
      * @covers \Panda\Ui\Html\Factories\HTMLFactory::buildHtmlElement
+     * @throws \Exception
      */
     public function testBuildElement()
     {

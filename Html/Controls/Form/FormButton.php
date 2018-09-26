@@ -40,10 +40,11 @@ class FormButton extends FormElement
      * @param string       $name         The button's name attribute
      * @param string       $id           The button's id attribute
      * @param string       $title        The button's title.
+     * @param array        $attributes
      *
      * @throws Exception
      */
-    public function __construct(HTMLDocument $HTMLDocument, $type = 'submit', $name = '', $id = '', $title = '')
+    public function __construct(HTMLDocument $HTMLDocument, $type = 'submit', $name = '', $id = '', $title = '', $attributes = [])
     {
         // Check input type
         if (!$this->checkType($type)) {
@@ -51,7 +52,7 @@ class FormButton extends FormElement
         }
 
         // Create HTMLElement
-        parent::__construct($HTMLDocument, $itemName = 'button', $name, $value = '', $id, $class = 'form-button', $title);
+        parent::__construct($HTMLDocument, $itemName = 'button', $name, $value = '', $id, $class = 'form-button', $title, $attributes);
 
         // Add extra attributes
         $this->attr('type', $type);

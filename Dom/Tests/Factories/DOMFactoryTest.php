@@ -40,6 +40,7 @@ class DOMFactoryTest extends TestCase
 
     /**
      * @covers \Panda\Ui\Dom\Factories\DOMFactory::buildElement
+     * @throws \InvalidArgumentException
      */
     public function testBuildElement()
     {

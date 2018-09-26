@@ -68,6 +68,23 @@ class DOMHandler implements DOMHandlerInterface
         if (is_bool($value) && $value === true) {
             $element->setAttributeNode(new DOMAttr($name));
         } else {
+            // Check for array
+            if (is_array($value)) {
+                // Clear empty values
+                foreach ($value as $key => $attr) {
+                    if (empty($attr) && $attr !== 0) {
+                        unset($value[$key]);
+                    }
+                }
+
+                // Encode attribute data
+                $jsonValue = json_encode($value, JSON_FORCE_OBJECT);
+
+                // Don't add anything if empty
+                $value = str_replace('{}', '', $jsonValue);
+            }
+
+            // Set attribute
             $element->setAttribute($name, trim((string)$value));
         }
 
@@ -88,14 +105,14 @@ class DOMHandler implements DOMHandlerInterface
     {
         if (empty($value)) {
             // Get current attributes
-            $attrs = [];
+            $attributes = [];
             foreach ($element->attributes as $attr) {
-                $attrs[$attr->name] = $attr->value;
+                $attributes[$attr->name] = $attr->value;
             }
 
             // Return the current attributes
-            return $attrs;
-        } elseif (is_array($value) && count($value) > 0) {
+            return $attributes;
+        } else if (is_array($value) && count($value) > 0) {
             // Set the given attributes
             foreach ($value as $key => $val) {
                 $this->attr($element, $key, $val);
@@ -131,40 +148,17 @@ class DOMHandler implements DOMHandlerInterface
      * Inserts a data-[name] attribute.
      * It supports single value or an array of values.
      *
-     * @param DOMElement $element The DOMElement to handle.
-     * @param string     $name    The data name of the attribute (data-[name])
-     * @param mixed      $value   The data value.
-     *                            It can be a single value or an array of values.
+     * @param DOMElement   $element The DOMElement to handle.
+     * @param string       $name    The data name of the attribute (data-[name])
+     * @param array|string $value   The data value.
+     *                              It can be a single value or an array of values.
      *
      * @return bool|string TRUE or the new value on success, FALSE on failure.
      * @throws Exception
      */
-    public function data(DOMElement &$element, $name, $value = [])
+    public function data(DOMElement &$element, $name, $value = '')
     {
-        // Check if value is empty
-        if (empty($value)) {
-            return false;
-        }
-
-        // Set normal data attribute
-        if (!is_array($value)) {
-            return $this->attr($element, 'data-' . $name, $value);
-        }
-
-        // Clear empty values
-        foreach ($value as $key => $attr) {
-            if (empty($attr) && $attr !== 0) {
-                unset($value[$key]);
-            }
-        }
-
-        // Encode attribute data
-        $jsonValue = json_encode($value, JSON_FORCE_OBJECT);
-
-        // Don't add anything if empty
-        $jsonValue = str_replace('{}', '', $jsonValue);
-
-        return $this->attr($element, 'data-' . $name, $jsonValue);
+        return $this->attr($element, 'data-' . $name, $value);
     }
 
     /**

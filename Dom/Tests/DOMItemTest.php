@@ -36,6 +36,7 @@ class DOMItemTest extends TestCase
      * @covers \Panda\Ui\Dom\DOMItem::__construct
      *
      * @return DOMItem
+     * @throws \InvalidArgumentException
      */
     public function testDOMItem()
     {
@@ -55,6 +56,7 @@ class DOMItemTest extends TestCase
      * @covers \Panda\Ui\Dom\DOMItem::__construct
      *
      * @return DOMItem
+     * @throws \InvalidArgumentException
      */
     public function testDOMItemWithNamespace()
     {
@@ -83,6 +85,11 @@ class DOMItemTest extends TestCase
         // Test simple attribute
         $domItem->attr('test_attr', 'attr_value');
         $this->assertEquals('attr_value', $domItem->getAttribute('test_attr'));
+
+        // Test array attribute
+        $array = ['name' => 'value'];
+        $domItem->attr('test_attr', $array);
+        $this->assertEquals(json_encode($array, JSON_FORCE_OBJECT), $domItem->getAttribute('test_attr'));
     }
 
     /**
@@ -105,6 +112,7 @@ class DOMItemTest extends TestCase
 
     /**
      * @covers \Panda\Ui\Dom\DOMItem::nodeValue
+     * @throws \InvalidArgumentException
      */
     public function testNodeValue()
     {
@@ -157,6 +165,7 @@ class DOMItemTest extends TestCase
     /**
      * @covers \Panda\Ui\Dom\DOMItem::remove
      * @throws \DOMException
+     * @throws \InvalidArgumentException
      */
     public function testRemove()
     {
@@ -170,6 +179,7 @@ class DOMItemTest extends TestCase
     /**
      * @covers \Panda\Ui\Dom\DOMItem::replace
      * @throws \DOMException
+     * @throws \InvalidArgumentException
      */
     public function testReplace()
     {
