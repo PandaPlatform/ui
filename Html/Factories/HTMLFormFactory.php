@@ -74,14 +74,14 @@ class HTMLFormFactory extends HTMLFactory implements HTMLFormFactoryInterface
     /**
      * Builds and returns an input item.
      *
-     * @param string $type      The input's type. This must abide by the rules of the possible input types.
-     * @param string $name      The input's name.
-     * @param string $value     The input's default value.
-     * @param string $id        The input's id attribute.
-     * @param string $class     The extra class for the input.
-     * @param bool   $autofocus Inserts the autofocus attribute to the input.
-     * @param bool   $required  Indicates this input as required.
-     * @param array  $attributes
+     * @param string $type       The input's type. This must abide by the rules of the possible input types.
+     * @param string $name       The input's name.
+     * @param string $value      The input's default value.
+     * @param string $id         The input's id attribute.
+     * @param string $class      The extra class for the input.
+     * @param bool   $autofocus  Inserts the autofocus attribute to the input.
+     * @param bool   $required   Indicates this input as required.
+     * @param array  $attributes A set of extra attributes
      *
      * @return FormElement
      * @throws Exception
@@ -102,12 +102,12 @@ class HTMLFormFactory extends HTMLFactory implements HTMLFormFactoryInterface
     /**
      * Build an html form file input.
      *
-     * @param string $name     The input's name.
-     * @param string $id       The input's id attribute.
-     * @param string $class    The extra class for the input.
-     * @param bool   $required Indicates this input as required.
-     * @param string $accept   The accept attribute for the file dialog.
-     * @param array  $attributes
+     * @param string $name       The input's name.
+     * @param string $id         The input's id attribute.
+     * @param string $class      The extra class for the input.
+     * @param bool   $required   Indicates this input as required.
+     * @param string $accept     The accept attribute for the file dialog.
+     * @param array  $attributes A set of extra attributes
      *
      * @return FormElement
      * @throws Exception
@@ -128,10 +128,10 @@ class HTMLFormFactory extends HTMLFactory implements HTMLFormFactoryInterface
     /**
      * Build an html form label.
      *
-     * @param string $content The label content.
-     * @param string $for     The input's id where this label is pointing to.
-     * @param string $class   The extra class for the label.
-     * @param array  $attributes
+     * @param string $content    The label content.
+     * @param string $for        The input's id where this label is pointing to.
+     * @param string $class      The extra class for the label.
+     * @param array  $attributes A set of extra attributes
      *
      * @return FormElement
      * @throws Exception
@@ -151,12 +151,12 @@ class HTMLFormFactory extends HTMLFactory implements HTMLFormFactoryInterface
     /**
      * Built an html form button.
      *
-     * @param string $type  The button's type
-     * @param string $title The button's title
-     * @param string $name  The button's name attribute
-     * @param string $id    The button's id attribute.
-     * @param string $class The extra class of the button
-     * @param array  $attributes
+     * @param string $type       The button's type
+     * @param string $title      The button's title
+     * @param string $name       The button's name attribute
+     * @param string $id         The button's id attribute.
+     * @param string $class      The extra class of the button
+     * @param array  $attributes A set of extra attributes
      *
      * @return FormElement
      * @throws Exception
@@ -177,11 +177,11 @@ class HTMLFormFactory extends HTMLFactory implements HTMLFormFactoryInterface
     /**
      * Built an html form submit button.
      *
-     * @param string $title The button's title
-     * @param string $name  The button's name attribute
-     * @param string $id    The button's id attribute
-     * @param string $class The extra class of the button
-     * @param array  $attributes
+     * @param string $title      The button's title
+     * @param string $name       The button's name attribute
+     * @param string $id         The button's id attribute
+     * @param string $class      The extra class of the button
+     * @param array  $attributes A set of extra attributes
      *
      * @return FormElement
      * @throws Exception
@@ -197,10 +197,10 @@ class HTMLFormFactory extends HTMLFactory implements HTMLFormFactoryInterface
     /**
      * Built an html form reset button.
      *
-     * @param string $title The button's title
-     * @param string $id    The button's id attribute
-     * @param string $class The extra class of the button
-     * @param array  $attributes
+     * @param string $title      The button's title
+     * @param string $id         The button's id attribute
+     * @param string $class      The extra class of the button
+     * @param array  $attributes A set of extra attributes
      *
      * @return FormElement
      * @throws Exception
@@ -216,13 +216,13 @@ class HTMLFormFactory extends HTMLFactory implements HTMLFormFactoryInterface
     /**
      * Build an html form textarea.
      *
-     * @param string $name      The textarea's name.
-     * @param string $value     The textarea's default value.
-     * @param string $id        The textarea's id attribute
-     * @param string $class     The extra class for the textarea.
-     * @param bool   $autofocus Inserts the autofocus attribute to the input.
-     * @param bool   $required  Indicates this textarea as required.
-     * @param array  $attributes
+     * @param string $name       The textarea's name.
+     * @param string $value      The textarea's default value.
+     * @param string $id         The textarea's id attribute
+     * @param string $class      The extra class for the textarea.
+     * @param bool   $autofocus  Inserts the autofocus attribute to the input.
+     * @param bool   $required   Indicates this textarea as required.
+     * @param array  $attributes A set of extra attributes
      *
      * @return FormElement
      * @throws Exception
@@ -245,11 +245,11 @@ class HTMLFormFactory extends HTMLFactory implements HTMLFormFactoryInterface
     /**
      * Build an html form fieldset element.
      *
-     * @param string $title The fieldset legend title.
-     * @param string $name  The fieldset name.
-     * @param string $id    The fieldset id.
-     * @param string $class The fieldset class.
-     * @param array  $attributes
+     * @param string $title      The fieldset legend title.
+     * @param string $name       The fieldset name.
+     * @param string $id         The fieldset id.
+     * @param string $class      The fieldset class.
+     * @param array  $attributes A set of extra attributes
      *
      * @return FormElement
      * @throws InvalidArgumentException
@@ -279,7 +279,7 @@ class HTMLFormFactory extends HTMLFactory implements HTMLFormFactoryInterface
      * @param array  $options       An array of value -> title options for the select element.
      * @param string $selectedValue The select's selected value among options.
      * @param bool   $required      Sets the input as required for the form.
-     * @param array  $attributes
+     * @param array  $attributes    A set of extra attributes
      *
      * @return FormElement
      * @throws Exception

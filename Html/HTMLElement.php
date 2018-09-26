@@ -11,6 +11,7 @@
 
 namespace Panda\Ui\Html;
 
+use DOMElement;
 use DOMNodeList;
 use Exception;
 use InvalidArgumentException;
@@ -18,6 +19,8 @@ use Panda\Ui\Dom\DOMItem;
 use Panda\Ui\Dom\DOMPrototype;
 use Panda\Ui\Dom\Handlers\DOMHandlerInterface;
 use Panda\Ui\Html\Handlers\HTMLHandlerInterface;
+use Panda\Ui\Html\Helpers\FormHelper;
+use Panda\Ui\Html\Helpers\SelectHelper;
 
 /**
  * Class HTMLElement
@@ -167,6 +170,85 @@ class HTMLElement extends DOMItem
         $context = $context ?: $this;
 
         return $this->getHTMLDocument()->selectElement($selector, $context);
+    }
+
+    /**
+     * Render the current HTMLElement with a given set of parameters.
+     * Parameters can contain attributes or element-specific data based
+     * on the tag name.
+     * For more details, read our documentation.
+     *
+     * @param array $parameters
+     *
+     * @throws InvalidArgumentException
+     * @throws Exception
+     */
+    public function render($parameters = [])
+    {
+        foreach ($parameters as $selector => $data) {
+            // Check if there is the element present
+            $element = $this->select($selector)->item(0);
+            if (empty($element)) {
+                continue;
+            }
+
+            // Check for "delete" action
+            if (isset($data['delete']) && $data['delete']) {
+                $this->remove();
+                continue;
+            }
+
+            // Add/Append all attributes
+            foreach ($data['attributes'] as $name => $value) {
+                // Evaluate given value using scss syntax (replace & with existing value)
+                $existingValue = $this->getHTMLHandler()->attr($element, $name);
+                $value = is_string($value) ? str_replace('&', $existingValue, $value) : $value;
+
+                // Set new value
+                $this->getHTMLHandler()->attr($element, $name, $value);
+            }
+
+            // Add/Append all data attributes
+            foreach ($data['data'] as $name => $value) {
+                // Evaluate given value using scss syntax (replace & with existing value)
+                $existingValue = $this->getHTMLHandler()->data($element, $name);
+                $value = str_replace('&', $existingValue, $value);
+
+                // Set new value
+                $this->getHTMLHandler()->data($element, $name, $value);
+            }
+
+            // Render tag-specific parameters
+            $this->renderSelect($element, $data['select']);
+            $this->renderForm($element, $data['form']);
+        }
+    }
+
+    /**
+     * @param DOMElement $select
+     * @param array      $data
+     *
+     * @throws InvalidArgumentException
+     */
+    private function renderSelect($select, $data = [])
+    {
+        // Set select groups
+        SelectHelper::setOptions($this->getHTMLDocument()->getHTMLFactory(), $select, $data['groups'], $data['checked_value']);
+
+        // Set select options
+        SelectHelper::setOptions($this->getHTMLDocument()->getHTMLFactory(), $select, $data['options'], $data['checked_value']);
+    }
+
+    /**
+     * @param DOMElement $form
+     * @param array      $data
+     *
+     * @throws InvalidArgumentException
+     */
+    private function renderForm($form, $data = [])
+    {
+        // Set form values
+        FormHelper::setValues($this->getHTMLHandler(), $form, $data['values']);
     }
 
     /**
