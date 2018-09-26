@@ -27,11 +27,11 @@ class HTMLFactory extends DOMFactory implements HTMLFactoryInterface
     /**
      * Build an HTML Element.
      *
-     * @param string $name  The element's tagName.
-     * @param string $value The element's content value.
-     * @param string $id    The elements id attribute.
-     * @param string $class The element's class attribute.
-     * @param array  $attributes
+     * @param string $name       The element's tagName.
+     * @param string $value      The element's content value.
+     * @param string $id         The elements id attribute.
+     * @param string $class      The element's class attribute.
+     * @param array  $attributes A set of extra attributes
      *
      * @return HTMLElement
      * @throws \InvalidArgumentException
@@ -44,12 +44,12 @@ class HTMLFactory extends DOMFactory implements HTMLFactoryInterface
     /**
      * Build an HTML weblink <a> element.
      *
-     * @param string $href    The weblink href attribute.
-     * @param string $target  The weblink target attribute.
-     * @param string $content The weblink element content value.
-     * @param string $id      The weblink id attribute.
-     * @param string $class   The weblink class attribute.
-     * @param array  $attributes
+     * @param string $href       The weblink href attribute.
+     * @param string $target     The weblink target attribute.
+     * @param string $content    The weblink element content value.
+     * @param string $id         The weblink id attribute.
+     * @param string $class      The weblink class attribute.
+     * @param array  $attributes A set of extra attributes
      *
      * @return HTMLElement
      *
@@ -97,9 +97,9 @@ class HTMLFactory extends DOMFactory implements HTMLFactoryInterface
     /**
      * Build an html link element.
      *
-     * @param string $rel  The link rel attribute.
-     * @param string $href The link href attribute.
-     * @param array  $attributes
+     * @param string $rel        The link rel attribute.
+     * @param string $href       The link href attribute.
+     * @param array  $attributes A set of extra attributes
      *
      * @return HTMLElement
      *
