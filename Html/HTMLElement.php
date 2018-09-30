@@ -179,76 +179,141 @@ class HTMLElement extends DOMItem
      * For more details, read our documentation.
      *
      * @param array $parameters
+     * @param mixed $context
+     *
+     * @return $this
      *
      * @throws InvalidArgumentException
-     * @throws Exception
+     * @throws \DOMException
      */
-    public function render($parameters = [])
+    public function render($parameters = [], $context = null)
     {
         foreach ($parameters as $selector => $data) {
-            // Check if there is the element present
-            $element = $this->select($selector)->item(0);
-            if (empty($element)) {
-                continue;
+            // Render all elements that match the given selector
+            $elements = $this->select($selector, $context);
+            foreach ($elements as $element) {
+                $this->renderElement($element, $data);
             }
-
-            // Check for "delete" action
-            if (isset($data['delete']) && $data['delete']) {
-                $this->remove();
-                continue;
-            }
-
-            // Add/Append all attributes
-            foreach ($data['attributes'] as $name => $value) {
-                // Evaluate given value using scss syntax (replace & with existing value)
-                $existingValue = $this->getHTMLHandler()->attr($element, $name);
-                $value = is_string($value) ? str_replace('&', $existingValue, $value) : $value;
-
-                // Set new value
-                $this->getHTMLHandler()->attr($element, $name, $value);
-            }
-
-            // Add/Append all data attributes
-            foreach ($data['data'] as $name => $value) {
-                // Evaluate given value using scss syntax (replace & with existing value)
-                $existingValue = $this->getHTMLHandler()->data($element, $name);
-                $value = str_replace('&', $existingValue, $value);
-
-                // Set new value
-                $this->getHTMLHandler()->data($element, $name, $value);
-            }
-
-            // Render tag-specific parameters
-            $this->renderSelect($element, $data['select']);
-            $this->renderForm($element, $data['form']);
         }
+
+        return $this;
+    }
+
+    /**
+     * @param DOMElement $element
+     * @param array      $data
+     *
+     * @return $this
+     * @throws InvalidArgumentException
+     * @throws \DOMException
+     * @throws Exception
+     */
+    protected function renderElement(DOMElement $element, $data = [])
+    {
+        // Check for actions
+        $actions = $data['actions'];
+
+        // Check for "delete" action
+        if (isset($actions['delete']) && $actions['delete']) {
+            $this->getHTMLHandler()->remove($element);
+
+            return $this;
+        }
+
+        // Append children
+        $appendElements = $actions['append'] ?: [];
+        $appendElements = is_array($appendElements) ? $appendElements : [$appendElements];
+        foreach ($appendElements as $appendElement) {
+            $this->getHTMLHandler()->append($element, $appendElement);
+        }
+
+        // Prepend children
+        $prependElements = $actions['prepend'] ?: [];
+        $prependElements = is_array($prependElements) ? $prependElements : [$prependElements];
+        foreach ($prependElements as $prependElement) {
+            $this->getHTMLHandler()->prepend($element, $prependElement);
+        }
+
+        // Add/Append all attributes
+        foreach ($data['attributes'] as $name => $value) {
+            // Evaluate given value using scss syntax (replace & with existing value)
+            $existingValue = $this->getHTMLHandler()->attr($element, $name);
+            $value = is_string($value) ? str_replace('&', $existingValue, $value) : $value;
+
+            // Set new value
+            $this->getHTMLHandler()->attr($element, $name, $value);
+        }
+
+        // Check for node value
+        $nodeValue = $data['nodeValue'];
+        if ($nodeValue) {
+            $this->getHTMLHandler()->nodeValue($element, $nodeValue);
+        }
+
+        // Check for inner html
+        $innerHTML = $data['innerHTML'];
+        if ($innerHTML) {
+            $this->getHTMLHandler()->innerHTML($element, $innerHTML);
+        }
+
+        // Add/Append all data attributes
+        foreach ($data['data'] as $name => $value) {
+            // Evaluate given value using scss syntax (replace & with existing value)
+            $existingValue = $this->getHTMLHandler()->data($element, $name);
+            $value = str_replace('&', $existingValue, $value);
+
+            // Set new value
+            $this->getHTMLHandler()->data($element, $name, $value);
+        }
+
+        // Render tag-specific parameters
+        $this->renderSelect($element, $data['select']);
+        $this->renderForm($element, $data['form']);
+
+        return $this;
     }
 
     /**
      * @param DOMElement $select
      * @param array      $data
      *
+     * @return $this
      * @throws InvalidArgumentException
      */
     private function renderSelect($select, $data = [])
     {
+        // Check for tag name
+        if ($select->tagName != 'select') {
+            return $this;
+        }
+
         // Set select groups
-        SelectHelper::setOptions($this->getHTMLDocument()->getHTMLFactory(), $select, $data['groups'], $data['checked_value']);
+        SelectHelper::setGroups($this->getHTMLDocument()->getHTMLFactory(), $select, $data['groups'], $data['checked_value']);
 
         // Set select options
         SelectHelper::setOptions($this->getHTMLDocument()->getHTMLFactory(), $select, $data['options'], $data['checked_value']);
+
+        return $this;
     }
 
     /**
      * @param DOMElement $form
      * @param array      $data
      *
+     * @return $this
      * @throws InvalidArgumentException
      */
     private function renderForm($form, $data = [])
     {
+        // Check for tag name
+        if ($form->tagName != 'form') {
+            return $this;
+        }
+
         // Set form values
         FormHelper::setValues($this->getHTMLHandler(), $form, $data['values']);
+
+        return $this;
     }
 
     /**
