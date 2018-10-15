@@ -5,6 +5,8 @@ This changelog references the relevant changes (bug and security fixes) done in 
 
 To get the diff for a specific change, go to https://github.com/PandaPlatform/ui/commit/XXX where XXX is the change hash
 
+* 3.1.5 (2018-10-15)
+  * [Dom] Add value check for string '0'
 * 3.1.4 (2018-10-01)
   * [Html] HTMLElement::render(): Support multiple elements by selector.
   * [Html] HTMLElement::render(): Support more actions like append and prepend.
