@@ -236,9 +236,9 @@ class HTMLElement extends DOMItem
 
         // Add/Append all attributes
         foreach ($data['attributes'] as $name => $value) {
-            // Evaluate given value using scss syntax (replace & with existing value)
+            // Evaluate given value using scss syntax (replace & with existing value, for class attributes only)
             $existingValue = $this->getHTMLHandler()->attr($element, $name);
-            $value = is_string($value) ? str_replace('&', $existingValue, $value) : $value;
+            $value = is_string($value) && $name == 'class' ? str_replace('&', $existingValue, $value) : $value;
 
             // Set new value
             $this->getHTMLHandler()->attr($element, $name, $value);
