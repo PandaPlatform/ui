@@ -220,6 +220,38 @@ class HTMLElement extends DOMItem
             return $this;
         }
 
+        // Add/Append all attributes
+        foreach ($data['attributes'] as $name => $value) {
+            // Evaluate given value using scss syntax (replace & with existing value, for class attributes only)
+            $existingValue = $this->getHTMLHandler()->attr($element, $name);
+            $value = is_string($value) && $name == 'class' ? str_replace('&', $existingValue, $value) : $value;
+
+            // Set new value
+            $this->getHTMLHandler()->attr($element, $name, $value);
+        }
+
+        // Add/Append all data attributes
+        foreach ($data['data'] as $name => $value) {
+            // Evaluate given value using scss syntax (replace & with existing value)
+            $existingValue = $this->getHTMLHandler()->data($element, $name);
+            $value = str_replace('&', $existingValue, $value);
+
+            // Set new value
+            $this->getHTMLHandler()->data($element, $name, $value);
+        }
+
+        // Check for node value
+        $nodeValue = $data['nodeValue'];
+        if (!is_null($nodeValue)) {
+            $this->getHTMLHandler()->nodeValue($element, $nodeValue);
+        }
+
+        // Check for inner html
+        $innerHTML = $data['innerHTML'];
+        if (!is_null($innerHTML)) {
+            $this->getHTMLHandler()->innerHTML($element, $innerHTML);
+        }
+
         // Append children
         $appendElements = $actions['append'] ?: [];
         $appendElements = is_array($appendElements) ? $appendElements : [$appendElements];
@@ -232,38 +264,6 @@ class HTMLElement extends DOMItem
         $prependElements = is_array($prependElements) ? $prependElements : [$prependElements];
         foreach ($prependElements as $prependElement) {
             $this->getHTMLHandler()->prepend($element, $prependElement);
-        }
-
-        // Add/Append all attributes
-        foreach ($data['attributes'] as $name => $value) {
-            // Evaluate given value using scss syntax (replace & with existing value, for class attributes only)
-            $existingValue = $this->getHTMLHandler()->attr($element, $name);
-            $value = is_string($value) && $name == 'class' ? str_replace('&', $existingValue, $value) : $value;
-
-            // Set new value
-            $this->getHTMLHandler()->attr($element, $name, $value);
-        }
-
-        // Check for node value
-        $nodeValue = $data['nodeValue'];
-        if ($nodeValue) {
-            $this->getHTMLHandler()->nodeValue($element, $nodeValue);
-        }
-
-        // Check for inner html
-        $innerHTML = $data['innerHTML'];
-        if ($innerHTML) {
-            $this->getHTMLHandler()->innerHTML($element, $innerHTML);
-        }
-
-        // Add/Append all data attributes
-        foreach ($data['data'] as $name => $value) {
-            // Evaluate given value using scss syntax (replace & with existing value)
-            $existingValue = $this->getHTMLHandler()->data($element, $name);
-            $value = str_replace('&', $existingValue, $value);
-
-            // Set new value
-            $this->getHTMLHandler()->data($element, $name, $value);
         }
 
         // Render tag-specific parameters
