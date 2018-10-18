@@ -5,7 +5,11 @@ This changelog references the relevant changes (bug and security fixes) done in 
 
 To get the diff for a specific change, go to https://github.com/PandaPlatform/ui/commit/XXX where XXX is the change hash
 
-* 3.1.5 (2018-10-17)
+* 3.1.7 (2018-10-18)
+  * [Html] HTMLElement::render(): Check for innerHTML() value properly
+  * [Html] HTMLElement::render(): Re-order functionality to align
+  
+* 3.1.6 (2018-10-17)
   * [Html] HTMLElement::render(): Support '&' only for class attributes
   
 * 3.1.5 (2018-10-15)
