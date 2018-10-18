@@ -1,7 +1,11 @@
 CHANGELOG
 ===================
 
-* 3.1.5 (2018-10-17)
+* 3.1.7 (2018-10-18)
+  * HTMLElement::render(): Check for innerHTML() value properly
+  * HTMLElement::render(): Re-order functionality to align
+
+* 3.1.6 (2018-10-17)
   * HTMLElement::render(): Support '&' only for class attributes
   
 * 3.1.4 (2018-10-01)
