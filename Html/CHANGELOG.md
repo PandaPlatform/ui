@@ -1,6 +1,11 @@
 CHANGELOG
 ===================
 
+* 3.1.9 (future-release)
+
+* 3.1.8 (2018-11-08)
+  * Remove character '&' replace functionality from $data['data'] in renderElement
+
 * 3.1.7 (2018-10-18)
   * HTMLElement::render(): Check for innerHTML() value properly
   * HTMLElement::render(): Re-order functionality to align
