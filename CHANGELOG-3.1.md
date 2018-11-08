@@ -5,6 +5,11 @@ This changelog references the relevant changes (bug and security fixes) done in 
 
 To get the diff for a specific change, go to https://github.com/PandaPlatform/ui/commit/XXX where XXX is the change hash
 
+* 3.1.9 (future-release)
+
+* 3.1.8 (2018-11-08)
+  * [Html] Remove character '&' replace functionality from $data['data'] in renderElement
+
 * 3.1.7 (2018-10-18)
   * [Html] HTMLElement::render(): Check for innerHTML() value properly
   * [Html] HTMLElement::render(): Re-order functionality to align
