@@ -234,7 +234,7 @@ class HTMLElement extends DOMItem
         foreach ($data['data'] as $name => $value) {
             // Evaluate given value using scss syntax (replace & with existing value)
             $existingValue = $this->getHTMLHandler()->data($element, $name);
-            $value = str_replace('&', $existingValue, $value);
+            $value = $name != 'async-get' ? str_replace('&', $existingValue, $value) : $value;
 
             // Set new value
             $this->getHTMLHandler()->data($element, $name, $value);
