@@ -2,6 +2,7 @@ CHANGELOG
 ===================
 
 * 3.1.9 (future-release)
+  * [Html] Support style attributes in render()
 
 * 3.1.8 (2018-11-08)
   * Remove character '&' replace functionality from $data['data'] in renderElement

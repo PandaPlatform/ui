@@ -232,8 +232,12 @@ class HTMLElement extends DOMItem
 
         // Add/Append all data attributes
         foreach ($data['data'] as $name => $value) {
-            // Set new value
             $this->getHTMLHandler()->data($element, $name, $value);
+        }
+
+        // Apply style attributes
+        foreach ($data['style'] as $name => $value) {
+            $this->getHTMLHandler()->style($element, $name, $value);
         }
 
         // Check for node value
