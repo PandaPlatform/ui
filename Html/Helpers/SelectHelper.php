@@ -11,7 +11,6 @@
 
 namespace Panda\Ui\Html\Helpers;
 
-use DOMElement;
 use Panda\Ui\Html\Factories\HTMLFactoryInterface;
 use Panda\Ui\Html\HTMLElement;
 
@@ -63,14 +62,14 @@ class SelectHelper
      * Get label and options from each group and apply accordingly.
      *
      * @param HTMLFactoryInterface $factory
-     * @param DOMElement           $select
+     * @param HTMLElement          $select
      * @param array                $groups
      * @param mixed|array          $checkedValue
      *
      * @throws \InvalidArgumentException
      * @throws \Exception
      */
-    public static function setGroups(HTMLFactoryInterface $factory, DOMElement $select, $groups = [], $checkedValue = null)
+    public static function setGroups(HTMLFactoryInterface $factory, HTMLElement $select, $groups = [], $checkedValue = null)
     {
         foreach ($groups as $data) {
             $label = $data['label'];
