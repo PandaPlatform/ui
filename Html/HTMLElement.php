@@ -200,15 +200,15 @@ class HTMLElement extends DOMItem
     }
 
     /**
-     * @param DOMElement $element
-     * @param array      $data
+     * @param HTMLElement $element
+     * @param array       $data
      *
      * @return $this
      * @throws InvalidArgumentException
      * @throws \DOMException
      * @throws Exception
      */
-    protected function renderElement(DOMElement $element, $data = [])
+    protected function renderElement(HTMLElement $element, $data = [])
     {
         // Check for actions
         $actions = $data['actions'];
@@ -274,8 +274,8 @@ class HTMLElement extends DOMItem
     }
 
     /**
-     * @param DOMElement $select
-     * @param array      $data
+     * @param HTMLElement $select
+     * @param array       $data
      *
      * @return $this
      * @throws InvalidArgumentException
