@@ -5,7 +5,10 @@ This changelog references the relevant changes (bug and security fixes) done in 
 
 To get the diff for a specific change, go to https://github.com/PandaPlatform/ui/commit/XXX where XXX is the change hash
 
-* 3.1.9 (future-release)
+* 3.1.10 (2019-01-30)
+  * [Html] Support multiple checked values for select elements in render()
+  
+* 3.1.9 (2019-01-07)
   * [Html] Support style attributes in render()
 
 * 3.1.8 (2018-11-08)
