@@ -1,8 +1,11 @@
 CHANGELOG
 ===================
 
-* 3.1.9 (future-release)
-  * [Html] Support style attributes in render()
+* 3.1.10 (2019-01-30)
+  * Support multiple checked values for select elements in render()
+  
+* 3.1.9 (2019-01-07)
+  * Support style attributes in render()
 
 * 3.1.8 (2018-11-08)
   * Remove character '&' replace functionality from $data['data'] in renderElement

@@ -67,7 +67,7 @@ class FormHelper
             }
 
             // Textareas
-            $textarea = self::getElementBySelector($handler, $container, sprintf('textarea[name="%s"]', $name, $value));
+            $textarea = self::getElementBySelector($handler, $container, sprintf('textarea[name="%s"]', $name));
             if (!empty($textarea)) {
                 $handler->innerHTML($textarea, $value);
             }
