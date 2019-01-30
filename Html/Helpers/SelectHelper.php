@@ -13,6 +13,7 @@ namespace Panda\Ui\Html\Helpers;
 
 use DOMElement;
 use Panda\Ui\Html\Factories\HTMLFactoryInterface;
+use Panda\Ui\Html\HTMLElement;
 
 /**
  * Class SelectHelper
@@ -28,27 +29,31 @@ class SelectHelper
      * and the key values will be the options titles.
      *
      * @param HTMLFactoryInterface $factory
-     * @param DOMElement           $select
+     * @param HTMLElement          $select
      * @param array                $options
-     * @param mixed                $checkedValue
+     * @param mixed|array          $checkedValue
      *
      * @throws \InvalidArgumentException
      * @throws \Exception
      */
-    public static function setOptions(HTMLFactoryInterface $factory, DOMElement $select, $options = [], $checkedValue = null)
+    public static function setOptions(HTMLFactoryInterface $factory, HTMLElement $select, $options = [], $checkedValue = null)
     {
         foreach ($options as $value => $title) {
             // Build option
             $option = $factory->buildHtmlElement('option', $title);
             $option->attr('value', $value);
 
-            // Set checked
-            if ($checkedValue && $checkedValue == $value) {
-                $option->attr('selected', 'selected');
-            }
-
             // Append option to container
             $factory->getHTMLHandler()->append($select, $option);
+        }
+
+        // Set checked values
+        $checkedValues = is_array($checkedValue) ? $checkedValue : [$checkedValue];
+        foreach ($checkedValues as $value) {
+            $option = $select->select(sprintf('option[value=%s]', $value))->item(0);
+            if ($option) {
+                $factory->getHTMLHandler()->attr($option, 'selected', 'selected');
+            }
         }
     }
 
@@ -60,7 +65,7 @@ class SelectHelper
      * @param HTMLFactoryInterface $factory
      * @param DOMElement           $select
      * @param array                $groups
-     * @param mixed                $checkedValue
+     * @param mixed|array          $checkedValue
      *
      * @throws \InvalidArgumentException
      * @throws \Exception
