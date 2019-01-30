@@ -110,6 +110,7 @@ class HTMLElementTest extends TestCase
      * @covers \Panda\Ui\Html\HTMLElement::render
      * @throws \InvalidArgumentException
      * @throws \PHPUnit\Framework\AssertionFailedError
+     * @throws \DOMException
      */
     public function renderSelect()
     {
@@ -126,6 +127,10 @@ class HTMLElementTest extends TestCase
                         'n2' => 'v2',
                         'n3' => 'v3',
                     ],
+                    'checked_value' => [
+                        'n1',
+                        'n2',
+                    ],
                 ],
             ],
         ];
@@ -137,5 +142,9 @@ class HTMLElementTest extends TestCase
         foreach ($parameters['select']['select']['options'] as $name => $value) {
             $this->assertNotEmpty($this->container->select(sprintf('select option[name="%s"][value="%s"]', $name, $value)));
         }
+
+        // Assert checked values
+        $this->assertEquals('selected', $this->container->select(sprintf('select option[name="%s"]', 'n1'))->item(0)->getAttribute('selected'));
+        $this->assertEquals('selected', $this->container->select(sprintf('select option[name="%s"]', 'n2'))->item(0)->getAttribute('selected'));
     }
 }
