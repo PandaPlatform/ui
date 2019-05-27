@@ -11,8 +11,8 @@
 
 namespace Panda\Ui\Html\Helpers;
 
+use DOMElement;
 use Panda\Ui\Html\Factories\HTMLFactoryInterface;
-use Panda\Ui\Html\HTMLElement;
 
 /**
  * Class SelectHelper
@@ -28,14 +28,14 @@ class SelectHelper
      * and the key values will be the options titles.
      *
      * @param HTMLFactoryInterface $factory
-     * @param HTMLElement          $select
+     * @param DOMElement           $select
      * @param array                $options
      * @param mixed|array          $checkedValue
      *
      * @throws \InvalidArgumentException
      * @throws \Exception
      */
-    public static function setOptions(HTMLFactoryInterface $factory, HTMLElement $select, $options = [], $checkedValue = null)
+    public static function setOptions(HTMLFactoryInterface $factory, DOMElement $select, $options = [], $checkedValue = null)
     {
         foreach ($options as $value => $title) {
             // Build option
@@ -49,7 +49,13 @@ class SelectHelper
         // Set checked values
         $checkedValues = is_array($checkedValue) ? $checkedValue : [$checkedValue];
         foreach ($checkedValues as $value) {
-            $option = $select->select(sprintf('option[value=%s]', $value))->item(0);
+            // Skip empty values
+            if (empty($value)) {
+                continue;
+            }
+
+            // Select option
+            $option = $factory->getHTMLHandler()->select($select->ownerDocument, sprintf('option[value=%s]', $value), $select)->item(0);
             if ($option) {
                 $factory->getHTMLHandler()->attr($option, 'selected', 'selected');
             }
@@ -62,14 +68,14 @@ class SelectHelper
      * Get label and options from each group and apply accordingly.
      *
      * @param HTMLFactoryInterface $factory
-     * @param HTMLElement          $select
+     * @param DOMElement           $select
      * @param array                $groups
      * @param mixed|array          $checkedValue
      *
      * @throws \InvalidArgumentException
      * @throws \Exception
      */
-    public static function setGroups(HTMLFactoryInterface $factory, HTMLElement $select, $groups = [], $checkedValue = null)
+    public static function setGroups(HTMLFactoryInterface $factory, DOMElement $select, $groups = [], $checkedValue = null)
     {
         foreach ($groups as $data) {
             $label = $data['label'];
