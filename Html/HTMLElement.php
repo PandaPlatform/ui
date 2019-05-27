@@ -305,11 +305,6 @@ class HTMLElement extends DOMItem
      */
     private function renderForm($form, $data = [])
     {
-        // Check for tag name
-        if ($form->tagName != 'form') {
-            return $this;
-        }
-
         // Set form values
         FormHelper::setValues($this->getHTMLHandler(), $form, $data['values']);
 
