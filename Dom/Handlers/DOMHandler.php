@@ -52,7 +52,7 @@ class DOMHandler implements DOMHandlerInterface
         }
 
         // If value is empty (null is empty but is caught above, except 0), get attribute
-        if (empty($value) && $value !== 0) {
+        if (empty($value) && $value !== 0 && $value != '0') {
             return $element->getAttribute($name);
         }
 

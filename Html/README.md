@@ -97,6 +97,7 @@ Extending DOM Factory, we have created HTML Factory for HTML-specific functional
 * `buildScript($src, $async = false);`
 
 ```php
+<?php
 use \Panda\Ui\Html\Handlers\HTMLHandler;
 use \Panda\Ui\Html\Factories\HTMLFactory;
 use \Panda\Ui\Html\HTMLDocument;
@@ -139,10 +140,12 @@ The HTML element provides the following functionality as extra and HTML-specific
 * `innerHTML($value = null, $faultTolerant = true, $convertEncoding = true);`
 * `outerHTML();`
 * `select($selector, $context = null);`
+* `render($parameters, $context = null);`
 
 All the previous functions are using the HTMLHandler that is given in the HTMLDocument that the HTMLElement accepts at the constructor.
 
 ```php
+<?php
 use \Panda\Ui\Html\HTMLDocument;
 use \Panda\Ui\Html\HTMLElement;
 
@@ -166,6 +169,119 @@ $element->data('test', $data);
 // Finally append the element to the document
 // As we discussed before, we don't have to do this if we want to append the element directly to the document
 $document->append($element);
+```
+
+##### Render HTMLElement
+
+Using `render()` we can apply a set of actions towards multiple elements passed through the `$parameters` variable.
+
+Parameters value is a key-value array which includes all the css selectors as keys that define the element to select
+and the value includes a set of actions or attributes to be applied to the element.
+
+The selector might apply to multiple elements.
+
+Here is a full example of all possible values:
+
+```php
+<?php
+use \Panda\Ui\Html\HTMLDocument;
+use \Panda\Ui\Html\HTMLElement;
+
+// Create an HTMLDocument
+$document = new HTMLDocument(new HTMLHandler(), new HTMLFactory());
+
+// Create an element
+$element = new HTMLElement($document, $tag = 'div', $value = '', $id = 'el_id', $class = 'el_class');
+
+// Render
+$element->render([
+    'element1' => [
+        'attributes' => [
+            'id' => 'test_id',
+            'class' => '& second_class', // Use & to append class
+        ],
+        'data' => [
+            'test' => 'test',
+            'array' => [ // Use array to add a json_encoded value
+                'value1',
+                'value2',
+            ]
+        ],
+        'style' => [
+            'color' => 'black',
+            'float' => 'left',
+        ],
+    ],
+    'element2' => [
+        'nodeValue' => 'node value',
+    ],
+    'element3' => [
+        'innerHTML' => '<p>inner HTML</p>',
+    ],
+    'element4' => [
+        'actions' => [
+            'append' => ['[HTMLElement object#1]', '[HTMLElement object#2]'],
+            'prepend' => ['[HTMLElement object#1]', '[HTMLElement object#2]'],
+        ],
+    ],
+    'element5' => [
+        'actions' => [
+            'delete' => false, // Set to true if you want to delete the element
+        ],
+    ],
+    'any-form' => [
+        'form' => [ // These attributes apply specific to forms
+            'values' => [
+                'name1' => 'value1',
+                'name2' => 'value2',
+            ],
+        ],
+    ],
+    'any-select-single' => [
+        'select' => [ // These attributes apply specific to selects
+            'options' => [
+                'value1' => 'Title 1',
+                'value2' => 'Title 2',
+            ],
+            'checked_value' => 'value1'
+        ],
+    ],
+    'any-select-multiple' => [
+        'select' => [ // These attributes apply specific to selects
+            'options' => [
+                'value1' => 'Title 1',
+                'value2' => 'Title 2',
+                'value3' => 'Title 3',
+                'value4' => 'Title 4',
+            ],
+            'checked_value' => ['value1', 'value3']
+        ],
+    ],
+    'any-select-with-groups' => [
+        'select' => [ // These attributes apply specific to selects
+            [
+                'label' => 'Group 1',
+                'options' => [
+                    'value1-1' => 'Title 1-1',
+                    'value1-2' => 'Title 1-2',
+                    'value1-3' => 'Title 1-3',
+                    'value1-4' => 'Title 1-4',
+                ],
+                'checked_value' => ['value1-1', 'value1-3'],
+            ],
+            [
+                'label' => 'Group 2',
+                'options' => [
+                    'value2-1' => 'Title 2-1',
+                    'value2-2' => 'Title 2-2',
+                    'value2-3' => 'Title 2-3',
+                    'value2-4' => 'Title 2-4',
+                ],
+                'checked_value' => ['value2-1', 'value2-3'],
+            ],
+        ],
+    ],
+]);
 ```
 
 ### HTML Forms

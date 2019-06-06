@@ -30,7 +30,7 @@ class SelectHelper
      * @param HTMLFactoryInterface $factory
      * @param DOMElement           $select
      * @param array                $options
-     * @param mixed                $checkedValue
+     * @param mixed|array          $checkedValue
      *
      * @throws \InvalidArgumentException
      * @throws \Exception
@@ -42,13 +42,23 @@ class SelectHelper
             $option = $factory->buildHtmlElement('option', $title);
             $option->attr('value', $value);
 
-            // Set checked
-            if ($checkedValue && $checkedValue == $value) {
-                $option->attr('selected', 'selected');
-            }
-
             // Append option to container
             $factory->getHTMLHandler()->append($select, $option);
+        }
+
+        // Set checked values
+        $checkedValues = is_array($checkedValue) ? $checkedValue : [$checkedValue];
+        foreach ($checkedValues as $value) {
+            // Skip empty values
+            if (empty($value)) {
+                continue;
+            }
+
+            // Select option
+            $option = $factory->getHTMLHandler()->select($select->ownerDocument, sprintf('option[value=%s]', $value), $select)->item(0);
+            if ($option) {
+                $factory->getHTMLHandler()->attr($option, 'selected', 'selected');
+            }
         }
     }
 
@@ -60,7 +70,7 @@ class SelectHelper
      * @param HTMLFactoryInterface $factory
      * @param DOMElement           $select
      * @param array                $groups
-     * @param mixed                $checkedValue
+     * @param mixed|array          $checkedValue
      *
      * @throws \InvalidArgumentException
      * @throws \Exception
