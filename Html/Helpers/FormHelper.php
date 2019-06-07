@@ -12,6 +12,7 @@
 namespace Panda\Ui\Html\Helpers;
 
 use DOMElement;
+use DOMNode;
 use Panda\Ui\Html\Handlers\HTMLHandlerInterface;
 use Symfony\Component\CssSelector\Exception\InternalErrorException;
 use Symfony\Component\CssSelector\Exception\SyntaxErrorException;
@@ -29,6 +30,8 @@ class FormHelper
      *
      * @throws \InvalidArgumentException
      * @throws \Exception
+     *
+     * @deprecated Use \Panda\Ui\Html\Renders\FormRender::render() instead.
      */
     public static function setValues(HTMLHandlerInterface $handler, DOMElement $container, $values = [])
     {
@@ -79,7 +82,7 @@ class FormHelper
      * @param DOMElement           $container
      * @param string               $selector
      *
-     * @return DOMElement|null
+     * @return DOMElement|DOMNode|null
      * @throws \InvalidArgumentException
      */
     private static function getElementBySelector(HTMLHandlerInterface $handler, DOMElement $container, $selector)

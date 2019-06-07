@@ -34,6 +34,8 @@ class SelectHelper
      *
      * @throws \InvalidArgumentException
      * @throws \Exception
+     *
+     * @deprecated Use \Panda\Ui\Html\Renders\SelectRender::render() instead
      */
     public static function setOptions(HTMLFactoryInterface $factory, DOMElement $select, $options = [], $checkedValue = null)
     {
@@ -74,6 +76,8 @@ class SelectHelper
      *
      * @throws \InvalidArgumentException
      * @throws \Exception
+     *
+     * @deprecated Use \Panda\Ui\Html\Renders\SelectRender::render() instead
      */
     public static function setGroups(HTMLFactoryInterface $factory, DOMElement $select, $groups = [], $checkedValue = null)
     {
