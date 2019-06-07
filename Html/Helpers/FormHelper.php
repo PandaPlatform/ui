@@ -29,6 +29,8 @@ class FormHelper
      *
      * @throws \InvalidArgumentException
      * @throws \Exception
+     *
+     * @deprecated Use \Panda\Ui\Html\Renders\FormRender::render() instead.
      */
     public static function setValues(HTMLHandlerInterface $handler, DOMElement $container, $values = [])
     {
