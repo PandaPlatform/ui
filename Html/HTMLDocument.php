@@ -20,6 +20,7 @@ use Panda\Ui\Dom\Handlers\DOMHandlerInterface;
 use Panda\Ui\Html\Factories\HTMLFactoryInterface;
 use Panda\Ui\Html\Handlers\HTMLHandlerInterface;
 use Panda\Ui\Html\Helpers\HTMLHelper;
+use Panda\Ui\Html\Renders\RenderCollectionInterface;
 
 /**
  * Class HTMLDocument
@@ -153,17 +154,23 @@ use Panda\Ui\Html\Helpers\HTMLHelper;
 class HTMLDocument extends DOMPrototype
 {
     /**
-     * Create a new DOM Document.
-     *
-     * @param HTMLHandlerInterface $HTMLHandler
-     * @param HTMLFactoryInterface $HTMLFactory
-     * @param string               $version
-     * @param string               $encoding
+     * @var RenderCollectionInterface
      */
-    public function __construct(HTMLHandlerInterface $HTMLHandler, HTMLFactoryInterface $HTMLFactory, $version = '1.0', $encoding = 'UTF_8')
+    private $renderCollection;
+
+    /**
+     * Create a new HTML Document.
+     *
+     * @param HTMLHandlerInterface      $HTMLHandler
+     * @param HTMLFactoryInterface      $HTMLFactory
+     * @param RenderCollectionInterface $renderCollection
+     * @param string                    $version
+     * @param string                    $encoding
+     */
+    public function __construct(HTMLHandlerInterface $HTMLHandler, HTMLFactoryInterface $HTMLFactory, RenderCollectionInterface $renderCollection, $version = '1.0', $encoding = 'UTF_8')
     {
-        // Construct DOMDocument
         parent::__construct($HTMLHandler, $HTMLFactory, $version, $encoding);
+        $this->renderCollection = $renderCollection;
     }
 
     /**
@@ -244,6 +251,17 @@ class HTMLDocument extends DOMPrototype
     }
 
     /**
+     * @param array $parameters
+     * @param null  $context
+     *
+     * @throws InvalidArgumentException
+     */
+    public function render($parameters = [], $context = null)
+    {
+        $this->getRenderCollection()->render($this, $parameters, $context);
+    }
+
+    /**
      * @return HTMLHandlerInterface|DOMHandlerInterface
      */
     public function getHTMLHandler()
@@ -267,5 +285,25 @@ class HTMLDocument extends DOMPrototype
     public function setHTMLFactory($HTMLFactory)
     {
         return $this->setDOMFactory($HTMLFactory);
+    }
+
+    /**
+     * @return RenderCollectionInterface
+     */
+    public function getRenderCollection()
+    {
+        return $this->renderCollection;
+    }
+
+    /**
+     * @param RenderCollectionInterface $renderCollection
+     *
+     * @return $this
+     */
+    public function setRenderCollection(RenderCollectionInterface $renderCollection)
+    {
+        $this->renderCollection = $renderCollection;
+
+        return $this;
     }
 }
