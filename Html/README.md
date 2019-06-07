@@ -45,7 +45,8 @@ Add the following line to your `composer.json` file:
 
 ### HTML Handlers
 
-HTMLHandler extends DOMHandler functionality with HTML specific functions. It provides easy-to-use one-line functions for handling HTML specific attributes so that we can make HTML rendering and manipulation easier. Examples:
+HTMLHandler extends DOMHandler functionality with HTML specific functions. It provides easy-to-use one-line functions 
+for handling HTML specific attributes so that we can make HTML rendering and manipulation easier. Examples:
 
 ```php
 use \Panda\Ui\Html\Handlers\HTMLHandler;
@@ -61,7 +62,9 @@ $handler->style($element, 'color', 'blue');
 $handler->style($element, 'font-size', '23px');
 ```
 
-One of the most important functionalities (and useful) is select(). This function acts like a jQuery selector function, where we can provide a css selector and return the matched items. This function returns a DOMNodeList object and those objects can be manipulated using the handler itself:
+One of the most important functionalities (and useful) is select(). This function acts like a jQuery selector function, 
+where we can provide a css selector and return the matched items. This function returns a DOMNodeList object and those 
+objects can be manipulated using the handler itself:
 ```php
 use \Panda\Ui\Html\Handlers\HTMLHandler;
 
@@ -88,7 +91,9 @@ HTMLHandler provides a list of HTML-specific functionalities:
 
 ### HTML Factories
 
-Extending DOM Factory, we have created HTML Factory for HTML-specific functionality and building. The HTML Factory provides an interface for building html elements which would need more than 2 or 3 lines to be built. This factory is being used the same way as the previous factory, in HTMLDocument object. Supported functionality:
+Extending DOM Factory, we have created HTML Factory for HTML-specific functionality and building. 
+The HTML Factory provides an interface for building html elements which would need more than 2 or 3 lines to be built. 
+This factory is being used the same way as the previous factory, in HTMLDocument object. Supported functionality:
 
 * `buildHtmlElement($name = '', $value = '', $id = '', $class = '');`
 * `buildWebLink($href = '', $target = '_self', $content = '', $id = '', $class = '');`
@@ -119,82 +124,57 @@ $document->getHTMLFactory()->buildElement($name = 'div', $value = 'value', $id =
 $document->create($name = 'div', $value = 'value', $id = 'id', $class = 'class');
 ```
 
-DOMDocument and HTMLDocument both accept a DOMFactory and an HTMLFactory accordingly so that they can build their elements. The factories are being injected in the constructor, which means that they can be replaced by any DOMFactoryInterface or HTMLFactoryInterface.
+DOMDocument and HTMLDocument both accept a DOMFactory and an HTMLFactory accordingly so that they can build their elements. 
+The factories are being injected in the constructor, which means that they can be replaced by any DOMFactoryInterface or 
+HTMLFactoryInterface.
 
 ### HTML Basics
 
 #### HTMLDocument
 
-Extending basic DOMPrototype, we have created the HTMLDocument object that can be used specifically for HTML pages. It's a base class for easily creating HTML pages, also having access to the HTMLFactory class which provides a lot of functions for creating different html elements.
+Extending basic DOMPrototype, we have created the HTMLDocument object that can be used specifically for HTML pages. 
+It's a base class for easily creating HTML pages, also having access to the HTMLFactory class which provides a lot of 
+functions for creating different html elements.
 
-#### HTMLElement
+##### Render Collection
 
-Now that we have seen the DOMItem and the basic DOM functionality, which extends the native DOMElement functionality, we are introducing the HTMLElement. HTMLElements extend the base DOMItem and offer a new HTML-specific functionality to allow us to create HTML pages, elements and snippets.
+HTMLDocument supports render functionality through a provided RenderCollectionInterface. 
 
-The HTML element provides the following functionality as extra and HTML-specific:
-* `data($name, $value = []);`
-* `addClass($class);`
-* `removeClass($class);`
-* `hasClass($class);`
-* `style($name, $val = '');`
-* `innerHTML($value = null, $faultTolerant = true, $convertEncoding = true);`
-* `outerHTML();`
-* `select($selector, $context = null);`
-* `render($parameters, $context = null);`
-
-All the previous functions are using the HTMLHandler that is given in the HTMLDocument that the HTMLElement accepts at the constructor.
-
-```php
-<?php
-use \Panda\Ui\Html\HTMLDocument;
-use \Panda\Ui\Html\HTMLElement;
-
-// Create an HTMLDocument
-$document = new HTMLDocument(new HTMLHandler(), new HTMLFactory());
-
-// Create an element
-$element = new HTMLElement($document, $tag = 'div', $value = '', $id = 'el_id', $class = 'el_class');
-
-// It's easy to add a remove classes
-$element->addClass('class_2');
-$element->removeClass('el_class');
-
-// We also can add data attribute using json encoding
-$data = ['name1' => 'val1', 'name2' => 'val2'];
-$element->data('test', $data);
-
-// The previous data() call will generate the following attribute:
-// data-test='{"name1":"val1","name2":"val2"}'
-
-// Finally append the element to the document
-// As we discussed before, we don't have to do this if we want to append the element directly to the document
-$document->append($element);
-```
-
-##### Render HTMLElement
+RenderCollection can include one or multiple HTMLRenderInterface that can render the document differently. You should be
+careful not to use overlapping interfaces which might cause unexpected results.
 
 Using `render()` we can apply a set of actions towards multiple elements passed through the `$parameters` variable.
 
 Parameters value is a key-value array which includes all the css selectors as keys that define the element to select
 and the value includes a set of actions or attributes to be applied to the element.
 
-The selector might apply to multiple elements.
+###### Simple HTMLRender
+
+HTMLRender is a simple render mechanism that can update attributes or append children to other elements.
 
 Here is a full example of all possible values:
 
 ```php
 <?php
 use \Panda\Ui\Html\HTMLDocument;
-use \Panda\Ui\Html\HTMLElement;
+use \Panda\Ui\Html\Handlers\HTMLHandler;
+use \Panda\Ui\Html\Factories\HTMLFactory;
+use \Panda\Ui\Html\Renders\RenderCollection;
+use \Panda\Ui\Html\Renders\HTMLRender;
+
+// Setup dependencies
+$handler = new HTMLHandler();
+$factory = new HTMLFactory();
+
+// Setup render collection
+$renderCollection = new RenderCollection($handler);
+$renderCollection->addRender(new HTMLRender($handler));
 
 // Create an HTMLDocument
-$document = new HTMLDocument(new HTMLHandler(), new HTMLFactory());
-
-// Create an element
-$element = new HTMLElement($document, $tag = 'div', $value = '', $id = 'el_id', $class = 'el_class');
+$document = new HTMLDocument($handler, $factory, $renderCollection);
 
 // Render
-$element->render([
+$document->render([
     'element1' => [
         'attributes' => [
             'id' => 'test_id',
@@ -229,6 +209,36 @@ $element->render([
             'delete' => false, // Set to true if you want to delete the element
         ],
     ],
+]);
+```
+
+###### Form Render
+
+Form render is a specific render interface that can pass values to forms automatically.
+
+Here is a full example of all possible values:
+
+```php
+<?php
+use \Panda\Ui\Html\HTMLDocument;
+use \Panda\Ui\Html\Handlers\HTMLHandler;
+use \Panda\Ui\Html\Factories\HTMLFactory;
+use \Panda\Ui\Html\Renders\RenderCollection;
+use \Panda\Ui\Html\Renders\FormRender;
+
+// Setup dependencies
+$handler = new HTMLHandler();
+$factory = new HTMLFactory();
+
+// Setup render collection
+$renderCollection = new RenderCollection($handler);
+$renderCollection->addRender(new FormRender($handler));
+
+// Create an HTMLDocument
+$document = new HTMLDocument($handler, $factory, $renderCollection);
+
+// Render
+$document->render([
     'any-form' => [
         'form' => [ // These attributes apply specific to forms
             'values' => [
@@ -237,6 +247,36 @@ $element->render([
             ],
         ],
     ],
+]);
+```
+
+###### Select Render
+
+Select render is a specific render interface that can work with <select> elements and handle their options and groups.
+
+Here is a full example of all possible values:
+
+```php
+<?php
+use \Panda\Ui\Html\HTMLDocument;
+use \Panda\Ui\Html\Handlers\HTMLHandler;
+use \Panda\Ui\Html\Factories\HTMLFactory;
+use \Panda\Ui\Html\Renders\RenderCollection;
+use \Panda\Ui\Html\Renders\SelectRender;
+
+// Setup dependencies
+$handler = new HTMLHandler();
+$factory = new HTMLFactory();
+
+// Setup render collection
+$renderCollection = new RenderCollection($handler);
+$renderCollection->addRender(new SelectRender($factory));
+
+// Create an HTMLDocument
+$document = new HTMLDocument($handler, $factory, $renderCollection);
+
+// Render
+$document->render([
     'any-select-single' => [
         'select' => [ // These attributes apply specific to selects
             'options' => [
@@ -284,15 +324,65 @@ $element->render([
 ]);
 ```
 
+#### HTMLElement
+
+Now that we have seen the DOMItem and the basic DOM functionality, which extends the native DOMElement functionality, 
+we are introducing the HTMLElement. HTMLElements extend the base DOMItem and offer a new HTML-specific functionality 
+to allow us to create HTML pages, elements and snippets.
+
+The HTML element provides the following functionality as extra and HTML-specific:
+* `data($name, $value = []);`
+* `addClass($class);`
+* `removeClass($class);`
+* `hasClass($class);`
+* `style($name, $val = '');`
+* `innerHTML($value = null, $faultTolerant = true, $convertEncoding = true);`
+* `outerHTML();`
+* `select($selector, $context = null);`
+* `render($parameters, $context = null);`
+
+All the previous functions are using the HTMLHandler that is given in the HTMLDocument that the HTMLElement accepts 
+at the constructor.
+
+```php
+<?php
+use \Panda\Ui\Html\HTMLDocument;
+use \Panda\Ui\Html\HTMLElement;
+
+// Create an HTMLDocument
+$document = new HTMLDocument(new HTMLHandler(), new HTMLFactory());
+
+// Create an element
+$element = new HTMLElement($document, $tag = 'div', $value = '', $id = 'el_id', $class = 'el_class');
+
+// It's easy to add a remove classes
+$element->addClass('class_2');
+$element->removeClass('el_class');
+
+// We also can add data attribute using json encoding
+$data = ['name1' => 'val1', 'name2' => 'val2'];
+$element->data('test', $data);
+
+// The previous data() call will generate the following attribute:
+// data-test='{"name1":"val1","name2":"val2"}'
+
+// Finally append the element to the document
+// As we discussed before, we don't have to do this if we want to append the element directly to the document
+$document->append($element);
+```
+
+
 ### HTML Forms
 
 #### Platform Generic Form Element
 
-Form builder/factory allows the creation of items with all the appropriate attributes in single-line calls. formItem is an internal object that is being used by the form builder in order to have less, more flexible and smarter code.
+Form builder/factory allows the creation of items with all the appropriate attributes in single-line calls. formItem is 
+an internal object that is being used by the form builder in order to have less, more flexible and smarter code.
 
 #### PHP Examples
 
 ```php
+<?php
 // Single-line creator of a form element
 	
 // Create an HTMLDocument
@@ -306,11 +396,14 @@ $container->append($fe);
 ```
 
 #### Platform Generic Form Input
-Form builder/factory allows the creation of inputs with all the appropriate attributes in single-line calls. FormInput is an internal object that is being used by the form builder in order to have less, more flexible and smarter code.
+Form builder/factory allows the creation of inputs with all the appropriate attributes in single-line calls. FormInput 
+is an internal object that is being used by the form builder in order to have less, more flexible and smarter code.
 
-The FormInput extends the FormElement which minimizes the code even more, allowing the platform to be faster and more efficient. Example:
+The FormInput extends the FormElement which minimizes the code even more, allowing the platform to be faster and more 
+efficient. Example:
 
 ```php
+<?php
 use \Panda\Ui\Html\HTMLDocument;
 use \Panda\Ui\Html\Controls\Form\FormInput;
 
@@ -326,4 +419,5 @@ $fi = new FormInput($document, $type = 'text', $name = 'name', $id = '', $class 
 $container->append($fi);
 ```
 
-As seen above, we can create input items given the type and the name. Of course, in a form we can use more than inputs (select, textarea etc.) and this is why there is the FormElement object.
+As seen above, we can create input items given the type and the name. Of course, in a form we can use more than inputs 
+(select, textarea etc.) and this is why there is the FormElement object.
