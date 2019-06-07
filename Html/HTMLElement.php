@@ -11,7 +11,6 @@
 
 namespace Panda\Ui\Html;
 
-use DOMElement;
 use DOMNodeList;
 use Exception;
 use InvalidArgumentException;
@@ -19,8 +18,6 @@ use Panda\Ui\Dom\DOMItem;
 use Panda\Ui\Dom\DOMPrototype;
 use Panda\Ui\Dom\Handlers\DOMHandlerInterface;
 use Panda\Ui\Html\Handlers\HTMLHandlerInterface;
-use Panda\Ui\Html\Helpers\FormHelper;
-use Panda\Ui\Html\Helpers\SelectHelper;
 
 /**
  * Class HTMLElement
@@ -184,129 +181,11 @@ class HTMLElement extends DOMItem
      * @return $this
      *
      * @throws InvalidArgumentException
-     * @throws \DOMException
      */
     public function render($parameters = [], $context = null)
     {
-        foreach ($parameters as $selector => $data) {
-            // Render all elements that match the given selector
-            $elements = $this->select($selector, $context);
-            foreach ($elements as $element) {
-                $this->renderElement($element, $data);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @param DOMElement $element
-     * @param array      $data
-     *
-     * @return $this
-     * @throws InvalidArgumentException
-     * @throws \DOMException
-     * @throws Exception
-     */
-    protected function renderElement(DOMElement $element, $data = [])
-    {
-        // Check for actions
-        $actions = $data['actions'];
-
-        // Check for "delete" action
-        if (isset($actions['delete']) && $actions['delete']) {
-            $this->getHTMLHandler()->remove($element);
-
-            return $this;
-        }
-
-        // Add/Append all attributes
-        foreach ($data['attributes'] as $name => $value) {
-            // Evaluate given value using scss syntax (replace & with existing value, for class attributes only)
-            $existingValue = $this->getHTMLHandler()->attr($element, $name);
-            $value = is_string($value) && $name == 'class' ? str_replace('&', $existingValue, $value) : $value;
-
-            // Set new value
-            $this->getHTMLHandler()->attr($element, $name, $value);
-        }
-
-        // Add/Append all data attributes
-        foreach ($data['data'] as $name => $value) {
-            $this->getHTMLHandler()->data($element, $name, $value);
-        }
-
-        // Apply style attributes
-        foreach ($data['style'] as $name => $value) {
-            $this->getHTMLHandler()->style($element, $name, $value);
-        }
-
-        // Check for node value
-        $nodeValue = $data['nodeValue'];
-        if (!is_null($nodeValue)) {
-            $this->getHTMLHandler()->nodeValue($element, $nodeValue);
-        }
-
-        // Check for inner html
-        $innerHTML = $data['innerHTML'];
-        if (!is_null($innerHTML)) {
-            $this->getHTMLHandler()->innerHTML($element, $innerHTML);
-        }
-
-        // Append children
-        $appendElements = $actions['append'] ?: [];
-        $appendElements = is_array($appendElements) ? $appendElements : [$appendElements];
-        foreach ($appendElements as $appendElement) {
-            $this->getHTMLHandler()->append($element, $appendElement);
-        }
-
-        // Prepend children
-        $prependElements = $actions['prepend'] ?: [];
-        $prependElements = is_array($prependElements) ? $prependElements : [$prependElements];
-        foreach ($prependElements as $prependElement) {
-            $this->getHTMLHandler()->prepend($element, $prependElement);
-        }
-
-        // Render tag-specific parameters
-        $this->renderSelect($element, $data['select']);
-        $this->renderForm($element, $data['form']);
-
-        return $this;
-    }
-
-    /**
-     * @param DOMElement $select
-     * @param array       $data
-     *
-     * @return $this
-     * @throws InvalidArgumentException
-     */
-    private function renderSelect($select, $data = [])
-    {
-        // Check for tag name
-        if ($select->tagName != 'select') {
-            return $this;
-        }
-
-        // Set select groups
-        SelectHelper::setGroups($this->getHTMLDocument()->getHTMLFactory(), $select, $data['groups'], $data['checked_value']);
-
-        // Set select options
-        SelectHelper::setOptions($this->getHTMLDocument()->getHTMLFactory(), $select, $data['options'], $data['checked_value']);
-
-        return $this;
-    }
-
-    /**
-     * @param DOMElement $form
-     * @param array      $data
-     *
-     * @return $this
-     * @throws InvalidArgumentException
-     */
-    private function renderForm($form, $data = [])
-    {
-        // Set form values
-        FormHelper::setValues($this->getHTMLHandler(), $form, $data['values']);
+        // Render on document
+        $this->getHTMLDocument()->render($parameters, $context);
 
         return $this;
     }
