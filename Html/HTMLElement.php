@@ -184,6 +184,9 @@ class HTMLElement extends DOMItem
      */
     public function render($parameters = [], $context = null)
     {
+        // Set context to the current element if empty
+        $context = $context ?: $this;
+
         // Render on document
         $this->getHTMLDocument()->render($parameters, $context);
 
