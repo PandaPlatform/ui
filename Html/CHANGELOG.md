@@ -1,6 +1,14 @@
 CHANGELOG
 ===================
 
+* 3.2.2
+  * Fix: Use HTMLElement as default context when rendering
+  
+* 3.2.1
+  * Create Render logic with interfaces and collections
+  * Add RenderCollectionInterface dependency in HTMLDocument
+  * Use HTMLDocument render instead of HTMLElement render 
+
 * 3.1.10 (2019-01-30)
   * Support multiple checked values for select elements in render()
   
