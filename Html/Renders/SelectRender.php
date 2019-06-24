@@ -118,7 +118,7 @@ class SelectRender implements HTMLRenderInterface
             }
 
             // Select option
-            $option = $this->getHTMLFactory()->getHTMLHandler()->select($element->ownerDocument, sprintf('option[value=%s]', $value), $element)->item(0);
+            $option = $this->getHTMLFactory()->getHTMLHandler()->select($element->ownerDocument, sprintf('option[value="%s"]', $value), $element)->item(0);
             if ($option) {
                 $this->getHTMLFactory()->getHTMLHandler()->attr($option, 'selected', 'selected');
             }
