@@ -5,6 +5,9 @@ This changelog references the relevant changes (bug and security fixes) done in 
 
 To get the diff for a specific change, go to https://github.com/PandaPlatform/ui/commit/XXX where XXX is the change hash
 
+* 3.1.13
+  * [Html] Fix: Use proper css selector with attribute values
+  
 * 3.1.12
   * [Html] Fix Compatibility with HTMLElement and DOMElement
 

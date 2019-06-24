@@ -55,7 +55,7 @@ class SelectHelper
             }
 
             // Select option
-            $option = $factory->getHTMLHandler()->select($select->ownerDocument, sprintf('option[value=%s]', $value), $select)->item(0);
+            $option = $factory->getHTMLHandler()->select($select->ownerDocument, sprintf('option[value="%s"]', $value), $select)->item(0);
             if ($option) {
                 $factory->getHTMLHandler()->attr($option, 'selected', 'selected');
             }
