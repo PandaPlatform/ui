@@ -81,6 +81,13 @@ class FormRender extends AbstractRender implements HTMLRenderInterface
             // Options in select
             $option = $this->getElementBySelector($element, sprintf('select[name="%s"] option[value="%s"]', $name, $value));
             if (!empty($option)) {
+                // Remove already selected options
+                $selectedOptions = $this->getElementsBySelector($element, sprintf('select[name="%s"] option[selected]', $name));
+                foreach ($selectedOptions as $selectedOption) {
+                    $this->getHTMLHandler()->attr($selectedOption, 'selected', false);
+                }
+
+                // Set current option as selected
                 $this->getHTMLHandler()->attr($option, 'selected', true);
             }
 

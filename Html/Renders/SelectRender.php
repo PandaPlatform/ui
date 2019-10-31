@@ -111,6 +111,13 @@ class SelectRender extends AbstractRender implements HTMLRenderInterface
             // Append option to container
             $this->getHTMLHandler()->append($element, $option);
         }
+        // Remove already selected options first
+        if (!is_null($checkedValue)) {
+            $selectedOptions = $this->getElementsBySelector($element, 'option[selected]');
+            foreach ($selectedOptions as $selectedOption) {
+                $this->getHTMLHandler()->attr($selectedOption, 'selected', false);
+            }
+        }
 
         // Set checked values
         $checkedValues = is_array($checkedValue) ? $checkedValue : [$checkedValue];
