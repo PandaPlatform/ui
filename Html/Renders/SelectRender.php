@@ -16,12 +16,13 @@ use DOMNode;
 use Exception;
 use InvalidArgumentException;
 use Panda\Ui\Html\Factories\HTMLFactoryInterface;
+use Panda\Ui\Html\Handlers\HTMLHandlerInterface;
 
 /**
  * Class SelectRender
  * @package Panda\Ui\Html\Renders
  */
-class SelectRender implements HTMLRenderInterface
+class SelectRender extends AbstractRender implements HTMLRenderInterface
 {
     /**
      * @var HTMLFactoryInterface
@@ -31,10 +32,12 @@ class SelectRender implements HTMLRenderInterface
     /**
      * SelectRender constructor.
      *
+     * @param HTMLHandlerInterface $HTMLHandler
      * @param HTMLFactoryInterface $HTMLFactory
      */
-    public function __construct(HTMLFactoryInterface $HTMLFactory)
+    public function __construct(HTMLHandlerInterface $HTMLHandler, HTMLFactoryInterface $HTMLFactory)
     {
+        parent::__construct($HTMLHandler);
         $this->HTMLFactory = $HTMLFactory;
     }
 
@@ -86,7 +89,7 @@ class SelectRender implements HTMLRenderInterface
             $this->renderOptions($group, $options, $checkedValue);
 
             // Append group to container
-            $this->getHTMLFactory()->getHTMLHandler()->append($element, $group);
+            $this->getHTMLHandler()->append($element, $group);
         }
     }
 
@@ -106,7 +109,14 @@ class SelectRender implements HTMLRenderInterface
             $option->attr('value', $value);
 
             // Append option to container
-            $this->getHTMLFactory()->getHTMLHandler()->append($element, $option);
+            $this->getHTMLHandler()->append($element, $option);
+        }
+        // Remove already selected options first
+        if (!is_null($checkedValue)) {
+            $selectedOptions = $this->getElementsBySelector($element, 'option[selected]');
+            foreach ($selectedOptions as $selectedOption) {
+                $this->getHTMLHandler()->attr($selectedOption, 'selected', false);
+            }
         }
 
         // Set checked values
@@ -118,9 +128,9 @@ class SelectRender implements HTMLRenderInterface
             }
 
             // Select option
-            $option = $this->getHTMLFactory()->getHTMLHandler()->select($element->ownerDocument, sprintf('option[value="%s"]', $value), $element)->item(0);
+            $option = $this->getElementBySelector($element, sprintf('option[value="%s"]', $value));
             if ($option) {
-                $this->getHTMLFactory()->getHTMLHandler()->attr($option, 'selected', 'selected');
+                $this->getHTMLHandler()->attr($option, 'selected', 'selected');
             }
         }
     }
