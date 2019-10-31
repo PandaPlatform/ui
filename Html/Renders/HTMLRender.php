@@ -14,29 +14,13 @@ namespace Panda\Ui\Html\Renders;
 use DOMElement;
 use DOMNode;
 use Exception;
-use Panda\Ui\Html\Handlers\HTMLHandlerInterface;
 
 /**
  * Class HTMLRender
  * @package Panda\Ui\Html\Handlers
  */
-class HTMLRender implements HTMLRenderInterface
+class HTMLRender extends AbstractRender implements HTMLRenderInterface
 {
-    /**
-     * @var HTMLHandlerInterface
-     */
-    private $HTMLHandler;
-
-    /**
-     * HTMLRender constructor.
-     *
-     * @param HTMLHandlerInterface $HTMLHandler
-     */
-    public function __construct(HTMLHandlerInterface $HTMLHandler)
-    {
-        $this->HTMLHandler = $HTMLHandler;
-    }
-
     /**
      * Render the given DOMElement using the provided data as parameters.
      *
@@ -106,25 +90,5 @@ class HTMLRender implements HTMLRenderInterface
         }
 
         return $element;
-    }
-
-    /**
-     * @return HTMLHandlerInterface
-     */
-    public function getHTMLHandler()
-    {
-        return $this->HTMLHandler;
-    }
-
-    /**
-     * @param HTMLHandlerInterface $HTMLHandler
-     *
-     * @return $this
-     */
-    public function setHTMLHandler(HTMLHandlerInterface $HTMLHandler)
-    {
-        $this->HTMLHandler = $HTMLHandler;
-
-        return $this;
     }
 }

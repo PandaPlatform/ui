@@ -15,31 +15,13 @@ use DOMElement;
 use DOMNode;
 use Exception;
 use InvalidArgumentException;
-use Panda\Ui\Html\Handlers\HTMLHandlerInterface;
-use Symfony\Component\CssSelector\Exception\InternalErrorException;
-use Symfony\Component\CssSelector\Exception\SyntaxErrorException;
 
 /**
  * Class FormRender
  * @package Panda\Ui\Html\Renders
  */
-class FormRender implements HTMLRenderInterface
+class FormRender extends AbstractRender implements HTMLRenderInterface
 {
-    /**
-     * @var HTMLHandlerInterface
-     */
-    private $HTMLHandler;
-
-    /**
-     * FormRender constructor.
-     *
-     * @param HTMLHandlerInterface $HTMLHandler
-     */
-    public function __construct(HTMLHandlerInterface $HTMLHandler)
-    {
-        $this->HTMLHandler = $HTMLHandler;
-    }
-
     /**
      * Render the given DOMElement using the provided data as parameters.
      *
@@ -110,45 +92,5 @@ class FormRender implements HTMLRenderInterface
         }
 
         return $element;
-    }
-
-    /**
-     * @param DOMElement $element
-     * @param string     $selector
-     *
-     * @return DOMElement|DOMNode|null
-     * @throws InvalidArgumentException
-     */
-    private function getElementBySelector(DOMElement $element, $selector)
-    {
-        try {
-            return $this->getHTMLHandler()->select($element->ownerDocument, $selector, $element)->item(0);
-        } catch (SyntaxErrorException $ex) {
-            // Do nothing
-        } catch (InternalErrorException $ex) {
-            // Do nothing
-        }
-
-        return null;
-    }
-
-    /**
-     * @return HTMLHandlerInterface
-     */
-    public function getHTMLHandler()
-    {
-        return $this->HTMLHandler;
-    }
-
-    /**
-     * @param HTMLHandlerInterface $HTMLHandler
-     *
-     * @return $this
-     */
-    public function setHTMLHandler(HTMLHandlerInterface $HTMLHandler)
-    {
-        $this->HTMLHandler = $HTMLHandler;
-
-        return $this;
     }
 }
