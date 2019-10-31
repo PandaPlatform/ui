@@ -5,6 +5,10 @@ This changelog references the relevant changes (bug and security fixes) done in 
 
 To get the diff for a specific change, go to https://github.com/PandaPlatform/ui/commit/XXX where XXX is the change hash
 
+* 3.2.4
+  * [Html] Create AbstractRender to simplify code and eliminate duplicates
+  * [Html] Remove selected options from select elements when setting new values
+  
 * 3.2.3
   * [Html] Fix: Use proper css selector with attribute values
   
