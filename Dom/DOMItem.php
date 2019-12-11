@@ -13,6 +13,7 @@ namespace Panda\Ui\Dom;
 
 use DOMElement;
 use DOMException;
+use DOMText;
 use Exception;
 use InvalidArgumentException;
 use Panda\Ui\Dom\Handlers\DOMHandlerInterface;
@@ -53,9 +54,14 @@ class DOMItem extends DOMElement
 
         // Check if the content a DOMNode to append
         if (gettype($value) == 'string') {
-            $this->innerHTML($value);
+            $valueNode = new DOMText($value);
         } else if (gettype($value) == 'object' && $value instanceof self) {
-            $this->append($value);
+            $valueNode = $value;
+        }
+
+        // Append value node
+        if (!empty($valueNode)) {
+            $this->append($valueNode);
         }
 
         // Add attributes, if any
