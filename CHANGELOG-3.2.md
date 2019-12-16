@@ -5,6 +5,12 @@ This changelog references the relevant changes (bug and security fixes) done in 
 
 To get the diff for a specific change, go to https://github.com/PandaPlatform/ui/commit/XXX where XXX is the change hash
 
+* 3.2.6
+  * [Dom] Revert use of innerHTML as it causes security issues with JavaScript injection
+  
+* 3.2.5
+  * [Dom] Fix: Use innerHTML to display select option titles with html
+  
 * 3.2.4
   * [Html] Create AbstractRender to simplify code and eliminate duplicates
   * [Html] Remove selected options from select elements when setting new values
