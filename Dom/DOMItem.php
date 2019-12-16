@@ -54,7 +54,7 @@ class DOMItem extends DOMElement
 
         // Check if the content a DOMNode to append
         if (gettype($value) == 'string') {
-            $valueNode = new DOMText($value);
+            $valueNode = new DOMText(strip_tags($value));
         } else if (gettype($value) == 'object' && $value instanceof self) {
             $valueNode = $value;
         }
