@@ -14,10 +14,12 @@ namespace Panda\Ui\Html\Tests\Factories;
 use Panda\Ui\Html\Factories\HTMLFactory;
 use Panda\Ui\Html\Handlers\HTMLHandler;
 use Panda\Ui\Html\HTMLDocument;
+use Panda\Ui\Html\Renders\RenderCollection;
 use PHPUnit\Framework\TestCase;
 
 /**
  * Class HTMLFactoryTest
+ *
  * @package Panda\Ui\Html\Tests\Factories
  */
 class HTMLFactoryTest extends TestCase
@@ -30,12 +32,13 @@ class HTMLFactoryTest extends TestCase
     /**
      * {@inheritdoc}
      */
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
+        $htmlHandler = new HTMLHandler();
         $this->HTMLFactory = new HTMLFactory();
-        $this->HTMLFactory->setHTMLDocument(new HTMLDocument(new HTMLHandler(), $this->HTMLFactory));
+        $this->HTMLFactory->setHTMLDocument(new HTMLDocument($htmlHandler, $this->HTMLFactory, new RenderCollection($htmlHandler)));
     }
 
     /**
