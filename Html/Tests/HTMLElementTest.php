@@ -15,10 +15,13 @@ use Panda\Ui\Html\Factories\HTMLFactory;
 use Panda\Ui\Html\Handlers\HTMLHandler;
 use Panda\Ui\Html\HTMLDocument;
 use Panda\Ui\Html\HTMLElement;
+use Panda\Ui\Html\Renders\HTMLRender;
+use Panda\Ui\Html\Renders\RenderCollection;
 use PHPUnit\Framework\TestCase;
 
 /**
  * Class HTMLElementTest
+ *
  * @package Panda\Ui\Html\Tests
  */
 class HTMLElementTest extends TestCase
@@ -32,12 +35,15 @@ class HTMLElementTest extends TestCase
      * {@inheritdoc}
      * @throws \InvalidArgumentException
      */
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
         // Create container
-        $this->container = new HTMLElement(new HTMLDocument(new HTMLHandler(), new HTMLFactory()), 'div');
+        $htmlHandler = new HTMLHandler();
+        $renderCollection = new RenderCollection($htmlHandler);
+        $renderCollection->addRender(new HTMLRender($htmlHandler));
+        $this->container = new HTMLElement(new HTMLDocument($htmlHandler, new HTMLFactory(), $renderCollection), 'div');
 
         // Disable errors
         error_reporting(E_ALL & ~(E_NOTICE | E_WARNING | E_DEPRECATED));
