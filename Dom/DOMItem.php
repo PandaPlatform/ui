@@ -134,17 +134,15 @@ class DOMItem extends DOMElement
     /**
      * Append an element as a child.
      *
-     * @param DOMElement $element The child element
-     *
-     * @return $this
+     * @param DOMElement $elements The child element
      *
      * @throws InvalidArgumentException
      */
-    public function append(&$element)
+    public function append(...$elements): void
     {
-        $this->getDOMHandler()->append($this, $element);
-
-        return $this;
+        foreach ($elements as $element) {
+            $this->getDOMHandler()->append($this, $element);
+        }
     }
 
     /**
@@ -166,17 +164,15 @@ class DOMItem extends DOMElement
     /**
      * Prepends (appends first in the list) a DOMElement.
      *
-     * @param DOMItem $element The child element.
-     *
-     * @return $this
+     * @param DOMItem $elements The child element.
      *
      * @throws InvalidArgumentException
      */
-    public function prepend(&$element)
+    public function prepend(...$elements): void
     {
-        $this->getDOMHandler()->prepend($this, $element);
-
-        return $this;
+        foreach ($elements as $element) {
+            $this->getDOMHandler()->prepend($this, $element);
+        }
     }
 
     /**
@@ -200,9 +196,9 @@ class DOMItem extends DOMElement
      *
      * @throws DOMException
      */
-    public function remove()
+    public function remove(): void
     {
-        return $this->getDOMHandler()->remove($this);
+        $this->getDOMHandler()->remove($this);
     }
 
     /**

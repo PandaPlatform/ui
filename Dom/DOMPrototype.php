@@ -84,23 +84,21 @@ class DOMPrototype extends DOMDocument
     /**
      * Append a DOM Item element to the document.
      *
-     * @param DOMItem $element
+     * @param DOMItem $elements
      *
-     * @return DOMPrototype
      * @throws InvalidArgumentException
      */
-    public function append($element)
+    public function append(...$elements): void
     {
-        // Check element
-        if (empty($element)) {
-            throw new InvalidArgumentException('You are trying to append an empty element.');
+        foreach ($elements as $element) {
+            // Check element
+            if (empty($element)) {
+                throw new InvalidArgumentException('You are trying to append an empty element.');
+            }
+
+            // Append element
+            $this->appendChild($element);
         }
-
-        // Append element
-        $this->appendChild($element);
-
-        // Return the DOMPrototype
-        return $this;
     }
 
     /**
