@@ -15,8 +15,8 @@
     ],
     "require": {
         "php": "^7.0|^8.0",
-        "symfony/css-selector": "~3.1",
-        "ext-dom": "*"
+        "ext-dom": "*",
+        "symfony/css-selector": "^6.0"
     },
     "replace": {
         "panda/dom": "self.version",
