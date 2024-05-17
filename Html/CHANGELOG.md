@@ -1,6 +1,9 @@
 CHANGELOG
 ===================
 
+* 3.2.7
+  * Fix: Render values that look empty for select options
+
 * 3.2.2
   * Fix: Use HTMLElement as default context when rendering
   

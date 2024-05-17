@@ -15,10 +15,14 @@ use Panda\Ui\Html\Factories\HTMLFactory;
 use Panda\Ui\Html\Handlers\HTMLHandler;
 use Panda\Ui\Html\HTMLDocument;
 use Panda\Ui\Html\HTMLElement;
+use Panda\Ui\Html\Renders\HTMLRender;
+use Panda\Ui\Html\Renders\RenderCollection;
+use Panda\Ui\Html\Renders\SelectRender;
 use PHPUnit\Framework\TestCase;
 
 /**
  * Class HTMLElementTest
+ *
  * @package Panda\Ui\Html\Tests
  */
 class HTMLElementTest extends TestCase
@@ -37,7 +41,12 @@ class HTMLElementTest extends TestCase
         parent::setUp();
 
         // Create container
-        $this->container = new HTMLElement(new HTMLDocument(new HTMLHandler(), new HTMLFactory()), 'div');
+        $htmlHandler = new HTMLHandler();
+        $htmlFactory = new HTMLFactory();
+        $renderCollection = new RenderCollection($htmlHandler);
+        $renderCollection->addRender(new HTMLRender($htmlHandler));
+        $renderCollection->addRender(new SelectRender($htmlHandler, $htmlFactory));
+        $this->container = new HTMLElement(new HTMLDocument($htmlHandler, $htmlFactory, $renderCollection), 'div');
 
         // Disable errors
         error_reporting(E_ALL & ~(E_NOTICE | E_WARNING | E_DEPRECATED));
@@ -112,7 +121,7 @@ class HTMLElementTest extends TestCase
      * @throws \PHPUnit\Framework\AssertionFailedError
      * @throws \DOMException
      */
-    public function renderSelect()
+    public function testRenderSelect()
     {
         // Build tree
         $child = $this->container->getHTMLDocument()->getHTMLFactory()->buildHtmlElement('select');
@@ -139,12 +148,52 @@ class HTMLElementTest extends TestCase
         $this->container->render($parameters);
 
         // Assert options
-        foreach ($parameters['select']['select']['options'] as $name => $value) {
-            $this->assertNotEmpty($this->container->select(sprintf('select option[name="%s"][value="%s"]', $name, $value)));
+        foreach ($parameters['select']['select']['options'] as $value => $title) {
+            $this->assertNotEmpty($this->container->select(sprintf('select option[value="%s"]', $value)));
         }
 
         // Assert checked values
-        $this->assertEquals('selected', $this->container->select(sprintf('select option[name="%s"]', 'n1'))->item(0)->getAttribute('selected'));
-        $this->assertEquals('selected', $this->container->select(sprintf('select option[name="%s"]', 'n2'))->item(0)->getAttribute('selected'));
+        $this->assertEquals('selected', $this->container->select(sprintf('select option[value="%s"]', 'n1'))->item(0)->getAttribute('selected'));
+        $this->assertEquals('selected', $this->container->select(sprintf('select option[value="%s"]', 'n2'))->item(0)->getAttribute('selected'));
+    }
+
+    /**
+     * @covers \Panda\Ui\Html\HTMLElement::render
+     * @throws \InvalidArgumentException
+     * @throws \PHPUnit\Framework\AssertionFailedError
+     * @throws \DOMException
+     */
+    public function testRenderSelect_EmptyValues()
+    {
+        // Build tree
+        $child = $this->container->getHTMLDocument()->getHTMLFactory()->buildHtmlElement('select');
+        $this->container->append($child);
+
+        // Create parameters
+        $parameters = [
+            'select' => [
+                'select' => [
+                    'options' => [
+                        '0' => 'v1',
+                        '1' => 'v2',
+                        '2' => 'v3',
+                    ],
+                    'checked_value' => [
+                        '0',
+                    ],
+                ],
+            ],
+        ];
+
+        // Render parameters
+        $this->container->render($parameters);
+
+        // Assert options
+        foreach ($parameters['select']['select']['options'] as $value => $title) {
+            $this->assertNotEmpty($this->container->select(sprintf('select option[value="%s"]', $value)));
+        }
+
+        // Assert checked values
+        $this->assertEquals('selected', $this->container->select(sprintf('select option[value="%s"]', '0'))->item(0)->getAttribute('selected'));
     }
 }

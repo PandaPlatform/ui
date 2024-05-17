@@ -5,6 +5,9 @@ This changelog references the relevant changes (bug and security fixes) done in 
 
 To get the diff for a specific change, go to https://github.com/PandaPlatform/ui/commit/XXX where XXX is the change hash
 
+* 3.2.7
+  * [Html] Fix: Render values that look empty for select options
+
 * 3.2.6
   * [Dom] Revert use of innerHTML as it causes security issues with JavaScript injection
   
