@@ -20,6 +20,7 @@ use Panda\Ui\Html\Handlers\HTMLHandlerInterface;
 
 /**
  * Class SelectRender
+ *
  * @package Panda\Ui\Html\Renders
  */
 class SelectRender extends AbstractRender implements HTMLRenderInterface
@@ -123,7 +124,7 @@ class SelectRender extends AbstractRender implements HTMLRenderInterface
         $checkedValues = is_array($checkedValue) ? $checkedValue : [$checkedValue];
         foreach ($checkedValues as $value) {
             // Skip empty values
-            if (empty($value)) {
+            if ($value === '' || is_null($value)) {
                 continue;
             }
 
