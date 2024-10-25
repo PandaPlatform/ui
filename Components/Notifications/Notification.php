@@ -129,14 +129,14 @@ class Notification extends HTMLElement implements DOMBuilder
      *
      * @param mixed $message The message content (string or HTMLElement)
      *
-     * @return $this
+     * @return void
      * @throws InvalidArgumentException
      */
     public function appendCustomMessage($message)
     {
         $customMessage = $this->getHTMLDocument()->getHTMLFactory()->buildHtmlElement('div', $message, '', 'custom-message');
 
-        return $this->append($customMessage);
+        $this->append($customMessage);
     }
 
     /**

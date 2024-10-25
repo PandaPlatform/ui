@@ -1,6 +1,9 @@
 CHANGELOG
 ===================
 
+* 5.0.0
+  * Make code compatible with parent classes and for php 8.3
+
 * 4.0.2
   * Fix: Render values that look empty for select options
 

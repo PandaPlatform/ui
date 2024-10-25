@@ -1,6 +1,8 @@
 CHANGELOG
 ===================
 
+* 5.0.0
+  * Make code compatible with parent classes and for php 8.3
 * 3.1.5 (2018-10-15)
   * Add value check for string '0'
 * 3.1.2 (2018-09-04)
