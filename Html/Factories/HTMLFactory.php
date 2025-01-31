@@ -87,7 +87,7 @@ class HTMLFactory extends DOMFactory implements HTMLFactoryInterface
         $meta = $this->buildHtmlElement('meta', $value = '', $id = '', $class = '');
         $meta->attr('name', $name);
         $meta->attr('http-equiv', $httpEquiv);
-        $meta->attr('content', htmlspecialchars($content));
+        $meta->attr('content', htmlspecialchars($content, ENT_COMPAT));
         $meta->attr('charset', $charset);
 
         // Return element
