@@ -18,6 +18,7 @@ use Panda\Ui\Html\Handlers\HTMLHandlerInterface;
 
 /**
  * Class RenderCollection
+ *
  * @package Panda\Ui\Html\Renders
  */
 class RenderCollection implements RenderCollectionInterface
@@ -56,6 +57,12 @@ class RenderCollection implements RenderCollectionInterface
     {
         // Render all elements that match the given selector
         foreach ($parameters as $selector => $data) {
+            // Skip empty selectors
+            if (empty($selector)) {
+                continue;
+            }
+
+            // Get elements that match given selector
             $elements = $this->getHTMLHandler()->select($document, $selector, $context);
             foreach ($elements as $element) {
                 foreach ($this->getRenders() as $render) {
