@@ -18,6 +18,7 @@ use InvalidArgumentException;
 
 /**
  * Class FormRender
+ *
  * @package Panda\Ui\Html\Renders
  */
 class FormRender extends AbstractRender implements HTMLRenderInterface
@@ -35,7 +36,7 @@ class FormRender extends AbstractRender implements HTMLRenderInterface
     public function render(DOMElement &$element, $data = [])
     {
         // Render values
-        $this->renderValues($element, $data['form']['values']);
+        $this->renderValues($element, @$data['form']['values'] ?? []);
 
         return $element;
     }

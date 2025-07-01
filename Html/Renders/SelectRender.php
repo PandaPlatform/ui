@@ -60,10 +60,10 @@ class SelectRender extends AbstractRender implements HTMLRenderInterface
         }
 
         // Render groups
-        $this->renderGroups($element, $data['select']['groups'], $data['select']['checked_value']);
+        $this->renderGroups($element, @$data['select']['groups'] ?? [], @$data['select']['checked_value'] ?? null);
 
         // Render options
-        $this->renderOptions($element, $data['select']['options'], $data['select']['checked_value']);
+        $this->renderOptions($element, @$data['select']['options'] ?? [], @$data['select']['checked_value'] ?? null);
 
         return $element;
     }
@@ -78,8 +78,8 @@ class SelectRender extends AbstractRender implements HTMLRenderInterface
     private function renderGroups(DOMElement &$element, $groups = [], $checkedValue = null)
     {
         foreach ($groups as $data) {
-            $label = $data['label'];
-            $options = $data['options'];
+            $label = @$data['label'] ?? '';
+            $options = @$data['options'] ?? [];
 
             // Build group
             $group = $this->getHTMLFactory()->buildHtmlElement('optgroup', '', '', '', [

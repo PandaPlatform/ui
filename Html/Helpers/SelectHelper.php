@@ -16,6 +16,7 @@ use Panda\Ui\Html\Factories\HTMLFactoryInterface;
 
 /**
  * Class SelectHelper
+ *
  * @package Panda\Ui\Html\Helpers
  */
 class SelectHelper
@@ -82,8 +83,8 @@ class SelectHelper
     public static function setGroups(HTMLFactoryInterface $factory, DOMElement $select, $groups = [], $checkedValue = null)
     {
         foreach ($groups as $data) {
-            $label = $data['label'];
-            $options = $data['options'];
+            $label = @$data['label'] ?? '';
+            $options = @$data['options'] ?? [];
 
             // Build group
             $group = $factory->buildHtmlElement('optgroup', '', '', '', [
