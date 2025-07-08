@@ -52,6 +52,11 @@ class FormRender extends AbstractRender implements HTMLRenderInterface
     private function renderValues(DOMElement &$element, $values = [])
     {
         foreach ($values as $name => $value) {
+            // Skip array values
+            if (is_array($value)) {
+                continue;
+            }
+
             // Normal inputs
             $types = ['text', 'number', 'email', 'hidden', 'password'];
             foreach ($types as $type) {
